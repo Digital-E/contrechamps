@@ -1,18 +1,18 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Container from '../../components/container'
-import PostBody from '../../components/post-body'
-import MoreStories from '../../components/more-stories'
-import Header from '../../components/header'
-import PostHeader from '../../components/post-header'
-import SectionSeparator from '../../components/section-separator'
-import Layout from '../../components/layout'
-import PostTitle from '../../components/post-title'
-import { CMS_NAME } from '../../lib/constants'
-import { postQuery, postSlugsQuery } from '../../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
-import { sanityClient, getClient, overlayDrafts } from '../../lib/sanity.server'
+import Container from '../../../components/container'
+import PostBody from '../../../components/post-body'
+import MoreStories from '../../../components/more-stories'
+import Header from '../../../components/header'
+import PostHeader from '../../../components/post-header'
+import SectionSeparator from '../../../components/section-separator'
+import Layout from '../../../components/layout'
+import PostTitle from '../../../components/post-title'
+import { CMS_NAME } from '../../../lib/constants'
+import { postQuery, postSlugsQuery } from '../../../lib/queries'
+import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
+import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
@@ -55,12 +55,12 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              <PostHeader
+              {/* <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
                 author={post.author}
-              />
+              /> */}
               <PostBody content={post.content} />
             </article>
             <SectionSeparator />
@@ -90,8 +90,10 @@ export async function getStaticProps({ params, preview = false }) {
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery)
+
+  let lang = "en__gb"
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug) => ({ params: { lang, slug } })),
     fallback: true,
   }
 }

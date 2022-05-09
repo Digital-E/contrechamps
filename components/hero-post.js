@@ -24,12 +24,12 @@ export default function HeroPost({
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
-            <Date dateString={date} />
+            {/* <Date dateString={date} /> */}
           </div>
         </div>
         <div>
           <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-          <Avatar name={author.name} picture={author.picture} />
+          {/* <Avatar name={author.name} picture={author.picture} /> */}
         </div>
       </div>
     </section>
