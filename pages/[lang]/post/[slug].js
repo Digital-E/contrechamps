@@ -34,6 +34,7 @@ export default function Post({ data = {}, preview }) {
     return <ErrorPage statusCode={404} />
   }
 
+
   return (
     <Layout preview={preview}>
       <Container>
@@ -59,7 +60,7 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              {/* <Image data={post} /> */}
+              <Image data={post.image} />
               {/* <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
