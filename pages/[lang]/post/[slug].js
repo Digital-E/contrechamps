@@ -14,10 +14,13 @@ import { postQuery, postSlugsQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
+import Image from "../../../components/image"
+
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
 
   const slug = data?.post?.slug
+
   const {
     data: { post, morePosts },
   } = usePreviewSubscription(postQuery, {
@@ -25,6 +28,7 @@ export default function Post({ data = {}, preview }) {
     initialData: data,
     enabled: preview && slug,
   })
+
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -55,13 +59,14 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
+              {/* <Image data={post} /> */}
               {/* <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
                 author={post.author}
               /> */}
-              <PostBody content={post.content} />
+              <PostBody content={post.body} />
             </article>
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
@@ -73,8 +78,11 @@ export default function Post({ data = {}, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
+
+  let slug = `${params.lang}__post__${params.slug}`
+
   const { post, morePosts } = await getClient(preview).fetch(postQuery, {
-    slug: params.slug,
+    slug: slug,
   })
 
   return {
@@ -88,12 +96,15 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
+let splitSlug = (slug) => {
+  return slug.split("__")[0]
+}
+
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery)
-
-  let lang = "en__gb"
+  
   return {
-    paths: paths.map((slug) => ({ params: { lang, slug } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlug(slug) } })),
     fallback: true,
   }
 }
