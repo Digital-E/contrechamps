@@ -1,4 +1,4 @@
-import { postBySlugQuery } from '../../lib/queries'
+import { postBySlugQuery, allPostQuery } from '../../lib/queries'
 import { previewClient } from '../../lib/sanity.server'
 
 export default async function preview(req, res) {
@@ -12,7 +12,7 @@ export default async function preview(req, res) {
   }
 
   // Check if the post with the given `slug` exists
-  const post = await previewClient.fetch(postBySlugQuery, {
+  const post = await previewClient.fetch(allPostQuery, {
     slug: req.query.slug,
   })
 
@@ -26,8 +26,20 @@ export default async function preview(req, res) {
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  let splitSlug = post.slug.split("__");
 
-  res.writeHead(307, { Location: `/${splitSlug[0]}/${splitSlug[1]}/${splitSlug[2]}` })
+  let splitSlug = (slug) => {
+    let split = slug.split("__");
+    
+    if(split.length === 1) {
+      return `/${slug}`
+    } else if (split.length === 2) {
+      return `/${slug[0]}/${splitSlug[1]}`
+    } else {
+      return `/${splitSlug[0]}/${splitSlug[1]}/${splitSlug[2]}`
+    }
+  }
+
+
+  res.writeHead(307, { Location: splitSlug(post.slug) })
   res.end()
 }
