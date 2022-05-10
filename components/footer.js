@@ -1,30 +1,63 @@
-import Container from './container'
-import { EXAMPLE_PATH } from '../lib/constants'
+import Link from './link'
+import styled from "styled-components"
 
-export default function Footer() {
+import EmailSubscribe from "./email-subscribe"
+
+let Container = styled.footer`
+  display: flex;
+  padding: 20px;
+
+  .p {
+   margin: 0;
+  }
+
+  > div {
+    margin-right: 50px !important;
+  }
+`
+
+let List = styled.ul`
+  display: flex;
+  flex-direction: row;
+`
+
+let ListItem = styled.li`
+`
+
+
+let Socials = styled.div`
+  font-family: "Social Media Circled";
+  font-size: 2em;
+
+  ${ListItem} {
+    margin-left: 5px;
+  }
+`
+
+let Newsletter = styled.div`
+  margin-left: auto !important;
+  flex-grow: 1;
+`
+
+
+export default function Header() {
   return (
-    <footer className="bg-accent-1 border-t border-accent-2">
-      <Container>
-        <div className="py-28 flex flex-col lg:flex-row items-center">
-          <h3 className="text-4xl lg:text-5xl font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2">
-            Statically Generated with Next.js.
-          </h3>
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
-            <a
-              href="https://nextjs.org/docs/basic-features/pages"
-              className="mx-3 bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
-            >
-              Read Documentation
-            </a>
-            <a
-              href={`https://github.com/vercel/next.js/tree/canary/examples/${EXAMPLE_PATH}`}
-              className="mx-3 font-bold hover:underline"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </div>
-      </Container>
-    </footer>
+    <Container>
+      <div className="p">Contrechamps</div>
+      <div className="p">Ensemble Genevois <br/> Contemporain <br/> et de Création</div>
+      <div className="p">8 rue de la Coulouvrenière <br/> 1204 Genève <br/> +41 22 329 24 00</div>
+      <Socials>
+        <List>
+          <ListItem><Link href="/la-saison">Q</Link></ListItem>
+          <ListItem><Link href="/l-ensemble">E</Link></ListItem>
+          <ListItem><Link href="/medias">D</Link></ListItem>
+          <ListItem><Link href="/editions">C</Link></ListItem>
+          <ListItem><Link href="/billeterie">M</Link></ListItem>
+        </List>
+      </Socials>        
+      <Newsletter>
+        <EmailSubscribe data={""} />
+      </Newsletter>
+    </Container>
   )
 }
