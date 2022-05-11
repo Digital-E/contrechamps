@@ -1,4 +1,5 @@
 import Link from './link'
+import LocaleLink from "./locale-link"
 import styled from "styled-components"
 
 let Container = styled.header`
@@ -54,8 +55,8 @@ export default function Header() {
         </List>
         <LanguageSwitch>
           <List>
-            <ListItem><div className="h6"><Link href="/la-saison">En</Link></div></ListItem>
-            <ListItem><div className="h6"><Link href="/l-ensemble">Fr</Link></div></ListItem>
+            <ListItem><div className="h6"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
+            <ListItem><div className="h6"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
           </List> 
         </LanguageSwitch>
       </Menu>

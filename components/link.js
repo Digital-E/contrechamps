@@ -15,9 +15,17 @@ const LinkComponent = ({href, children}) => {
     //     return <a>{ children }</a>;
     // }
 
+    let newUrl = href;
+
+    let split = href.split("__");
+
+    if(split.length === 3) {
+        newUrl = `/${split[0]}/${split[1]}/${split[2]}`
+    }
+
     return (
-        <Link href={href} scroll={false}>
-            <a className={router.asPath === href ? "active-link" : ""}>{children}</a>
+        <Link href={newUrl} scroll={false}>
+            <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
         </Link>
     )
 

@@ -36,6 +36,9 @@ export default function Meta() {
         name="description"
         content={`Contrechamps`}
       />
+      {/* PLYR CSS */}
+      <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+      
       <meta property="og:image" content={HOME_OG_IMAGE_URL} key="ogImage" />
     </Head>
   )

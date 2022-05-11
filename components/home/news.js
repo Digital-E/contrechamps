@@ -2,11 +2,12 @@ import styled from 'styled-components'
 import Image from "../image"
 import Body from "../post-body"
 
+import Link from "../link"
+
 let Container = styled.div``
 
 let Header = styled.div`
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    position: relative;
 
     > span {
         font-size: 13.5vw;
@@ -17,42 +18,82 @@ let Header = styled.div`
 let List = styled.div``
 
 let ListItem = styled.div`
-    display: flex;
+    position: relative;
 
-    > div {
-        flex-basis: 50%;
+    > a {
+        display: flex;
+        padding: 10px 20px;
+    
+        > div {
+            flex-basis: 50%;
+        }
+    
+        transition: var(--transition-out);
+    
+        :hover {
+            background: black;
+            transition: var(--transition-in);
+            cursor: pointer;
+        }
+    
+        :hover {
+            color: white;
+        }
     }
 `
 
 let ColLeft = styled.div``
 
-let ColRight = styled.div``
+let ColRight = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+
+    > div:nth-child(2) {
+        margin-top: auto;
+        display: flex;
+    }
+
+    > div:nth-child(2) > div * {
+        margin: 0;
+    }
+
+    > div:nth-child(2) > div:nth-child(1) {
+        flex-basis: 40%;
+    }
+
+    > div:nth-child(2) > div:nth-child(2) {
+        flex-basis: 60%;
+    }
+`
 
 
 export default function Component({ data }) {
-    console.log(data)
+
     return (
         <Container>
-            <Header><span className="h1">Prochainement</span></Header>
+            <Header className="border-top border-bottom"><span className="h1">Prochainement</span></Header>
             <List>
                 {
                     data?.map(item => (
-                        <ListItem key={item._id}>
-                            <ColLeft>
-                                <Image data={item.image} />
-                            </ColLeft>
-                            <ColRight>
-                                <div>{item.title}</div>
-                                <div>
+                        <ListItem key={item._id} className="border-bottom">
+                            <Link href={item.slug}>
+                                <ColLeft>
+                                    <Image data={item.image} />
+                                </ColLeft>
+                                <ColRight>
+                                    <div>{item.title}</div>
                                     <div>
-                                        <div>{item.startdate} – {item.enddate}</div>
-                                        <div>10:00</div>
+                                        <div>
+                                            <div>{item.startdate} – {item.enddate}</div>
+                                            <div>10:00</div>
+                                        </div>
+                                        <div>
+                                            <div><Body content={item.location} /></div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <div><Body content={item.location} /></div>
-                                    </div>
-                                </div>
-                            </ColRight>
+                                </ColRight>
+                            </Link>
                         </ListItem>
                     ))
                 }

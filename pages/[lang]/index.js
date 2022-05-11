@@ -8,13 +8,14 @@ import Intro from '../../components/intro'
 import Header from '../../components/header'
 import Layout from '../../components/layout'
 import { CMS_NAME } from '../../lib/constants'
-import { indexQuery, homeQuery } from '../../lib/queries'
+import { indexQuery, indexQueryBase, homeQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
 
 // Components
 import News from "../../components/home/news"
+import Video from "../../components/home/video"
 
 export default function Index({ data = {}, preview }) {
   // const heroPost = allPosts[0]
@@ -22,8 +23,6 @@ export default function Index({ data = {}, preview }) {
   const router = useRouter()
 
   const slug = data?.homeData?.slug
-
-  console.log(data)
 
   const {
     data: { homeData },
@@ -42,7 +41,7 @@ export default function Index({ data = {}, preview }) {
     <>
       <Layout preview={preview}>
         <Head>
-          <title>{data?.title}</title>
+          <title>{homeData?.title}</title>
           <meta
           name="description"
           content={homeData?.content}
@@ -50,6 +49,7 @@ export default function Index({ data = {}, preview }) {
         </Head>
         <Header />
         <News data={data.news} />
+        <Video data={homeData} />
         {/* <Container>
           <Intro />
           {heroPost && (
@@ -82,7 +82,7 @@ export async function getStaticProps({ preview = false, params }) {
   })
 
   const news = await getClient(preview).fetch(indexQuery, {
-    slug: slug === "en_gb" ? "en_GB" : "fr"
+    slug: slug
   });
 
 

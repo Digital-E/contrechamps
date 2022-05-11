@@ -14,6 +14,42 @@
     src: url("/fonts/Social Media Circled.otf");
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                                   Global                                   */
+/* -------------------------------------------------------------------------- */
+
+
+:root {
+    --transition-in: 0.2s;
+    --transition-out: 0.3s;
+    --lateral-padding: 0 20px;
+}
+
+.border-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: calc(100% - 40px);
+    height: 1px;
+    background: black;
+    left: 20px;
+}
+
+.border-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 40px);
+    height: 1px;
+    background: black;
+    left: 20px;
+}
+
+.active-link {
+    color: red;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                    Fonts                                   */
 /* -------------------------------------------------------------------------- */
