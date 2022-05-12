@@ -17,10 +17,6 @@ let Container = styled.div`
         align-items: center;
     }
 
-    .home-calendar__col-left > div:nth-child(1) > .h5 {
-        font-family: "Es Formal Standard Bold";
-    }
-
     .home-calendar__col-left > div:nth-child(2) {
         margin-left: 40px;
     }
@@ -31,11 +27,12 @@ let Container = styled.div`
 
     .home-calendar__col-right {
         margin-top: 7px;
+        padding-left: 40px;
     }
 
     .home-calendar__day {
         display: inline-block;
-        padding: 0 7px;
+        padding: 0 10px;
         transition-duration: var(--transition-out);
         align-items: center;
     }
@@ -91,8 +88,8 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        margin-left: -310px;
-        width: 400px;
+        margin-left: -400px;
+        width: 500px;
         border: 1px solid black;
         padding: 15px 10px;
         background-color: white;
@@ -116,7 +113,7 @@ let Container = styled.div`
     }
 
     .home-calendar__event:hover {
-        opacity: 0.6;
+        // opacity: 0.6;
     }
 
     .home-calendar__events > div:not(:first-child) {
@@ -133,6 +130,10 @@ let Container = styled.div`
         flex-direction: row;
         justify-content: space-between;
         margin: 5px 0;
+    }
+
+    .home-calendar__information > div {
+        flex-basis: 50%;
     }
 
 
@@ -190,14 +191,14 @@ export default function Component({ data }) {
             <div class="home-calendar">
                 <div class="home-calendar__col-left">
                 <div>
-                    <span class="h6">Agenda</span>
+                    <span class="h5">Agenda</span>
                 </div>
                 <div class="home-calendar__month">
-                    <span class="h6">Avril</span>
+                    <span class="h5">Avril</span>
                 </div>
                 </div>
                 <div class="home-calendar__col-right">
-                    <div class="h6 home-calendar__day">
+                    <div class="h5 home-calendar__day">
                         <span>1</span>
                         <div class="home-calendar__modal">
                             {/* <div class="home-calendar__date"><h6>16.04.2022</h6></div> */}
@@ -206,15 +207,15 @@ export default function Component({ data }) {
                                     <a href="">
                                     <div class="home-calendar__information">
                                         <div>
-                                        <h6>03.07.2022</h6>
-                                        <h6>18:00</h6>
+                                        <h5>03.07.2022</h5>
+                                        <h5>18:00</h5>
                                         </div>
                                         <div>
-                                        <h6>Musée d'Art et d'histoire</h6>
+                                        <h5>Musée d'Art et d'histoire</h5>
                                         </div>
                                     </div>
                                     <div class="home-calendar__title">
-                                        <h6>A Jeudi au MAH</h6>
+                                        <h4>A Jeudi au MAH</h4>
                                     </div>
                                     <div class="home-calendar__image"><img src="../images/cal.png"/></div>
                                     </a>

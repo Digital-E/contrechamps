@@ -42,8 +42,6 @@ let renderSlice = (slice) => {
 
 
 export default function EventHeader({ data }) {
-  console.log(data)
-
   
   return (
     <Container>

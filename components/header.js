@@ -24,16 +24,16 @@ let Menu = styled.div`
   display: flex;
 
   ${ListItem} {
-    margin-left: 50px;
+    margin-left: 80px;
   }
 `
 
 
 let LanguageSwitch = styled.div`
-  margin-left: 50px;
+  margin-left: 80px;
 
   ${ListItem} {
-    margin-left: 5px;
+    margin-left: 15px;
   }
 `
 

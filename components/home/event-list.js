@@ -11,7 +11,7 @@ let Header = styled.div`
     position: relative;
 
     > span {
-        font-size: 13.5vw;
+        font-size: 14vw;
         margin: 0;
         line-height: 1;
     }
@@ -69,6 +69,15 @@ let ColRight = styled.div`
     }
 `
 
+const Location = styled.div`
+    * {
+        font-size: 1.8rem;
+        margin: 0;
+        line-height: 1.2;
+    }
+`
+
+
 
 export default function Component({ data, title }) {
 
@@ -84,19 +93,19 @@ export default function Component({ data, title }) {
                                     <Image data={item.image} />
                                 </ColLeft>
                                 <ColRight>
-                                    <div>{item.title}</div>
+                                    <h1>{item.title}</h1>
                                     <div>
                                         <div>
-                                            <div>
+                                            <div className="h4">
                                                 <DateComponent data={item} />
                                             </div>
                                             <div>
 
                                             </div>
                                         </div>
-                                        <div>
+                                        <Location>
                                             <div><Body content={item.location} /></div>
-                                        </div>
+                                        </Location>
                                     </div>
                                 </ColRight>
                             </Link>

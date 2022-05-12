@@ -26,6 +26,12 @@ let List = styled.ul`
 let ListItem = styled.li`
 `
 
+const Col = styled.div`
+  * {
+    font-size: 1rem;
+  }
+`
+
 
 let Socials = styled.div`
   font-family: "Social Media Circled";
@@ -42,15 +48,17 @@ let Newsletter = styled.div`
 `
 
 
+
+
 export default function Header({ data }) {
 
   if(data === undefined) return null;
 
   return (
     <Container className="border-top">
-      <div><Body content={data.textFieldOne} /></div>
-      <div><Body content={data.textFieldTwo} /></div>
-      <div><Body content={data.textFieldThree} /></div>
+      <Col><Body content={data.textFieldOne} /></Col>
+      <Col><Body content={data.textFieldTwo} /></Col>
+      <Col><Body content={data.textFieldThree} /></Col>
       <Socials>
         <List>
           {data.socialItems.map(item => (

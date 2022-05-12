@@ -99,8 +99,6 @@ let splitSlug = (slug) => {
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery)
-
-  console.log(paths)
   
   return {
     paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlug(slug) } })),
