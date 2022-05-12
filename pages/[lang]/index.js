@@ -48,7 +48,7 @@ export default function Index({ data = {}, preview }) {
           />
         </Head>
         <Calendar />
-        <EventList data={data.news} title={homeData.newsTitle}/>
+        <EventList data={data.news} title={homeData?.newsTitle}/>
         <Video data={homeData} />
         {/* <Container>
           <Intro />
