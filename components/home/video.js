@@ -34,7 +34,7 @@ export default function Component({ data }) {
 
     return data?.video !== null ?
     <Container className="border-bottom">
-        <Video data={data.video} />
+        <Video data={data?.video} />
         <Information>
             <div>
                 <Body content={data?.textfieldone} />
