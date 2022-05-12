@@ -1,20 +1,15 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Container from '../../../components/container'
-import PostBody from '../../../components/post-body'
-import MoreStories from '../../../components/more-stories'
 import Header from '../../../components/header'
-import PostHeader from '../../../components/post-header'
-import SectionSeparator from '../../../components/section-separator'
 import Layout from '../../../components/layout'
-import PostTitle from '../../../components/post-title'
 import { CMS_NAME } from '../../../lib/constants'
 import { postQuery, postSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
-import Image from "../../../components/image"
+import EventHeader from '../../../components/event/event-header'
+import EventBody from '../../../components/event/event-body'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
@@ -37,13 +32,11 @@ export default function Post({ data = {}, preview }) {
 
   return (
     <Layout preview={preview}>
-      <Container>
         <Header />
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <div>Loading…</div>
         ) : (
           <>
-            <article>
               <Head>
                 <title>
                   {post.title} | Next.js Blog Example with {CMS_NAME}
@@ -60,20 +53,10 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              {/* <Image data={post.image} /> */}
-              {/* <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-              /> */}
-              <PostBody content={post.body} />
-            </article>
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+              <EventHeader data={post} />
+              <EventBody data={post} />
           </>
         )}
-      </Container>
     </Layout>
   )
 }

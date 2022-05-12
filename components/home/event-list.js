@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Image from "../image"
-import Body from "../post-body"
-import Date from "../date"
+import Body from "../body"
+import DateComponent from "../date-component"
 
 import Link from "../link"
 
@@ -88,9 +88,8 @@ export default function Component({ data, title }) {
                                     <div>
                                         <div>
                                             <div>
-                                                <Date dateString={item.startdate}  withYear={item.enddate === null ? true : false} />
-                                                {item.enddate !== null ? "-" : ""}
-                                                <Date dateString={item.enddate} withYear={false} /></div>
+                                                <DateComponent data={item} />
+                                            </div>
                                             <div>
 
                                             </div>

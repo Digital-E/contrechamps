@@ -1,10 +1,11 @@
 import Link from './link'
 import styled from "styled-components"
-import Body from "./post-body"
+import Body from "./body"
 
 import EmailSubscribe from "./email-subscribe"
 
 let Container = styled.footer`
+  position: relative;
   display: flex;
   padding: 20px;
 
@@ -46,7 +47,7 @@ export default function Header({ data }) {
   if(data === undefined) return null;
 
   return (
-    <Container>
+    <Container className="border-top">
       <div><Body content={data.textFieldOne} /></div>
       <div><Body content={data.textFieldTwo} /></div>
       <div><Body content={data.textFieldThree} /></div>

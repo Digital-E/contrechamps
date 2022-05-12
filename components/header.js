@@ -47,15 +47,15 @@ export default function Header({ data }) {
 
   return (
     <Container>
-      <div className="h6"><Link href="/">Contrechamps</Link></div>
+      <div className="h4"><Link href="/">Contrechamps</Link></div>
       <Menu>
         <List>
-          {data.menuItems.map(item => <ListItem><div className="h6"><Link href={item.url}>{item.label}</Link></div></ListItem>)}
+          {data.menuItems.map(item => <ListItem><div className="h4"><Link href={item.url}>{item.label}</Link></div></ListItem>)}
         </List>
         <LanguageSwitch>
           <List>
-            <ListItem><div className="h6"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
-            <ListItem><div className="h6"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
+            <ListItem><div className="h4"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
+            <ListItem><div className="h4"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
           </List> 
         </LanguageSwitch>
       </Menu>
