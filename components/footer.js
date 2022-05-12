@@ -1,5 +1,6 @@
 import Link from './link'
 import styled from "styled-components"
+import Body from "./post-body"
 
 import EmailSubscribe from "./email-subscribe"
 
@@ -7,7 +8,7 @@ let Container = styled.footer`
   display: flex;
   padding: 20px;
 
-  .p {
+  p {
    margin: 0;
   }
 
@@ -40,23 +41,24 @@ let Newsletter = styled.div`
 `
 
 
-export default function Header() {
+export default function Header({ data }) {
+
+  if(data === undefined) return null;
+
   return (
     <Container>
-      <div className="p">Contrechamps</div>
-      <div className="p">Ensemble Genevois <br/> Contemporain <br/> et de Création</div>
-      <div className="p">8 rue de la Coulouvrenière <br/> 1204 Genève <br/> +41 22 329 24 00</div>
+      <div><Body content={data.textFieldOne} /></div>
+      <div><Body content={data.textFieldTwo} /></div>
+      <div><Body content={data.textFieldThree} /></div>
       <Socials>
         <List>
-          <ListItem><Link href="/la-saison">Q</Link></ListItem>
-          <ListItem><Link href="/l-ensemble">E</Link></ListItem>
-          <ListItem><Link href="/medias">D</Link></ListItem>
-          <ListItem><Link href="/editions">C</Link></ListItem>
-          <ListItem><Link href="/billeterie">M</Link></ListItem>
+          {data.socialItems.map(item => (
+            <ListItem><Link href={item.url}>{item.label}</Link></ListItem>
+          ))}
         </List>
       </Socials>        
       <Newsletter>
-        <EmailSubscribe data={""} />
+        <EmailSubscribe data={data} />
       </Newsletter>
     </Container>
   )

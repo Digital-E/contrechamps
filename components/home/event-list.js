@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Image from "../image"
 import Body from "../post-body"
+import Date from "../date"
 
 import Link from "../link"
 
@@ -23,6 +24,7 @@ let ListItem = styled.div`
     > a {
         display: flex;
         padding: 10px 20px;
+        opacity: 1;
     
         > div {
             flex-basis: 50%;
@@ -68,11 +70,11 @@ let ColRight = styled.div`
 `
 
 
-export default function Component({ data }) {
+export default function Component({ data, title }) {
 
     return (
         <Container>
-            <Header className="border-top border-bottom"><span className="h1">Prochainement</span></Header>
+            <Header className="border-top border-bottom"><span className="h1">{title}</span></Header>
             <List>
                 {
                     data?.map(item => (
@@ -85,8 +87,13 @@ export default function Component({ data }) {
                                     <div>{item.title}</div>
                                     <div>
                                         <div>
-                                            <div>{item.startdate} – {item.enddate}</div>
-                                            <div>10:00</div>
+                                            <div>
+                                                <Date dateString={item.startdate}  withYear={item.enddate === null ? true : false} />
+                                                {item.enddate !== null ? "-" : ""}
+                                                <Date dateString={item.enddate} withYear={false} /></div>
+                                            <div>
+
+                                            </div>
                                         </div>
                                         <div>
                                             <div><Body content={item.location} /></div>

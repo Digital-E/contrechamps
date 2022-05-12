@@ -5,17 +5,17 @@ import Container from '../../components/container'
 import MoreStories from '../../components/more-stories'
 import HeroPost from '../../components/hero-post'
 import Intro from '../../components/intro'
-import Header from '../../components/header'
 import Layout from '../../components/layout'
 import { CMS_NAME } from '../../lib/constants'
-import { indexQuery, indexQueryBase, homeQuery } from '../../lib/queries'
+import { indexQuery, indexQueryBase, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
 
 // Components
-import News from "../../components/home/news"
+import EventList from "../../components/home/event-list"
 import Video from "../../components/home/video"
+import Calendar from '../../components/home/calendar'
 
 export default function Index({ data = {}, preview }) {
   // const heroPost = allPosts[0]
@@ -47,8 +47,8 @@ export default function Index({ data = {}, preview }) {
           content={homeData?.content}
           />
         </Head>
-        <Header />
-        <News data={data.news} />
+        <Calendar />
+        <EventList data={data.news} title={homeData.newsTitle}/>
         <Video data={homeData} />
         {/* <Container>
           <Intro />
@@ -85,20 +85,31 @@ export async function getStaticProps({ preview = false, params }) {
     slug: slug
   });
 
+  // Get Menu And Footer
+
+  const menuData = await getClient(preview).fetch(menuQuery, {
+    lang: params.lang
+  });
+
+  const footerData = await getClient(preview).fetch(footerQuery, {
+    lang: params.lang
+  });
 
   return {
     props: {
       preview,
       data: {
         homeData,
-        news
+        news,
+        menuData,
+        footerData
       }
     }
   }
 }
 
 export async function getStaticPaths() {
-  const paths = ['fr', 'en_GB'];
+  const paths = ['fr', 'en_gb'];
 
   return {
     paths: paths.map((lang) => ({ params: { lang } })),

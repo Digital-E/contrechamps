@@ -41,17 +41,16 @@ let LanguageSwitch = styled.div`
 
 
 
-export default function Header() {
+export default function Header({ data }) {
+
+  if(data === undefined) return null;
+
   return (
     <Container>
-      <div className="h6">Contrechamps</div>
+      <div className="h6"><Link href="/">Contrechamps</Link></div>
       <Menu>
         <List>
-          <ListItem><div className="h6"><Link href="/la-saison">Saisons</Link></div></ListItem>
-          <ListItem><div className="h6"><Link href="/l-ensemble">L'ensemble</Link></div></ListItem>
-          <ListItem><div className="h6"><Link href="/medias">Médias</Link></div></ListItem>
-          <ListItem><div className="h6"><Link href="/editions">Editions</Link></div></ListItem>
-          <ListItem><div className="h6"><Link href="/billeterie">Billetterie</Link></div></ListItem>
+          {data.menuItems.map(item => <ListItem><div className="h6"><Link href={item.url}>{item.label}</Link></div></ListItem>)}
         </List>
         <LanguageSwitch>
           <List>

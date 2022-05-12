@@ -10,7 +10,7 @@ import SectionSeparator from '../../../components/section-separator'
 import Layout from '../../../components/layout'
 import PostTitle from '../../../components/post-title'
 import { CMS_NAME } from '../../../lib/constants'
-import { postQuery, postSlugsQuery } from '../../../lib/queries'
+import { postQuery, postSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
@@ -48,11 +48,11 @@ export default function Post({ data = {}, preview }) {
                 <title>
                   {post.title} | Next.js Blog Example with {CMS_NAME}
                 </title>
-                {post.coverImage && (
+                {post.image && (
                   <meta
                     key="ogImage"
                     property="og:image"
-                    content={urlForImage(post.coverImage)
+                    content={urlForImage(post.image)
                       .width(1200)
                       .height(627)
                       .fit('crop')
@@ -60,7 +60,7 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              <Image data={post.image} />
+              {/* <Image data={post.image} /> */}
               {/* <PostHeader
                 title={post.title}
                 coverImage={post.coverImage}
@@ -86,6 +86,16 @@ export async function getStaticProps({ params, preview = false }) {
     slug: slug,
   })
 
+  // Get Menu And Footer
+
+  const menuData = await getClient(preview).fetch(menuQuery, {
+    lang: params.lang
+  });
+
+  const footerData = await getClient(preview).fetch(footerQuery, {
+    lang: params.lang
+  });
+
 
   return {
     props: {
@@ -93,6 +103,8 @@ export async function getStaticProps({ params, preview = false }) {
       data: {
         post,
         morePosts: overlayDrafts(morePosts),
+        menuData,
+        footerData
       },
     },
   }

@@ -29,7 +29,6 @@ const Container = styled.div`
 
     form input::placeholder {
         color: black;
-        font-size: 1.2em;
     }
 
     form input:focus {
@@ -80,7 +79,11 @@ const Container = styled.div`
         border: none;
         background: none;
         width: fit-content;
-        margin: 0 auto;
+        margin: 0 auto 0 0.5em;
+        height: fit-content;
+        border: 1px solid black;
+        border-radius: 999px;
+        padding: 5px 25px;
     }
 
     .disabled {
@@ -268,10 +271,10 @@ const SignupForm = ({ data }) => {
             label={data.text_three}
             name="email"
             type="email"
-            placeholder="Abonnez-vous à la newsletter............."
+            placeholder={data.emailPlaceholder}
             />       
             {/* <Submit>{data.button_text}</Submit> */}
-            <Submit>M'abonner</Submit>
+            <Submit>{data.submitButtonText}</Submit>
         </Form>
       </Formik>
     </Container>
