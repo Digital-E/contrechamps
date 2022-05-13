@@ -63,19 +63,19 @@ export default function Component ({ data }) {
         <Container>
             <div class="season-filters">
                 <div class="season-filter">
-                    <Link href="/fr/medias/presse">
+                    <Link href={`/${data._lang}/media/presse`}>
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Presse</div>
                     </Link>
                 </div>
                 <div class="season-filter">
-                    <Link href="/fr/medias/videos">
+                    <Link href={`/${data._lang}/media/videos`}>
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Videos</div>
                     </Link>
                 </div>
                 <div class="season-filter">
-                    <Link href="/fr/medias/disques">
+                    <Link href={`/${data._lang}/media/disques`}>
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Disques</div>
                     </Link>

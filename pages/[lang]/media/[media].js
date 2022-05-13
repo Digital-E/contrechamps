@@ -4,13 +4,15 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { mediaPageQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { mediaPageQuery, mediaSlugsQuery, pressQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
 import MediasHeader from '../../../components/saison/saison-header'
-import Filters from '../../../components/medias/filters'
-import ListHeader from "../../../components/medias/list-header"
+import Filters from '../../../components/media/filters'
+import ListHeader from "../../../components/media/list-header"
+
+import PressList from "../../../components/media/presse/press-list"
 
 
 export default function Post({ data = {}, preview }) {
@@ -26,7 +28,6 @@ export default function Post({ data = {}, preview }) {
 //     enabled: preview && slug,
 //   })
 
-data = data.data;
 
 
   if (!router.isFallback && !slug) {
@@ -43,12 +44,13 @@ data = data.data;
           <>
               <Head>
                 <title>
-                  {data.title} | {SITE_NAME}
+                  {data.data.title} | {SITE_NAME}
                 </title>
               </Head>
-              <MediasHeader data={data} />
-              <Filters data={data} />
-              <ListHeader data={data} />
+              <MediasHeader data={data.data} />
+              <Filters data={data.data} />
+              <ListHeader data={data.data} />
+              <PressList data={data.allMedia} />
           </>
         )}
     </Layout>
@@ -57,12 +59,31 @@ data = data.data;
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__medias__presse`
+  let slug = `${params.lang}__media__${params.media}`
 
 
   const data = await getClient(preview).fetch(mediaPageQuery, {
     slug: slug,
   })
+
+
+  let allMedia = null;
+
+
+  if(data.type === "presse") {
+    allMedia = await getClient(preview).fetch(pressQuery, {
+      lang: params.lang
+    })
+  } else if (data.type === "video") {
+    allMedia = await getClient(preview).fetch(pressQuery, {
+      lang: params.lang
+    })
+  } else if (data.type === "disque") {
+    allMedia = await getClient(preview).fetch(pressQuery, {
+      lang: params.lang
+    })
+  }
+
 
   // Get Menu And Footer
 
@@ -80,6 +101,7 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         data,
+        allMedia,
         menuData,
         footerData
       },
@@ -87,12 +109,21 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
+let splitSlug = (slug) => {
+  return slug.split("__")[0]
+}
+
+let splitSlugAlt = (slug) => {
+  return slug.split("__")[2]
+}
 
 export async function getStaticPaths() {
-  const paths = ['fr', 'en_gb'];
+  
+  const paths = await sanityClient.fetch(mediaSlugsQuery)
+  
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: slug } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), media: splitSlugAlt(slug) } })),
     fallback: true,
   }
 }

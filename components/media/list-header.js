@@ -2,11 +2,16 @@ import styled from "styled-components"
 import Body from "../body"
 
 const Container = styled.div`
+  position relative;
   font-size: 13rem;
   line-height: 1.2;
-  margin: 0 auto;
-  width: fit-content;
   text-transform: capitalize;
+
+  > span {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+  }
 `
 
 
@@ -16,7 +21,7 @@ const Container = styled.div`
 export default function ListHeader({ data }) {
   return (
     <Container>
-      {data.title}
+      <span>{data.title}</span>
     </Container>
   )
 }
