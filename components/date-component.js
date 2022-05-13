@@ -2,7 +2,7 @@ import Date from "./date"
 import Time from "./time"
 
 export default function Component({ data }) {
-    console.log(data)
+
     return (
         <>
         <Date dateString={data.startdate}  withYear={data.enddate === null ? true : false} />

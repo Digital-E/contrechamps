@@ -31,25 +31,25 @@ const SliceWrapper = styled.div`
 let renderSlice = (slice) => {
       switch(slice._type) {
           case 'video':
-          return <SliceWrapper><Video data={slice.video}/></SliceWrapper>
+          return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
           case 'image':
-          return <SliceWrapper><Image data={slice} /></SliceWrapper>
+          return <SliceWrapper key={slice._id}><Image data={slice} /></SliceWrapper>
           case 'Text':
-          return <SliceWrapper className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
+          return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
       }
 }
 
 
 
 export default function EventHeader({ data }) {
-  
+
   return (
     <Container>
       <ColLeft>
         <Body content={data.information} />
       </ColLeft>
       <ColRight>
-        {data.slices.map(slice => renderSlice(slice))}
+        {data.slices?.map(slice => renderSlice(slice))}
       </ColRight>
     </Container>
   )

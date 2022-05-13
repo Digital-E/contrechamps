@@ -63,11 +63,13 @@ export default function Post({ data = {}, preview }) {
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__post__${params.slug}`
+  let slug = `${params.lang}__saison__${params.slug}`
+
 
   const { post, morePosts } = await getClient(preview).fetch(postQuery, {
     slug: slug,
   })
+
 
   // Get Menu And Footer
 
@@ -97,11 +99,15 @@ let splitSlug = (slug) => {
   return slug.split("__")[0]
 }
 
+let splitSlugAlt = (slug) => {
+  return slug.split("__")[2]
+}
+
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlug(slug) } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlugAlt(slug) } })),
     fallback: true,
   }
 }

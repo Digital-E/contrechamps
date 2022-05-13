@@ -191,14 +191,14 @@ export default function Component({ data }) {
             <div class="home-calendar">
                 <div class="home-calendar__col-left">
                 <div>
-                    <span class="h5">Agenda</span>
+                    <span class="h6">Agenda</span>
                 </div>
                 <div class="home-calendar__month">
-                    <span class="h5">Avril</span>
+                    <span class="h6">Avril</span>
                 </div>
                 </div>
                 <div class="home-calendar__col-right">
-                    <div class="h5 home-calendar__day">
+                    <div class="h6 home-calendar__day">
                         <span>1</span>
                         <div class="home-calendar__modal">
                             {/* <div class="home-calendar__date"><h6>16.04.2022</h6></div> */}
@@ -207,11 +207,11 @@ export default function Component({ data }) {
                                     <a href="">
                                     <div class="home-calendar__information">
                                         <div>
-                                        <h5>03.07.2022</h5>
-                                        <h5>18:00</h5>
+                                        <h6>03.07.2022</h6>
+                                        <h6>18:00</h6>
                                         </div>
                                         <div>
-                                        <h5>Musée d'Art et d'histoire</h5>
+                                        <h6>Musée d'Art et d'histoire</h6>
                                         </div>
                                     </div>
                                     <div class="home-calendar__title">
