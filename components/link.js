@@ -5,10 +5,9 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage}) => {
 
     let router = useRouter()
 
+    let newUrl = (href !==  null && href !== undefined )  ? href : "/";
 
-    let newUrl = href !== ( null || undefined) ? href : "/";
-
-    let split = href !== ( null || undefined) && href.split("__");
+    let split = (href !==  null && href !== undefined ) && href.split("__");
 
     // Refactor Link if it has underscores
 
@@ -25,7 +24,7 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage}) => {
 
     // Set Link as Active if on Sub Page
 
-    let splitLink = href !== ( null || undefined) && href.split("/");
+    let splitLink = (href !==  null && href !== undefined ) && href.split("/");
     let splitRouterLink = router.asPath.split("/")[2];
     let subPageIsActive = false;
 
@@ -35,7 +34,7 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage}) => {
 
     // Set Link as Active if on Sub Sub Page
 
-    splitLink = href !== ( null || undefined) && href.split("/");
+    splitLink = (href !==  null && href !== undefined ) && href.split("/");
     splitRouterLink = router.asPath.split("/")[3];
     subPageIsActive = false;
 
