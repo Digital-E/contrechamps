@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { mediaPageQuery, mediaSlugsQuery, pressQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
@@ -13,6 +13,8 @@ import Filters from '../../../components/media/filters'
 import ListHeader from "../../../components/media/list-header"
 
 import PressList from "../../../components/media/presse/press-list"
+import VideoList from "../../../components/media/videos/video-list"
+import DisqueList from "../../../components/media/disques/disque-list"
 
 
 export default function Post({ data = {}, preview }) {
@@ -29,9 +31,22 @@ export default function Post({ data = {}, preview }) {
 //   })
 
 
-
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
+  }
+
+  let ListSwitch = (type, allMedia) => {
+
+    switch(type) {
+      case 'presse':
+        return <PressList data={allMedia} />
+      case 'video':
+        return <VideoList data={allMedia} />
+      case 'disque':
+        return <DisqueList data={allMedia} />
+      break;
+      return null;
+    }
   }
 
 
@@ -50,7 +65,7 @@ export default function Post({ data = {}, preview }) {
               <MediasHeader data={data.data} />
               <Filters data={data.data} />
               <ListHeader data={data.data} />
-              <PressList data={data.allMedia} />
+              {ListSwitch(data.data.type, data.allMedia)}
           </>
         )}
     </Layout>
@@ -75,11 +90,11 @@ export async function getStaticProps({ params, preview = false }) {
       lang: params.lang
     })
   } else if (data.type === "video") {
-    allMedia = await getClient(preview).fetch(pressQuery, {
+    allMedia = await getClient(preview).fetch(videosQuery, {
       lang: params.lang
     })
   } else if (data.type === "disque") {
-    allMedia = await getClient(preview).fetch(pressQuery, {
+    allMedia = await getClient(preview).fetch(disquesQuery, {
       lang: params.lang
     })
   }

@@ -5,23 +5,20 @@ const LinkComponent = ({href, children}) => {
 
     let router = useRouter()
 
-    let lang = router.query.lang
+    let newUrl = href !== null ? href : "/";
 
-    // if(lang === undefined) {
-    //     lang = "en-gb"
-    // }
+    let split = href !== null && href.split("__");
 
-    // if(data === null) {
-    //     return <a>{ children }</a>;
-    // }
+    if(split.length === 3 && href !== null) {
 
-    let newUrl = href;
-
-    let split = href.split("__");
-
-    if(split.length === 3) {
         newUrl = `/${split[0]}/${split[1]}/${split[2]}`
+
+    } else if (split.length === 4 && href !== null) {
+
+        newUrl = `/${split[0]}/${split[1]}/${split[2]}/${split[3]}`
+        
     }
+
 
     return (
         <Link href={newUrl} scroll={false}>

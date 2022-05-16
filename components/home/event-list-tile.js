@@ -3,6 +3,8 @@ import Image from "../image"
 import Body from "../body"
 import DateComponent from "../date-component"
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 import Link from "../link"
 
 
@@ -71,8 +73,20 @@ export default function Component({ data }) {
 
     let item = data;
 
+
+    console.log(item)
+
+    let tags = [];
+
+    item.tags.forEach(item => {
+        let itemSanitized = sanitizeTag(item.label);
+        tags.push(itemSanitized)
+    })
+
+    tags = tags.join(" ");
+
     return (
-    <ListItem key={item._id} className="border-bottom">
+    <ListItem key={item._id} className={`border-bottom ${tags}`}>
         <Link href={item.slug}>
             <ColLeft>
                 <Image data={item.image} />

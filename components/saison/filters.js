@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 let Container = styled.div`
     .season-filters {
         display: flex;
@@ -54,10 +56,17 @@ let Container = styled.div`
 
 export default function Component ({ data }) {
 
+
     return (
         <Container>
             <div class="season-filters">
-                <div class="season-filter season-filter--active">
+                {data.tags?.map((item, index) => (
+                    <div key={item._id} class={index === 0 ? "season-filter season-filter--active" : "season-filter"} id={sanitizeTag(item.tag)}>
+                        <div class="season-filter__selector"></div>
+                        <div class="season-filter__label p">{item.tag}</div>
+                    </div>
+                ))}
+                {/* <div class="season-filter season-filter--active">
                     <div class="season-filter__selector"></div>
                     <div class="season-filter__label p">Toute la saison</div>
                 </div>
@@ -72,7 +81,7 @@ export default function Component ({ data }) {
                 <div class="season-filter">
                     <div class="season-filter__selector"></div>
                     <div class="season-filter__label p">Petites conférences</div>
-                </div>
+                </div> */}
             </div> 
     </Container>       
     )

@@ -3,22 +3,16 @@ import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
-import { SITE_NAME } from '../../../lib/constants'
-import { indexQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
-import { getClient } from '../../../lib/sanity.server'
+import { CMS_NAME } from '../../../lib/constants'
+import { lEnsembleSlugsQuery, lEnsembleQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { sanityClient, getClient } from '../../../lib/sanity.server'
 
-import SaisonHeader from '../../../components/saison/saison-header'
-import Filters from '../../../components/saison/filters'
-import SaisonEvents from '../../../components/saison/saison-events'
+import LEnsembleBody from '../../../components/l-ensemble/l-ensemble-body'
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
 
   const slug = data?.data?.slug
-
-let allEvents = data?.allEvents
-
-data = data?.data;
 
 
   if (!router.isFallback && !slug) {
@@ -26,7 +20,6 @@ data = data?.data;
   }
 
   console.log(data)
-
 
   return (
     <Layout preview={preview}>
@@ -37,12 +30,10 @@ data = data?.data;
           <>
               <Head>
                 <title>
-                  {data.title} | {SITE_NAME}
+                  {data.data.title} | Next.js Blog Example with {CMS_NAME}
                 </title>
               </Head>
-              <SaisonHeader data={data} />
-              <Filters data={data} />
-              <SaisonEvents data={allEvents} />
+              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} />
           </>
         )}
     </Layout>
@@ -51,17 +42,18 @@ data = data?.data;
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__saison`
+  let slug = `${params.lang}__l-ensemble__${params.slug}`
 
 
-  const data = await getClient(preview).fetch(saisonQuery, {
+  const data = await getClient(preview).fetch(lEnsembleQuery, {
     slug: slug,
   })
 
-  // All Events
-  const allEvents = await getClient(preview).fetch(indexQuery, {
-    slug: params.lang
+  const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
+    lang: params.lang
   });
+
+
 
   // Get Menu And Footer
 
@@ -79,7 +71,7 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         data,
-        allEvents,
+        lEnsembleMenu,
         menuData,
         footerData
       },
@@ -87,12 +79,19 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
+let splitSlug = (slug) => {
+  return slug.split("__")[0]
+}
+
+let splitSlugAlt = (slug) => {
+  return slug.split("__")[2]
+}
 
 export async function getStaticPaths() {
-  const paths = ['fr', 'en_gb'];
+  const paths = await sanityClient.fetch(lEnsembleSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: slug } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlugAlt(slug) } })),
     fallback: true,
   }
 }
