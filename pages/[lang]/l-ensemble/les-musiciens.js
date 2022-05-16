@@ -4,26 +4,20 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { indexQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
-import { getClient } from '../../../lib/sanity.server'
+import { lesMusiciensMenuQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { sanityClient, getClient } from '../../../lib/sanity.server'
 
-import SaisonHeader from '../../../components/saison/saison-header'
-import Filters from '../../../components/saison/filters'
-import SaisonEvents from '../../../components/saison/saison-events'
+import LesMusiciensBody from '../../../components/l-ensemble/les-musiciens-body'
 
-export default function Post({ data = {}, preview }) {
+export default function Component({ data = {}, preview }) {
   const router = useRouter()
 
-  const slug = data?.data?.slug
-
-let allEvents = data?.allEvents
-
-data = data?.data;
+//   const slug = data?.data?.slug
 
 
-  if (!router.isFallback && !slug) {
-    return <ErrorPage statusCode={404} />
-  }
+//   if (!router.isFallback && !slug) {
+//     return <ErrorPage statusCode={404} />
+//   }
 
 
   return (
@@ -35,12 +29,12 @@ data = data?.data;
           <>
               <Head>
                 <title>
-                  {data.title} | {SITE_NAME}
+                  {data.lesMusiciensMenu?.title} | {SITE_NAME}
                 </title>
               </Head>
-              <SaisonHeader data={data} />
-              <Filters data={data} />
-              <SaisonEvents data={allEvents} />
+
+              <LesMusiciensBody data={null} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} />
+
           </>
         )}
     </Layout>
@@ -49,17 +43,21 @@ data = data?.data;
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__saison`
 
+//   const data = await getClient(preview).fetch(lEnsembleQuery, {
+//     slug: slug,
+//   })
 
-  const data = await getClient(preview).fetch(saisonQuery, {
-    slug: slug,
-  })
+  const data = null
 
-  // All Events
-  const allEvents = await getClient(preview).fetch(indexQuery, {
-    slug: params.lang
+  const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
+    lang: params.lang
   });
+
+  const lesMusiciensMenu = await getClient(preview).fetch(lesMusiciensMenuQuery, {
+    lang: params.lang
+  });
+
 
   // Get Menu And Footer
 
@@ -77,7 +75,8 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         data,
-        allEvents,
+        lEnsembleMenu,
+        lesMusiciensMenu,
         menuData,
         footerData
       },
@@ -87,7 +86,8 @@ export async function getStaticProps({ params, preview = false }) {
 
 
 export async function getStaticPaths() {
-  const paths = ['fr', 'en_gb'];
+//   const paths = await sanityClient.fetch(lesMusiciensSlugsQuery)
+const paths = ['fr', 'en_gb'];
   
   return {
     paths: paths.map((slug) => ({ params: { lang: slug } })),

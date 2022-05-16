@@ -73,12 +73,9 @@ export default function Component({ data }) {
 
     let item = data;
 
-
-    console.log(item)
-
     let tags = [];
 
-    item.tags.forEach(item => {
+    item.tags?.forEach(item => {
         let itemSanitized = sanitizeTag(item.label);
         tags.push(itemSanitized)
     })

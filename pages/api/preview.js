@@ -36,8 +36,10 @@ export default async function preview(req, res) {
       return `/${split[0]}`
     } else if (split.length === 2) {
       return `/${split[0]}/${split[1]}`
-    } else {
+    } else if(split.length === 3) {
       return `/${split[0]}/${split[1]}/${split[2]}`
+    } else {
+      return `/${split[0]}/${split[1]}/${split[2]}/${split[3]}`
     }
   }
 

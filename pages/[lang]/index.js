@@ -47,23 +47,9 @@ export default function Index({ data = {}, preview }) {
           content={homeData?.content}
           />
         </Head>
-        <Calendar />
+        <Calendar data={data.news} />
         <EventList data={data.news} title={homeData?.newsTitle}/>
-        <Video data={homeData} />
-        {/* <Container>
-          <Intro />
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
-          )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-        </Container> */}
+        <Video data={homeData} title={homeData?.videoTitle}/>
       </Layout>
     </>
   )

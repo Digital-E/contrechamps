@@ -27,7 +27,7 @@ let Menu = styled.div`
 
 
 
-export default function Component({ data }) {
+export default function Component({ data, isSubSubPage }) {
 
   if(data === undefined) return null;
 
@@ -35,7 +35,7 @@ export default function Component({ data }) {
     <Container>
       <Menu>
         <List>
-          {data.menuItems.map(item => <ListItem key={item._id}><div className="h5"><Link href={item.url}>{item.label}</Link></div></ListItem>)}
+          {data?.menuItems.map(item => <ListItem key={item._id}><div className="h5"><Link href={item.url} isSubSubPage={isSubSubPage}>{item.label}</Link></div></ListItem>)}
         </List>
       </Menu>
     </Container>

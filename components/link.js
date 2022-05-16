@@ -1,13 +1,16 @@
 import Link from 'next/link'
 import { useRouter } from "next/router"
 
-const LinkComponent = ({href, children}) => {
+const LinkComponent = ({href, children, isMenu, isSubSubPage}) => {
 
     let router = useRouter()
 
-    let newUrl = href !== null ? href : "/";
 
-    let split = href !== null && href.split("__");
+    let newUrl = href !== ( null || undefined) ? href : "/";
+
+    let split = href !== ( null || undefined) && href.split("__");
+
+    // Refactor Link if it has underscores
 
     if(split.length === 3 && href !== null) {
 
@@ -20,9 +23,31 @@ const LinkComponent = ({href, children}) => {
     }
 
 
+    // Set Link as Active if on Sub Page
+
+    let splitLink = href !== ( null || undefined) && href.split("/");
+    let splitRouterLink = router.asPath.split("/")[2];
+    let subPageIsActive = false;
+
+    if(splitLink[2] === splitRouterLink && isMenu) {
+        subPageIsActive = true;
+    }
+
+    // Set Link as Active if on Sub Sub Page
+
+    splitLink = href !== ( null || undefined) && href.split("/");
+    splitRouterLink = router.asPath.split("/")[3];
+    subPageIsActive = false;
+
+
+    if(splitLink[3] === splitRouterLink && isSubSubPage) {
+        subPageIsActive = true;
+    }
+
+
     return (
         <Link href={newUrl} scroll={false}>
-            <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
+            <a className={router.asPath === newUrl ? "active-link" : subPageIsActive ? "active-link" : ""}>{children}</a>
         </Link>
     )
 

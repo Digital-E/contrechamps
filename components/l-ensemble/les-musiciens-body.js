@@ -24,6 +24,10 @@ const ColLeft = styled.div`
   flex-basis: 30%;
 `
 
+const ColMiddle = styled.div`
+  flex-basis: 30%;
+`
+
 const ColRight = styled.div`
   flex-basis: 70%;
 `
@@ -52,7 +56,7 @@ let renderSlice = (slice) => {
 
 let scrollTriggerInstance = null;
 
-export default function Component({ data, menuData }) {
+export default function Component({ data, menuData, menuTwoData, isSubSubPage }) {
     let menuRef = useRef();
 
     let init = (reset) => {
@@ -101,11 +105,14 @@ export default function Component({ data, menuData }) {
     <Container>
       <ColLeft>
         <div ref={menuRef}>
-            <Menu data={menuData} />
+            <Menu data={menuData} isSubSubPage={isSubSubPage} />
         </div>
       </ColLeft>
+      <ColMiddle>
+        <Menu data={menuTwoData} />
+      </ColMiddle>
       <ColRight>
-        {data.slices?.map(slice => renderSlice(slice))}
+        {data?.slices.map(slice => renderSlice(slice))}
       </ColRight>
     </Container>
   )

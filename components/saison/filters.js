@@ -1,8 +1,18 @@
-import styled from "styled-components"
+import { useEffect, useRef } from 'react';
+
+import styled from "styled-components";
 
 import sanitizeTag from "../../lib/sanitizeTag"
 
+import { gsap } from "gsap/dist/gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+
 let Container = styled.div`
+    z-index: 999;
+
     .season-filters {
         display: flex;
         padding: 10px 30px;
@@ -53,12 +63,55 @@ let Container = styled.div`
     }
 `
 
+let scrollTriggerInstance = null;
 
 export default function Component ({ data }) {
+    let filtersRef = useRef();
 
+    let init = (reset) => {
+
+        if(reset === true) {
+          if(scrollTriggerInstance !== null) {
+              ScrollTrigger.getById("scroll-trigger").kill(true);
+          }
+        }
+    
+        if(window.innerWidth > 989) {
+    
+            scrollTriggerInstance = ScrollTrigger.create({
+                trigger: filtersRef.current,
+                id: "scroll-trigger",
+                pin: filtersRef.current,
+                start: "top top",
+                end: "max",
+                pinSpacing: false
+            });
+    
+        } 
+    }
+
+    let initWrapper = () => {
+        init(true)
+    }
+
+    useEffect(() => {
+
+
+        if(window.innerWidth > 989) {
+            init();
+        }
+
+        window.addEventListener("resize", initWrapper)
+
+        return () => {
+            window.removeEventListener("resize", initWrapper)
+        }        
+        
+
+    }, []);
 
     return (
-        <Container>
+        <Container ref={filtersRef}>
             <div class="season-filters">
                 {data.tags?.map((item, index) => (
                     <div key={item._id} class={index === 0 ? "season-filter season-filter--active" : "season-filter"} id={sanitizeTag(item.tag)}>

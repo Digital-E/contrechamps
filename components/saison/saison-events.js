@@ -44,9 +44,14 @@ export default function Component ({ data }) {
             let date = parseISO(item.startdate)
             let eventMonth = format(date, 'LLL');
 
-
             eventsByMonth.forEach(month => {
-                month.longMonth = format(parseISO(item.startdate), 'LLLL', {locale: item._lang === "fr" ? fr : enGB});
+
+                if(month.events[0]) {
+                    month.longMonth = format(parseISO(month.events[0]?.startdate), 'LLLL', {locale: month.events[0]?._lang === "fr" ? fr : enGB});
+                } else {
+                    month.longMonth = null;
+                }
+
                 if(month.month === eventMonth) {
                     month.events.push(item)
                 }
@@ -64,6 +69,7 @@ export default function Component ({ data }) {
         setEventsByMonth(eventsByMonth)
         
     },[]);
+
 
     return (
         <Container>

@@ -50,7 +50,7 @@ export default function Header({ data }) {
       <div className="h4"><Link href="/">Contrechamps</Link></div>
       <Menu>
         <List>
-          {data.menuItems.map(item => <ListItem key={item._id}><div className="h4"><Link href={item.url}>{item.label}</Link></div></ListItem>)}
+          {data.menuItems.map(item => <ListItem key={item._id}><div className="h4"><Link href={item.url} isMenu={true}>{item.label}</Link></div></ListItem>)}
         </List>
         <LanguageSwitch>
           <List>
