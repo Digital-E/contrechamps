@@ -48,6 +48,15 @@ const Text = styled.div`
     * {
         line-height: 1;
     }
+
+    @media(max-width: 767px) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .button {
+            margin-top: 25px;
+        }
+    }
 `
 
 

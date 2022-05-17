@@ -18,14 +18,28 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   margin-top: 100px;
+  
+  @media(max-width: 767px) {
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
 `
 
 const ColLeft = styled.div`
   flex-basis: 30%;
+
+  @media(max-width: 767px) {
+      flex-basis: 100%;
+      margin-bottom: 50px;
+  }
 `
 
 const ColRight = styled.div`
   flex-basis: 70%;
+
+    @media(max-width: 767px) {
+        flex-basis: 100%;
+    }
 `
 
 const SliceWrapper = styled.div`

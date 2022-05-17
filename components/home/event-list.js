@@ -6,11 +6,21 @@ let Container = styled.div``
 
 let Header = styled.div`
     position: relative;
+    padding: 20px;
 
     > span {
-        font-size: 14vw;
-        margin: 0;
-        line-height: 1;
+        font-size: 13vw;
+    }
+
+    @media(min-width: 768px) {
+        padding: 0 20px;
+
+        > span {
+            font-size: 13.8vw;
+            margin: 0;
+            line-height: 1;
+            text-align: center;
+        }
     }
 `
 let List = styled.div``

@@ -32,6 +32,12 @@ let ListItem = styled.div`
             color: white;
         }
     }
+
+    @media(max-width: 1200px) {
+        > a {
+            flex-direction: column;
+        }
+    }
 `
 
 let ColLeft = styled.div``
@@ -57,11 +63,20 @@ let ColRight = styled.div`
     > div:nth-child(2) > div:nth-child(2) {
         flex-basis: 60%;
     }
+
+    @media(max-width: 1200px) {
+        padding: 0;
+        margin-top: 15px;
+
+        > h1 {
+            margin-bottom: 20px;
+        }
+    }
 `
 
 const Location = styled.div`
     * {
-        font-size: 1.8rem;
+        font-size: inherit;
         margin: 0;
         line-height: 1.2;
     }
@@ -99,7 +114,7 @@ export default function Component({ data }) {
 
                         </div>
                     </div>
-                    <Location>
+                    <Location className="h4">
                         <div><Body content={item.location} /></div>
                     </Location>
                 </div>

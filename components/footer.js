@@ -16,6 +16,14 @@ let Container = styled.footer`
   > div {
     margin-right: 50px !important;
   }
+
+  @media(max-width: 1250px) {
+    flex-direction: column;
+
+    > div {
+      margin-right: 0px !important;
+    }
+  }
 `
 
 let List = styled.ul`
@@ -30,6 +38,10 @@ const Col = styled.div`
   * {
     font-size: 1rem;
   }
+
+  @media(max-width: 1250px) {
+    margin-bottom: 25px;
+  }
 `
 
 
@@ -40,11 +52,22 @@ let Socials = styled.div`
   ${ListItem} {
     margin-left: 5px;
   }
+
+  @media(max-width: 767px) {
+    ${ListItem} {
+      margin-left: 0;
+      margin-right: 5px;
+    }
+  }
 `
 
 let Newsletter = styled.div`
-  margin-left: auto !important;
+  margin-left: auto;
   flex-grow: 1;
+
+  @media(max-width: 1250px) {
+    margin-left: 0;
+  }
 `
 
 

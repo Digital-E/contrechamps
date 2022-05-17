@@ -10,6 +10,12 @@ const Container = styled.div`
     > div {
         flex-basis: calc(33.3333% - 10px);
     }
+
+    @media(max-width: 767px) {
+        > div {
+            flex-basis: 100%;
+        }  
+    }
 `
 
 

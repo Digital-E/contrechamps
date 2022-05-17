@@ -16,13 +16,25 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 15px 30px 25px 30px;
+        padding: 15px 20px 15px 20px;
+    }
+
+    @media(max-width: 1580px) {
+        .home-calendar {
+            justify-content: flex-start;
+        }
+    }
+
+    @media(max-width: 767px) {
+        .home-calendar {
+            flex-direction: column;
+        }
     }
 
 
     .home-calendar__col-left {
         display: flex;
-        align-items: center;
+        // align-items: center;
     }
 
     .home-calendar__col-left > div:nth-child(2) {
@@ -76,7 +88,6 @@ let Container = styled.div`
     }
 
     .home-calendar__col-right {
-        margin-top: 7px;
         padding-left: 40px;
     }
 
@@ -86,23 +97,45 @@ let Container = styled.div`
         padding: 0 10px;
         transition-duration: var(--transition-out);
         align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .home-calendar__day > span {
+        text-align: center;
+    }
+
+    @media(max-width: 1580px) {
+        .home-calendar__col-right {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            padding-left: 100px;
+        }
     }
 
     @media(max-width: 767px) {
         .home-calendar {
             flex-wrap: wrap;
-            padding: 15px;
+            padding: 20px;
         }
 
         .home-calendar__col-right {
-            margin-top: 15px;
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            padding-left: 0px;
         }
 
         .home-calendar__day {
             padding: 0;
-            padding-right: 14px;
+            padding-right: 0px;
+            width: fit-content;
+        }
+
+        .arrow-next::after {
+            top: -0.65em;
         }
     }
+
 
     .home-calendar__day > span {
         display: block;
@@ -143,6 +176,38 @@ let Container = styled.div`
         background: black;
     }
 
+    @media(max-width: 1580px) {
+        .home-calendar__day--has-event::after {
+            left: calc(50% - 2.5px);
+            width: 5px;
+            height: 5px;
+            bottom: 0px;
+        }
+
+        .home-calendar__day--has-two-events::before {
+            left: calc(50% - 2.5px);
+            width: 5px;
+            height: 5px;
+            bottom: -8px;
+        }
+    }
+
+    @media(max-width: 767px) {
+        .home-calendar__day--has-event::after {
+            left: calc(50% - 2.5px);
+            width: 5px;
+            height: 5px;
+            bottom: 0px;
+        }
+
+        .home-calendar__day--has-two-events::before {
+            left: calc(50% - 2.5px);
+            width: 5px;
+            height: 5px;
+            bottom: -8px;
+        }
+    }
+
     .home-calendar__modal {
         display: none;
         position: absolute;
@@ -158,9 +223,10 @@ let Container = styled.div`
 
     @media(max-width: 767px) {
         .home-calendar__modal {
+            position: fixed;
             margin-left: 0;
-            left: 15px;
-            width: calc(100% - 30px);
+            left: 20px;
+            width: calc(100% - 40px);
         }  
     }
 

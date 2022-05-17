@@ -20,6 +20,7 @@ let Container = styled.div`
         border-bottom: var(--border-width) solid black;
         background: black;
         color: white;
+        flex-wrap: wrap;
     }
 
     .season-filter {
@@ -55,10 +56,11 @@ let Container = styled.div`
         .season-filters {
             flex-wrap: wrap;
             padding: 15px;
+            display: none;
         } 
 
         .season-filter {
-            flex-basis: 33.3333%;
+            flex-basis: 100%;
         }
     }
 `
@@ -98,7 +100,9 @@ export default function Component ({ data }) {
 
 
         if(window.innerWidth > 989) {
-            init();
+            setTimeout(() => {
+                init();
+            }, 0)
         }
 
         window.addEventListener("resize", initWrapper)

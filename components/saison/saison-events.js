@@ -5,14 +5,34 @@ import { enGB, fr } from 'date-fns/locale'
 import styled from "styled-components"
 import EventList from "../home/event-list"
 
-let Container = styled.div``
+let Container = styled.div`
+    position: relative;
+
+    > div:nth-child(even) > div:nth-child(1) {
+        display: none;
+    }
+
+    > div:last-child > div:nth-child(2) > div:last-child::after   {
+        display: none !important;
+    }
+`
 
 let MonthDivider = styled.div`
-    font-size: 15rem;
-    line-height: 1.2;
+    position: relative;
     margin: 0 auto;
-    width: fit-content;
+    text-align: center;
     text-transform: capitalize;
+
+    > div {
+        line-height: 1.2;
+    }
+
+    @media(min-width: 768px) {
+        > div {
+            font-size: 15rem;
+        }
+    }
+
 `
 
 
@@ -74,7 +94,7 @@ export default function Component ({ data }) {
     return (
         <Container>
             {
-                eventsByMonth.map(item => <><MonthDivider>{item.longMonth}</MonthDivider><EventList data={item.events} /></>)
+                eventsByMonth.map(item => <><MonthDivider className="border-bottom"><div className="h1">{item.longMonth}</div></MonthDivider><EventList data={item.events}  /></>)
             }
         </Container>       
     )

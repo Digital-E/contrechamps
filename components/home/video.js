@@ -8,7 +8,6 @@ import Plyr from 'plyr';
 
 let Container = styled.div`
     position: relative;
-    padding: 20px 20px 10px 20px;
 
     .plyr--full-ui input[type=range] {
         color: white !important;
@@ -22,17 +21,27 @@ let Container = styled.div`
 
 let Header = styled.div`
     position: relative;
-
+    padding: 20px;
+    margin-bottom: 15px;
+    
     > span {
-        font-size: 14vw;
-        margin: 0;
-        line-height: 1;
+        font-size: 13vw;
+    }
+
+    @media(min-width: 768px) {
+        padding: 0 20px;
+
+        > span {
+            font-size: 13.8vw;
+            margin: 0;
+            text-align: center;
+        }
     }
 `
 
 let Information = styled.div`
     display: flex;
-    padding-top: 20px;
+    padding: 20px 20px 10px 20px;
 
     > div {
         flex-basis: 50%;
@@ -41,7 +50,19 @@ let Information = styled.div`
     > div * {
         margin: 0;
     }
+
+    @media(max-width: 767px) {
+        > div:nth-child(2) {
+            display: flex;
+            justify-content: flex-end;
+        } 
+    }
 `
+
+let VideoWrapper = styled.div`
+    padding: 0 20px;
+`
+
 
 
 
@@ -52,9 +73,11 @@ export default function Component({ data, title }) {
     },[]);
 
     return data?.video !== null ?
-    <Container className="border-bottom">
-        <Header><span className="h1">{title}</span></Header>
-        <Video data={data?.video} />
+    <Container>
+        <Header className="border-bottom"><span className="h1">{title}</span></Header>
+        <VideoWrapper>
+            <Video data={data?.video} />
+        </VideoWrapper>
         <Information>
             <div>
                 <Body content={data?.textfieldone} />

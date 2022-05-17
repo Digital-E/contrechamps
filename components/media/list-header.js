@@ -1,17 +1,27 @@
 import styled from "styled-components"
-import Body from "../body"
 
 const Container = styled.div`
-  position relative;
-  font-size: 13rem;
-  line-height: 1.2;
-  text-transform: capitalize;
+`
 
-  > span {
-    display: block;
-    margin: 0 auto;
-    width: fit-content;
-  }
+let Header = styled.div`
+    position: relative;
+    padding: 20px;
+    text-align: center;
+
+    > span {
+        font-size: 13vw;
+    }
+
+    @media(min-width: 768px) {
+        padding: 0 20px;
+
+        > span {
+            font-size: 13.8vw;
+            margin: 0;
+            line-height: 1;
+            text-align: center;
+        }
+    }
 `
 
 
@@ -21,7 +31,7 @@ const Container = styled.div`
 export default function ListHeader({ data }) {
   return (
     <Container>
-      <span>{data.title}</span>
+      <Header className=""><span className="h1">{data.title}</span></Header>
     </Container>
   )
 }

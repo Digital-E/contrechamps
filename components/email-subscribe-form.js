@@ -21,6 +21,12 @@ const Container = styled.div`
         flex-direction: row;
     }
 
+    @media(max-width: 1250px) {
+      form {
+        flex-direction: column;
+      }
+    }
+
     form input {
         background-color: white;
         padding: 5px 25px;
@@ -84,6 +90,12 @@ const Container = styled.div`
         border: 1px solid black;
         border-radius: 999px;
         padding: 5px 25px;
+    }
+
+    @media(max-width: 1250px) {
+      button {
+        margin: 0;
+      }
     }
 
     .disabled {

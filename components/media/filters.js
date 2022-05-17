@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 let Container = styled.div`
     z-index: 999;
-    
+
     .season-filters {
         display: flex;
         padding: 10px 30px;
@@ -28,6 +28,14 @@ let Container = styled.div`
         cursor: pointer;
         flex-basis: auto;
         margin-right: 50px;
+    }
+
+    @media(max-width: 767px) {
+        .season-filter > a {
+            display: flex;
+            justify-content: center;
+            margin-right: 0;
+        }
     }
 
     .season-filter > a:hover .season-filter__selector {
@@ -96,7 +104,9 @@ export default function Component ({ data }) {
     }
 
     let initWrapper = () => {
-        init(true)
+        setTimeout(() => {
+            init();
+        }, 0)
     }
 
     useEffect(() => {
