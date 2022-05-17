@@ -36,6 +36,7 @@ const ColLeft = styled.div`
 
 const ColMiddle = styled.div`
   flex-basis: 30%;
+  padding: 0 20px;
 
   @media(max-width: 767px) {
     flex-basis: 50%;
@@ -74,8 +75,11 @@ let renderSlice = (slice) => {
 
 let scrollTriggerInstance = null;
 
+let scrollTriggerInstanceTwo = null;
+
 export default function Component({ data, menuData, menuTwoData, isSubSubPage }) {
     let menuRef = useRef();
+    let menuRefTwo = useRef();
 
     let init = (reset) => {
 
@@ -83,6 +87,10 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
           if(scrollTriggerInstance !== null) {
               ScrollTrigger.getById("scroll-trigger").kill(true);
           }
+
+          if(scrollTriggerInstanceTwo !== null) {
+            ScrollTrigger.getById("scroll-trigger-two").kill(true);
+        }
         }
     
         if(window.innerWidth > 989) {
@@ -95,6 +103,15 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 end: "max",
                 pinSpacing: false
             });
+
+            scrollTriggerInstanceTwo = ScrollTrigger.create({
+                trigger: menuRefTwo.current,
+                id: "scroll-trigger-two",
+                pin: menuRefTwo.current,
+                start: "top-=50 top",
+                end: "max",
+                pinSpacing: false
+            });           
     
         } 
     }
@@ -127,7 +144,9 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
         </div>
       </ColLeft>
       <ColMiddle>
-        <Menu data={menuTwoData} />
+        <div ref={menuRefTwo}>
+            <Menu data={menuTwoData} />
+        </div>
       </ColMiddle>
       <ColRight>
         {data?.slices.map(slice => renderSlice(slice))}
