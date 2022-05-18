@@ -22,8 +22,13 @@ let Header = styled.div`
             text-align: center;
         }
     }
+    
 `
-let List = styled.div``
+let List = styled.div`
+    .hide-tile {
+        display: none !important;
+    }
+`
 
 
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import styled from "styled-components";
 
@@ -68,6 +68,7 @@ let Container = styled.div`
 
 export default function Component ({ data }) {
     let filtersRef = useRef();
+    let [tags, setTags] = useState([]);
 
     let scrollTriggerInstance = null;
 
@@ -101,6 +102,18 @@ export default function Component ({ data }) {
 
     useEffect(() => {
 
+        let allTags = [];
+
+        data.tags.forEach((item, index) => {
+            let obj = {
+                selected: index === 0 ? true : false,
+                tag: item.tag
+            }
+
+            allTags.push(obj)
+        })
+
+        setTags(allTags);
 
         if(window.innerWidth > 989) {
             setTimeout(() => {
@@ -117,11 +130,48 @@ export default function Component ({ data }) {
 
     }, []);
 
+    let toggleTag = (index) => {
+        let unselectTags = tags
+
+        unselectTags.forEach(item => item.selected = false)
+
+        unselectTags[index].selected = true;
+
+        setTags([...unselectTags])
+
+        hideTiles(unselectTags[index].tag, index);
+        
+    }
+
+    let hideTiles = (tag, index) => {
+
+        let allEvents = document.querySelectorAll(".event-tile");
+
+        allEvents.forEach(tile => {
+            tile.classList.remove("hide-tile")
+        })
+
+        if(index === 0) return;
+
+        let sanitizedTag = sanitizeTag(tag)
+
+
+        allEvents.forEach(tile => {
+            if(!tile.classList.contains(sanitizedTag)) {
+                tile.classList.add("hide-tile")
+            }
+        })
+    }
+
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
                 {data.tags?.map((item, index) => (
-                    <div key={item._id} class={index === 0 ? "season-filter season-filter--active" : "season-filter"} id={sanitizeTag(item.tag)}>
+                    <div key={item._id} 
+                        class={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"} 
+                        id={sanitizeTag(item.tag)}
+                        onClick={() => toggleTag(index)}
+                        >
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>

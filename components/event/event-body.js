@@ -1,8 +1,8 @@
 import styled from "styled-components"
-import Body from "../body"
 
-import Image from "../image"
-import Video from "../video"
+import Slices from "../l-ensemble/l-ensemble-slices"
+
+import Body from "../body"
 
 const Container = styled.div`
   display: flex;
@@ -42,19 +42,6 @@ const SliceWrapper = styled.div`
 `
 
 
-let renderSlice = (slice) => {
-      switch(slice._type) {
-          case 'video':
-          return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
-          case 'image':
-          return <SliceWrapper key={slice._id}><Image data={slice} /></SliceWrapper>
-          case 'Text':
-          return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
-      }
-}
-
-
-
 export default function EventHeader({ data }) {
 
   return (
@@ -63,7 +50,7 @@ export default function EventHeader({ data }) {
         <Body content={data.information} />
       </ColLeft>
       <ColRight>
-        {data.slices?.map(slice => renderSlice(slice))}
+        <Slices data={data.slices} />
       </ColRight>
     </Container>
   )

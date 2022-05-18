@@ -17,7 +17,7 @@ import Slices from '../../../../components/l-ensemble/l-ensemble-slices'
 const SlicesWrapper = styled.div`
     padding: 0 20px;
     width: 70%;
-    margin: 0 auto;
+    margin: 0 auto 100px auto;
 
     @media(max-width: 1200px) {
         width: 100%;

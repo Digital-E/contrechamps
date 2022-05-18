@@ -48,6 +48,8 @@ export default function Component ({ data }) {
         let d = new Date();
         let currentMonth = d.getMonth();
 
+        let eventsByMonthArray = [];
+
 
 
         months.forEach(item => {
@@ -56,37 +58,37 @@ export default function Component ({ data }) {
                 events: []
             }
 
-            eventsByMonth.push(obj)
+            eventsByMonthArray.push(obj)
+
         })
+
 
 
         data.forEach(item => {
             let date = parseISO(item.startdate)
             let eventMonth = format(date, 'LLL');
 
-            eventsByMonth.forEach(month => {
-
-                if(month.events[0]) {
-                    month.longMonth = format(parseISO(month.events[0]?.startdate), 'LLLL', {locale: month.events[0]?._lang === "fr" ? fr : enGB});
-                } else {
-                    month.longMonth = null;
-                }
+            eventsByMonthArray.forEach((month) => {
 
                 if(month.month === eventMonth) {
                     month.events.push(item)
                 }
+
+                if(month.events.length > 0) {
+                    month.longMonth = format(parseISO(month.events[0]?.startdate), 'LLLL', {locale: month.events[0]?._lang === "fr" ? fr : enGB});
+                }
             })
         })
 
-        pastEvents = eventsByMonth.splice(0, currentMonth);
+        pastEvents = eventsByMonthArray.splice(0, currentMonth);
 
-        eventsByMonth.push(...pastEvents)
+        eventsByMonthArray.push(...pastEvents)
 
-        eventsByMonth = eventsByMonth.filter(item => {
+        eventsByMonthArray = eventsByMonthArray.filter(item => {
             return item.events.length > 0 ? item : false
         })
 
-        setEventsByMonth(eventsByMonth)
+        setEventsByMonth([...eventsByMonthArray]);
         
     },[]);
 

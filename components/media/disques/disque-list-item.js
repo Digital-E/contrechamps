@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import Link from "../../link"
+
 import Body from "../../body"
 
 import Button from "../../button"
@@ -64,9 +66,9 @@ export default function Component({ data }) {
 
     return (
         <Container className="border-top">
-            <a href={data.link}>
+            <Link href={data.slug}>
                 <Text><Body content={data.text} /><Button url={data.link} label={data.linkLabel} /></Text>
-            </a>
+            </Link>
         </Container>
     )
 }

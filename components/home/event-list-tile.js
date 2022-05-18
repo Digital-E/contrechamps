@@ -98,7 +98,7 @@ export default function Component({ data }) {
     tags = tags.join(" ");
 
     return (
-    <ListItem key={item._id} className={`border-bottom ${tags}`}>
+    <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
         <Link href={item.slug}>
             <ColLeft>
                 <Image data={item.image} />

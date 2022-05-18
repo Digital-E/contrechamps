@@ -60,7 +60,7 @@ let VideoWrapper = styled.div`
 export default function Component({ data, title }) {
 
     useEffect(() => {
-        const player = new Plyr('#player');
+        const player = new Plyr('.player');
     },[]);
 
     return data?.video !== null ?

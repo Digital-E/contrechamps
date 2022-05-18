@@ -1,4 +1,7 @@
+import { useEffect } from "react"
 import styled from "styled-components"
+import Plyr from 'plyr';
+
 
 import Body from "../body"
 import Image from "../image"
@@ -14,10 +17,10 @@ const SliceWrapper = styled.div`
 `
 
 
-let renderSlice = (slice) => {
+let renderSlice = (slice ,index) => {
       switch(slice._type) {
           case 'video':
-          return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
+          return <SliceWrapper key={slice._id}><Video data={slice.video} id={`video-${index}`}/></SliceWrapper>
           case 'image':
           return <SliceWrapper key={slice._id}><Image data={slice} /></SliceWrapper>
           case 'Text':
@@ -28,5 +31,10 @@ let renderSlice = (slice) => {
 
 export default function Component({ data }) {
 
-  return data !== null ? data.map(slice => renderSlice(slice)) : null
+    useEffect(() => {
+        // const players = Array.from(document.querySelectorAll('.player')).map((p) => new Plyr(p));
+        const players = Plyr.setup('.player');
+    },[])
+
+  return data !== null ? data.map((slice, index) => renderSlice(slice, index)) : null
 }

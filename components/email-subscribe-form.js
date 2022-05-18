@@ -180,7 +180,6 @@ const Submit = ({ children, ...props}) => {
 
     return (
         <button type="submit" id="submit-button" className={isActive ? null : "disabled"}>
-            {/* <Button>{children}</Button> */}
             {children}
         </button>
     )
@@ -240,16 +239,16 @@ const SignupForm = ({ data }) => {
       })
       .then((response) => response.json())
       .then(data => {
-        if(data.status !== "error") {
+        if(data.result !== "error") {
           document.querySelectorAll(".text-input").forEach(item => {
             item.value="";
-            document.querySelector("#submit-button").children[0].innerText = "✓"
+            document.querySelector("#submit-button").innerText = "✓"
             // item.placeholder="Thanks for subscribing!";
           })
         } else {
           document.querySelectorAll(".text-input").forEach(item => {
             item.value="";
-            document.querySelector("#submit-button").children[0].innerText = data.message
+            document.querySelector("#submit-button").innerText = data.error
             // item.placeholder = data.message;
           })
         }
@@ -285,7 +284,6 @@ const SignupForm = ({ data }) => {
             type="email"
             placeholder={data.emailPlaceholder}
             />       
-            {/* <Submit>{data.button_text}</Submit> */}
             <Submit>{data.submitButtonText}</Submit>
         </Form>
       </Formik>
