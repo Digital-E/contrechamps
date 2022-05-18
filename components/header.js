@@ -10,7 +10,6 @@ let Container = styled.header`
   align-items: center;
   padding: 20px;
   z-index: 999;
-  background: white;
 
   > .h4 {
     z-index: 2;
@@ -64,6 +63,8 @@ let Container = styled.header`
 }
 
 @media(max-width: 767px) {
+  background: white;
+  
   .nav-mobile-burger {
     display: flex;
   }
@@ -92,12 +93,12 @@ let ListItem = styled.li`
 let Menu = styled.div`
   display: flex;
   justify-content: flex-end;
-  background: white;
   top: 0;
   left: 0;
   width: 100%;
   flex-basis: 70%;
   max-width: 1100px;
+  
 
   ${ListItem} {
     margin-left: 0;
@@ -109,6 +110,7 @@ let Menu = styled.div`
     flex-direction: column;
     padding: 75px 20px 20px 20px;
     border-bottom: 1px solid black;
+    background: white;
 
     ${ListItem} {
       margin-left: 0px;

@@ -8,15 +8,6 @@ import Plyr from 'plyr';
 
 let Container = styled.div`
     position: relative;
-
-    .plyr--full-ui input[type=range] {
-        color: white !important;
-    }
-
-    .plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
-        background: red !important;
-    }
-    }
 `
 
 let Header = styled.div`

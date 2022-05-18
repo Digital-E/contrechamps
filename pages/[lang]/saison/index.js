@@ -38,7 +38,7 @@ data = data?.data;
                   {data.title} | {SITE_NAME}
                 </title>
               </Head>
-              <SaisonHeader data={data} />
+              <SaisonHeader data={data} withBorder={true} />
               <Filters data={data} />
               <SaisonEvents data={allEvents} />
           </>

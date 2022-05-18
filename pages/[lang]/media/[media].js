@@ -8,6 +8,8 @@ import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery,
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
+import splitSlug from "../../../lib/splitSlug"
+
 import MediasHeader from '../../../components/saison/saison-header'
 import Filters from '../../../components/media/filters'
 import ListHeader from "../../../components/media/list-header"
@@ -124,13 +126,6 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
-let splitSlug = (slug) => {
-  return slug.split("__")[0]
-}
-
-let splitSlugAlt = (slug) => {
-  return slug.split("__")[2]
-}
 
 export async function getStaticPaths() {
   
@@ -138,7 +133,7 @@ export async function getStaticPaths() {
   
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), media: splitSlugAlt(slug) } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), media: splitSlug(slug, 2) } })),
     fallback: true,
   }
 }

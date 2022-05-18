@@ -18,7 +18,7 @@ let Header = styled.div`
         > span {
             font-size: 13.8vw;
             margin: 0;
-            line-height: 1;
+            line-height: 1.2;
             text-align: center;
         }
     }

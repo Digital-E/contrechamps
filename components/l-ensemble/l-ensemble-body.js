@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
 
 import styled from "styled-components"
-import Body from "../body"
 
-import Image from "../image"
-import Video from "../video"
+import Slices from "./l-ensemble-slices"
 
 import Menu from "./l-ensemble-menu"
 
@@ -50,18 +48,6 @@ const SliceWrapper = styled.div`
         column-gap: 50px;
     }
 `
-
-
-let renderSlice = (slice) => {
-      switch(slice._type) {
-          case 'video':
-          return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
-          case 'image':
-          return <SliceWrapper key={slice._id}><Image data={slice} /></SliceWrapper>
-          case 'Text':
-          return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
-      }
-}
 
 
 let scrollTriggerInstance = null;
@@ -119,7 +105,7 @@ export default function Component({ data, menuData }) {
         </div>
       </ColLeft>
       <ColRight>
-        {data.slices?.map(slice => renderSlice(slice))}
+        <Slices data={data.slices} />
       </ColRight>
     </Container>
   )

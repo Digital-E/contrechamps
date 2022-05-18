@@ -65,16 +65,19 @@ let Container = styled.div`
     }
 `
 
-let scrollTriggerInstance = null;
 
 export default function Component ({ data }) {
     let filtersRef = useRef();
 
+    let scrollTriggerInstance = null;
+
     let init = (reset) => {
 
-        if(reset === true) {
-          if(scrollTriggerInstance !== null) {
-              ScrollTrigger.getById("scroll-trigger").kill(true);
+        if(reset === true) {
+          if(scrollTriggerInstance !== null && scrollTriggerInstance !== undefined) {
+            if(ScrollTrigger.getById("scroll-trigger") !== undefined) {
+                ScrollTrigger.getById("scroll-trigger").kill(true);
+            }
           }
         }
     
@@ -123,22 +126,6 @@ export default function Component ({ data }) {
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
-                {/* <div class="season-filter season-filter--active">
-                    <div class="season-filter__selector"></div>
-                    <div class="season-filter__label p">Toute la saison</div>
-                </div>
-                <div class="season-filter">
-                    <div class="season-filter__selector"></div>
-                    <div class="season-filter__label p">Spectacles</div>
-                </div>
-                <div class="season-filter">
-                    <div class="season-filter__selector"></div>
-                    <div class="season-filter__label p">En famille</div>
-                </div>
-                <div class="season-filter">
-                    <div class="season-filter__selector"></div>
-                    <div class="season-filter__label p">Petites conférences</div>
-                </div> */}
             </div> 
     </Container>       
     )

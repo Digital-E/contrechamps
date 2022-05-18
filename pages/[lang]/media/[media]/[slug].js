@@ -1,17 +1,31 @@
+import styled from "styled-components"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Header from '../../../../components/header'
 import Layout from '../../../../components/layout'
 import { SITE_NAME } from '../../../../lib/constants'
-import { lEnsembleMenuQuery, lesMusiciensMenuQuery, lesMusiciensSlugsQuery, lesMusiciensQuery, menuQuery, footerQuery } from '../../../../lib/queries'
-import { sanityClient, getClient } from '../../../../lib/sanity.server'
+import { allMediaSlugsQuery, mediaQuery, menuQuery, footerQuery } from '../../../../lib/queries'
+import { urlForImage, usePreviewSubscription } from '../../../../lib/sanity'
+import { sanityClient, getClient, overlayDrafts } from '../../../../lib/sanity.server'
 
 import splitSlug from "../../../../lib/splitSlug"
 
-import LesMusiciensBody from '../../../../components/l-ensemble/les-musiciens-body'
+import MediaHeader from "../../../../components/media/media-page/media-header"
+import Slices from '../../../../components/l-ensemble/l-ensemble-slices'
 
-export default function Component({ data = {}, preview }) {
+const SlicesWrapper = styled.div`
+    padding: 0 20px;
+    width: 70%;
+    margin: 0 auto;
+
+    @media(max-width: 1200px) {
+        width: 100%;
+      }
+`
+
+
+export default function Post({ data = {}, preview }) {
   const router = useRouter()
 
   const slug = data?.data?.slug
@@ -21,6 +35,7 @@ export default function Component({ data = {}, preview }) {
     return <ErrorPage statusCode={404} />
   }
 
+  data = data.data
 
   return (
     <Layout preview={preview}>
@@ -31,10 +46,13 @@ export default function Component({ data = {}, preview }) {
           <>
               <Head>
                 <title>
-                  {data.data.title} | {SITE_NAME}
+                  {data.title} | {SITE_NAME}
                 </title>
               </Head>
-              <LesMusiciensBody data={data.data} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} isSubPage={true} isSubSubPage={true} />
+              <MediaHeader data={data} />
+              <SlicesWrapper>
+                <Slices data={data.slices} />
+              </SlicesWrapper>
           </>
         )}
     </Layout>
@@ -43,21 +61,12 @@ export default function Component({ data = {}, preview }) {
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__l-ensemble__les-musiciens__${params.slug}`
+  let slug = `${params.lang}__media__${params.media}__${params.slug}`
 
 
-  const data = await getClient(preview).fetch(lesMusiciensQuery, {
+  const data = await getClient(preview).fetch(mediaQuery, {
     slug: slug,
   })
-
-  const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
-    lang: params.lang
-  });
-
-  const lesMusiciensMenu = await getClient(preview).fetch(lesMusiciensMenuQuery, {
-    lang: params.lang
-  });
-
 
 
   // Get Menu And Footer
@@ -76,8 +85,6 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         data,
-        lEnsembleMenu,
-        lesMusiciensMenu,
         menuData,
         footerData
       },
@@ -87,10 +94,10 @@ export async function getStaticProps({ params, preview = false }) {
 
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(lesMusiciensSlugsQuery)
+  const paths = await sanityClient.fetch(allMediaSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), slug: splitSlug(slug, 3) } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), media: splitSlug(slug, 2), slug: splitSlug(slug, 3) } })),
     fallback: true,
   }
 }

@@ -75,17 +75,19 @@ let Container = styled.div`
     }
 `
 
-let scrollTriggerInstance = null;
 
 export default function Component ({ data }) {
-
     let filtersRef = useRef();
+
+    let scrollTriggerInstance = null;
 
     let init = (reset) => {
 
-        if(reset === true) {
-          if(scrollTriggerInstance !== null) {
-              ScrollTrigger.getById("scroll-trigger").kill(true);
+        if(reset === true) {
+          if(scrollTriggerInstance !== null) {
+              if(ScrollTrigger.getById("scroll-trigger") !== undefined) {
+                ScrollTrigger.getById("scroll-trigger").kill(true);
+              }
           }
         }
     
@@ -105,15 +107,17 @@ export default function Component ({ data }) {
 
     let initWrapper = () => {
         setTimeout(() => {
-            init();
-        }, 0)
+            init(true);
+        }, 500)
     }
 
     useEffect(() => {
 
 
         if(window.innerWidth > 989) {
-            init();
+            setTimeout(() => {
+                init();
+            }, 500)
         }
 
         window.addEventListener("resize", initWrapper)

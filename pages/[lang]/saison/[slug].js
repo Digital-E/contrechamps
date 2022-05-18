@@ -3,10 +3,12 @@ import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
-import { CMS_NAME } from '../../../lib/constants'
+import { SITE_NAME } from '../../../lib/constants'
 import { postQuery, postSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
+
+import splitSlug from "../../../lib/splitSlug"
 
 import EventHeader from '../../../components/event/event-header'
 import EventBody from '../../../components/event/event-body'
@@ -39,7 +41,7 @@ export default function Post({ data = {}, preview }) {
           <>
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
+                  {post.title} | {SITE_NAME}
                 </title>
                 {post.image && (
                   <meta
@@ -95,19 +97,12 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
-let splitSlug = (slug) => {
-  return slug.split("__")[0]
-}
-
-let splitSlugAlt = (slug) => {
-  return slug.split("__")[2]
-}
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(postSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlugAlt(slug) } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), slug: splitSlug(slug, 2) } })),
     fallback: true,
   }
 }

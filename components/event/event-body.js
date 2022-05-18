@@ -8,14 +8,28 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+
+  @media(max-width: 990px) {
+    flex-wrap: wrap;
+  }
 `
 
 const ColLeft = styled.div`
   flex-basis: 30%;
+
+  @media(max-width: 990px) {
+    flex-basis: 100%;
+    margin-top: 50px;
+  }
 `
 
 const ColRight = styled.div`
   flex-basis: 70%;
+
+  @media(max-width: 990px) {
+    flex-basis: 100%;
+    order: -1;
+  }
 `
 
 const SliceWrapper = styled.div`

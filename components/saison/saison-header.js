@@ -7,13 +7,17 @@ const Container = styled.div`
 
 
   h2, h3, h4, h5, h6, p {
-    columns: 2;
+    columns: 1;
     column-gap: 40px;
   }
 
   @media(min-width: 768px) {
     &.border-bottom::after {
       display: none;
+    }
+
+    h2, h3, h4, h5, h6, p {
+      columns: 2;
     }
   }
 `
@@ -22,10 +26,10 @@ const Container = styled.div`
 
 
 
-export default function EventHeader({ data }) {
+export default function EventHeader({ data, withBorder }) {
 
   return (
-    <Container className="border-bottom">
+    <Container className={withBorder ? `border-bottom`: ''}>
         <Body content={data.text}/>
     </Container>
   )

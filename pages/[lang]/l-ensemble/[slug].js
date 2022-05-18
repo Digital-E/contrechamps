@@ -7,7 +7,10 @@ import { SITE_NAME } from '../../../lib/constants'
 import { lEnsembleSlugsQuery, lEnsembleQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { sanityClient, getClient } from '../../../lib/sanity.server'
 
+import splitSlug from "../../../lib/splitSlug"
+
 import LEnsembleBody from '../../../components/l-ensemble/l-ensemble-body'
+
 
 export default function Component({ data = {}, preview }) {
   const router = useRouter()
@@ -78,19 +81,11 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
-let splitSlug = (slug) => {
-  return slug.split("__")[0]
-}
-
-let splitSlugAlt = (slug) => {
-  return slug.split("__")[2]
-}
-
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(lEnsembleSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug), slug: splitSlugAlt(slug) } })),
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), slug: splitSlug(slug, 2) } })),
     fallback: true,
   }
 }
