@@ -84,6 +84,38 @@ a:hover, button:hover {
     background: red !important;
 }
 
+.CookieConsent {
+    background-color: #ffffff !important;
+    border-top: 1px solid black !important;
+  }
+  
+  .CookieConsent p {
+    margin: 0;
+    color: black;
+  }
+
+  
+  .CookieConsent > div:nth-child(1) {
+    margin: 10px !important;
+  }
+  
+  @media (max-width: 989px) {
+    .CookieConsent > div:nth-child(2) {
+      margin-left: auto;
+    }
+  }
+  
+  .CookieConsent #rcc-decline-button,
+  .CookieConsent #rcc-confirm-button {
+    color: black !important;
+    background: transparent !important;
+    margin: 10px !important;
+  }
+  
+  .CookieConsent #rcc-confirm-button {
+    border: 1px solid black !important;
+  }
+
 /* -------------------------------------------------------------------------- */
 /*                                    Fonts                                   */
 /* -------------------------------------------------------------------------- */

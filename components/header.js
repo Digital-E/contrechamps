@@ -159,7 +159,7 @@ export default function Header({ data }) {
 
   return (
     <Container className={menuOpen ? "nav--open" : ""}>
-      <div className="h4"><Link href="/">Contrechamps</Link></div>
+      <div className="h4" onClick={() => setMenuOpen(false)}><Link href="/">Contrechamps</Link></div>
       <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
         <div></div>
         <div></div>
@@ -167,7 +167,7 @@ export default function Header({ data }) {
       </div>
       <Menu className={menuOpen ? "nav--open" : ""}>
         <List>
-          {data.menuItems.map(item => <ListItem key={item._id}><div className="h4"><Link href={item.url} isMenu={true}>{item.label}</Link></div></ListItem>)}
+          {data.menuItems.map(item => <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true}>{item.label}</Link></div></ListItem>)}
         </List>
         <LanguageSwitch>
           <List>

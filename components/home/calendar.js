@@ -211,7 +211,7 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        margin-left: -400px;
+        margin-left: -450px;
         width: 500px;
         max-height: 600px;
         border: 1px solid black;
@@ -368,7 +368,7 @@ export default function Component({ data }) {
 
 
             let toggleModalVisible = (item) => {
-                console.log(item.classList)
+
                 if(item.classList.contains("home-calendar__day--has-event")) {
                     if(item.classList.contains("home-calendar__modal--show")) {
                     item.classList.remove("home-calendar__modal--show")
