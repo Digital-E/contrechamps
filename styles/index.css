@@ -254,6 +254,6 @@ input, input::placeholder, button {
 
     input, input::placeholder, button {
         font-family: "Es Klarheit Grotesk Medium";
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 }

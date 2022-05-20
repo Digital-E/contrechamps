@@ -35,7 +35,6 @@ let Container = styled.header`
     position: relative;
     width: 30px;
     height: 35px;
-    right: 20px;
     z-index: 1;
 }
 

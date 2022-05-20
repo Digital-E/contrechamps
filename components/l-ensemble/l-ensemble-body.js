@@ -40,15 +40,6 @@ const ColRight = styled.div`
     }
 `
 
-const SliceWrapper = styled.div`
-    margin: 0 0 30px 0;
-
-    &.double-col * {
-        columns: 2;
-        column-gap: 50px;
-    }
-`
-
 
 let scrollTriggerInstance = null;
 
@@ -57,8 +48,8 @@ export default function Component({ data, menuData }) {
 
     let init = (reset) => {
 
-        if(reset === true) {
-          if(scrollTriggerInstance !== null) {
+        if(reset === true) {
+          if(scrollTriggerInstance !== null) {
               ScrollTrigger.getById("scroll-trigger").kill(true);
           }
         }

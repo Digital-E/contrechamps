@@ -73,7 +73,7 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.87em;
+        top: 0.85em;
         right: -0.8em;
         transform: translateY(-50%) rotateZ(90deg);
         width: 0;
@@ -107,7 +107,7 @@ let Container = styled.div`
     @media(max-width: 1580px) {
         .home-calendar__col-right {
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
+            grid-template-columns: repeat(7, 1fr);
             padding-left: 100px;
         }
     }
@@ -121,7 +121,7 @@ let Container = styled.div`
         .home-calendar__col-right {
             margin-top: 50px;
             display: grid;
-            grid-template-columns: repeat(10, 50px);
+            grid-template-columns: repeat(7, 1fr);
             padding-left: 0px;
         }
 
