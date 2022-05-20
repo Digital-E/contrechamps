@@ -34,7 +34,6 @@ let Container = styled.div`
 
     .home-calendar__col-left {
         display: flex;
-        // align-items: center;
     }
 
     .home-calendar__col-left > div:nth-child(2) {
@@ -87,10 +86,6 @@ let Container = styled.div`
         border-top: 5px solid red;
     }
 
-    .home-calendar__col-right {
-        padding-left: 40px;
-    }
-
     .home-calendar__day {
         position: relative;
         display: inline-block;
@@ -122,7 +117,8 @@ let Container = styled.div`
             margin-top: 50px;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            padding-left: 0px;
+            padding-left: 0;
+            width: 100%;
         }
 
         .home-calendar__day {
