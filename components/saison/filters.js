@@ -65,6 +65,13 @@ let Container = styled.div`
     }
 `
 
+let Document = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+`
+
+
 
 export default function Component ({ data }) {
     let filtersRef = useRef();
@@ -163,6 +170,7 @@ export default function Component ({ data }) {
         })
     }
 
+
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
@@ -176,7 +184,10 @@ export default function Component ({ data }) {
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
-            </div> 
+                <Document>
+                    <p><a href={data.documentURL}>{data.documentLabel}</a></p>
+                </Document>
+            </div>
     </Container>       
     )
 }
