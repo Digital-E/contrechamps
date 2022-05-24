@@ -43,7 +43,7 @@ export default function Component({ data = {}, preview }) {
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__l-ensemble__les-musiciens__${params.slug}`
+  let slug = `${params.lang}__ensemble__les-musiciens__${params.slug}`
 
 
   const data = await getClient(preview).fetch(lesMusiciensQuery, {

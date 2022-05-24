@@ -43,10 +43,10 @@ const Text = styled.div`
 
 
 export default function Component({ data }) {
-
+    console.log(data)
     return (
         <Container className="border-top">
-            <a href={data.pressLink}>
+            <a href={data.pressLink || data.documentURL} target="_blank">
                 <RowTop className="h5">
                     <div>
                         <Date dateString={data.date} withYear={true} />

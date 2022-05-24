@@ -32,6 +32,9 @@
 /*                                   Global                                   */
 /* -------------------------------------------------------------------------- */
 
+html {
+    line-height: 1;
+}
 
 :root {
     --transition-in: 0.2s;
@@ -115,6 +118,79 @@ a:hover, button:hover {
   .CookieConsent #rcc-confirm-button {
     border: 1px solid black !important;
   }
+
+  /* ------------------------------- Dark Styles ------------------------------ */
+
+  .dark-background {
+      background: black;
+      color: white;
+  }
+
+  .dark-background .border-bottom::after, .dark-background .border-top::before {
+      background: white;
+  }
+
+    .dark-background .season-filters {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .dark-background .season-filter__selector {
+        background-color: black !important;
+    }
+
+    .dark-background .season-filter:hover  .season-filter__selector,
+    .dark-background .season-filter--active .season-filter__selector
+     {
+        background-color: red !important;
+    }
+
+    .dark-background .arrow-prev::after, .dark-background .arrow-next::after  {
+        border-top: 5px solid white !important;
+    }
+
+    .dark-background .arrow-prev:hover::after, .dark-background .arrow-next:hover::after  {
+        border-top: 5px solid red !important;
+    }
+
+    .dark-background .home-calendar__day--has-event::after {
+        background: white !important;
+    }
+
+    .dark-background .home-calendar__day--has-two-events::before {
+        background: white !important;
+    }
+
+    .dark-background button {
+        border-color: white !important;
+    }
+
+    .dark-background input::placeholder {
+        color: white !important;
+    }
+
+    .dark-background input {
+        border-color: white !important;
+    }
+
+    .dark-background .home-calendar__modal {
+        background-color: black !important;
+        border: 1px solid white !important;
+    }
+
+    .dark-background .home-calendar__event:hover a {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .dark-background .home-calendar__event {
+        border-top: 1px solid white !important;
+    }
+
+    .dark-background .event-tile:hover a {
+        background-color: white !important;
+        color: black !important;
+    }
 
 /* -------------------------------------------------------------------------- */
 /*                                    Fonts                                   */

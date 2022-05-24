@@ -10,8 +10,10 @@ import DateComponent from "../date-component"
 import { parseISO, format } from 'date-fns'
 
 let Container = styled.div`
+
     .home-calendar {
         position: relative;
+        flex-direction: row;
         z-index: 2;
         display: flex;
         width: 100%;
@@ -19,9 +21,10 @@ let Container = styled.div`
         padding: 15px 20px 15px 20px;
     }
 
-    @media(max-width: 1580px) {
+    @media(max-width: 1420px) {
         .home-calendar {
             justify-content: flex-start;
+            flex-direction: column;
         }
     }
 
@@ -37,7 +40,7 @@ let Container = styled.div`
     }
 
     .home-calendar__col-left > div:nth-child(2) {
-        margin-left: 40px;
+        // margin-left: 40px;
     }
 
     .home-calendar__month {
@@ -72,7 +75,7 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.85em;
+        top: 0.88em;
         right: -0.8em;
         transform: translateY(-50%) rotateZ(90deg);
         width: 0;
@@ -99,13 +102,29 @@ let Container = styled.div`
         text-align: center;
     }
 
-    @media(max-width: 1580px) {
+    @media(max-width: 1420px) {
+        .home-calendar__col-right {
+            margin-top: 20px;
+        }
+    }
+
+    @media(max-width: 1260px) {
         .home-calendar__col-right {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            padding-left: 100px;
+            margin-top: 50px;
+            padding-left: 0;
+            max-width: 500px;
+        }
+
+        .home-calendar__day {
+            padding: 0;
+            padding-right: 0px;
+            width: fit-content;
         }
     }
+
+    
 
     @media(max-width: 767px) {
         .home-calendar {
@@ -127,8 +146,12 @@ let Container = styled.div`
             width: fit-content;
         }
 
+        .arrow-prev::after {
+            top: 0.7em;
+        }
+
         .arrow-next::after {
-            top: -0.65em;
+            top: -0.6em;
         }
     }
 
@@ -416,7 +439,7 @@ export default function Component({ data }) {
             <div class="home-calendar">
                 <div class="home-calendar__col-left">
                 <div>
-                    <span class="h6">Agenda</span>
+                    {/* <span class="h6">Agenda</span> */}
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>

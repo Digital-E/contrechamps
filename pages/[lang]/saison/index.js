@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -24,6 +25,14 @@ data = data?.data;
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
+
+  useEffect(() => {
+    document.querySelector("body").classList.add("dark-background");
+
+    return () => {
+      document.querySelector("body").classList.remove("dark-background");
+    }
+  }, []);
 
 
   return (

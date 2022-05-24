@@ -44,7 +44,7 @@ export default function Component({ data = {}, preview }) {
 
 export async function getStaticProps({ params, preview = false }) {
 
-  let slug = `${params.lang}__l-ensemble__${params.slug}`
+  let slug = `${params.lang}__ensemble__${params.slug}`
 
 
   const data = await getClient(preview).fetch(lEnsembleQuery, {

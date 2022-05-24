@@ -185,7 +185,7 @@ export default function Component ({ data }) {
                     </div>
                 ))}
                 <Document>
-                    <p><a href={data.documentURL}>{data.documentLabel}</a></p>
+                    <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                 </Document>
             </div>
     </Container>       

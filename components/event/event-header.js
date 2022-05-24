@@ -87,7 +87,7 @@ export default function EventHeader({ data }) {
             <Body content={data.location}/>
           </Location>
           <div>
-            <Button url={data.ticketLink} label={data.ticketLinkLabel} />
+            {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
           </div>
         </Information>
       </ColRight>

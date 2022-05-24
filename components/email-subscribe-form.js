@@ -9,7 +9,7 @@ const Container = styled.div`
 
     padding: 0;
 
-    margin: 10px 0;
+    // margin: 10px 0;
 
     label {
       text-transform: lowercase;
@@ -28,9 +28,10 @@ const Container = styled.div`
     }
 
     form input {
-        background-color: white;
+        background-color: transparent;
         padding: 5px 25px;
         border: 1px solid black;
+        height: 40px;
     }
 
     form input::placeholder {
@@ -90,6 +91,7 @@ const Container = styled.div`
         border: 1px solid black;
         border-radius: 999px;
         padding: 5px 25px;
+        height: 40px;
     }
 
     @media(max-width: 1250px) {

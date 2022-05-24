@@ -45,7 +45,7 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage}) => {
 
 
     return (
-        <Link href={newUrl} scroll={false}>
+        <Link href={newUrl} scroll={true}>
             <a className={router.asPath === newUrl ? "active-link" : subPageIsActive ? "active-link" : ""}>{children}</a>
         </Link>
     )
