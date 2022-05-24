@@ -44,13 +44,19 @@ let Container = styled.div`
     }
 
     .home-calendar__month {
-        position: relative;
-        color: red;
-        width: 7.5em;
     }
 
-    .home-calendar__month > span {
+    .home-calendar__year {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .home-calendar__month > span:nth-child(2) {
+        display: inline-block;
         text-decoration: underline;
+        position: relative;
+        color: red;
+        width: 5.5em;
     }
 
     .arrow-next, .arrow-prev {
@@ -62,9 +68,9 @@ let Container = styled.div`
     .arrow-next::after {
         content:"";
         position: absolute;
-        top: -0.8em;
-        right: -1.5em;
-        transform: translateY(-50%) rotateZ(-90deg);
+        top: -0.85em;
+        right: -2.5em;
+        transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
@@ -75,9 +81,9 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.88em;
-        right: -0.8em;
-        transform: translateY(-50%) rotateZ(90deg);
+        top: 0.84em;
+        right: -1.5em;
+        transform: translateY(-50%) rotateZ(90deg) scale(1.5);
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
@@ -230,7 +236,6 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        margin-left: -450px;
         width: 500px;
         max-height: 600px;
         border: 1px solid black;
@@ -238,6 +243,11 @@ let Container = styled.div`
         z-index: 1;
         overflow: scroll;
         margin-top: -10px;
+        margin-left: -50px;
+    }
+
+    .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
+        margin-left: -450px;
     }
 
     @media(max-width: 767px) {
@@ -439,11 +449,12 @@ export default function Component({ data }) {
             <div class="home-calendar">
                 <div class="home-calendar__col-left">
                 <div>
-                    {/* <span class="h6">Agenda</span> */}
+                    {/* <span class="h6">{new Date().getFullYear()}</span> */}
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
                     <span class="h6"><Link href={`/${router.query.lang}/saison`}>{getMonth(currentMonthIndex)}</Link></span>
+                    <span class="home-calendar__year h6">{new Date().getFullYear()}</span>
                     <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
                 </div>
                 </div>

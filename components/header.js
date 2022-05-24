@@ -4,12 +4,17 @@ import LocaleLink from "./locale-link"
 import styled from "styled-components"
 
 let Container = styled.header`
-  position: relative;
+  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   z-index: 999;
+  top: 0;
+
+
+  max-width: 1500px;
 
   > .h4 {
     z-index: 2;

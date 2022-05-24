@@ -90,12 +90,14 @@ export default function Component ({ data }) {
         }
     
         if(window.innerWidth > 989) {
+
+            let headerHeight = document.querySelector("header").offsetHeight;
     
             scrollTriggerInstance = ScrollTrigger.create({
                 trigger: filtersRef.current,
                 id: "scroll-trigger",
                 pin: filtersRef.current,
-                start: "top top",
+                start: `top-=${headerHeight} top`,
                 end: "max",
                 pinSpacing: false
             });

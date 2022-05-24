@@ -22,6 +22,12 @@ let Header = styled.div`
             text-align: center;
         }
     }
+
+    @media(min-width: 1500px) {
+        > span {
+            font-size: 208px;
+        }
+    }
     
 `
 let List = styled.div`

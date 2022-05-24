@@ -94,12 +94,14 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
         }
     
         if(window.innerWidth > 989) {
+
+          let headerHeight = document.querySelector("header").offsetHeight;
     
             scrollTriggerInstance = ScrollTrigger.create({
                 trigger: menuRef.current,
                 id: "scroll-trigger",
                 pin: menuRef.current,
-                start: "top-=50 top",
+                start: `top-=${headerHeight + 20} top`,
                 end: "max",
                 pinSpacing: false
             });
@@ -108,7 +110,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 trigger: menuRefTwo.current,
                 id: "scroll-trigger-two",
                 pin: menuRefTwo.current,
-                start: "top-=50 top",
+                start: `top-=${headerHeight + 20} top`,
                 end: "max",
                 pinSpacing: false
             });           

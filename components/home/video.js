@@ -1,14 +1,8 @@
-import { useEffect } from "react"
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import Body from "../body"
 import Video from "../video"
-
 import Plyr from 'plyr';
-
-
-let Container = styled.div`
-    position: relative;
-`
 
 let Header = styled.div`
     position: relative;
@@ -30,54 +24,113 @@ let Header = styled.div`
     }
 `
 
-let Information = styled.div`
+let ListItem = styled.div`
+    position: relative;
+
     display: flex;
-    padding: 20px 20px 10px 20px;
+    padding: 15px 20px;
+    opacity: 1;
 
     > div {
         flex-basis: 50%;
     }
 
-    > div * {
+    transition: var(--transition-out);
+
+    :hover {
+        background: black;
+        transition: var(--transition-in);
+    }
+
+    :hover {
+        color: white;
+    }
+
+
+    @media(max-width: 1200px) {
+        flex-direction: column;
+    }
+`
+
+let ColLeft = styled.div``
+
+let ColRight = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+
+    > div:nth-child(2) {
+        margin-top: auto;
+        display: flex;
+    }
+
+    > div:nth-child(2) > div * {
         margin: 0;
     }
 
-    @media(max-width: 767px) {
-        > div:nth-child(2) {
-            display: flex;
-            justify-content: flex-end;
-        } 
+    > div:nth-child(2) > div:nth-child(1) {
+        flex-basis: 40%;
+    }
+
+    > div:nth-child(2) > div:nth-child(2) {
+        flex-basis: 60%;
+    }
+
+    @media(max-width: 1200px) {
+        padding: 0;
+        margin-top: 15px;
+
+        > h1 {
+            margin-bottom: 20px;
+        }
     }
 `
 
-let VideoWrapper = styled.div`
-    padding: 0 20px;
+const Location = styled.div`
+    * {
+        font-size: inherit;
+        margin: 0;
+        line-height: 1.2;
+    }
 `
-
 
 
 
 export default function Component({ data, title }) {
 
+    let item = data;
+
+
     useEffect(() => {
         const player = new Plyr('.player');
     },[]);
 
-    return data?.video !== null ?
-    <Container>
-        <Header className="border-bottom"><span className="h1">{title}</span></Header>
-        <VideoWrapper>
-            <Video data={data?.video} />
-        </VideoWrapper>
-        <Information>
-            <div>
-                <Body content={data?.textfieldone} />
-            </div>
-            <div>
-                <Body content={data?.textfieldtwo} />
-            </div>
-        </Information>            
-    </Container>
+    return data?.video !== null ? (
+    <>
+    <Header className="border-bottom"><span className="h1">{title}</span></Header>
+    <ListItem key={item._id}>
+            <ColLeft>
+                <Video data={item?.video} />
+            </ColLeft>
+            <ColRight>
+                <h1>{item.title}</h1>
+                <div>
+                    <div>
+                        <div className="h4">
+                            <Body content={item?.textfieldone} />
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <Location className="h4">
+                        <div><Body content={item?.textfieldtwo} /></div>
+                    </Location>
+                </div>
+            </ColRight>
+    </ListItem>
+    </>
+    )
     :
     null
 }

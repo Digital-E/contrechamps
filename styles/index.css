@@ -119,11 +119,38 @@ a:hover, button:hover {
     border: 1px solid black !important;
   }
 
+  @media(min-width: 1500px) {
+      html {
+          max-width: 1500px;
+          margin: 0 auto;
+      }
+  }
+
+  .layout {
+      margin-top: 77px;
+  }
+
+  header {
+      background: white;
+  }
+
   /* ------------------------------- Dark Styles ------------------------------ */
 
   .dark-background {
       background: black;
       color: white;
+  }
+
+  .dark-background header {
+      background: black;
+  }
+
+  .dark-background .nav-mobile-burger > div {
+      background: white !important;
+  }
+
+  .dark-background .nav--open {
+      background: black;
   }
 
   .dark-background .border-bottom::after, .dark-background .border-top::before {
