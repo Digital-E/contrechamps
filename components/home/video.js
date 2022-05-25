@@ -105,15 +105,16 @@ export default function Component({ data, title }) {
         const player = new Plyr('.player');
     },[]);
 
+
     return item?.video !== null ? (
     <>
     <Header className="border-bottom"><span className="h1">{title}</span></Header>
-    <ListItem key={item._id}>
+    <ListItem key={item?._id}>
             <ColLeft>
                 <Video data={item?.video} />
             </ColLeft>
             <ColRight>
-                <h1>{item.title}</h1>
+                <h1>{item?.title}</h1>
                 <div>
                     <div>
                         <div className="h4">

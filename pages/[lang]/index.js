@@ -60,7 +60,7 @@ export default function Index({ data = {}, preview }) {
         <Circles data={homeData} />
         <Calendar data={data.news} />
         <EventList data={data.news} title={homeData?.newsTitle}/>
-        {/* <Video data={homeData} title={homeData?.videoTitle}/> */}
+        <Video data={homeData} title={homeData?.videoTitle}/>
       </Layout>
     </>
   )
