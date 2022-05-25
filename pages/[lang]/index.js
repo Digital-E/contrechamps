@@ -15,7 +15,7 @@ import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
 // Components
 import EventList from "../../components/home/event-list"
-import Video from "../../components/home/video(old)"
+import Video from "../../components/home/video"
 import Circles from '../../components/home/circles'
 import Calendar from '../../components/home/calendar'
 
