@@ -6,9 +6,8 @@ const Container = styled.div`
     > div {
         position: relative;
         height: 25vw;
-        max-height: 375px;
         width: 100%;
-        max-width: 1500px;
+        max-width: 1800px;
         display: flex;
         z-index: 999;
     }

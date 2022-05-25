@@ -14,7 +14,7 @@ let Container = styled.header`
   top: 0;
 
 
-  max-width: 1500px;
+  max-width: 1800px;
 
   > .h4 {
     z-index: 2;
