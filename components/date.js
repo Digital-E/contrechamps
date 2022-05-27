@@ -1,7 +1,8 @@
 import { parseISO, format } from 'date-fns'
 
 export default function Date({ dateString, withYear }) {
-  if(dateString === null) return null;
+  
+  if(dateString === null || dateString === undefined) return null;
 
   const date = parseISO(dateString)
 

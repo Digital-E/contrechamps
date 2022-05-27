@@ -10,7 +10,7 @@ let Container = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  z-index: 999;
+  z-index: 9999;
   top: 0;
 
 

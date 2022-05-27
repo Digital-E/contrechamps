@@ -8,7 +8,7 @@ import HeroPost from '../../components/hero-post'
 import Intro from '../../components/intro'
 import Layout from '../../components/layout'
 import { CMS_NAME } from '../../lib/constants'
-import { indexQuery, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
+import { indexQuery, indexEventsQuery, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
@@ -59,7 +59,7 @@ export default function Index({ data = {}, preview }) {
         </Head>
         <Circles data={homeData} />
         <Calendar data={data.news} />
-        <EventList data={data.news} title={homeData?.newsTitle}/>
+        <EventList data={data.events} title={homeData?.newsTitle}/>
         <Video data={homeData} title={homeData?.videoTitle}/>
       </Layout>
     </>
@@ -82,6 +82,10 @@ export async function getStaticProps({ preview = false, params }) {
     slug: slug
   });
 
+  const events = await getClient(preview).fetch(indexEventsQuery, {
+    slug: slug
+  });
+
   // Get Menu And Footer
 
   const menuData = await getClient(preview).fetch(menuQuery, {
@@ -98,6 +102,7 @@ export async function getStaticProps({ preview = false, params }) {
       data: {
         homeData,
         news,
+        events,
         menuData,
         footerData
       }

@@ -53,6 +53,16 @@ const Date = styled.div`
     flex-basis: 50%;
     margin-bottom: 50px;
   }
+
+  > div:not(:last-child)::after {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    content: "";
+    height: 1px;
+    width: 20px;
+    background-color: black;
+  }
 `
 
 const Location = styled.div`
@@ -69,6 +79,14 @@ const Location = styled.div`
   }
 `
 
+const DateInner = styled.div`
+  position: relative;
+  margin-bottom: 20px;
+
+
+`
+
+
 
 
 
@@ -81,7 +99,15 @@ export default function EventHeader({ data }) {
         <Title>{data.title}</Title>
         <Information>
           <Date className="h4">
-            <DateComponent data={data} />
+            <DateInner>
+              <DateComponent data={data} />
+            </DateInner>
+            { data.occurences.map(item => 
+              <>
+                  <DateInner>
+                    <DateComponent data={item} />
+                  </DateInner>
+                </>) }
           </Date>
           <Location>
             <Body content={data.location}/>

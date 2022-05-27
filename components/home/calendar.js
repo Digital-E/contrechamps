@@ -8,6 +8,7 @@ import Image from "../image"
 import DateComponent from "../date-component"
 
 import { parseISO, format } from 'date-fns'
+import { enGB, fr } from 'date-fns/locale'
 
 let Container = styled.div`
 
@@ -44,6 +45,7 @@ let Container = styled.div`
     }
 
     .home-calendar__month {
+        text-transform: capitalize;
     }
 
     .home-calendar__year {
@@ -319,17 +321,17 @@ let Container = styled.div`
     }
 `
 
-let monthNames = [
-    "January", "February", "March",
-    "April", "May", "June",
-    "July", "August", "September",
-    "October", "November", "December"];
+// let monthNames = [
+//     "January", "February", "March",
+//     "April", "May", "June",
+//     "July", "August", "September",
+//     "October", "November", "December"];
 
-let monthNamesFr = [
-    "Janvier", "Février", "Mars",
-    "Avril", "Mai", "Juin",
-    "Juillet", "Août", "Septembre",
-    "Octobre", "Novembre", "Décembre"];
+// let monthNamesFr = [
+//     "Janvier", "Février", "Mars",
+//     "Avril", "Mai", "Juin",
+//     "Juillet", "Août", "Septembre",
+//     "Octobre", "Novembre", "Décembre"];
 
 export default function Component({ data }) {
 
@@ -339,15 +341,32 @@ export default function Component({ data }) {
 
     let [currentMonthIndex, setCurrentMonthIndex] = useState(0);
 
+    let months = [];
+
+    let startIndex = 0;
+    let startIndexHasBeenSet = false;
+
+    let endYear = 2023;
+    let yearIncrement = 2020;
+
     useEffect(() => {
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
-        let months = [];
+
 
         setCurrentMonthIndex(currentMonth);
 
         function getDaysInMonth(month, year) {
             var date = new Date(year, month, 1);
+
+            if(
+                format(parseISO(date.toISOString()), 'yyyy-LL-dd') 
+                === 
+                format(parseISO(new Date(currentYear, currentMonth, 1).toISOString()), 'yyyy-LL-dd')
+                ) {
+                startIndexHasBeenSet = true;
+            }
+
             var days = [];
             while (date.getMonth() === month) {
               let obj = {
@@ -363,16 +382,30 @@ export default function Component({ data }) {
         let getMonthsInYear = (year) => {
             let i = 0;
 
-            while(i < 13) {
+            while(i < 12) {
                 months.push(getDaysInMonth(i, year));
                 i++;
+
+                if(!startIndexHasBeenSet) {
+                    startIndex++;
+                }
             }
         }
+
+
+        while(yearIncrement <= endYear) {
+
+            getMonthsInYear(yearIncrement);
+
+            yearIncrement ++;
+        }
+
 
         getMonthsInYear(currentYear);
 
 
         months.forEach((itemOne, indexOne) => {
+
             itemOne.forEach((itemTwo, indexTwo) => {
                 data.forEach((itemThree, indexThree) => {
 
@@ -381,6 +414,13 @@ export default function Component({ data }) {
                     if(itemThree.startdate === format(date, 'yyyy-LL-dd')) {
                         months[indexOne][indexTwo].events.push(itemThree)
                     }
+                    console.log(itemThree.occurences)
+
+                    itemThree.occurences?.forEach((itemFour) => {
+                        if(itemFour.startdate === format(date, 'yyyy-LL-dd')) {
+                            months[indexOne][indexTwo].events.push(itemThree)
+                        }
+                    })
                 })
             })
         })
@@ -388,6 +428,9 @@ export default function Component({ data }) {
         // Set All Months
 
         setAllMonths(months);
+
+
+        setCurrentMonthIndex(startIndex)
 
 
         // Add Event Listeners to Days
@@ -417,32 +460,21 @@ export default function Component({ data }) {
     },[])
 
     let changeMonthIndex = (action) => {
+
         if(action === "prev") {
-            if(currentMonthIndex !== 0) {
+            if(currentMonthIndex > 0) {
                 setCurrentMonthIndex(currentMonthIndex -= 1)
-            } else {
-                setCurrentMonthIndex(11)
             }
         } else {
-            if(currentMonthIndex !== 11) {
+            if(currentMonthIndex < allMonths.length - 1) {
                 setCurrentMonthIndex(currentMonthIndex += 1)
-            } else {
-                setCurrentMonthIndex(0)
             }
         }
-    }
-
-
-    let getMonth = (index) => {
-
-        if(router.query.lang === "fr") {
-            return monthNamesFr[index]
-        } else {
-            return monthNames[index]
-        }
-
     }
     
+
+    console.log(allMonths)
+
 
     return (
         <Container>
@@ -453,8 +485,17 @@ export default function Component({ data }) {
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
-                    <span class="h6"><Link href={`/${router.query.lang}/saison`}>{getMonth(currentMonthIndex)}</Link></span>
-                    <span class="home-calendar__year h6">{new Date().getFullYear()}</span>
+                    <span class="h6">
+                        <Link href={`/${router.query.lang}/saison`}>
+                            {
+                                allMonths[currentMonthIndex][0] && 
+                                format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL', {locale: router.query.lang === "fr" ? fr : enGB})
+                            }
+                        </Link>
+                    </span>
+                    <span class="home-calendar__year h6">
+                        {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
+                        </span>
                     <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
                 </div>
                 </div>
