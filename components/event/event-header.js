@@ -102,7 +102,7 @@ export default function EventHeader({ data }) {
             <DateInner>
               <DateComponent data={data} />
             </DateInner>
-            { data.occurences.map(item => 
+            { data.occurences?.map(item => 
               <>
                   <DateInner>
                     <DateComponent data={item} />

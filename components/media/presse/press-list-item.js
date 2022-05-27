@@ -43,7 +43,7 @@ const Text = styled.div`
 
 
 export default function Component({ data }) {
-    console.log(data)
+
     return (
         <Container className="border-top">
             <a href={data.pressLink || data.documentURL} target="_blank">
