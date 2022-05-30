@@ -1,5 +1,7 @@
 import '../styles/index.css'
 
+import { useEffect } from 'react'
+
 import Body from "../components/body"
 import CookieConsent from "react-cookie-consent"
 
@@ -7,6 +9,12 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 
 function MyApp({ Component, pageProps, router }) {
+
+  useEffect(() => {
+    setTimeout(() => {
+      document.querySelector("#__next").style.opacity = 1
+    }, 250)
+  },[])
 
   return (
     <>

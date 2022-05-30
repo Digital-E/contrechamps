@@ -59,8 +59,8 @@ export default function Index({ data = {}, preview }) {
         </Head>
         <Circles data={homeData} />
         <Calendar data={data.news} />
-        <EventList data={data.events} title={homeData?.newsTitle}/>
         <Video data={homeData} title={homeData?.videoTitle}/>
+        <EventList data={data.events} title={homeData?.newsTitle}/>
       </Layout>
     </>
   )
@@ -115,6 +115,6 @@ export async function getStaticPaths() {
 
   return {
     paths: paths.map((lang) => ({ params: { lang } })),
-    fallback: true,
+    fallback: false,
   }
 }

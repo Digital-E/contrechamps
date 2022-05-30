@@ -97,6 +97,6 @@ export async function getStaticPaths() {
   
   return {
     paths: paths.map((slug) => ({ params: { lang: slug } })),
-    fallback: true,
+    fallback: false,
   }
 }

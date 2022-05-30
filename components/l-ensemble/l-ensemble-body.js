@@ -50,7 +50,7 @@ export default function Component({ data, menuData }) {
 
         if(reset === true) {
           if(scrollTriggerInstance !== null) {
-              ScrollTrigger.getById("scroll-trigger").kill(true);
+              ScrollTrigger.getById("scroll-trigger")?.kill(true);
           }
         }
     
@@ -60,7 +60,7 @@ export default function Component({ data, menuData }) {
                 trigger: menuRef.current,
                 id: "scroll-trigger",
                 pin: menuRef.current,
-                start: "top-=50 top",
+                start: `top-=120 top`,
                 end: "max",
                 pinSpacing: false
             });

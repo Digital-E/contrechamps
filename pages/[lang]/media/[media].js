@@ -134,6 +134,6 @@ export async function getStaticPaths() {
   
   return {
     paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), media: splitSlug(slug, 2) } })),
-    fallback: true,
+    fallback: false,
   }
 }

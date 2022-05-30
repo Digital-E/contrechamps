@@ -4,20 +4,23 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { lesMusiciensMenuQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { lEnsembleSlugsQuery, lEnsembleQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { sanityClient, getClient } from '../../../lib/sanity.server'
 
-import LesMusiciensBody from '../../../components/l-ensemble/les-musiciens-body'
+import splitSlug from "../../../lib/splitSlug"
+
+import LEnsembleBody from '../../../components/l-ensemble/l-ensemble-body'
+
 
 export default function Component({ data = {}, preview }) {
   const router = useRouter()
 
-//   const slug = data?.data?.slug
+  const slug = data?.data?.slug
 
 
-//   if (!router.isFallback && !slug) {
-//     return <ErrorPage statusCode={404} />
-//   }
+  if (!router.isFallback && !slug) {
+    return <ErrorPage statusCode={404} />
+  }
 
 
   return (
@@ -29,12 +32,10 @@ export default function Component({ data = {}, preview }) {
           <>
               <Head>
                 <title>
-                  {data.lesMusiciensMenu?.title} | {SITE_NAME}
+                  {data.data.title} | {SITE_NAME}
                 </title>
               </Head>
-
-              <LesMusiciensBody data={null} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} />
-
+              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} />
           </>
         )}
     </Layout>
@@ -43,20 +44,17 @@ export default function Component({ data = {}, preview }) {
 
 export async function getStaticProps({ params, preview = false }) {
 
+  let slug = `${params.lang}__a-propos__${params.slug}`
 
-//   const data = await getClient(preview).fetch(lEnsembleQuery, {
-//     slug: slug,
-//   })
 
-  const data = null
+  const data = await getClient(preview).fetch(lEnsembleQuery, {
+    slug: slug,
+  })
 
   const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
     lang: params.lang
   });
 
-  const lesMusiciensMenu = await getClient(preview).fetch(lesMusiciensMenuQuery, {
-    lang: params.lang
-  });
 
 
   // Get Menu And Footer
@@ -76,7 +74,6 @@ export async function getStaticProps({ params, preview = false }) {
       data: {
         data,
         lEnsembleMenu,
-        lesMusiciensMenu,
         menuData,
         footerData
       },
@@ -84,13 +81,11 @@ export async function getStaticProps({ params, preview = false }) {
   }
 }
 
-
 export async function getStaticPaths() {
-//   const paths = await sanityClient.fetch(lesMusiciensSlugsQuery)
-const paths = ['fr', 'en_gb'];
+  const paths = await sanityClient.fetch(lEnsembleSlugsQuery)
   
   return {
-    paths: paths.map((slug) => ({ params: { lang: slug } })),
-    fallback: true,
+    paths: paths.map((slug) => ({ params: { lang: splitSlug(slug, 0), slug: splitSlug(slug, 2) } })),
+    fallback: false,
   }
 }

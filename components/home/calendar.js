@@ -414,7 +414,6 @@ export default function Component({ data }) {
                     if(itemThree.startdate === format(date, 'yyyy-LL-dd')) {
                         months[indexOne][indexTwo].events.push(itemThree)
                     }
-                    console.log(itemThree.occurences)
 
                     itemThree.occurences?.forEach((itemFour) => {
                         if(itemFour.startdate === format(date, 'yyyy-LL-dd')) {
@@ -472,8 +471,6 @@ export default function Component({ data }) {
         }
     }
     
-
-    console.log(allMonths)
 
 
     return (

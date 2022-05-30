@@ -85,11 +85,11 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
 
         if(reset === true) {
           if(scrollTriggerInstance !== null) {
-              ScrollTrigger.getById("scroll-trigger").kill(true);
+              ScrollTrigger.getById("scroll-trigger")?.kill(true);
           }
 
-          if(scrollTriggerInstanceTwo !== null) {
-            ScrollTrigger.getById("scroll-trigger-two").kill(true);
+          if(scrollTriggerInstanceTwo !== null && scrollTriggerInstanceTwo !== undefined) {
+            ScrollTrigger.getById("scroll-trigger-two")?.kill(true);
         }
         }
     
@@ -101,7 +101,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 trigger: menuRef.current,
                 id: "scroll-trigger",
                 pin: menuRef.current,
-                start: `top-=${headerHeight + 20} top`,
+                start: `top-=120 top`,
                 end: "max",
                 pinSpacing: false
             });
@@ -110,7 +110,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 trigger: menuRefTwo.current,
                 id: "scroll-trigger-two",
                 pin: menuRefTwo.current,
-                start: `top-=${headerHeight + 20} top`,
+                start: `top-=120 top`,
                 end: "max",
                 pinSpacing: false
             });           
