@@ -20,11 +20,6 @@ let Container = styled.header`
     z-index: 2;
   }
 
-  @media(min-width: 768px) and (max-width: 1300px) {
-    .h4 {
-      font-size: 1rem !important;
-    }
-  }
 
   .p {
    margin: 0;
@@ -66,7 +61,7 @@ let Container = styled.header`
     display: none;
 }
 
-@media(max-width: 767px) {
+@media(max-width: 1060px) {
   background: white;
   
   .nav-mobile-burger {
@@ -82,12 +77,13 @@ let List = styled.ul`
 
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+
 
   @media(min-width: 768px) and (max-width: 1300px) {
-    .h4 {
-      font-size: 1rem !important;
-    }
+    // .h4 {
+    //   font-size: 1rem !important;
+    // }
   }
 `
 
@@ -101,14 +97,18 @@ let Menu = styled.div`
   left: 0;
   width: 100%;
   flex-basis: 70%;
-  max-width: 1100px;
+  // max-width: 1100px;
+
+  > ul:nth-child(1) > li {
+    margin-right: 3rem;
+  }
   
 
   ${ListItem} {
     margin-left: 0;
   }
 
-  @media(max-width: 767px) {
+  @media(max-width: 1060px) {
     display: none;
     position: absolute;
     flex-direction: column;
@@ -128,6 +128,10 @@ let Menu = styled.div`
       display: flex;
     }
   }
+
+  @media(max-width: 1230px) {
+    flex-basis: 80%;
+  }
 `
 
 
@@ -140,7 +144,7 @@ let LanguageSwitch = styled.div`
   }
 
 
-  @media(max-width: 767px) {
+  @media(max-width: 1060px) {
     margin-left: 0;
     margin-top: 20px;
 

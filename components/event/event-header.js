@@ -68,11 +68,11 @@ const Date = styled.div`
 const Location = styled.div`
   flex-grow: 1;
 
-  * {
-    font-size: 1.8em;
-    margin: 0;
-    line-height: 1.2;
-  }
+  // * {
+  //   font-size: 1.8em;
+  //   margin: 0;
+  //   line-height: 1.2;
+  // }
 
   @media(max-width: 990px) {
     flex-basis: 50%;
@@ -82,8 +82,6 @@ const Location = styled.div`
 const DateInner = styled.div`
   position: relative;
   margin-bottom: 20px;
-
-
 `
 
 
@@ -102,7 +100,7 @@ export default function EventHeader({ data }) {
             <DateInner>
               <DateComponent data={data} />
             </DateInner>
-            { data.occurences?.map(item => 
+            {data.occurences?.map(item => 
               <>
                   <DateInner>
                     <DateComponent data={item} />

@@ -36,8 +36,8 @@ let Container = styled.div`
     }
 
     .season-filter__selector {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         // border: var(--border-width) solid black;
         background: white;
         border-radius: 999px;

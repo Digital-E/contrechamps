@@ -14,13 +14,13 @@ let Container = styled.div`
     //     display: none;
     // }
 
-    > div:last-child > div:nth-child(2) > div:last-child::after   {
+    > div:last-child > div:last-child::after   {
         display: none !important;
     }
 
-    > div > div:nth-child(2) > div:nth-child(1) {
-        display: none;
-    }
+    // > div > div:nth-child(2) > div:nth-child(1) {
+    //     display: none;
+    // }
 `
 
 let MonthWrapper = styled.div`
@@ -161,6 +161,7 @@ export default function Component ({ data }) {
         <Container>
             {
                 eventsByMonth.map(item => {
+
                     return (
                         <MonthWrapper className={item.passed === true && "passed-event"}>
                             <MonthDivider className="border-bottom">

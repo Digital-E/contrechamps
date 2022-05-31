@@ -40,7 +40,19 @@ let ListItem = styled.div`
     }
 `
 
-let ColLeft = styled.div``
+let ColLeft = styled.div`
+    height: calc(50vw * 0.5);
+
+    > span {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    img {
+        object-fit: cover;
+    }
+`
 
 let ColRight = styled.div`
     display: flex;

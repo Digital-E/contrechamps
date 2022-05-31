@@ -3,6 +3,11 @@ import styled from "styled-components"
 
 const Container = styled.div`
 
+    @media(min-width: 1200px) {
+        height: 23vw;
+        margin-top: -3vw;
+    }
+
     > div {
         position: relative;
         height: 25vw;
@@ -12,14 +17,14 @@ const Container = styled.div`
         z-index: 999;
     }
 
-    @media(max-width: 1200px) {
+    @media(max-width: 1199px) {
         width: 100vw;
         overflow: hidden;
         overflow-x: scroll;
 
         > div {
             width: fit-content;
-            height: 70vw;
+            height: auto;
         }
     }
 
@@ -45,17 +50,23 @@ const Orb = styled.div`
         pointer-events: none;
     }
 
-    @media(max-width: 1200px) {
-        width: 70vw;
+    @media(max-width: 1199px) {
+        width: 40vw !important;
+        height: 40vw !important;
     }
 `
 
 const Circle = styled.div`
-    height: 58%;
     width: 58%;
+    height: 58%;
     background: white;
     border-radius: 999px;
     cursor: pointer;
+
+    // @media(max-width: 1199px) {
+    //     height: calc(0.58 * 70vw);
+    //     width: calc(0.58 * 70vw);
+    // }
 `
 
 

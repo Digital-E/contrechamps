@@ -238,7 +238,7 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        width: 500px;
+        width: 400px;
         max-height: 600px;
         border: 1px solid black;
         background-color: white;
@@ -249,7 +249,7 @@ let Container = styled.div`
     }
 
     .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
-        margin-left: -450px;
+        margin-left: -350px;
     }
 
     @media(max-width: 767px) {
@@ -272,7 +272,7 @@ let Container = styled.div`
 
     .home-calendar__event a {
         display: block;
-        padding: 15px 10px;
+        padding: 10px 10px;
     
         > div {
             flex-basis: 50%;
@@ -318,6 +318,16 @@ let Container = styled.div`
 
     .home-calendar__title {
         margin-top: 50px;
+    }
+
+    .home-calendar__image {
+        height: calc(0.5 * 400px);
+    }
+
+    .home-calendar__image span {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover !important;
     }
 `
 
@@ -482,7 +492,7 @@ export default function Component({ data }) {
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
-                    <span class="h6">
+                    <span class="h5">
                         <Link href={`/${router.query.lang}/saison`}>
                             {
                                 allMonths[currentMonthIndex][0] && 
@@ -490,7 +500,7 @@ export default function Component({ data }) {
                             }
                         </Link>
                     </span>
-                    <span class="home-calendar__year h6">
+                    <span class="home-calendar__year h5">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                         </span>
                     <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
@@ -500,7 +510,7 @@ export default function Component({ data }) {
                     {allMonths[currentMonthIndex].map((item, index) => {
 
                         return (
-                            <div class={`h6 home-calendar__day 
+                            <div class={`h5 home-calendar__day 
                                 ${item.events.length > 0 &&'home-calendar__day--has-event'} 
                                 ${item.events.length > 1 && 'home-calendar__day--has-two-events'}
                                 `}>
