@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
+    position: relative;
+    z-index: 0;
 
     @media(min-width: 1200px) {
         height: 23vw;

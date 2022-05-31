@@ -108,7 +108,7 @@ export default function Component({ data, title }) {
 
     return item?.video !== null ? (
     <>
-    <Header className="border-bottom"><span className="h1">{title}</span></Header>
+    <Header className="border-bottom border-top"><span className="h1">{title}</span></Header>
     <ListItem key={item?._id} className="border-bottom">
             <ColLeft>
                 <Video data={item?.video} />
