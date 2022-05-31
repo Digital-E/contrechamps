@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import EventListTile from "./event-list-tile"
 
 let Container = styled.div`
-    > div:last-child > div:last-child::after   {
-        display: none !important;
-    }
+
 `
 
 let Header = styled.div`

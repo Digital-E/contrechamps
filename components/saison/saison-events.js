@@ -49,7 +49,7 @@ let InnerMonthDivider = styled.div`
 
     @media(min-width: 768px) {
         > .h1 {
-            font-size: 15rem;
+            font-size: 12vw;
         }
 
         .year {

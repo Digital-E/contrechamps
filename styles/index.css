@@ -377,4 +377,9 @@ time {
         font-family: "Es Klarheit Grotesk Medium";
         font-size: 1rem;
     }
+
+    time {
+        font-size: 1rem;
+        letter-spacing: -0.02em;
+    }
 }

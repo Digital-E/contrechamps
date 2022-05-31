@@ -8,7 +8,7 @@ export default function Component({ data }) {
     data.endtime === undefined ? data.endtime = null : null;
 
     return (
-        <>
+        <p>
         <Date dateString={data.startdate}  withYear={data.enddate === null ? true : false} />
             { data.enddate !== null ? "-" : ""}
         <Date dateString={data.enddate} withYear={true} />
@@ -16,6 +16,6 @@ export default function Component({ data }) {
         <Time timeString={data.starttime} />
             { data.endtime !== null ? "-" : ""}
         <Time timeString={data.endtime} />
-        </>
+        </p>
     )
 }

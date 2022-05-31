@@ -44,6 +44,7 @@ const Date = styled.div`
   flex-basis: 30%;
   line-height: 1.2;
   font-size: 1.8em;
+  margin-top: 10px;
 
   * {
     margin: 0;
@@ -54,15 +55,15 @@ const Date = styled.div`
     margin-bottom: 50px;
   }
 
-  > div:not(:last-child)::after {
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    content: "";
-    height: 1px;
-    width: 20px;
-    background-color: black;
-  }
+  // > div:not(:last-child)::after {
+  //   position: absolute;
+  //   bottom: -10px;
+  //   left: 0;
+  //   content: "";
+  //   height: 1px;
+  //   width: 20px;
+  //   background-color: black;
+  // }
 `
 
 const Location = styled.div`

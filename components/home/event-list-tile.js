@@ -38,6 +38,12 @@ let ListItem = styled.div`
             flex-direction: column;
         }
     }
+
+    @media(max-width: 992px) {
+        > a > div {
+            flex-basis: auto;
+        }
+    }
 `
 
 let ColLeft = styled.div`
@@ -47,10 +53,15 @@ let ColLeft = styled.div`
         height: 100% !important;
         width: 100% !important;
         object-fit: cover;
+        // position: absolute !important;
     }
 
     img {
         object-fit: cover;
+    }
+
+    @media(max-width: 992px) {
+        height: calc(100vw * 0.5);
     }
 `
 

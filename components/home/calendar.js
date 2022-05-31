@@ -248,16 +248,21 @@ let Container = styled.div`
         margin-left: -50px;
     }
 
-    .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
-        margin-left: -350px;
+    @media(min-width: 768px) {
+        .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
+            margin-left: -350px;
+        }
     }
+
 
     @media(max-width: 767px) {
         .home-calendar__modal {
             position: fixed;
             margin-left: 0;
-            left: 20px;
-            width: calc(100% - 40px);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100vw - 40px);
         }  
     }
 
@@ -324,7 +329,9 @@ let Container = styled.div`
         height: calc(0.5 * 400px);
     }
 
-    .home-calendar__image span {
+    .home-calendar__image img,
+    .home-calendar__image span
+     {
         height: 100% !important;
         width: 100% !important;
         object-fit: cover !important;
