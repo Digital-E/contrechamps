@@ -42,13 +42,13 @@ let InnerMonthDivider = styled.div`
 
     @media(min-width: 768px) {
         > .h1 {
-            font-size: 12vw;
+            font-size: 8vw;
         }
 
         .year {
             position: absolute;
             right: -70px;
-            top: 40px;
+            top: 20px;
         }
     }
 
