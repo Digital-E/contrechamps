@@ -113,7 +113,7 @@ export default function Component ({ data }) {
 
         let allTags = [];
 
-        data.tags.forEach((item, index) => {
+        data.tags?.forEach((item, index) => {
             let obj = {
                 selected: index === 0 ? true : false,
                 tag: item.tag
