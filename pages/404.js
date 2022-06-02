@@ -36,7 +36,7 @@ export default function Custom404({ data = {}, preview }) {
       <Container>
           <div>
             <h2>404 - Page Not Found</h2>
-            <a href="/en_gb">Go Home</a>
+            <a href="/">Go Home</a>
           </div>
       </Container>
     </Layout>

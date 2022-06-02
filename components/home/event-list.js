@@ -2,9 +2,7 @@ import styled from 'styled-components'
 
 import EventListTile from "./event-list-tile"
 
-let Container = styled.div`
-
-`
+let Container = styled.div``
 
 let Header = styled.div`
     position: relative;
@@ -33,6 +31,9 @@ let Header = styled.div`
     
 `
 let List = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+
     .hide-tile {
         display: none !important;
     }

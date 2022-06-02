@@ -10,17 +10,10 @@ import EventList from "../home/event-list"
 let Container = styled.div`
     position: relative;
 
-    // > div:nth-child(even) > div:nth-child(1) {
-    //     display: none;
-    // }
-
     > div:last-child > div:last-child::after   {
         display: none !important;
     }
 
-    // > div > div:nth-child(2) > div:nth-child(1) {
-    //     display: none;
-    // }
 `
 
 let MonthWrapper = styled.div`
@@ -32,7 +25,7 @@ let MonthWrapper = styled.div`
 
 let MonthDivider = styled.div`
     position: relative;
-    margin: 0 auto;
+    margin: -1px auto 0 auto;
     text-align: center;
     text-transform: capitalize;
 `
@@ -164,7 +157,7 @@ export default function Component ({ data }) {
 
                     return (
                         <MonthWrapper className={item.passed === true && "passed-event"}>
-                            <MonthDivider className="border-bottom">
+                            <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
                                     <div className="h1">{item.longMonth}</div>
                                     <div className="p year">{item.year}</div>

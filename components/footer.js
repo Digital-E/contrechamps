@@ -8,6 +8,7 @@ let Container = styled.footer`
   position: relative;
   display: flex;
   padding: 20px;
+  margin-top: -1px;
 
   p {
    margin: 0;

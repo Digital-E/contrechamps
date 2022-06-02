@@ -10,14 +10,17 @@ import Link from "../link"
 
 let ListItem = styled.div`
     position: relative;
+    flex-basis: 33.3333%;
 
     > a {
         display: flex;
+        flex-direction: column;
         padding: 15px 20px;
         opacity: 1;
+        height: 100%;
     
         > div {
-            flex-basis: 50%;
+            flex-basis: auto;
         }
     
         transition: var(--transition-out);
@@ -34,9 +37,15 @@ let ListItem = styled.div`
     }
 
     @media(max-width: 1200px) {
+        flex-basis: 50%;
+
         > a {
             flex-direction: column;
         }
+    }
+
+    @media(max-width: 992px) {
+        flex-basis: 100%;
     }
 
     @media(max-width: 992px) {
@@ -47,7 +56,8 @@ let ListItem = styled.div`
 `
 
 let ColLeft = styled.div`
-    height: calc(50vw * 0.5);
+    height: calc(33.3333vw * 0.5);
+    min-height: calc(33.3333vw * 0.5);
 
     > span {
         height: 100% !important;
@@ -60,15 +70,27 @@ let ColLeft = styled.div`
         object-fit: cover;
     }
 
+    @media(max-width: 1200px) {
+        height: calc(50vw * 0.5);
+        min-height: calc(50vw * 0.5);
+    }
+
     @media(max-width: 992px) {
         height: calc(100vw * 0.5);
+        min-height: calc(100vw * 0.5);
     }
 `
 
 let ColRight = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0;
+    height: 100%;
+    margin-top: 15px;
+
+    > h1 {
+        margin-bottom: 20px;
+    }
 
     > div:nth-child(2) {
         margin-top: auto;
