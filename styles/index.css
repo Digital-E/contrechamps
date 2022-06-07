@@ -37,8 +37,14 @@
     transition: opacity 1s;
 }
 
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
 html {
     line-height: 1;
+    overflow-x: hidden;
 }
 
 :root {

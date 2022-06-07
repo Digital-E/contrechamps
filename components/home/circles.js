@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
+
+import Orb from "./orb"
 
 const Container = styled.div`
     position: relative;
     z-index: 0;
 
     @media(min-width: 1200px) {
-        height: 23vw;
+        height: 24vw;
         margin-top: -3vw;
     }
 
@@ -27,13 +29,11 @@ const Container = styled.div`
     }
 
     @media(max-width: 1199px) {
-        width: 100vw;
-        overflow: hidden;
-        overflow-x: scroll;
 
         > div {
             width: fit-content;
             height: auto;
+            flex-wrap: wrap;
         }
     }
 
@@ -46,94 +46,17 @@ const Container = styled.div`
     }
 `
 
-const Orb = styled.div`
-    position: relative;
-    flex-basis: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    > video {
-        position: absolute;
-        width: 100%;
-        top: 46%;
-        left: 47%;
-        transform: translate(-50%, -50%) scale(1.2);
-        z-index: 999;
-        pointer-events: none;
-    }
-
-    @media(max-width: 1199px) {
-        width: 40vw !important;
-        height: 40vw !important;
-    }
-`
-
-const Circle = styled.div`
-    width: 58%;
-    height: 58%;
-    background: white;
-    border-radius: 999px;
-    cursor: pointer;
-
-    max-width: calc(1800px / 4);
-    max-height: calc(1800px / 4);
-
-    // @media(max-width: 1199px) {
-    //     height: calc(0.58 * 70vw);
-    //     width: calc(0.58 * 70vw);
-    // }
-`
-
 
 
 export default ({ data }) => {
-    let orbRef = useRef();
-    let orbRefs = [];
-
-    let togglePlay = (orb, action) => {
-
-        let video = orb.children[0];
-
-        if(action === "play") {
-            video.play();
-        } else {
-            video.currentTime = 0;
-            video.pause();
-        }
-    }
-
-    useEffect(() => {
-        orbRef.current.addEventListener("mouseenter", () => togglePlay(orbRef.current.parentNode, "play"))
-        orbRef.current.addEventListener("mouseleave", () => togglePlay(orbRef.current.parentNode, "pause"))
-    }, []);
 
     return (
-        <Container>
+        <Container className="circles-container">
             <div>
-                <Orb>
-                    <video 
-                    // autoplay="true" 
-                    muted="true" 
-                    loop="true">
-                        <source 
-                        src="videos/video.mp4" 
-                        type='video/mp4'/>
-                        <source 
-                        src="videos/video.webm" 
-                        type="video/webm"/>
-                    </video>
-                    <Circle ref={orbRef} />
-                </Orb>
-                <Orb>
-                    <Circle />
-                </Orb>
-                <Orb>
-                    <Circle />
-                </Orb>
-                <Orb>
-                    <Circle />
-                </Orb>
+                <Orb />
+                <Orb />
+                <Orb />
+                <Orb />
             </div>
         </Container>
     )

@@ -5,16 +5,18 @@ const Container = styled.div`
 
 let Header = styled.div`
     position: relative;
-    padding: 20px;
+    padding: 0 20px;
 
     > span {
-        font-size: 6rem;
+      font-size: 5rem;
+      line-height: 1.2;
     }
 
     @media(min-width: 768px) {
         padding: 0 20px;
 
         > span {
+            font-size: 6rem;
             margin: 0;
             line-height: 1.2;
         }

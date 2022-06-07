@@ -66,11 +66,12 @@ let Container = styled.div`
     @media(max-width: 767px) {
         .season-filters {
             flex-wrap: wrap;
-            padding: 15px;
+            padding: 0 20px;
         } 
 
         .season-filter {
-            flex-basis: 33.3333%;
+            margin-right: 15px;
+            // flex-basis: 33.3333%;
         }
     }
 `

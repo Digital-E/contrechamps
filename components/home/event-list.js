@@ -12,14 +12,11 @@ let Header = styled.div`
     position: relative;
     padding: 20px;
 
-    > span {
-        font-size: 6rem;
-    }
-
     @media(min-width: 768px) {
         padding: 0 20px;
 
         > span {
+            font-size: 6rem;
             line-height: 1.2;
         }
     }
@@ -42,8 +39,6 @@ export default function Component({ data, title, videoData }) {
     useEffect(() => {
         const player = new Plyr('.player');
     }, []);
-
-    console.log(videoData)
 
     return (
         <Container>
