@@ -42,23 +42,27 @@ const Container = styled.div`
     }
 `
 
+const Wrapper = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+
+@media(max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .button {
+        margin-top: 25px;
+    }
+}
+`
+
+
 const Text = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    
-    * {
-        line-height: 1;
-    }
-
-    @media(max-width: 767px) {
-        flex-direction: column;
-        align-items: flex-start;
-
-        .button {
-            margin-top: 25px;
-        }
-    }
+* {
+    line-height: 1;
+    margin: 10px 0;
+}
 `
 
 
@@ -67,7 +71,10 @@ export default function Component({ data }) {
     return (
         <Container className="border-top">
             <Link href={data.slug}>
-                <Text><Body content={data.text} /><Button url={data.link} label={data.linkLabel} /></Text>
+                <Wrapper>
+                    <Text><Body content={data.text} /></Text>
+                    <Button url={data.link} label={data.linkLabel} />
+                </Wrapper>
             </Link>
         </Container>
     )
