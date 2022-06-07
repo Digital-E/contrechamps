@@ -2,7 +2,11 @@ import { useEffect, useState, useRef } from 'react';
 
 import styled from "styled-components";
 
-import sanitizeTag from "../../lib/sanitizeTag"
+import Link from "../link";
+
+import sanitizeTag from "../../lib/sanitizeTag";
+
+import { useRouter } from "next/router";
 
 import { gsap } from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -21,6 +25,7 @@ let Container = styled.div`
         background: black;
         color: white;
         flex-wrap: wrap;
+        margin-top: -1px;
     }
 
     .season-filter {
@@ -28,7 +33,7 @@ let Container = styled.div`
         align-items: center;
         cursor: pointer;
         flex-basis: auto;
-        margin-right: 40px;
+        margin-right: 30px;
     }
 
     .season-filter:hover .season-filter__selector {
@@ -55,23 +60,29 @@ let Container = styled.div`
 
     @media(max-width: 767px) {
         .season-filters {
-            flex-wrap: wrap;
-            padding: 15px;
-            display: none;
-        } 
+            padding: 0 20px;
+        }
 
         .season-filter {
+            display: none;
             flex-basis: 100%;
-        }
+        } 
     }
 `
 
 let Document = styled.div`
     display: flex;
     align-items: center;
+`
+
+let Archive = styled.div`
+    margin-left: 2rem;
+`
+let Wrapper = styled.div`   
+    display: flex;
     margin-left: auto;
 
-    @media(max-width: 1120px) {
+    @media(max-width: 1150px) {
         margin-left: 0;
     }
 `
@@ -81,6 +92,8 @@ let Document = styled.div`
 export default function Component ({ data }) {
     let filtersRef = useRef();
     let [tags, setTags] = useState([]);
+
+    let router = useRouter();
 
     let scrollTriggerInstance = null;
 
@@ -176,8 +189,7 @@ export default function Component ({ data }) {
             }
         })
     }
-
-
+    
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
@@ -191,9 +203,14 @@ export default function Component ({ data }) {
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
+                <Wrapper>
                 <Document>
                     <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                 </Document>
+                <Archive>
+                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archive</Link></p>
+                </Archive>
+                </Wrapper>
             </div>
     </Container>       
     )

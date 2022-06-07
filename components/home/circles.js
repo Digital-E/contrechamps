@@ -14,9 +14,16 @@ const Container = styled.div`
         position: relative;
         height: 25vw;
         width: 100%;
-        max-width: 1800px;
         display: flex;
         z-index: 999;
+    }
+
+    @media(min-width: 1800px) {
+        height: fit-content;
+
+        > div {
+            height: calc(1800px / 4);
+        }
     }
 
     @media(max-width: 1199px) {
@@ -30,7 +37,11 @@ const Container = styled.div`
         }
     }
 
-    ::webkit-scrollbar {
+    -ms-overflow-style: none;
+
+    overflow: -moz-scrollbars-none;
+
+    ::-webkit-scrollbar {
         display: none;
     }
 `
@@ -64,6 +75,9 @@ const Circle = styled.div`
     background: white;
     border-radius: 999px;
     cursor: pointer;
+
+    max-width: calc(1800px / 4);
+    max-height: calc(1800px / 4);
 
     // @media(max-width: 1199px) {
     //     height: calc(0.58 * 70vw);

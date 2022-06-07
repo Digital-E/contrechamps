@@ -46,6 +46,10 @@ const ColMiddle = styled.div`
 const ColRight = styled.div`
   flex-basis: 70%;
 
+  > div *:nth-child(1) {
+    margin-top: 0px !important;
+  }
+
   @media(max-width: 767px) {
     flex-basis: 100%;
   }
@@ -93,7 +97,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
         }
         }
     
-        if(window.innerWidth > 989) {
+        if(window.innerWidth > 767) {
 
           let headerHeight = document.querySelector("header").offsetHeight;
     
@@ -102,7 +106,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 id: "scroll-trigger",
                 pin: menuRef.current,
                 start: `top-=120 top`,
-                end: "max",
+                end: document.querySelector("body").scrollHeight - menuRef.current.offsetHeight - document.querySelector("footer").offsetHeight - 65,
                 pinSpacing: false
             });
 
@@ -111,7 +115,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
                 id: "scroll-trigger-two",
                 pin: menuRefTwo.current,
                 start: `top-=120 top`,
-                end: "max",
+                end: document.querySelector("body").scrollHeight - menuRefTwo.current.offsetHeight - document.querySelector("footer").offsetHeight - 65,
                 pinSpacing: false
             });           
     
@@ -125,7 +129,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
     useEffect(() => {
 
 
-        if(window.innerWidth > 989) {
+        if(window.innerWidth > 767) {
             init();
         }
 
@@ -137,6 +141,12 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
         
 
     }, []);
+
+    useEffect(() => {
+      if(window.innerWidth > 989) {
+          initWrapper();
+      }
+    })
 
   return (
     <Container>

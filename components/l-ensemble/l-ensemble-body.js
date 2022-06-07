@@ -26,6 +26,10 @@ const Container = styled.div`
 const ColLeft = styled.div`
   flex-basis: 30%;
 
+  > div *:nth-child(1) {
+    margin-top: 0px !important;
+  }
+
   @media(max-width: 767px) {
       flex-basis: 100%;
       margin-bottom: 50px;

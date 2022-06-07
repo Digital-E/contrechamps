@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -22,6 +22,7 @@ import Calendar from '../../components/home/calendar'
 export default function Index({ data = {}, preview }) {
   // const heroPost = allPosts[0]
   // const morePosts = allPosts.slice(1)
+  let [allEvents, setAllEvents] = useState([]);
   const router = useRouter()
 
   const slug = data?.homeData?.slug
@@ -41,6 +42,33 @@ export default function Index({ data = {}, preview }) {
   useEffect(() => {
     document.querySelector("body").classList.add("dark-background");
 
+    let now  = new Date();
+    now = now;
+
+    let events = data.events.slice();
+
+    let orderedEvents = events.sort(function(a,b) {
+      var aToDate = (new Date(a.startdate));
+      var bToDate = (new Date(b.startdate));
+      return Math.abs(aToDate - now) - Math.abs(bToDate - now);
+    })
+
+    let allEventsArray = orderedEvents.filter(item => {
+      if(new Date(item.startdate) > new Date()) {
+        return item
+      }
+    })
+
+    let splicedAllEventsArray = [];
+
+    if(homeData.video !== null) {
+      splicedAllEventsArray = allEventsArray.splice(0, 5)
+    } else {
+      splicedAllEventsArray = allEventsArray.splice(0, 6)
+    }
+
+    setAllEvents([...splicedAllEventsArray])
+
     return () => {
       document.querySelector("body").classList.remove("dark-background");
     }
@@ -59,8 +87,8 @@ export default function Index({ data = {}, preview }) {
         </Head>
         <Circles data={homeData} />
         <Calendar data={data.news} />
-        <Video data={homeData} title={homeData?.videoTitle}/>
-        <EventList data={data.events} title={homeData?.newsTitle}/>
+        {/* <Video data={homeData} title={homeData?.videoTitle}/> */}
+        <EventList data={allEvents} title={homeData?.newsTitle} videoData={homeData}/>
       </Layout>
     </>
   )

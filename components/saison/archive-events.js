@@ -21,9 +21,9 @@ let Container = styled.div`
 `
 
 let MonthWrapper = styled.div`
-    &.passed-event {
-        opacity: 0.3;
-    }
+    // &.passed-event {
+    //     opacity: 0.3;
+    // }
 `
 
 
@@ -144,7 +144,7 @@ export default function Component ({ data }) {
             return obj;
         });
 
-        // eventsByMonthArray.push(...pastEvents)
+        eventsByMonthArray = [...pastEvents];
 
         eventsByMonthArray = eventsByMonthArray.filter(item => {
             return item.events.length > 0 ? item : false
@@ -164,7 +164,7 @@ export default function Component ({ data }) {
                         <MonthWrapper className={item.passed === true && "passed-event"}>
                             <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
-                                    <div className="h1">{item.longMonth}</div>
+                                    <div className="h1">{item.longMonth}&nbsp;&nbsp;{item.year}</div>
                                     {/* <div className="p year">{item.year}</div> */}
                                 </InnerMonthDivider>
                             </MonthDivider>

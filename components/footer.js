@@ -14,11 +14,11 @@ let Container = styled.footer`
    margin: 0;
   }
 
-  > div {
+  > div:not(:last-child) {
     margin-right: 50px !important;
   }
 
-  @media(max-width: 1250px) {
+  @media(max-width: 1330px) {
     flex-direction: column;
 
     > div {
@@ -40,7 +40,7 @@ const Col = styled.div`
     font-size: 1rem;
   }
 
-  @media(max-width: 1250px) {
+  @media(max-width: 1330px) {
     margin-bottom: 25px;
   }
 `
@@ -66,7 +66,7 @@ let Newsletter = styled.div`
   margin-left: auto;
   flex-grow: 1;
 
-  @media(max-width: 1250px) {
+  @media(max-width: 1330px) {
     margin-left: 0;
   }
 `

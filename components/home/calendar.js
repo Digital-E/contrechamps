@@ -22,7 +22,7 @@ let Container = styled.div`
         padding: 15px 20px 0px 20px;
     }
 
-    @media(max-width: 1260px) {
+    @media(max-width: 1200px) {
         .home-calendar {
             justify-content: flex-start;
             flex-direction: column;
@@ -50,7 +50,6 @@ let Container = styled.div`
 
     .home-calendar__year {
         display: inline-block;
-        margin-left: 10px;
     }
 
     .home-calendar__month > span:nth-child(3) {
@@ -111,11 +110,20 @@ let Container = styled.div`
         text-align: center;
     }
 
-    @media(max-width: 1260px) {
+    @media(max-width: 1200px) {
+        .home-calendar__col-right {
+            margin-top: 20px;
+            margin-left: -5px;
+        }
+
+    }
+
+    @media(max-width: 1000px) {
         .home-calendar__col-right {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             margin-top: 50px;
+            margin-left: 0;
             padding-left: 0;
             max-width: 500px;
         }
@@ -136,6 +144,7 @@ let Container = styled.div`
 
         .home-calendar__col-right {
             margin-top: 50px;
+            margin-left: 0;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             padding-left: 0;

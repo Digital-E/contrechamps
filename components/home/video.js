@@ -101,15 +101,15 @@ export default function Component({ data, title }) {
     let item = data;
 
 
-    useEffect(() => {
-        const player = new Plyr('.player');
-    },[]);
+    // useEffect(() => {
+    //     const player = new Plyr('.player');
+    // },[]);
 
 
     return item?.video !== null ? (
     <>
     <Header className="border-bottom border-top"><span className="h1">{title}</span></Header>
-    <ListItem key={item?._id} className="border-bottom">
+    {/* <ListItem key={item?._id} className="border-bottom">
             <ColLeft>
                 <Video data={item?.video} />
             </ColLeft>
@@ -129,7 +129,7 @@ export default function Component({ data, title }) {
                     </Location>
                 </div>
             </ColRight>
-    </ListItem>
+    </ListItem> */}
     </>
     )
     :

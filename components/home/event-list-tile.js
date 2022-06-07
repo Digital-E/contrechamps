@@ -2,10 +2,12 @@ import styled from 'styled-components'
 import Image from "../image"
 import Body from "../body"
 import DateComponent from "../date-component"
+import Video from "../video"
 
 import sanitizeTag from "../../lib/sanitizeTag"
 
 import Link from "../link"
+
 
 
 let ListItem = styled.div`
@@ -102,7 +104,12 @@ let ColRight = styled.div`
     }
 
     > div:nth-child(2) > div:nth-child(1) {
+        display: flex;
         flex-basis: 40%;
+    }
+
+    > div:nth-child(2) > div:nth-child(1) > div {
+        margin-top: auto;
     }
 
     > div:nth-child(2) > div:nth-child(2) {
@@ -129,7 +136,7 @@ const Location = styled.div`
 
 
 
-export default function Component({ data }) {
+export default function Component({ data, isVideo }) {
 
     let item = data;
 
@@ -142,7 +149,8 @@ export default function Component({ data }) {
 
     tags = tags.join(" ");
 
-    return (
+
+    return !isVideo ? (
     <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
         <Link href={item.slug}>
             <ColLeft>
@@ -166,5 +174,31 @@ export default function Component({ data }) {
             </ColRight>
         </Link>
     </ListItem>
+    )
+    :
+    (
+    <ListItem key={item._id} className={`border-bottom ${tags}`}>
+        <a href>
+            <ColLeft>
+                <Video data={item?.video} />
+            </ColLeft>
+            <ColRight>
+                <h1>{item.title}</h1>
+                <div>
+                    <div>
+                        <div className="h4">
+                            <Body content={item?.textfieldone} />
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <Location className="h4">
+                        <div><Body content={item?.textfieldtwo} /></div>
+                    </Location>
+                </div>
+            </ColRight>
+        </a>
+    </ListItem>        
     )
 }

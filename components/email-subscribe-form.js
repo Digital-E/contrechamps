@@ -21,7 +21,7 @@ const Container = styled.div`
         flex-direction: row;
     }
 
-    @media(max-width: 1250px) {
+    @media(max-width: 1330px) {
       form {
         flex-direction: column;
       }
@@ -94,7 +94,7 @@ const Container = styled.div`
         height: 40px;
     }
 
-    @media(max-width: 1250px) {
+    @media(max-width: 1330px) {
       button {
         margin: 0;
       }
@@ -105,7 +105,7 @@ const Container = styled.div`
         // opacity: 0.3;
     }
 
-    @media(max-width: 1250px) {
+    @media(max-width: 1330px) {
       margin: 30px 0;
     }
 `;
