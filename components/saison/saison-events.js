@@ -34,7 +34,8 @@ let InnerMonthDivider = styled.div`
     display: block;
     position: relative;
     width: fit-content;
-    margin: 0 auto;
+    // margin: 0 auto;
+    margin: 0 20px;
 
     > .h1 {
         line-height: 1.2;
@@ -42,7 +43,7 @@ let InnerMonthDivider = styled.div`
 
     @media(min-width: 768px) {
         > .h1 {
-            font-size: 8vw;
+            font-size: 7vw;
         }
 
         .year {
@@ -160,7 +161,7 @@ export default function Component ({ data }) {
                             <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
                                     <div className="h1">{item.longMonth}</div>
-                                    <div className="p year">{item.year}</div>
+                                    {/* <div className="p year">{item.year}</div> */}
                                 </InnerMonthDivider>
                             </MonthDivider>
                             <EventList data={item.events}  />

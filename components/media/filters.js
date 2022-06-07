@@ -15,7 +15,7 @@ let Container = styled.div`
 
     .season-filters {
         display: flex;
-        padding: 10px 30px;
+        padding: 0px 30px;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
         background: black;
@@ -27,7 +27,7 @@ let Container = styled.div`
         align-items: center;
         cursor: pointer;
         flex-basis: auto;
-        margin-right: 50px;
+        margin-right: 40px;
     }
 
     @media(max-width: 767px) {
@@ -43,8 +43,8 @@ let Container = styled.div`
     }
 
     .season-filter__selector {
-        width: 20px;
-        height: 20px;
+        width: 13px;
+        height: 13px;
         // border: var(--border-width) solid black;
         background: white;
         border-radius: 999px;

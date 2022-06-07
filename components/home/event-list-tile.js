@@ -89,7 +89,7 @@ let ColRight = styled.div`
     margin-top: 15px;
 
     > h1 {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     > div:nth-child(2) {

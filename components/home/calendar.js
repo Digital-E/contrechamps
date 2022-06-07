@@ -19,10 +19,10 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 15px 20px 15px 20px;
+        padding: 15px 20px 0px 20px;
     }
 
-    @media(max-width: 1420px) {
+    @media(max-width: 1260px) {
         .home-calendar {
             justify-content: flex-start;
             flex-direction: column;
@@ -53,12 +53,13 @@ let Container = styled.div`
         margin-left: 10px;
     }
 
-    .home-calendar__month > span:nth-child(2) {
+    .home-calendar__month > span:nth-child(3) {
         display: inline-block;
         text-decoration: underline;
         position: relative;
         color: red;
         width: 5.5em;
+        margin-left: 20px;
     }
 
     .arrow-next, .arrow-prev {
@@ -70,7 +71,7 @@ let Container = styled.div`
     .arrow-next::after {
         content:"";
         position: absolute;
-        top: -0.85em;
+        top: -0.7em;
         right: -2.5em;
         transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
         width: 0;
@@ -83,7 +84,7 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.84em;
+        top: 0.6em;
         right: -1.5em;
         transform: translateY(-50%) rotateZ(90deg) scale(1.5);
         width: 0;
@@ -100,7 +101,7 @@ let Container = styled.div`
     .home-calendar__day {
         position: relative;
         display: inline-block;
-        padding: 0 10px;
+        padding: 0 8px;
         transition-duration: var(--transition-out);
         align-items: center;
         margin-bottom: 20px;
@@ -108,12 +109,6 @@ let Container = styled.div`
 
     .home-calendar__day > span {
         text-align: center;
-    }
-
-    @media(max-width: 1420px) {
-        .home-calendar__col-right {
-            margin-top: 20px;
-        }
     }
 
     @media(max-width: 1260px) {
@@ -137,7 +132,6 @@ let Container = styled.div`
     @media(max-width: 767px) {
         .home-calendar {
             flex-wrap: wrap;
-            padding: 20px;
         }
 
         .home-calendar__col-right {
@@ -155,11 +149,11 @@ let Container = styled.div`
         }
 
         .arrow-prev::after {
-            top: 0.7em;
+            top: 0.6em;
         }
 
         .arrow-next::after {
-            top: -0.6em;
+            top: -0.7em;
         }
     }
 
@@ -182,11 +176,11 @@ let Container = styled.div`
     .home-calendar__day--has-event::after {
         content: "";
         position: absolute;
-        bottom: -7px;
-        left: calc(50% - 5px);
+        bottom: -4px;
+        left: calc(50% - 3.5px);
         transform: translateY(-50%);
-        width: 10px;
-        height: 10px;
+        width: 7px;
+        height: 7px;
         border-radius: 999px;
         background: black;
     }
@@ -194,11 +188,11 @@ let Container = styled.div`
     .home-calendar__day--has-two-events::before {
         content: "";
         position: absolute;
-        bottom: -22px;
-        left: calc(50% - 5px);
+        bottom: -15px;
+        left: calc(50% - 3.5px);
         transform: translateY(-50%);
-        width: 10px;
-        height: 10px;
+        width: 7px;
+        height: 7px;
         border-radius: 999px;
         background: black;
     }
@@ -238,7 +232,7 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        width: 400px;
+        width: 350px;
         max-height: 600px;
         border: 1px solid black;
         background-color: white;
@@ -250,7 +244,7 @@ let Container = styled.div`
 
     @media(min-width: 768px) {
         .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
-            margin-left: -350px;
+            margin-left: -300px;
         }
     }
 
@@ -322,7 +316,7 @@ let Container = styled.div`
 
 
     .home-calendar__title {
-        margin-top: 50px;
+        margin: 20px 0 5px 0;
     }
 
     .home-calendar__image {
@@ -428,13 +422,18 @@ export default function Component({ data }) {
 
                     let date = parseISO(itemTwo.timestamp.toISOString())
 
-                    if(itemThree.startdate === format(date, 'yyyy-LL-dd')) {
-                        months[indexOne][indexTwo].events.push(itemThree)
-                    }
+                    // if(itemThree.startdate === format(date, 'yyyy-LL-dd')) {
+                    //     months[indexOne][indexTwo].events.push(itemThree)
+                    // }
 
-                    itemThree.occurences?.forEach((itemFour) => {
+                    itemThree.occurences?.forEach((itemFour, indexFour) => {
                         if(itemFour.startdate === format(date, 'yyyy-LL-dd')) {
-                            months[indexOne][indexTwo].events.push(itemThree)
+
+                            let newItemThree = Object.assign({}, itemThree);
+
+                            newItemThree.index = indexFour;
+                            
+                            months[indexOne][indexTwo].events.push(newItemThree)
                         }
                     })
                 })
@@ -499,6 +498,9 @@ export default function Component({ data }) {
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
+                    <span class="home-calendar__year h5">
+                        {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
+                    </span>
                     <span class="h5">
                         <Link href={`/${router.query.lang}/saison`}>
                             {
@@ -507,9 +509,6 @@ export default function Component({ data }) {
                             }
                         </Link>
                     </span>
-                    <span class="home-calendar__year h5">
-                        {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
-                        </span>
                     <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
                 </div>
                 </div>
@@ -525,12 +524,13 @@ export default function Component({ data }) {
                                 <div class="home-calendar__modal">
                                     <div class="home-calendar__events">
                                         {
-                                            item.events.map(item => (
+                                            item.events.map((item, index) => (
                                                 <div class="home-calendar__event">
                                                     <Link href={item.slug}>
                                                     <div class="home-calendar__information">
                                                         <div>
-                                                        <DateComponent data={item} />
+                                                        {/* {item.index === undefined && <DateComponent data={item} />} */}
+                                                        {(item.occurences) && <DateComponent data={item.occurences[item.index]} />}
                                                         </div>
                                                         <div>
                                                         <h6><Body content={item.location} /></h6>

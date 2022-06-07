@@ -9,14 +9,14 @@ let Header = styled.div`
     padding: 20px;
 
     > span {
-        font-size: 12vw;
+        font-size: 7vw;
     }
 
     @media(min-width: 768px) {
         padding: 0 20px;
 
         > span {
-            font-size: 12vw;
+            font-size: 7vw;
             margin: 0;
             line-height: 1;
             text-align: center;

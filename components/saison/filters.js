@@ -15,7 +15,7 @@ let Container = styled.div`
 
     .season-filters {
         display: flex;
-        padding: 10px 30px;
+        padding: 0 30px;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
         background: black;
@@ -28,7 +28,7 @@ let Container = styled.div`
         align-items: center;
         cursor: pointer;
         flex-basis: auto;
-        margin-right: 50px;
+        margin-right: 40px;
     }
 
     .season-filter:hover .season-filter__selector {
@@ -36,8 +36,8 @@ let Container = styled.div`
     }
 
     .season-filter__selector {
-        width: 16px;
-        height: 16px;
+        width: 13px;
+        height: 13px;
         // border: var(--border-width) solid black;
         background: white;
         border-radius: 999px;
@@ -51,6 +51,7 @@ let Container = styled.div`
     .season-filter--active .season-filter__selector  {
         background-color: red;
     }
+
 
     @media(max-width: 767px) {
         .season-filters {
@@ -69,6 +70,10 @@ let Document = styled.div`
     display: flex;
     align-items: center;
     margin-left: auto;
+
+    @media(max-width: 1120px) {
+        margin-left: 0;
+    }
 `
 
 

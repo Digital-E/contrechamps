@@ -105,7 +105,7 @@ const Container = styled.div`
         // opacity: 0.3;
     }
 
-    @media(max-width: 989px) {
+    @media(max-width: 1250px) {
       margin: 30px 0;
     }
 `;
