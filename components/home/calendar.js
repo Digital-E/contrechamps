@@ -500,13 +500,32 @@ export default function Component({ data }) {
                 }
             }
 
+            let toggleModalVisibleOn = (item) => {
+                if(item.classList.contains("home-calendar__day--has-event")) {
+                    item.classList.add("home-calendar__modal--show")
+                    document.querySelector(".home-calendar").style.zIndex = "999";
+                }
+            }
+
+            let toggleModalVisibleOff = (item) => {
+                if(item.classList.contains("home-calendar__day--has-event")) {
+                    console.log(item)
+                    item.classList.remove("home-calendar__modal--show")
+                    document.querySelector(".home-calendar").style.zIndex = "0";
+                }
+            }
+
             Array.from(allHomeCalendarDays).forEach(item => {
                 if(window.innerWidth > 768) {
                     item.addEventListener("mouseenter", () => toggleModalVisible(item));
                     item.addEventListener("mouseleave", () => toggleModalVisible(item));
                 } else {
-                    item.addEventListener("touchstart", () => toggleModalVisible(item));
+                    item.children[0].addEventListener("touchstart", () => toggleModalVisibleOn(item));
                 }
+            })
+            
+            Array.from(allHomeCalendarDays).forEach(item => {
+                item.children[1].addEventListener("touchstart", () => toggleModalVisibleOff(item));
             })  
 
         }, 0)

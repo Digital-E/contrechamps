@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
 const Orb = styled.div`
@@ -77,6 +77,7 @@ export default ({ data }) => {
 
         if(action === "play") {
             video.play();
+            video.muted = false;
             document.querySelector(".circles-container").style.zIndex = "999999";
         } else {
             video.currentTime = 0;
@@ -85,9 +86,17 @@ export default ({ data }) => {
         }
     }
 
+    useEffect(() => {
+        togglePlay(orbRef.current.parentNode, "pause")
+    }, []);
+
     return (
         <Orb>
             <video 
+            muted="true"
+            preload="true"
+            autoPlay="true"
+            playsInline="true"
             loop="true">
                 <source 
                 src="videos/video1.mp4" 
@@ -105,6 +114,10 @@ export default ({ data }) => {
                 onMouseLeave={() => {
                     togglePlay(orbRef.current.parentNode, "pause")
                     setIsHovered(false)
+                }}
+                onTouchStart={() => {
+                    togglePlay(orbRef.current.parentNode, "play")
+                    setIsHovered(true)
                 }}
             />
             <Text className={isHovered ? "hovered" : ""}>
