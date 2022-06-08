@@ -35,7 +35,7 @@ const Container = styled.div`
             height: auto;
             flex-wrap: wrap;
         }
-        
+
         margin-top: -7vw;
     }
 
@@ -55,10 +55,10 @@ export default ({ data }) => {
     return (
         <Container className="circles-container">
             <div>
-                <Orb />
-                <Orb />
-                <Orb />
-                <Orb />
+                <Orb index={1}/>
+                <Orb index={2}/>
+                <Orb index={3}/>
+                <Orb index={4}/>
             </div>
         </Container>
     )

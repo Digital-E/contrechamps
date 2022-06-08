@@ -67,7 +67,7 @@ const Text = styled.div`
 
 
 
-export default ({ data }) => {
+export default ({ data, index }) => {
     let orbRef = useRef();
     let [isHovered, setIsHovered] = useState(false);
 
@@ -99,11 +99,11 @@ export default ({ data }) => {
             playsInline="true"
             loop="true">
                 <source 
-                src="videos/video1.mp4" 
+                src={`videos/video${index}.mp4`} 
                 type='video/mp4; codecs="hvc1"'
                 />
                 <source 
-                src="videos/video1.webm" 
+                src={`videos/video${index}.webm`}
                 type="video/webm"/>
             </video>
             <Circle ref={orbRef} 
