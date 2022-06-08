@@ -148,6 +148,12 @@ a:hover, button:hover {
       margin-top: 77px;
   }
 
+  /* @media(max-width: 767px) {
+    .layout {
+        margin-top: 50px;
+    } 
+  } */
+
   header {
       background: white;
   }

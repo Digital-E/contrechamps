@@ -17,7 +17,7 @@ let Container = styled.div`
     .home-calendar {
         position: relative;
         flex-direction: row;
-        z-index: 2;
+        z-index: 0;
         display: flex;
         width: 100%;
         justify-content: space-between;
@@ -265,7 +265,13 @@ let Container = styled.div`
         z-index: 998;
     }
 
-    @media(min-width: 768px) {
+    @media(min-width: 576px) {
+        .home-calendar__modal {
+            margin-left: 0px;
+        }
+    }
+
+    @media(min-width: 992px) {
         .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
             margin-left: -300px;
         }
@@ -486,14 +492,16 @@ export default function Component({ data }) {
                 if(item.classList.contains("home-calendar__day--has-event")) {
                     if(item.classList.contains("home-calendar__modal--show")) {
                     item.classList.remove("home-calendar__modal--show")
+                    document.querySelector(".home-calendar").style.zIndex = "0";
                     } else {
                         item.classList.add("home-calendar__modal--show")
+                        document.querySelector(".home-calendar").style.zIndex = "999";
                     }
                 }
             }
 
             Array.from(allHomeCalendarDays).forEach(item => {
-                if(window.innerWidth > 992) {
+                if(window.innerWidth > 768) {
                     item.addEventListener("mouseenter", () => toggleModalVisible(item));
                     item.addEventListener("mouseleave", () => toggleModalVisible(item));
                 } else {

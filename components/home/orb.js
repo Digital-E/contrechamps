@@ -23,6 +23,7 @@ const Orb = styled.div`
         width: 50vw !important;
         height: 50vw !important;
         flex-basis: auto;
+        margin-top: -4vw;
     }
 `
 
@@ -54,8 +55,8 @@ const Text = styled.div`
         margin: 0;
     }
 
-    @media(max-width: 768px) {
-        bottom: 3vw;
+    @media(max-width: 1199px) {
+        bottom: 0;
 
         * {
             font-size: 0.8rem;

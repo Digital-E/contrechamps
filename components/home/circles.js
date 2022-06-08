@@ -35,6 +35,8 @@ const Container = styled.div`
             height: auto;
             flex-wrap: wrap;
         }
+        
+        margin-top: -7vw;
     }
 
     -ms-overflow-style: none;
