@@ -7,6 +7,8 @@ import Body from "../body"
 import Image from "../image"
 import DateComponent from "../date-component"
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 import { parseISO, format } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
 
@@ -52,7 +54,7 @@ let Container = styled.div`
         display: inline-block;
     }
 
-    .home-calendar__month > span:nth-child(3) {
+    .home-calendar__month > span:nth-child(4) {
         display: inline-block;
         text-decoration: underline;
         position: relative;
@@ -70,8 +72,8 @@ let Container = styled.div`
     .arrow-next::after {
         content:"";
         position: absolute;
-        top: -0.7em;
-        right: -2.5em;
+        top: 0.65em;
+        right: -2.7em;
         transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
         width: 0;
         height: 0;
@@ -83,7 +85,7 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.6em;
+        top: 0.65em;
         right: -1.5em;
         transform: translateY(-50%) rotateZ(90deg) scale(1.5);
         width: 0;
@@ -158,11 +160,11 @@ let Container = styled.div`
         }
 
         .arrow-prev::after {
-            top: 0.6em;
+            right: -1.5em;
         }
 
         .arrow-next::after {
-            top: -0.7em;
+            right: -3em;
         }
     }
 
@@ -245,10 +247,22 @@ let Container = styled.div`
         max-height: 600px;
         border: 1px solid black;
         background-color: white;
-        z-index: 1;
+        z-index: 999;
         overflow: scroll;
         margin-top: -10px;
         margin-left: -50px;
+    }
+
+    .home-calendar__modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 998;
     }
 
     @media(min-width: 768px) {
@@ -266,9 +280,13 @@ let Container = styled.div`
             top: 50%;
             transform: translate(-50%, -50%);
             width: calc(100vw - 40px);
-        }  
+        } 
+        
+        .home-calendar__modal--show .home-calendar__modal-overlay {
+            display: block;
+        }
     }
-
+    
     .home-calendar__modal--show .home-calendar__modal {
         display: block;
     }
@@ -475,8 +493,12 @@ export default function Component({ data }) {
             }
 
             Array.from(allHomeCalendarDays).forEach(item => {
-                item.addEventListener("mouseenter", () => toggleModalVisible(item));
-                item.addEventListener("mouseleave", () => toggleModalVisible(item));
+                if(window.innerWidth > 992) {
+                    item.addEventListener("mouseenter", () => toggleModalVisible(item));
+                    item.addEventListener("mouseleave", () => toggleModalVisible(item));
+                } else {
+                    item.addEventListener("touchstart", () => toggleModalVisible(item));
+                }
             })  
 
         }, 0)
@@ -507,18 +529,18 @@ export default function Component({ data }) {
                 </div>
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
+                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
                     <span class="home-calendar__year h5">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                     </span>
                     <span class="h5">
-                        <Link href={`/${router.query.lang}/saison`}>
+                        <Link href={`/${router.query.lang}/saison#${allMonths[currentMonthIndex][0] && sanitizeTag(format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL-yyyy', {locale: router.query.lang === "fr" ? fr : enGB}))}`}>
                             {
                                 allMonths[currentMonthIndex][0] && 
                                 format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL', {locale: router.query.lang === "fr" ? fr : enGB})
                             }
                         </Link>
                     </span>
-                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
                 </div>
                 </div>
                 <div class="home-calendar__col-right">
@@ -530,6 +552,7 @@ export default function Component({ data }) {
                                 ${item.events.length > 1 && 'home-calendar__day--has-two-events'}
                                 `}>
                                 <span>{index + 1}</span>
+                                <div class="home-calendar__modal-overlay"></div>
                                 <div class="home-calendar__modal">
                                     <div class="home-calendar__events">
                                         {

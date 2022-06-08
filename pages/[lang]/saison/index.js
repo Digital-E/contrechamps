@@ -46,6 +46,10 @@ data = data?.data;
                 <title>
                   {data.title} | {SITE_NAME}
                 </title>
+                <meta
+                  name="description"
+                  content={data.content}
+                />
               </Head>
               <SaisonHeader data={data} withBorder={true} />
               <Filters data={data} />

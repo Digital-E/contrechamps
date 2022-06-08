@@ -10,7 +10,7 @@ let Container = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  z-index: 9999;
+  z-index: 2;
   top: 0;
 
 
@@ -168,7 +168,13 @@ export default function Header({ data }) {
 
   return (
     <Container className={menuOpen ? "nav--open" : ""}>
-      <div className="h4" onClick={() => setMenuOpen(false)}><Link href="/">Contrechamps</Link></div>
+      <div className="h4" 
+        onClick={() => {
+          setMenuOpen(false);
+          sessionStorage.setItem('contrechampsAcceptedSound', "true");
+          }}>
+          <Link href="/">Contrechamps</Link>
+      </div>
       <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
         <div></div>
         <div></div>

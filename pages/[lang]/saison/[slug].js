@@ -43,6 +43,10 @@ export default function Post({ data = {}, preview }) {
                 <title>
                   {post.title} | {SITE_NAME}
                 </title>
+                <meta
+                  name="description"
+                  content={post.content}
+                />
                 {post.image && (
                   <meta
                     key="ogImage"

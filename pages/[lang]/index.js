@@ -15,9 +15,9 @@ import { getClient, overlayDrafts } from '../../lib/sanity.server'
 
 // Components
 import EventList from "../../components/home/event-list"
-import Video from "../../components/home/video"
 import Circles from '../../components/home/circles'
 import Calendar from '../../components/home/calendar'
+import Overlay from "../../components/home/overlay"
 
 export default function Index({ data = {}, preview }) {
   // const heroPost = allPosts[0]
@@ -85,6 +85,7 @@ export default function Index({ data = {}, preview }) {
           content={homeData?.content}
           />
         </Head>
+        <Overlay />
         <Circles data={homeData} />
         <Calendar data={data.news} />
         {/* <Video data={homeData} title={homeData?.videoTitle}/> */}

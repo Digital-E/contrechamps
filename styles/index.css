@@ -85,6 +85,13 @@ a:hover, button:hover {
     color: red;
 }
 
+.button {
+    border: 1px solid black;
+    border-radius: 999px;
+    padding: 0.5em 0.7em;
+    height: fit-content;
+}
+
 * { 
     font-feature-settings: 'ss02';
 }
@@ -228,6 +235,10 @@ a:hover, button:hover {
     .dark-background .event-tile:hover a {
         background-color: white !important;
         color: black !important;
+    }
+
+    .dark-background .button {
+        border: 1px solid white;
     }
 
 /* -------------------------------------------------------------------------- */

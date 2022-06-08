@@ -1,12 +1,6 @@
-import Link from "./link"
 import styled from "styled-components"
 
-const Container = styled.div`
-    border: 1px solid black;
-    border-radius: 999px;
-    padding: 0.5em 0.7em;
-    height: fit-content;
-`
+const Container = styled.div``
 
 
 export default function Component ({ url, label }) {

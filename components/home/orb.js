@@ -40,7 +40,7 @@ const Circle = styled.div`
 
 const Text = styled.div`
     position: absolute;
-    bottom: 1vw;
+    bottom: 1.5vw;
     opacity: 0;
     transition-duration: 0.3s;
     padding: 0 20px;
@@ -55,7 +55,7 @@ const Text = styled.div`
     }
 
     @media(max-width: 768px) {
-        bottom: -3vw;
+        bottom: 3vw;
 
         * {
             font-size: 0.8rem;

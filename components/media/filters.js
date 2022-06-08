@@ -70,8 +70,7 @@ let Container = styled.div`
         } 
 
         .season-filter {
-            margin-right: 15px;
-            // flex-basis: 33.3333%;
+            margin-right: 30px;
         }
     }
 `

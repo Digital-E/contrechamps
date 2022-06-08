@@ -34,6 +34,10 @@ export default function Component({ data = {}, preview }) {
                 <title>
                   {data.data.title} | {SITE_NAME}
                 </title>
+                <meta
+                  name="description"
+                  content={data.data.content}
+                />
               </Head>
               <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} />
           </>

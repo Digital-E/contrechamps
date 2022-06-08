@@ -4,6 +4,8 @@ import { useRouter } from "next/router"
 import { parseISO, format, getMonth } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 import styled from "styled-components"
 import EventList from "../home/event-list"
 
@@ -154,14 +156,29 @@ export default function Component ({ data }) {
         
     },[]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            if(window.location.hash) {
+                let hashElement = document.querySelector(window.location.hash)
+
+                if(hashElement) {
+                    window.scrollTo({left: 0, top: hashElement.getBoundingClientRect().top - 80})
+                }
+            }
+        }, 0)
+
+    }, []);
+
 
     return (
         <Container>
             {
                 eventsByMonth.map(item => {
 
+                    let monthAndYear = `${item.longMonth}-${item.year}`
+
                     return (
-                        <MonthWrapper className={item.passed === true && "passed-event"}>
+                        <MonthWrapper className={item.passed === true && "passed-event"} id={`${sanitizeTag(monthAndYear)}`}>
                             <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
                                     <div className="h1">{item.longMonth}</div>

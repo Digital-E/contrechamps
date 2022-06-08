@@ -63,6 +63,10 @@ export default function Post({ data = {}, preview }) {
                 <title>
                   {data.data.title} | {SITE_NAME}
                 </title>
+                <meta
+                  name="description"
+                  content={data.data.content}
+                />
               </Head>
               <MediasHeader data={data.data} />
               <Filters data={data.data} />

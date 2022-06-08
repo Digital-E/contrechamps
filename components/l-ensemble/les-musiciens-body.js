@@ -46,8 +46,10 @@ const ColMiddle = styled.div`
 const ColRight = styled.div`
   flex-basis: 70%;
 
-  > div *:nth-child(1) {
-    margin-top: 0px !important;
+  @media(min-width: 768px) {
+    > div *:nth-child(1) {
+      margin-top: 0px !important;
+    }
   }
 
   @media(max-width: 767px) {

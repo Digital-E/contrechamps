@@ -33,6 +33,10 @@ export default function Component({ data = {}, preview }) {
                 <title>
                   {data.data.title} | {SITE_NAME}
                 </title>
+                <meta
+                  name="description"
+                  content={data.content}
+                />
               </Head>
               <LesMusiciensBody data={data.data} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} isSubPage={true} isSubSubPage={true} />
           </>
