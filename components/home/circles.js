@@ -3,6 +3,8 @@ import styled from "styled-components"
 
 import Orb from "./orb"
 
+import _ from "lodash"
+
 const Container = styled.div`
     position: relative;
     z-index: 0;
@@ -52,13 +54,19 @@ const Container = styled.div`
 
 export default ({ data }) => {
 
+    let [allOrbs, setAllOrbs] = useState([]);
+
+    useEffect(() => {
+        let shuffleOrbs = _.shuffle(data)
+        let fourOrbs = shuffleOrbs.splice(0,4);
+        
+        setAllOrbs([...fourOrbs]);
+    }, []);
+
     return (
         <Container className="circles-container">
             <div>
-                <Orb index={1}/>
-                <Orb index={2}/>
-                <Orb index={3}/>
-                <Orb index={4}/>
+                {allOrbs.map(item => <Orb key={item._key} data={item} />)}
             </div>
         </Container>
     )

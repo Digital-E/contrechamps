@@ -27,13 +27,13 @@ export default function Index({ data = {}, preview }) {
 
   const slug = data?.homeData?.slug
 
-  const {
-    data: { homeData },
-  } = usePreviewSubscription(homeQuery, {
-    params: { slug },
-    initialData: data,
-    enabled: preview && slug,
-  })
+  // const {
+  //   data: { homeData },
+  // } = usePreviewSubscription(homeQuery, {
+  //   params: { slug },
+  //   initialData: data,
+  //   enabled: preview && slug,
+  // })
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -61,7 +61,7 @@ export default function Index({ data = {}, preview }) {
 
     let splicedAllEventsArray = [];
 
-    if(homeData.video !== null) {
+    if(data.homeData.video !== null) {
       splicedAllEventsArray = allEventsArray.splice(0, 5)
     } else {
       splicedAllEventsArray = allEventsArray.splice(0, 6)
@@ -79,17 +79,17 @@ export default function Index({ data = {}, preview }) {
     <>
       <Layout preview={preview}>
         <Head>
-          <title>{homeData?.title} | { SITE_NAME }</title>
+          <title>{data?.homeData?.title} | { SITE_NAME }</title>
           <meta
           name="description"
-          content={homeData?.content}
+          content={data?.homeData?.content}
           />
         </Head>
         <Overlay />
-        <Circles data={homeData} />
+        <Circles data={data?.homeData?.circles} />
         <Calendar data={data.news} />
         {/* <Video data={homeData} title={homeData?.videoTitle}/> */}
-        <EventList data={allEvents} title={homeData?.newsTitle} videoData={homeData}/>
+        <EventList data={allEvents} title={data?.homeData?.newsTitle} videoData={data?.homeData}/>
       </Layout>
     </>
   )

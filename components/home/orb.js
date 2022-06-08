@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
+import Body from "../body"
+
 const Orb = styled.div`
     position: relative;
     flex-basis: 25%;
@@ -8,6 +10,7 @@ const Orb = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    z-index: 0;
 
     > video {
         position: absolute;
@@ -33,6 +36,7 @@ const Circle = styled.div`
     background: white;
     border-radius: 999px;
     cursor: pointer;
+    opacity: 0;
 
     max-width: calc(1800px / 4);
     max-height: calc(1800px / 4);
@@ -69,6 +73,7 @@ const Text = styled.div`
 
 export default ({ data, index }) => {
     let orbRef = useRef();
+    let orbWrapperRef = useRef();
     let [isHovered, setIsHovered] = useState(false);
 
     let togglePlay = (orb, action) => {
@@ -79,10 +84,14 @@ export default ({ data, index }) => {
             video.play();
             video.muted = false;
             document.querySelector(".circles-container").style.zIndex = "999999";
+            orbWrapperRef.current.style.zIndex = "999999";
+            // orbRef.current.style.opacity = 0;
         } else {
             video.currentTime = 0;
             video.pause();
             document.querySelector(".circles-container").style.zIndex = "0";
+            orbWrapperRef.current.style.zIndex = "0";
+            // orbRef.current.style.opacity = 1;
         }
     }
 
@@ -91,19 +100,20 @@ export default ({ data, index }) => {
     }, []);
 
     return (
-        <Orb>
+        <Orb ref={orbWrapperRef}>
             <video 
             muted="true"
             preload="true"
             autoPlay="true"
             playsInline="true"
-            loop="true">
+            // loop="true"
+            >
                 <source 
-                src={`videos/video${index}.mp4`} 
+                src={data.videoMp4} 
                 type='video/mp4; codecs="hvc1"'
                 />
                 <source 
-                src={`videos/video${index}.webm`}
+                src={data.videoWebM}
                 type="video/webm"/>
             </video>
             <Circle ref={orbRef} 
@@ -121,7 +131,7 @@ export default ({ data, index }) => {
                 }}
             />
             <Text className={isHovered ? "hovered" : ""}>
-                <p>Heinz Holliger<br/>song1_nocturne_titre.wav</p>
+                <Body content={data.label} />
             </Text>
         </Orb>
     )
