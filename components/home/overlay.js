@@ -65,6 +65,10 @@ export default ({ data }) => {
     let toggleHasClicked = () => {
         setHasClicked(true);
         sessionStorage.setItem('contrechampsAcceptedSound', "true");
+
+        let video = document.querySelector("video");
+        video.play();
+        video.pause();
     }
 
     return (

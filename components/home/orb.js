@@ -95,16 +95,16 @@ export default ({ data, index }) => {
         }
     }
 
-    useEffect(() => {
-        togglePlay(orbRef.current.parentNode, "pause")
-    }, []);
+    // useEffect(() => {
+    //     togglePlay(orbRef.current.parentNode, "pause")
+    // }, []);
 
     return (
         <Orb ref={orbWrapperRef}>
             <video 
             muted="true"
             preload="true"
-            autoPlay="true"
+            // autoPlay="true"
             playsInline="true"
             // loop="true"
             >
@@ -116,7 +116,11 @@ export default ({ data, index }) => {
                 src={data.videoWebM}
                 type="video/webm"/>
             </video>
-            <Circle ref={orbRef} 
+            <Circle ref={orbRef}
+                onClick={() => {
+                    togglePlay(orbRef.current.parentNode, "play")
+                    setIsHovered(true)
+                }}             
                 onMouseEnter={() => {
                     togglePlay(orbRef.current.parentNode, "play")
                     setIsHovered(true)
