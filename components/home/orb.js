@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
+import Bowser from "bowser";
+
 import Body from "../body"
 
 const Orb = styled.div`
@@ -101,9 +103,23 @@ export default ({ data, index }) => {
         }
     }
 
-    // useEffect(() => {
-    //     togglePlay(orbRef.current.parentNode, "pause")
-    // }, []);
+    useEffect(() => {
+        // togglePlay(orbRef.current.parentNode, "pause")
+        const browser = Bowser.getParser(window.navigator.userAgent).getBrowser();
+
+        // Hide Circles if Safari version is lower or eqaul to 14.1
+
+        if(browser.name === "Safari" && browser.version <= 14.1) {
+            orbWrapperRef.current.style.display = "none";
+            if(document.querySelector(".circles-container")) {
+                document.querySelector(".circles-container").style.height = "5vw";
+            }
+
+            if(document.querySelector(".event-header__col-left")) {
+                document.querySelector(".event-header__col-left").style.height = "0";
+            }
+        }
+    }, []);
 
     return (
         <Orb ref={orbWrapperRef}>

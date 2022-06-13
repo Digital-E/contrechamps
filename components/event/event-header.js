@@ -124,11 +124,9 @@ const DateInner = styled.div`
 
 export default function EventHeader({ data }) {
 
-  console.log(data.videoMp4)
-
   return (
     <Container>
-      <ColLeft hasVideo={data.videoMp4 === null ? false : true}>
+      <ColLeft hasVideo={data.videoMp4 === null ? false : true} className="event-header__col-left">
         <Orb data={data}/>
       </ColLeft>
       <ColRight>

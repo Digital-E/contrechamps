@@ -158,6 +158,10 @@ a:hover, button:hover {
       background: white;
   }
 
+  header > div:nth-child(1) a {
+    color: black !important;
+  }
+
   /* ------------------------------- Dark Styles ------------------------------ */
 
   .dark-background {
@@ -167,6 +171,10 @@ a:hover, button:hover {
 
   .dark-background header {
       background: black;
+  }
+
+  .dark-background header > div:nth-child(1) a {
+    color: white !important;
   }
 
   .dark-background .nav-mobile-burger > div {
