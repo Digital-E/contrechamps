@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useState } from "react"
 import Link from './link'
 import LocaleLink from "./locale-link"
@@ -162,6 +163,7 @@ let LanguageSwitch = styled.div`
 
 export default function Header({ data }) {
   let [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   if(data === undefined) return null;
 
@@ -173,7 +175,7 @@ export default function Header({ data }) {
           setMenuOpen(false);
           sessionStorage.setItem('contrechampsAcceptedSound', "true");
           }}>
-          <Link href="/">Contrechamps</Link>
+          <Link href={`/${router.asPath.split("/")[1]}`}>Contrechamps</Link>
       </div>
       <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
         <div></div>

@@ -1,9 +1,11 @@
+import { useRouter } from "next/router"
 import Head from 'next/head'
 import Layout from "../components/layout";
 import styled from 'styled-components';
 
 import { menuQuery, footerQuery } from '../lib/queries'
 import { getClient } from '../lib/sanity.server'
+
 
 import { SITE_NAME } from "../lib/constants"
 
@@ -28,6 +30,8 @@ const Container = styled.div`
 
 
 export default function Custom404({ data = {}, preview }) {
+    const router = useRouter();
+
     return (
     <Layout preview={preview}>
       <Head>
@@ -36,7 +40,7 @@ export default function Custom404({ data = {}, preview }) {
       <Container>
           <div>
             <h2>404 - Page Not Found</h2>
-            <a href="/">Go Home</a>
+            <a href={`/${router.asPath.split("/")[1]}`}>Go Home</a>
           </div>
       </Container>
     </Layout>

@@ -49,6 +49,7 @@ const Text = styled.div`
     opacity: 0;
     transition-duration: 0.3s;
     padding: 0 20px;
+    width: 100%;
 
     &.hovered {
         opacity: 1;
@@ -57,6 +58,7 @@ const Text = styled.div`
 
     * {
         margin: 0;
+        word-break: break-word;
     }
 
     @media(max-width: 1199px) {
@@ -80,18 +82,22 @@ export default ({ data, index }) => {
 
         let video = orb.children[0];
 
+        let circlesContainer = document.querySelector(".circles-container");
+
         if(action === "play") {
             video.play();
             video.muted = false;
-            document.querySelector(".circles-container").style.zIndex = "999999";
+            if(circlesContainer) {
+                circlesContainer.style.zIndex = "999999";
+            }
             orbWrapperRef.current.style.zIndex = "999999";
-            // orbRef.current.style.opacity = 0;
         } else {
             video.currentTime = 0;
             video.pause();
-            document.querySelector(".circles-container").style.zIndex = "0";
+            if(circlesContainer) {
+                circlesContainer.style.zIndex = "0";
+            }
             orbWrapperRef.current.style.zIndex = "0";
-            // orbRef.current.style.opacity = 1;
         }
     }
 
