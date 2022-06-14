@@ -1,7 +1,7 @@
 import Link from '../link'
 import styled from "styled-components"
 
-let Container = styled.header`
+let Container = styled.div`
   display: flex;
   justify-content: space-between;
 
