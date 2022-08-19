@@ -113,7 +113,7 @@ export default function Component ({ data }) {
 
         data.forEach(item => {
             let date = parseISO(item.startdate)
-            let eventMonth = format(date, 'yyyy-LL');
+            let eventMonth = date.toString() !== "Invalid Date" ? format(date, 'yyyy-LL') : null;
 
 
             eventsByMonthArray.forEach((month) => {

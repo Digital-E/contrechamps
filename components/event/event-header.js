@@ -133,9 +133,9 @@ export default function EventHeader({ data }) {
         <Title>{data.title}</Title>
         <Information>
           <Date className="h4">
-            <DateInner>
+            {/* <DateInner>
               <DateComponent data={data} />
-            </DateInner>
+            </DateInner> */}
             {data.occurences?.map(item => 
               <>
                   <DateInner>
