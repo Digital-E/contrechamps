@@ -270,6 +270,10 @@ a:hover, button:hover {
         border: 1px solid white;
     }
 
+    .button.active-link {
+        border: 1px solid red;
+    }
+
     .dark-background .media-item:hover > a
      {
         background: white;

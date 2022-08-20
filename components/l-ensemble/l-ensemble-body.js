@@ -92,6 +92,12 @@ export default function Component({ data, menuData }) {
 
     }, []);
 
+    useEffect(() => {
+      if(window.innerWidth > 989) {
+          initWrapper();
+      }
+    })
+
   return (
     <Container>
       <ColLeft>

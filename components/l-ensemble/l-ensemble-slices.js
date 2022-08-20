@@ -24,8 +24,6 @@ const SliceWrapper = styled.div`
 
 
 let renderSlice = (slice ,index) => {
-
-    console.log(slice)
     
       switch(slice._type) {
           case 'video':
