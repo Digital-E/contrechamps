@@ -38,13 +38,13 @@
 }
 
 body {
-    position: relative;
-    overflow-x: hidden;
+    /* position: relative;
+    overflow-x: hidden; */
 }
 
 html {
     line-height: 1;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 :root {
