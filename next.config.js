@@ -2,9 +2,9 @@ module.exports = {
   images: {
     domains: ['cdn.sanity.io'],
   },
-  experimental: {
-    scrollRestoration: true,
-  },
+  // experimental: {
+  //   scrollRestoration: true,
+  // },
   compiler: {
     styledComponents: true,
   },

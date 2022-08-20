@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@moxy/next-router-scroll": "^2.2.0",
     "@portabletext/react": "^1.0.3",
     "@sanity/image-url": "^1.0.1",
     "@sanity/production-preview": "^2.29.3",

@@ -61,11 +61,8 @@ let ColLeft = styled.div`
     height: calc(33.3333vw * 0.5);
     min-height: calc(33.3333vw * 0.5);
 
-    > span {
-        height: 100% !important;
-        width: 100% !important;
-        object-fit: cover;
-        // position: absolute !important;
+    > div:first-child:not(.plyr) {
+        height: 100%;
     }
 
     img {
