@@ -56,11 +56,7 @@ let Container = styled.div`
     }
 
     .active-link .season-filter__selector  {
-        background-color: red;
-    }
-
-    .season-filter__label {
-        color: white !important;
+        background-color: red !important;
     }
 
     @media(max-width: 767px) {
@@ -133,6 +129,12 @@ export default function Component ({ data }) {
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
+                <div class="season-filter">
+                    <Link href={`/${data._lang}/media/all`}>
+                        <div class="season-filter__selector"></div>
+                        <div class="season-filter__label p">Tout</div>
+                    </Link>
+                </div>                
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/presse`}>
                         <div class="season-filter__selector"></div>

@@ -14,15 +14,24 @@ const SliceWrapper = styled.div`
         columns: 2;
         column-gap: 50px;
     }
+
+    @media(min-width: 990px) {
+        &&.image-slice {
+            width: 50%;
+        }
+    }
 `
 
 
 let renderSlice = (slice ,index) => {
+
+    console.log(slice)
+    
       switch(slice._type) {
           case 'video':
           return <SliceWrapper key={slice._id}><Video data={slice.video} id={`video-${index}`}/></SliceWrapper>
           case 'image':
-          return <SliceWrapper key={slice._id}><Image data={slice} hasCaption={true} /></SliceWrapper>
+          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice} hasCaption={true} /></SliceWrapper>
           case 'Text':
           return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
       }

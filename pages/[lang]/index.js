@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import Container from '../../components/container'
-import MoreStories from '../../components/more-stories'
-import HeroPost from '../../components/hero-post'
-import Intro from '../../components/intro'
 import Layout from '../../components/layout'
-import { CMS_NAME, SITE_NAME } from '../../lib/constants'
+import { SITE_NAME } from '../../lib/constants'
 import { indexQuery, indexEventsQuery, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
 import { getClient, overlayDrafts } from '../../lib/sanity.server'
@@ -40,7 +36,7 @@ export default function Index({ data = {}, preview }) {
   }
 
   useEffect(() => {
-    document.querySelector("body").classList.add("dark-background");
+    // document.querySelector("body").classList.add("dark-background");
 
     let now  = new Date();
     now = now;

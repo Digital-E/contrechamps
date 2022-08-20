@@ -86,10 +86,12 @@ a:hover, button:hover {
 }
 
 .button {
+    display: inline-block;
     border: 1px solid black;
     border-radius: 999px;
     padding: 0.5em 0.7em;
     height: fit-content;
+    line-height: 1;
 }
 
 * { 
@@ -204,6 +206,14 @@ a:hover, button:hover {
         background-color: red !important;
     }
 
+    .season-filter__label {
+        color: white !important;
+    }
+
+    .dark-background .season-filter__label {
+        color: black !important;
+    }
+
     .dark-background .arrow-prev::after, .dark-background .arrow-next::after  {
         border-top: 5px solid white !important;
     }
@@ -222,6 +232,11 @@ a:hover, button:hover {
 
     .dark-background button {
         border-color: white !important;
+    }
+
+    button:hover, .button:hover {
+        border-color: red !important;
+        color: red;
     }
 
     .dark-background input::placeholder {
@@ -253,6 +268,12 @@ a:hover, button:hover {
 
     .dark-background .button {
         border: 1px solid white;
+    }
+
+    .dark-background .media-item:hover > a
+     {
+        background: white;
+        color: black;
     }
 
 /* -------------------------------------------------------------------------- */

@@ -7,7 +7,7 @@ const Container = styled.div`
     margin: 0 5px 10px 5px;
 
     > a {
-        color: black;
+        color: inherit;
     }
 
 

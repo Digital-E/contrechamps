@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components"
-import PressListItem from "./video-list-item"
+import VideoListItem from "./video-list-item";
+
 
 const Container = styled.div`
     position: relative;
@@ -19,10 +21,26 @@ const Container = styled.div`
 `
 
 
-export default function Component({ data }) {
-    return (
-        <Container className="border-top">
-            { data.map(item => <PressListItem data={item} />) }
-        </Container>
-    )
+export default function Component({ data, isExpandable }) {
+    let [showData, setShowData] = useState([]);
+
+    useEffect(() => {
+        let spliceData = JSON.parse(JSON.stringify(data)).splice(0, 3);
+
+        setShowData(spliceData);
+    }, []);
+
+    if(isExpandable) {
+        return (
+            <Container className="border-top">
+                {showData.map(item => <VideoListItem data={item} />)}
+            </Container>
+        )
+    } else {
+        return (
+            <Container className="border-top">
+                {data.map(item => <VideoListItem data={item} />)}
+            </Container>
+        )
+    }
 }

@@ -32,12 +32,12 @@ const Container = styled.div`
         }
 
         :hover .button {
-            border: 1px solid white;
+            border: 1px solid black;
             transition: border var(--transition-in);
         }
 
         .button a:hover {
-            color: white;
+            color: inherit;
         }
     }
 `
@@ -69,7 +69,7 @@ const Text = styled.div`
 export default function Component({ data }) {
 
     return (
-        <Container className="border-top">
+        <Container className="border-top media-item">
             <Link href={data.slug}>
                 <Wrapper>
                     <Text><Body content={data.text} /></Text>

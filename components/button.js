@@ -5,8 +5,8 @@ const Container = styled.div``
 
 export default function Component ({ url, label }) {
     return (
-        <Container className="button">
-         <a href={url} className="h4">{label}</a>
+        <Container>
+            <a href={url} className="h4 button">{label}</a>
         </Container>
     )
 }

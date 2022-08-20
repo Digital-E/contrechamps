@@ -89,6 +89,16 @@ let List = styled.ul`
 `
 
 let ListItem = styled.li`
+  &&:last-child {
+      margin-left: auto;
+      margin-right: 0;
+      // border: 1px solid white;
+      // border-radius: 999px;
+      // padding: 0.5em 0.7em;
+      // height: -webkit-fit-content;
+      // height: -moz-fit-content;
+      // height: fit-content;
+  }
 `
 
 let Menu = styled.div`
@@ -184,14 +194,19 @@ export default function Header({ data }) {
       </div>
       <Menu className={menuOpen ? "nav--open" : ""}>
         <List>
-          {data.menuItems.map(item => <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true}>{item.label}</Link></div></ListItem>)}
+          {
+          data.menuItems.map((item, index) => {
+            let isLast = index === data.menuItems.length - 1 ? true : false
+            return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
+          })
+          }
         </List>
-        <LanguageSwitch>
+        {/* <LanguageSwitch>
           <List>
             <ListItem><div className="h4"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
             <ListItem><div className="h4"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
           </List> 
-        </LanguageSwitch>
+        </LanguageSwitch> */}
       </Menu>
     </Container>
   )

@@ -195,7 +195,7 @@ export default function Component ({ data }) {
             <div class="season-filters">
                 {data.tags?.map((item, index) => (
                     <div key={item._id} 
-                        class={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"} 
+                        className={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"} 
                         id={sanitizeTag(item.tag)}
                         onClick={() => toggleTag(index)}
                         >

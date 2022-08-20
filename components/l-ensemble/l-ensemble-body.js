@@ -20,7 +20,7 @@ const Container = styled.div`
   @media(max-width: 767px) {
     flex-wrap: wrap;
     margin-top: 20px;
-}
+  }
 `
 
 const ColLeft = styled.div`
