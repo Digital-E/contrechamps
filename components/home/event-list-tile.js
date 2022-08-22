@@ -65,6 +65,10 @@ let ColLeft = styled.div`
         height: 100%;
     }
 
+    > span:first-child:not(.plyr) {
+        height: 100%;
+    }
+
     img {
         object-fit: cover;
     }
