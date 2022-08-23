@@ -357,7 +357,8 @@ let Container = styled.div`
     }
 
     .home-calendar__image img,
-    .home-calendar__image span
+    .home-calendar__image span,
+    .home-calendar__image div
      {
         height: 100% !important;
         width: 100% !important;

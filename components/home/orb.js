@@ -105,14 +105,6 @@ export default ({ data, index }) => {
 
     useEffect(() => {
 
-        // Load Circles
-        orbRef.current.parentNode.children[0].play();
-
-        setTimeout(() => {
-            orbRef.current.parentNode.children[0].pause();
-            orbRef.current.parentNode.children[0].currentTime = 0;
-        },1000)
-
         const browser = Bowser.getParser(window.navigator.userAgent).getBrowser();
 
         // Hide Circles if Safari version is lower or eqaul to 14.1
@@ -129,13 +121,22 @@ export default ({ data, index }) => {
         }
     }, []);
 
+    let loadedData = () => {
+        // Load Circles
+        orbRef.current.parentNode.children[0].play();
+
+        orbRef.current.parentNode.children[0].pause();
+        orbRef.current.parentNode.children[0].currentTime = 0;
+    }
+
     return (
         <Orb ref={orbWrapperRef}>
             <video 
             muted="true"
-            preload="true"
+            preload={true}
             // autoPlay="true"
             playsInline="true"
+            onLoadStart={() => loadedData()}
             // loop="true"
             >
                 <source 
