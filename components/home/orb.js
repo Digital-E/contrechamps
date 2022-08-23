@@ -104,7 +104,15 @@ export default ({ data, index }) => {
     }
 
     useEffect(() => {
-        // togglePlay(orbRef.current.parentNode, "pause")
+
+        // Load Circles
+        orbRef.current.parentNode.children[0].play();
+
+        setTimeout(() => {
+            orbRef.current.parentNode.children[0].pause();
+            orbRef.current.parentNode.children[0].currentTime = 0;
+        },1000)
+
         const browser = Bowser.getParser(window.navigator.userAgent).getBrowser();
 
         // Hide Circles if Safari version is lower or eqaul to 14.1
