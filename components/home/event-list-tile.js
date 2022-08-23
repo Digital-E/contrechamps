@@ -62,11 +62,11 @@ let ColLeft = styled.div`
     min-height: calc(33.3333vw * 0.5);
 
     > div:first-child:not(.plyr) {
-        height: 100%;
+        height: 100% !important;
     }
 
     > span:first-child:not(.plyr) {
-        height: 100%;
+        height: 100% !important;
     }
 
     img {
