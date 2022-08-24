@@ -80,6 +80,9 @@ let List = styled.ul`
   display: flex;
   justify-content: flex-start;
 
+  @media(min-width: 1061px) {
+    align-items: center;
+  }
 
   @media(min-width: 768px) and (max-width: 1300px) {
     // .h4 {
