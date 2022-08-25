@@ -91,9 +91,10 @@ export default ({ data, index }) => {
     let orbWrapperRef = useRef();
     let [isHovered, setIsHovered] = useState(false);
 
+
     let togglePlay = (orb, action) => {
 
-        // if(window.innerWidth < 990) return;
+        if(window.innerWidth < 990) return;
 
         let video = orb.children[0];
 
@@ -118,11 +119,23 @@ export default ({ data, index }) => {
         }
     }
 
+    let isAtLeastOneVideoPlaying = () => {
+        let atLeastOne = false;
+
+        document.querySelectorAll(".orb-video").forEach(item => {
+            let video = item.children[0];
+            if(!!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2)) atLeastOne = true
+        })
+
+        return atLeastOne
+    }
+
     let togglePlayMobile = (orb) => {
 
         let video = orb.children[0];
 
         let circlesContainer = document.querySelector(".circles-container");
+        let eventHeaderColLeft = document.querySelector(".event-header__col-left");
 
         // Mute All Videos
         document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true);
@@ -132,12 +145,16 @@ export default ({ data, index }) => {
             video.currentTime = 0;
             video.pause();
             if(circlesContainer) {
-                circlesContainer.style.zIndex = "0";
+                if(!isAtLeastOneVideoPlaying()) {
+                    circlesContainer.style.zIndex = "0";
+                }
+            }
+            if(eventHeaderColLeft) {
+                eventHeaderColLeft.style.zIndex = "0";
             }
             orbWrapperRef.current.style.zIndex = "0";
 
             setIsHovered(false)
-
 
             window.removeEventListener("click", pauseAllOrbs);
         } else {
@@ -145,7 +162,10 @@ export default ({ data, index }) => {
             if(circlesContainer) {
                 circlesContainer.style.zIndex = "999999";
             }
-            orbWrapperRef.current.style.zIndex = "999999";
+            if(eventHeaderColLeft) {
+                eventHeaderColLeft.style.zIndex = "999999";
+            }
+            orbWrapperRef.current.style.zIndex = "20";
 
             setIsHovered(true)
 
@@ -159,16 +179,31 @@ export default ({ data, index }) => {
         }        
     }
 
-    let pauseAllOrbs = (e) => {            
-        if(!e.target.classList.contains("orb-circle") && !e.target.classList.contains("sound-icon")) {
+    let pauseAllOrbs = (e) => {       
+        if (
+            !e.target.classList.contains("orb-circle") 
+            &&
+            !e.target.classList.contains("sound-icon")
+            &&
+            !e.target.parentElement?.classList.contains("sound-icon")
+            &&
+            !e.target.parentElement?.parentElement?.classList.contains("sound-icon")
+            &&
+            e.target.parentElement !== null
+            ) {
             document.querySelectorAll(".orb-video").forEach(item => {
                 item.children[0].pause()
                 item.children[0].currentTime = 0;
-                if(document.querySelector(".circles-container")) {
-                    document.querySelector(".circles-container").style.zIndex = "0";
-                }
+                // document.querySelector(".orb-video").style.zIndex = "0";
                 setIsHovered(false)
             });
+
+            if(document.querySelector(".circles-container")) {
+                document.querySelector(".circles-container").style.zIndex = "0";
+            }
+            if(document.querySelector(".event-header__col-left")) {
+                document.querySelector(".event-header__col-left").style.zIndex = "0";
+            }
         }
     }
 
@@ -190,7 +225,7 @@ export default ({ data, index }) => {
         }
 
         if(orbWrapperRef.current.children[0].readyState >= 2) {
-            orbWrapperRef.current.classList.add("reveal-orb");
+            revealOrb();
         }
     }, []);
 
@@ -204,7 +239,9 @@ export default ({ data, index }) => {
     }
 
     let revealOrb = () => {
-        orbWrapperRef.current.classList.add("reveal-orb");
+        setTimeout(() => {
+            orbWrapperRef.current.classList.add("reveal-orb");
+        }, 100)
     }
 
 

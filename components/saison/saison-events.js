@@ -24,6 +24,11 @@ let Container = styled.div`
         display: none;
     }
 
+    @media(max-width: 768px) {
+        width: 100%;
+        top: 75px;
+    }
+
 `
 
 let MonthWrapper = styled.div`

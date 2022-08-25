@@ -30,6 +30,17 @@ let Header = styled.div`
       margin-left: 1.5rem;
       margin-top: 1rem;
     }
+
+    @media(max-width: 989px) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      > a {
+        margin-left: 0rem;
+        margin-top: 0rem;
+        margin-bottom: 1rem;
+      }
+    }
 `
 
 

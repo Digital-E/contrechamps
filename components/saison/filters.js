@@ -15,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 let Container = styled.div`
+    position: relative;
     z-index: 1;
 
     .season-filters {
@@ -23,6 +24,17 @@ let Container = styled.div`
         border-bottom: var(--border-width) solid black;
         background: black;
         color: white;
+    }
+
+    .season-filters::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 35px;
+        width: 70px;
+        background: linear-gradient(90deg, transparent 0%, white 90%);
+        z-index: 999;
     }
 
     .season-filters > div {
@@ -38,6 +50,10 @@ let Container = styled.div`
         cursor: pointer;
         flex-basis: auto;
         margin-right: 30px;
+    }
+
+    .season-filter:last-child {
+        padding-right: 30px;
     }
 
     .season-filter:hover .season-filter__selector {
@@ -65,11 +81,12 @@ let Container = styled.div`
     }
 
 
-    @media(max-width: 1200px) {
+    @media(max-width: 1260px) {
         .season-filters > div:nth-child(1) {
             padding: 0 20px;
             flex-wrap: nowrap;
             overflow: scroll;
+            border-bottom: 1px solid black;
         }
 
         .season-filters > div:nth-child(2) {
@@ -79,6 +96,12 @@ let Container = styled.div`
         .season-filters {
             flex-direction: column;
         }
+    }
+
+    @media(max-width: 768px) {
+        position: fixed;
+        width: 100%;
+        top: 55px;
     }
 `
 
@@ -96,7 +119,7 @@ let Wrapper = styled.div`
     display: flex;
     margin-left: auto;
 
-    @media(max-width: 1200px) {
+    @media(max-width: 1260px) {
         margin-left: 0;
     }
 `
@@ -121,7 +144,7 @@ export default function Component ({ data }) {
           }
         }
     
-        // if(window.innerWidth > 989) {
+        if(window.innerWidth > 768) {
 
             let headerHeight = document.querySelector("header").offsetHeight;
     
@@ -133,8 +156,9 @@ export default function Component ({ data }) {
                 end: "max",
                 pinSpacing: false
             });
+
     
-        // } 
+        } 
     }
 
     let initWrapper = () => {
@@ -156,13 +180,16 @@ export default function Component ({ data }) {
 
         setTags(allTags);
 
-        // if(window.innerWidth > 989) {
+        if(window.innerWidth > 768) {
             setTimeout(() => {
                 init();
             }, 0)
-        // }
+        }
 
-        window.addEventListener("resize", initWrapper)
+        
+        if(!window.matchMedia("(any-pointer:coarse)").matches) {
+            window.addEventListener("resize", initWrapper)
+        }
         
 
         initCheckSessionStorageForTag = true;

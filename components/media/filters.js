@@ -21,6 +21,17 @@ let Container = styled.div`
         color: white;
     }
 
+    .season-filters::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 35px;
+        width: 50px;
+        background: linear-gradient(90deg, transparent 0%, white 90%);
+        z-index: 999;
+    }
+
     .season-filters > div {
         display: flex;
         padding: 0px 30px;
@@ -67,6 +78,8 @@ let Container = styled.div`
         .season-filters > div {
             flex-wrap: wrap;
             padding: 0 20px;
+            flex-wrap: nowrap;
+            overflow: scroll;
         } 
 
         .season-filter {
@@ -100,7 +113,8 @@ export default function Component ({ data }) {
                 pin: filtersRef.current,
                 start: `top-=${headerHeight} top`,
                 end: "max",
-                pinSpacing: false
+                pinSpacing: false,
+                resize: window.matchMedia("(any-pointer:coarse)").matches ? false : true
             });
     
         // } 
@@ -121,7 +135,9 @@ export default function Component ({ data }) {
             }, 500)
         // }
 
-        window.addEventListener("resize", initWrapper)
+        if(!window.matchMedia("(any-pointer:coarse)").matches) {
+            window.addEventListener("resize", initWrapper)
+        }
 
         return () => {
             window.removeEventListener("resize", initWrapper)
