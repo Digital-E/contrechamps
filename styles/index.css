@@ -23,6 +23,10 @@
     src: url("/fonts/Social Media Circled.otf");
 }
 
+*::-webkit-scrollbar {
+    display: none;
+  }
+
 /* * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -44,7 +48,8 @@ body {
 
 html {
     line-height: 1;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -86,12 +91,17 @@ a:hover, button:hover {
 }
 
 .button {
+    font-family: 'Es Klarheit Grotesk Medium';
     display: inline-block;
     border: 1px solid black;
     border-radius: 999px;
     padding: 0.5em 0.7em;
     height: fit-content;
     line-height: 1;
+}
+
+.button, button {
+    font-weight: 100;
 }
 
 * { 
@@ -190,6 +200,11 @@ a:hover, button:hover {
   .dark-background .border-bottom::after, .dark-background .border-top::before {
       background: white;
   }
+
+    /* .dark-background .season-filters > div {
+        background-color: white !important;
+        color: black !important;
+    } */
 
     .dark-background .season-filters {
         background-color: white !important;

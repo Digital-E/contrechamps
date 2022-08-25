@@ -20,6 +20,10 @@ let Container = styled.div`
         display: none !important;
     }
 
+    .hide-month-wrapper {
+        display: none;
+    }
+
 `
 
 let MonthWrapper = styled.div`
@@ -178,7 +182,7 @@ export default function Component ({ data }) {
                     let monthAndYear = `${item.longMonth}-${item.year}`
 
                     return (
-                        <MonthWrapper className={item.passed === true && "passed-event"} id={`${sanitizeTag(monthAndYear)}`}>
+                        <MonthWrapper className={item.passed === true ? "passed-event month-wrapper": "month-wrapper"} id={`${sanitizeTag(monthAndYear)}`}>
                             <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
                                     <div className="h1">{item.longMonth}</div>

@@ -13,6 +13,14 @@ const Orb = styled.div`
     align-items: center;
     flex-direction: column;
     z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    user-select: none;
+
+    &&.reveal-orb {
+        opacity: 1 !important;
+        transition: opacity 1s;
+    }
 
     > video {
         position: absolute;
@@ -22,6 +30,7 @@ const Orb = styled.div`
         transform: translate(-50%, -50%) scale(6.7);
         z-index: 999;
         pointer-events: none;
+        transition: opacity 0.3s;
     }
 
     @media(max-width: 1199px) {
@@ -52,6 +61,7 @@ const Text = styled.div`
     transition-duration: 0.3s;
     padding: 0 20px;
     width: 100%;
+    user-select: none;
 
     &.hovered {
         opacity: 1;
@@ -61,13 +71,14 @@ const Text = styled.div`
     * {
         margin: 0;
         word-break: break-word;
+        font-size: 0.8rem;
     }
 
     @media(max-width: 1199px) {
         bottom: 0;
 
         * {
-            font-size: 0.8rem;
+            font-size: 0.5rem;
         }
     }
 `
@@ -82,24 +93,82 @@ export default ({ data, index }) => {
 
     let togglePlay = (orb, action) => {
 
+        // if(window.innerWidth < 990) return;
+
         let video = orb.children[0];
 
         let circlesContainer = document.querySelector(".circles-container");
 
         if(action === "play") {
+            setIsHovered(true)
             video.play();
-            video.muted = false;
+            // video.muted = false;
             if(circlesContainer) {
                 circlesContainer.style.zIndex = "999999";
             }
             orbWrapperRef.current.style.zIndex = "999999";
         } else {
+            setIsHovered(false)
             video.currentTime = 0;
             video.pause();
             if(circlesContainer) {
                 circlesContainer.style.zIndex = "0";
             }
             orbWrapperRef.current.style.zIndex = "0";
+        }
+    }
+
+    let togglePlayMobile = (orb) => {
+
+        let video = orb.children[0];
+
+        let circlesContainer = document.querySelector(".circles-container");
+
+        // Mute All Videos
+        document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true);
+
+
+        if(isHovered) {
+            video.currentTime = 0;
+            video.pause();
+            if(circlesContainer) {
+                circlesContainer.style.zIndex = "0";
+            }
+            orbWrapperRef.current.style.zIndex = "0";
+
+            setIsHovered(false)
+
+
+            window.removeEventListener("click", pauseAllOrbs);
+        } else {
+            video.play();
+            if(circlesContainer) {
+                circlesContainer.style.zIndex = "999999";
+            }
+            orbWrapperRef.current.style.zIndex = "999999";
+
+            setIsHovered(true)
+
+            // Listen For click away from orb and Pause All
+            window.addEventListener("click", pauseAllOrbs);
+        }
+
+        // Unmute All Videos
+        if(document.querySelector(".sound-on")) {
+            document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false);
+        }        
+    }
+
+    let pauseAllOrbs = (e) => {            
+        if(!e.target.classList.contains("orb-circle") && !e.target.classList.contains("sound-icon")) {
+            document.querySelectorAll(".orb-video").forEach(item => {
+                item.children[0].pause()
+                item.children[0].currentTime = 0;
+                if(document.querySelector(".circles-container")) {
+                    document.querySelector(".circles-container").style.zIndex = "0";
+                }
+                setIsHovered(false)
+            });
         }
     }
 
@@ -119,6 +188,10 @@ export default ({ data, index }) => {
                 document.querySelector(".event-header__col-left").style.height = "0";
             }
         }
+
+        if(orbWrapperRef.current.children[0].readyState >= 2) {
+            orbWrapperRef.current.classList.add("reveal-orb");
+        }
     }, []);
 
     let loadedData = () => {
@@ -127,17 +200,24 @@ export default ({ data, index }) => {
 
         orbRef.current.parentNode.children[0].pause();
         orbRef.current.parentNode.children[0].currentTime = 0;
+
     }
 
+    let revealOrb = () => {
+        orbWrapperRef.current.classList.add("reveal-orb");
+    }
+
+
     return (
-        <Orb ref={orbWrapperRef}>
+        <Orb ref={orbWrapperRef} className="orb-video">
             <video 
             muted="true"
             preload={true}
             // autoPlay="true"
             playsInline="true"
             onLoadStart={() => loadedData()}
-            // loop="true"
+            onLoadedData={() => revealOrb()}
+            loop="true"
             >
                 <source 
                 src={data.videoMp4} 
@@ -148,21 +228,19 @@ export default ({ data, index }) => {
                 type="video/webm"/>
             </video>
             <Circle ref={orbRef}
-                onClick={() => {
-                    togglePlay(orbRef.current.parentNode, "play")
-                    setIsHovered(true)
-                }}             
+                className="orb-circle"
+                // onClick={() => {
+                //     togglePlay(orbRef.current.parentNode, "play")
+                //     setIsHovered(true)
+                // }}             
                 onMouseEnter={() => {
                     togglePlay(orbRef.current.parentNode, "play")
-                    setIsHovered(true)
                 }}
                 onMouseLeave={() => {
                     togglePlay(orbRef.current.parentNode, "pause")
-                    setIsHovered(false)
                 }}
                 onTouchStart={() => {
-                    togglePlay(orbRef.current.parentNode, "play")
-                    setIsHovered(true)
+                    togglePlayMobile(orbRef.current.parentNode)
                 }}
             />
             <Text className={isHovered ? "hovered" : ""}>

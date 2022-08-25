@@ -15,15 +15,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 let Container = styled.div`
-    z-index: 999;
+    z-index: 1;
 
     .season-filters {
         display: flex;
-        padding: 0 30px;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
         background: black;
         color: white;
+    }
+
+    .season-filters > div {
+        display: flex;
+        padding: 0 30px;
         flex-wrap: wrap;
         margin-top: -1px;
     }
@@ -43,6 +47,8 @@ let Container = styled.div`
     .season-filter__selector {
         width: 13px;
         height: 13px;
+        min-width: 13px;
+        min-height: 13px;
         // border: var(--border-width) solid black;
         background: white;
         border-radius: 999px;
@@ -51,6 +57,7 @@ let Container = styled.div`
     .season-filter__label {
         margin-left: 5px;
         line-height: 1;
+        white-space: nowrap;
     }
 
     .season-filter--active .season-filter__selector  {
@@ -58,36 +65,43 @@ let Container = styled.div`
     }
 
 
-    @media(max-width: 767px) {
-        .season-filters {
+    @media(max-width: 1200px) {
+        .season-filters > div:nth-child(1) {
+            padding: 0 20px;
+            flex-wrap: nowrap;
+            overflow: scroll;
+        }
+
+        .season-filters > div:nth-child(2) {
             padding: 0 20px;
         }
 
-        .season-filter {
-            display: none;
-            flex-basis: 100%;
-        } 
+        .season-filters {
+            flex-direction: column;
+        }
     }
 `
 
 let Document = styled.div`
     display: flex;
     align-items: center;
+    white-space: nowrap;
 `
 
 let Archive = styled.div`
     margin-left: 2rem;
+    white-space: nowrap;
 `
 let Wrapper = styled.div`   
     display: flex;
     margin-left: auto;
 
-    @media(max-width: 1150px) {
+    @media(max-width: 1200px) {
         margin-left: 0;
     }
 `
 
-
+let initCheckSessionStorageForTag = true;
 
 export default function Component ({ data }) {
     let filtersRef = useRef();
@@ -107,7 +121,7 @@ export default function Component ({ data }) {
           }
         }
     
-        if(window.innerWidth > 989) {
+        // if(window.innerWidth > 989) {
 
             let headerHeight = document.querySelector("header").offsetHeight;
     
@@ -120,7 +134,7 @@ export default function Component ({ data }) {
                 pinSpacing: false
             });
     
-        } 
+        // } 
     }
 
     let initWrapper = () => {
@@ -142,22 +156,35 @@ export default function Component ({ data }) {
 
         setTags(allTags);
 
-        if(window.innerWidth > 989) {
+        // if(window.innerWidth > 989) {
             setTimeout(() => {
                 init();
             }, 0)
-        }
+        // }
 
         window.addEventListener("resize", initWrapper)
+        
+
+        initCheckSessionStorageForTag = true;
 
         return () => {
             window.removeEventListener("resize", initWrapper)
-        }        
-        
+        }    
 
     }, []);
 
-    let toggleTag = (index) => {
+    useEffect(() => {
+        // Check if URL has tag
+        if(tags.length === 0 || !initCheckSessionStorageForTag) return;
+        checkSessionStorageForTag();
+    }, [tags])
+    
+
+    let setFilterSessionStorage = (tag) => {
+        sessionStorage.setItem('contrechamps-filter-tag', sanitizeTag(tag))
+    }
+
+    let toggleTag = (index, init) => {
         let unselectTags = tags
 
         unselectTags.forEach(item => item.selected = false)
@@ -167,7 +194,22 @@ export default function Component ({ data }) {
         setTags([...unselectTags])
 
         hideTiles(unselectTags[index].tag, index);
-        
+
+        setFilterSessionStorage(data.tags[index].tag)
+    }
+
+    let checkSessionStorageForTag = () => {
+        let tag = sessionStorage.getItem('contrechamps-filter-tag');
+
+        if(tag !== null) {
+            data?.tags.forEach((item, index) => {
+                if(sanitizeTag(item.tag) === tag) {
+                    toggleTag(index, true);
+                }
+            })
+        }
+
+        initCheckSessionStorageForTag = false;
     }
 
     let hideTiles = (tag, index) => {
@@ -188,11 +230,34 @@ export default function Component ({ data }) {
                 tile.classList.add("hide-tile")
             }
         })
+
+        // Hide Title if list empty
+
+        document.querySelectorAll(".month-wrapper").forEach((itemOne, indexOne) => {
+            let amountHidden = 0;
+
+            let amount = itemOne.children[1].children[1].children.length
+
+            Array.from(itemOne.children[1].children[1].children).forEach(itemTwo => {
+                if(itemTwo.classList.contains("hide-tile")) {
+                    amountHidden += 1;
+                }
+            })
+
+            if(amount === amountHidden) {
+                document.querySelectorAll(".month-wrapper")[indexOne].classList.add("hide-month-wrapper")
+            } else {
+                document.querySelectorAll(".month-wrapper")[indexOne].classList.remove("hide-month-wrapper")
+            }
+
+        })
+
     }
     
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
+                <div>
                 {data.tags?.map((item, index) => (
                     <div key={item._id} 
                         className={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"} 
@@ -203,6 +268,7 @@ export default function Component ({ data }) {
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
+                </div>
                 <Wrapper>
                 <Document>
                     <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>

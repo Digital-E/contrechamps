@@ -3,7 +3,7 @@ import Body from "../body"
 
 const Container = styled.div`
   position: relative;
-  padding: 20px;
+  display: none;
 
 
   h2, h3, h4, h5, h6, p {
@@ -12,6 +12,9 @@ const Container = styled.div`
   }
 
   @media(min-width: 768px) {
+    display: block;
+    padding: 20px;
+
     &.border-bottom::after {
       display: none;
     }

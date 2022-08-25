@@ -81,7 +81,7 @@ export default function Index({ data = {}, preview }) {
           content={data?.homeData?.content}
           />
         </Head>
-        <Overlay />
+        {/* <Overlay /> */}
         <Circles data={data?.homeData?.circles} />
         <Calendar data={data.news} />
         {/* <Video data={homeData} title={homeData?.videoTitle}/> */}

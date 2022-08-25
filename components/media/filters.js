@@ -11,15 +11,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 let Container = styled.div`
-    z-index: 999;
+    z-index: 1;
 
     .season-filters {
         display: flex;
-        padding: 0px 30px;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
         background: black;
         color: white;
+    }
+
+    .season-filters > div {
+        display: flex;
+        padding: 0px 30px;
     }
 
     .season-filter > a {
@@ -60,7 +64,7 @@ let Container = styled.div`
     }
 
     @media(max-width: 767px) {
-        .season-filters {
+        .season-filters > div {
             flex-wrap: wrap;
             padding: 0 20px;
         } 
@@ -87,7 +91,7 @@ export default function Component ({ data }) {
           }
         }
     
-        if(window.innerWidth > 989) {
+        // if(window.innerWidth > 989) {
             let headerHeight = document.querySelector("header").offsetHeight;
 
             scrollTriggerInstance = ScrollTrigger.create({
@@ -99,7 +103,7 @@ export default function Component ({ data }) {
                 pinSpacing: false
             });
     
-        } 
+        // } 
     }
 
     let initWrapper = () => {
@@ -111,11 +115,11 @@ export default function Component ({ data }) {
     useEffect(() => {
 
 
-        if(window.innerWidth > 989) {
+        // if(window.innerWidth > 989) {
             setTimeout(() => {
                 init();
             }, 500)
-        }
+        // }
 
         window.addEventListener("resize", initWrapper)
 
@@ -129,6 +133,7 @@ export default function Component ({ data }) {
     return (
         <Container ref={filtersRef}>
             <div class="season-filters">
+                <div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/all`}>
                         <div class="season-filter__selector"></div>
@@ -152,6 +157,7 @@ export default function Component ({ data }) {
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Disques</div>
                     </Link>
+                </div>
                 </div>
             </div> 
     </Container>       
