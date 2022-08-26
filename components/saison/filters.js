@@ -302,7 +302,7 @@ export default function Component ({ data }) {
                     <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                 </Document>
                 <Archive>
-                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archive</Link></p>
+                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
                 </Archive>
                 </Wrapper>
             </div>
