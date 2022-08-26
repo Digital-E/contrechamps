@@ -26,9 +26,8 @@ let Container = styled.div`
 
     @media(max-width: 768px) {
         width: 100%;
-        top: 75px;
+        margin-top: 130px;
     }
-
 `
 
 let MonthWrapper = styled.div`

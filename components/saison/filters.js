@@ -26,16 +26,6 @@ let Container = styled.div`
         color: white;
     }
 
-    .season-filters::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 35px;
-        width: 70px;
-        background: linear-gradient(90deg, transparent 0%, white 90%);
-        z-index: 999;
-    }
 
     .season-filters > div {
         display: flex;
@@ -102,6 +92,17 @@ let Container = styled.div`
         position: fixed;
         width: 100%;
         top: 55px;
+
+        .season-filters::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 35px;
+            width: 30px;
+            background: linear-gradient(90deg, transparent 0%, white 90%);
+            z-index: 999;
+        }
     }
 `
 

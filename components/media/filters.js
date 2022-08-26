@@ -14,6 +14,7 @@ let Container = styled.div`
     z-index: 1;
 
     .season-filters {
+        position: relative;
         display: flex;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
@@ -21,16 +22,7 @@ let Container = styled.div`
         color: white;
     }
 
-    .season-filters::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 35px;
-        width: 50px;
-        background: linear-gradient(90deg, transparent 0%, white 90%);
-        z-index: 999;
-    }
+    
 
     .season-filters > div {
         display: flex;
@@ -43,6 +35,10 @@ let Container = styled.div`
         cursor: pointer;
         flex-basis: auto;
         margin-right: 40px;
+    }
+
+    .season-filter:last-child {
+        padding-right: 30px;
     }
 
     @media(max-width: 767px) {
@@ -74,7 +70,11 @@ let Container = styled.div`
         background-color: red !important;
     }
 
-    @media(max-width: 767px) {
+    @media(max-width: 768px) {
+        position: fixed;
+        width: 100%;
+        top: 55px;
+
         .season-filters > div {
             flex-wrap: wrap;
             padding: 0 20px;
@@ -84,6 +84,17 @@ let Container = styled.div`
 
         .season-filter {
             margin-right: 30px;
+        }
+
+        .season-filters::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 35px;
+            width: 30px;
+            background: linear-gradient(90deg, transparent 0%, white 90%);
+            z-index: 999;
         }
     }
 `
@@ -104,7 +115,7 @@ export default function Component ({ data }) {
           }
         }
     
-        // if(window.innerWidth > 989) {
+        if(window.innerWidth > 768) {
             let headerHeight = document.querySelector("header").offsetHeight;
 
             scrollTriggerInstance = ScrollTrigger.create({
@@ -117,7 +128,7 @@ export default function Component ({ data }) {
                 resize: window.matchMedia("(any-pointer:coarse)").matches ? false : true
             });
     
-        // } 
+        } 
     }
 
     let initWrapper = () => {
@@ -129,11 +140,11 @@ export default function Component ({ data }) {
     useEffect(() => {
 
 
-        // if(window.innerWidth > 989) {
+        if(window.innerWidth > 768) {
             setTimeout(() => {
                 init();
             }, 500)
-        // }
+        }
 
         if(!window.matchMedia("(any-pointer:coarse)").matches) {
             window.addEventListener("resize", initWrapper)

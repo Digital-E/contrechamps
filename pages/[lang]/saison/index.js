@@ -51,7 +51,7 @@ data = data?.data;
                   content={data.content}
                 />
               </Head>
-              <SaisonHeader data={data} withBorder={true} />
+              <SaisonHeader data={data} withBorder={true} hideOnMobile={true} />
               <Filters data={data} />
               <SaisonEvents data={allEvents} />
           </>

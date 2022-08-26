@@ -3,6 +3,8 @@ import Body from "../body"
 
 const Container = styled.div`
   position: relative;
+  padding: 20px;
+  // display: ${props => props.hideOnMobile ? "none" : "block"};
   display: none;
 
 
@@ -13,7 +15,6 @@ const Container = styled.div`
 
   @media(min-width: 768px) {
     display: block;
-    padding: 20px;
 
     &.border-bottom::after {
       display: none;
@@ -29,10 +30,10 @@ const Container = styled.div`
 
 
 
-export default function EventHeader({ data, withBorder }) {
+export default function EventHeader({ data, withBorder, hideOnMobile }) {
 
   return (
-    <Container className={withBorder ? `border-bottom`: ''}>
+    <Container className={withBorder ? `border-bottom`: ''} hideOnMobile={hideOnMobile}>
         <Body content={data.text}/>
     </Container>
   )

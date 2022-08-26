@@ -8,6 +8,8 @@ import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery,
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
+import styled from "styled-components"
+
 import splitSlug from "../../../lib/splitSlug"
 
 import MediasHeader from '../../../components/saison/saison-header'
@@ -18,6 +20,12 @@ import PressList from "../../../components/media/presse/press-list"
 import VideoList from "../../../components/media/videos/video-list"
 import DisqueList from "../../../components/media/disques/disque-list"
 
+const Container = styled.div`
+  @media(max-width: 768px) {
+    width: 100%;
+    margin-top: 91px;
+  }
+`
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
@@ -68,10 +76,12 @@ export default function Post({ data = {}, preview }) {
                   content={data.data.content}
                 />
               </Head>
-              <MediasHeader data={data.data} />
               <Filters data={data.data} />
-              <ListHeader data={data.data} />
-              {ListSwitch(data.data.type, data.allMedia)}
+              <Container>
+                <MediasHeader data={data.data} />
+                <ListHeader data={data.data} />
+                {ListSwitch(data.data.type, data.allMedia)}
+              </Container>
           </>
         )}
     </Layout>

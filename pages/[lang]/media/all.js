@@ -8,6 +8,8 @@ import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery,
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
+import styled from "styled-components"
+
 import splitSlug from "../../../lib/splitSlug"
 
 import MediasHeader from '../../../components/saison/saison-header'
@@ -17,6 +19,13 @@ import ListHeader from "../../../components/media/list-header"
 import PressList from "../../../components/media/presse/press-list"
 import VideoList from "../../../components/media/videos/video-list"
 import DisqueList from "../../../components/media/disques/disque-list"
+
+const Container = styled.div`
+  @media(max-width: 768px) {
+    width: 100%;
+    margin-top: 91px;
+  }
+`
 
 
 export default function Post({ data = {}, preview }) {
@@ -69,14 +78,14 @@ export default function Post({ data = {}, preview }) {
               </Head>
               {/* <MediasHeader data={data.data} /> */}
               <Filters data={data.data} />
-              <ListHeader data={data.pressePage} isExpandable={true} href={`${data.lang}__media__presse`}/>
-              <PressList data={data.allPresse} isExpandable={true} />
-              <ListHeader data={data.videoPage} isExpandable={true} href={`${data.lang}__media__videos`}/>
-              <VideoList data={data.allVideo} isExpandable={true} />
-              <ListHeader data={data.disquesPage} isExpandable={true} href={`${data.lang}__media__disques`}/>
-              <DisqueList data={data.allDisque} isExpandable={true} />
-              {/* <ListHeader data={data.data} /> */}
-              {/* {ListSwitch(data.data.type, data.allMedia)} */}
+              <Container>
+                <ListHeader data={data.pressePage} isExpandable={true} href={`${data.lang}__media__presse`}/>
+                <PressList data={data.allPresse} isExpandable={true} />
+                <ListHeader data={data.videoPage} isExpandable={true} href={`${data.lang}__media__videos`}/>
+                <VideoList data={data.allVideo} isExpandable={true} />
+                <ListHeader data={data.disquesPage} isExpandable={true} href={`${data.lang}__media__disques`}/>
+                <DisqueList data={data.allDisque} isExpandable={true} />
+              </Container>
           </>
         )}
     </Layout>
