@@ -102,8 +102,8 @@ export default ({ data, index }) => {
 
         if(action === "play") {
             setIsHovered(true)
+            // video.muted = false
             video.play();
-            // video.muted = false;
             if(circlesContainer) {
                 circlesContainer.style.zIndex = "999999";
             }
@@ -254,7 +254,7 @@ export default ({ data, index }) => {
             playsInline="true"
             onLoadStart={() => loadedData()}
             onLoadedData={() => revealOrb()}
-            loop="true"
+            // loop="true"
             >
                 <source 
                 src={data.videoMp4} 
@@ -268,7 +268,6 @@ export default ({ data, index }) => {
                 className="orb-circle"
                 // onClick={() => {
                 //     togglePlay(orbRef.current.parentNode, "play")
-                //     setIsHovered(true)
                 // }}             
                 onMouseEnter={() => {
                     togglePlay(orbRef.current.parentNode, "play")
