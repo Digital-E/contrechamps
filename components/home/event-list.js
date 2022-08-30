@@ -30,9 +30,7 @@ let List = styled.div`
         display: none !important;
     }
 
-    > div:nth-child(2) .home-tile-date,
-    > div:nth-child(4) .home-tile-date
-     {
+    .hide-tile-date {
         display: none;
     }
 `
@@ -45,6 +43,7 @@ export default function Component({ data, title, videoData }) {
     useEffect(() => {
         const player = new Plyr('.player');
     }, []);
+
 
     return (
         <Container>

@@ -264,9 +264,11 @@ export default function Component ({ data }) {
         document.querySelectorAll(".month-wrapper").forEach((itemOne, indexOne) => {
             let amountHidden = 0;
 
-            let amount = itemOne.children[1].children[1].children.length
+            console.log(itemOne.children[1].children[0])
 
-            Array.from(itemOne.children[1].children[1].children).forEach(itemTwo => {
+            let amount = itemOne.children[1].children[0].children.length
+
+            Array.from(itemOne.children[1].children[0].children).forEach(itemTwo => {
                 if(itemTwo.classList.contains("hide-tile")) {
                     amountHidden += 1;
                 }

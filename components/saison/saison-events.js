@@ -18,9 +18,9 @@ let Container = styled.div`
         display: none !important;
     }
 
-    > div > div:nth-child(2) > div:nth-child(1) {
-        display: none !important;
-    }
+    // > div > div:nth-child(2) > div:nth-child(1) {
+    //     display: none !important;
+    // }
 
     .hide-month-wrapper {
         display: none;
