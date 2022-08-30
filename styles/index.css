@@ -39,20 +39,12 @@
 #__next {
     opacity: 0;
     transition: opacity 1s;
-}
-
-body {
-    /* overflow-x: hidden; */
+    overflow: hidden;
 }
 
 html {
     line-height: 1;
-    /* overflow-x: hidden; */
     -webkit-tap-highlight-color: transparent;
-}
-
-main {
-    overflow: hidden;
 }
 
 
