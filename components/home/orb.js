@@ -91,7 +91,6 @@ export default ({ data, index }) => {
     let orbWrapperRef = useRef();
     let [isHovered, setIsHovered] = useState(false);
 
-
     let togglePlay = (orb, action) => {
 
         if(window.innerWidth < 990) return;
@@ -250,6 +249,7 @@ export default ({ data, index }) => {
             <video 
             muted="true"
             preload={true}
+            onPause={() => setIsHovered(false)}
             // autoPlay="true"
             playsInline="true"
             onLoadStart={() => loadedData()}

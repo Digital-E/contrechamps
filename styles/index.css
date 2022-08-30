@@ -42,15 +42,19 @@
 }
 
 body {
-    position: relative;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 html {
     line-height: 1;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     -webkit-tap-highlight-color: transparent;
 }
+
+main {
+    overflow: hidden;
+}
+
 
 :root {
     --transition-in: 0.2s;

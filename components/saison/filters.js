@@ -204,7 +204,7 @@ export default function Component ({ data }) {
     useEffect(() => {
         // Check if URL has tag
         if(tags.length === 0 || !initCheckSessionStorageForTag) return;
-        checkSessionStorageForTag();
+        // checkSessionStorageForTag();
     }, [tags])
     
 

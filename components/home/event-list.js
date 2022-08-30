@@ -29,6 +29,12 @@ let List = styled.div`
     .hide-tile {
         display: none !important;
     }
+
+    > div:nth-child(2) .home-tile-date,
+    > div:nth-child(4) .home-tile-date
+     {
+        display: none;
+    }
 `
 
 
@@ -42,7 +48,7 @@ export default function Component({ data, title, videoData }) {
 
     return (
         <Container>
-            <Header className="border-bottom border-top"><span className="h1">{title}</span></Header>
+            {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
             <List>
                 {
                     (videoData?.video !== null && videoData !== undefined) && <EventListTile data={videoData} isVideo={true} />

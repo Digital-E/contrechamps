@@ -161,7 +161,7 @@ export default function Component({ data, isVideo }) {
                 <h1>{item.title}</h1>
                 <div>
                     <div>
-                        <div className="h4">
+                        <div className="h4 home-tile-date">
                             <DateComponent data={item} />
                         </div>
                         <div>

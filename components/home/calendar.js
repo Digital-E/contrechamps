@@ -550,7 +550,7 @@ export default function Component({ data }) {
 
     return (
         <Container>
-            <div class="home-calendar">
+            <div class="home-calendar border-bottom">
                 <div class="home-calendar__col-left">
                 <div>
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}

@@ -66,7 +66,7 @@ export default function Index({ data = {}, preview }) {
     setAllEvents([...splicedAllEventsArray])
 
     return () => {
-      document.querySelector("body").classList.remove("dark-background");
+      // document.querySelector("body").classList.remove("dark-background");
     }
   }, []);
 

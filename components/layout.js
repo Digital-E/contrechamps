@@ -8,7 +8,25 @@ export default function Layout({ preview, children }) {
   const { updateScroll } = useRouterScroll();
 
   useEffect(() => {
-      updateScroll();
+    // setTimeout(() => {
+    //   if(window.location.hash) {
+    //     let hashElement = document.querySelector(window.location.hash)
+
+    //     if(hashElement) {
+    //         // window.scrollTo(0, 0);
+    //         // window.scrollTo({left: 0, top: hashElement.getBoundingClientRect().top - 100})
+    //         updateScroll();
+    //         // history.replaceState(null, null, ' ');
+    //         // history.replaceState("", "", location.pathname)
+    //         // history.pushState("", document.title, window.location.pathname);
+
+    //     }
+
+    //     } else {
+    //       updateScroll();
+    //     }
+    // }, 0)
+    updateScroll();
   }, []);
 
   return (

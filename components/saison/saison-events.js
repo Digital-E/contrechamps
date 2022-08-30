@@ -9,6 +9,8 @@ import sanitizeTag from "../../lib/sanitizeTag"
 import styled from "styled-components"
 import EventList from "../home/event-list"
 
+import { useRouterScroll } from '@moxy/next-router-scroll';
+
 let Container = styled.div`
     position: relative;
 
@@ -76,6 +78,7 @@ let InnerMonthDivider = styled.div`
 
 export default function Component ({ data }) {
     let [eventsByMonth, setEventsByMonth] = useState([]);
+    const { updateScroll } = useRouterScroll();
 
     let pastEvents = [];
 
@@ -161,21 +164,7 @@ export default function Component ({ data }) {
         })
 
         setEventsByMonth([...eventsByMonthArray]);
-        
     },[]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            if(window.location.hash) {
-                let hashElement = document.querySelector(window.location.hash)
-
-                if(hashElement) {
-                    window.scrollTo({left: 0, top: hashElement.getBoundingClientRect().top - 80})
-                }
-            }
-        }, 0)
-
-    }, []);
 
 
     return (

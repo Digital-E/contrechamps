@@ -136,13 +136,23 @@ export default function EventHeader({ data }) {
 
   let [soundOn, setSoundOn] = useState(false);
 
-  useEffect(() => {
-      if(soundOn) {
-          document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
-      } else {
-          document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
-      }
-  }, [soundOn])  
+  // useEffect(() => {
+  //     if(soundOn) {
+  //         document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
+  //     } else {
+  //         document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
+  //     }
+  // }, [soundOn]) 
+  
+  const toggleSound = () => {
+    if(!soundOn) {
+        document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
+        setSoundOn(!soundOn)
+    } else {
+        document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
+        setSoundOn(!soundOn)
+    }
+}
 
   return (
     <Container>
@@ -150,7 +160,7 @@ export default function EventHeader({ data }) {
         {data.videoMp4 !== null ?
         <>
         <Orb data={data}/>
-        <SoundIcon onClick={() => setSoundOn(!soundOn)} className={soundOn ? "sound-on sound-icon" : "sound-off sound-icon"}> 
+        <SoundIcon onClick={() => toggleSound()} className={soundOn ? "sound-on sound-icon" : "sound-off sound-icon"}> 
           {!soundOn ?
           <svg className="sound-icon" width="18px" height="18px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
             <polygon points="12.4 12.5 14.5 10.4 16.6 12.5 18 11.1 15.9 9 18 6.9 16.6 5.5 14.5 7.6 12.4 5.5 11 6.9 13.1 9 11 11.1"></polygon>
