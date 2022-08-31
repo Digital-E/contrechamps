@@ -257,11 +257,11 @@ export default ({ data, index }) => {
             // loop="true"
             >
                 <source 
-                src={data.videoMp4} 
+                src={`${data.videoMp4}#t=0.001`} 
                 type='video/mp4; codecs="hvc1"'
                 />
                 <source 
-                src={data.videoWebM}
+                src={`${data.videoWebM}#t=0.001`}
                 type="video/webm"/>
             </video>
             <Circle ref={orbRef}
