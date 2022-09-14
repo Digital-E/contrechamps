@@ -20,6 +20,8 @@ module.exports = {
       { source: "/media/:media/:slug", destination: "/fr/media/:media/:slug", permanent: false },
       { source: "/editions", destination: "/fr/editions", permanent: false },
       { source: "/billetterie", destination: "/fr/billetterie", permanent: false },
+      { source: "/en/publishing", destination: "/fr/a-propos/editions", permanent: true },
+      { source: "/fr/publishing", destination: "/fr/a-propos/editions", permanent: true },
     ];
   }
 }
