@@ -5,7 +5,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { indexQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { indexQuery, actualitesQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { getClient } from '../../../lib/sanity.server'
 
 import SaisonHeader from '../../../components/saison/saison-header'
@@ -17,9 +17,12 @@ export default function Post({ data = {}, preview }) {
 
   const slug = data?.data?.slug
 
-let allEvents = data?.allEvents
 
-data = data?.data;
+  let allEvents = data?.allEvents.sort(function(a,b){
+    return  new Date(a.startdate) - new Date(b.startdate)
+  });
+
+  data = data?.data;
 
 
   if (!router.isFallback && !slug) {
@@ -66,9 +69,16 @@ export async function getStaticProps({ params, preview = false }) {
   })
 
   // All Events
-  const allEvents = await getClient(preview).fetch(indexQuery, {
+  let allEvents = await getClient(preview).fetch(indexQuery, {
     slug: params.lang
   });
+
+  // All Actualites
+  const allActualites = await getClient(preview).fetch(actualitesQuery, {
+    slug: params.lang
+  });
+
+  allEvents = [...allEvents, ...allActualites]
 
   // Get Menu And Footer
 

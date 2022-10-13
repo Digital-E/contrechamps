@@ -135,6 +135,12 @@ const Location = styled.div`
     }
 `
 
+const Vignette = styled.div`
+    color: var(--color);
+    min-height: 400px;
+`
+
+
 
 
 export default function Component({ data, isVideo }) {
@@ -154,24 +160,36 @@ export default function Component({ data, isVideo }) {
     return !isVideo ? (
     <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
         <Link href={item.slug}>
-            <ColLeft>
-                <Image data={item.image} />
-            </ColLeft>
+            {
+                item._type === 'post' ?
+                <ColLeft>
+                    <Image data={item.image} />
+                </ColLeft>
+                :
+                null
+            }
             <ColRight>
-                <h1>{item.title}</h1>
-                <div>
-                    <div>
-                        <div className={`h4 home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
-                            <DateComponent data={item} />
-                        </div>
+                {
+                item._type === 'post' ?
+                    <>
+                        <h1>{item.title}</h1>
                         <div>
+                            <div>
+                                <div className={`h4 home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
+                                    <DateComponent data={item} />
+                                </div>
+                                <div>
 
+                                </div>
+                            </div>
+                            <Location className="h4">
+                                <div><Body content={item.location} /></div>
+                            </Location>
                         </div>
-                    </div>
-                    <Location className="h4">
-                        <div><Body content={item.location} /></div>
-                    </Location>
-                </div>
+                    </>
+                    :
+                    <Vignette><Body content={item.textVignette} /></Vignette>
+                }
             </ColRight>
         </Link>
     </ListItem>

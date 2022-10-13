@@ -52,6 +52,7 @@ html {
     --transition-in: 0.2s;
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
+    --color: red;
 }
 
 .border-top::before {
@@ -75,7 +76,7 @@ html {
 }
 
 .active-link {
-    color: red;
+    color: var(--color);
 }
 
 a {
@@ -83,7 +84,7 @@ a {
 }
 
 a:hover, button:hover {
-    color: red;
+    color: var(--color);
 }
 
 .button {
@@ -110,7 +111,7 @@ a:hover, button:hover {
 }
 
 .plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
-    background: red !important;
+    background: var(--color) !important;
 }
 
 .CookieConsent {
@@ -214,7 +215,7 @@ a:hover, button:hover {
     .dark-background .season-filter:hover  .season-filter__selector,
     .dark-background .season-filter--active .season-filter__selector
      {
-        background-color: red !important;
+        background-color: var(--color) !important;
     }
 
     .season-filter__label {
@@ -230,7 +231,7 @@ a:hover, button:hover {
     }
 
     .dark-background .arrow-prev:hover::after, .dark-background .arrow-next:hover::after  {
-        border-top: 5px solid red !important;
+        border-top: 5px solid var(--color) !important;
     }
 
     .dark-background .home-calendar__day--has-event::after {
@@ -246,8 +247,8 @@ a:hover, button:hover {
     }
 
     button:hover, .button:hover {
-        border-color: red !important;
-        color: red;
+        border-color: var(--color) !important;
+        color: var(--color);
     }
 
     .dark-background input::placeholder {
@@ -282,7 +283,7 @@ a:hover, button:hover {
     }
 
     .button.active-link {
-        border: 1px solid red;
+        border: 1px solid var(--color);
     }
 
     .dark-background .media-item:hover > a

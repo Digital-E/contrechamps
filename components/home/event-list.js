@@ -44,7 +44,6 @@ export default function Component({ data, title, videoData }) {
         const player = new Plyr('.player');
     }, []);
 
-
     return (
         <Container>
             {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from "next/router"
+
+import { useRouter } from 'next/router'
 
 import { parseISO, format, getMonth } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
@@ -9,18 +10,12 @@ import sanitizeTag from "../../lib/sanitizeTag"
 import styled from "styled-components"
 import EventList from "../home/event-list"
 
-import { useRouterScroll } from '@moxy/next-router-scroll';
-
 let Container = styled.div`
     position: relative;
 
     > div:last-child > div:last-child::after   {
         display: none !important;
     }
-
-    // > div > div:nth-child(2) > div:nth-child(1) {
-    //     display: none !important;
-    // }
 
     .hide-month-wrapper {
         display: none;
@@ -78,7 +73,8 @@ let InnerMonthDivider = styled.div`
 
 export default function Component ({ data }) {
     let [eventsByMonth, setEventsByMonth] = useState([]);
-    const { updateScroll } = useRouterScroll();
+
+    let router = useRouter();
 
     let pastEvents = [];
 
@@ -151,11 +147,11 @@ export default function Component ({ data }) {
 
         let prePastEvents = eventsByMonthArray.splice(0, pastEventsSpliceIndex);
 
-        let pastEvents = prePastEvents.map(item => {
-            let obj = item;
-            obj.passed = true;
-            return obj;
-        });
+        // let pastEvents = prePastEvents.map(item => {
+        //     let obj = item;
+        //     obj.passed = true;
+        //     return obj;
+        // });
 
         // eventsByMonthArray.push(...pastEvents)
 

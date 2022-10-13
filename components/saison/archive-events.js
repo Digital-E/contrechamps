@@ -14,10 +14,6 @@ let Container = styled.div`
         display: none !important;
     }
 
-    // > div > div:nth-child(2) > div:nth-child(1) {
-    //     display: none !important;
-    // }
-
 `
 
 let MonthWrapper = styled.div`
@@ -85,6 +81,16 @@ export default function Component ({ data }) {
             return format(parseISO(date.toISOString()), 'yyyy-LL');
         }
 
+        function getDateToday() {
+            var date = new Date();
+
+            return format(parseISO(date.toISOString()), 'yyyy-LL-dd');
+        }
+
+        // function getDateFormat(date) {
+        //     console.log(date)
+        //     return format(parseISO(date), 'yyyy-LL-dd');
+        // }
 
         let getMonthsInYear = (year) => {
             let i = 0;
@@ -117,7 +123,12 @@ export default function Component ({ data }) {
             eventsByMonthArray.forEach((month) => {
 
                 if(month.date === eventMonth) {
-                    month.events.push(item)
+
+                    let currentDate = getDateToday();
+
+                    if(item.startdate < currentDate) {
+                        month.events.push(item)
+                    }
                 }
 
                 if(month.events.length > 0) {
@@ -132,7 +143,7 @@ export default function Component ({ data }) {
 
         eventsByMonthArray.forEach((item, index) => {
             if(item.date === getDate(currentMonth, currentYear)) {
-                pastEventsSpliceIndex = index;
+                pastEventsSpliceIndex = index + 1;
             }
         });
 

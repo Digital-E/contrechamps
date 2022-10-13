@@ -58,7 +58,7 @@ let Container = styled.div`
         display: inline-block;
         text-decoration: underline;
         position: relative;
-        color: red;
+        color: var(--color);
         width: 5.5em;
         margin-left: 20px;
     }
@@ -96,7 +96,7 @@ let Container = styled.div`
     }
 
     .arrow-prev:hover::after, .arrow-next:hover::after {
-        border-top: 5px solid red;
+        border-top: 5px solid var(--color);
     }
 
     .home-calendar__day {
@@ -378,6 +378,9 @@ let Container = styled.div`
 //     "Juillet", "Août", "Septembre",
 //     "Octobre", "Novembre", "Décembre"];
 
+const Blank = styled.div``
+
+
 export default function Component({ data }) {
 
     let router = useRouter();
@@ -385,6 +388,8 @@ export default function Component({ data }) {
     let [allMonths, setAllMonths ] = useState( [ [] ] );
 
     let [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+
+    let [allBlanks, setAllBlanks] = useState([]);
 
     let months = [];
 
@@ -510,7 +515,6 @@ export default function Component({ data }) {
 
             let toggleModalVisibleOff = (item) => {
                 if(item.classList.contains("home-calendar__day--has-event")) {
-                    console.log(item)
                     item.classList.remove("home-calendar__modal--show")
                     document.querySelector(".home-calendar").style.zIndex = "0";
                 }
@@ -521,12 +525,12 @@ export default function Component({ data }) {
                     item.addEventListener("mouseenter", () => toggleModalVisible(item));
                     item.addEventListener("mouseleave", () => toggleModalVisible(item));
                 } else {
-                    item.children[0].addEventListener("touchstart", () => toggleModalVisibleOn(item));
+                    item.children[0]?.addEventListener("touchstart", () => toggleModalVisibleOn(item));
                 }
             })
             
             Array.from(allHomeCalendarDays).forEach(item => {
-                item.children[1].addEventListener("touchstart", () => toggleModalVisibleOff(item));
+                item.children[1]?.addEventListener("touchstart", () => toggleModalVisibleOff(item));
             })  
 
         }, 0)
@@ -545,6 +549,47 @@ export default function Component({ data }) {
             }
         }
     }
+
+    useEffect(() => {
+        setTimeout(() => {
+            let high = document.querySelector('.home-calendar__col-right').getBoundingClientRect().bottom
+            let low = window.innerHeight
+    
+            let modalHeight = low - high
+    
+            if(window.innerWidth > 989) {
+                document.querySelectorAll('.home-calendar__modal').forEach((item) => {
+                    item.style.maxHeight = `${modalHeight}px`
+                })
+            }
+        }, 500)
+
+    }, []);
+
+    useEffect(() => {
+        let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        setAllBlanks([]);
+
+        if(allMonths.length > 1) {
+            let monthStartDay = allMonths[currentMonthIndex][0].timestamp.toString().split(' ')[0]
+            let monthStartDayIndex = 0;
+
+            days.forEach((item, index) => {
+                if(item === monthStartDay) {
+                    monthStartDayIndex = index
+                }
+            })
+
+            let blanksArray = []
+
+            for(let i = 0; i < monthStartDayIndex; i++) {
+                blanksArray.push(null)
+            }
+
+            setAllBlanks(blanksArray);
+
+        }
+    }, [currentMonthIndex])
     
 
 
@@ -572,8 +617,10 @@ export default function Component({ data }) {
                 </div>
                 </div>
                 <div class="home-calendar__col-right">
+                    {
+                        allBlanks.map(item => <Blank />)
+                    }
                     {allMonths[currentMonthIndex].map((item, index) => {
-
                         return (
                             <div class={`h5 home-calendar__day 
                                 ${item.events.length > 0 &&'home-calendar__day--has-event'} 

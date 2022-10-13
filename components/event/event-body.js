@@ -8,6 +8,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  width: 100%;
 
   @media(max-width: 990px) {
     flex-wrap: wrap;

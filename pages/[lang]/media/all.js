@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, photosQuery, disquesQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
@@ -31,34 +31,6 @@ const Container = styled.div`
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
 
-//   const slug = data?.data?.slug
-
-//   const {
-//     data: { post, morePosts },
-//   } = usePreviewSubscription(postQuery, {
-//     params: { slug },
-//     initialData: data,
-//     enabled: preview && slug,
-//   })
-
-
-//   if (!router.isFallback && !slug) {
-//     return <ErrorPage statusCode={404} />
-//   }
-
-  let ListSwitch = (type, allMedia) => {
-
-    switch(type) {
-      case 'presse':
-        return <PressList data={allMedia} />
-      case 'video':
-        return <VideoList data={allMedia} />
-      case 'disque':
-        return <DisqueList data={allMedia} />
-      break;
-      return null;
-    }
-  }
 
   return (
     <Layout preview={preview}>
@@ -83,6 +55,8 @@ export default function Post({ data = {}, preview }) {
                 <PressList data={data.allPresse} isExpandable={true} />
                 <ListHeader data={data.videoPage} isExpandable={true} href={`${data.lang}__media__videos`}/>
                 <VideoList data={data.allVideo} isExpandable={true} />
+                <ListHeader data={data.photoPage} isExpandable={true} href={`${data.lang}__media__photos`}/>
+                <VideoList data={data.allPhoto} isExpandable={true} isPhoto={true} />
                 <ListHeader data={data.disquesPage} isExpandable={true} href={`${data.lang}__media__disques`}/>
                 <DisqueList data={data.allDisque} isExpandable={true} />
               </Container>
@@ -111,6 +85,10 @@ export async function getStaticProps({ params, preview = false }) {
     slug: `${params.lang}__media__videos`,
   })
 
+  const photoPage = await getClient(preview).fetch(mediaPageQuery, {
+    slug: `${params.lang}__media__photos`,
+  })
+
   const disquesPage = await getClient(preview).fetch(mediaPageQuery, {
     slug: `${params.lang}__media__disques`,
   })
@@ -120,6 +98,10 @@ export async function getStaticProps({ params, preview = false }) {
   })
 
   let allVideo = await getClient(preview).fetch(videosQuery, {
+    lang: params.lang
+  })
+
+  let allPhoto = await getClient(preview).fetch(photosQuery, {
     lang: params.lang
   })
 
@@ -146,9 +128,11 @@ export async function getStaticProps({ params, preview = false }) {
         data,
         pressePage,
         videoPage,
+        photoPage,
         disquesPage,
         allPresse,
         allVideo,
+        allPhoto,
         allDisque,
         menuData,
         footerData,

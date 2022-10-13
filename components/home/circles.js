@@ -38,7 +38,14 @@ const Container = styled.div`
             flex-wrap: wrap;
         }
 
-        // margin-top: -7vw;
+        > div > div:nth-child(3) {
+            display: none;
+        }
+
+        > div > div:nth-child(4) {
+            display: none;
+        }
+
     }
 
     -ms-overflow-style: none;

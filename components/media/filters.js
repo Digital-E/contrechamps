@@ -29,12 +29,15 @@ let Container = styled.div`
         padding: 0px 30px;
     }
 
+    .season-filter {
+        margin-right: 40px;
+    }
+
     .season-filter > a {
         display: flex;
         align-items: center;
         cursor: pointer;
         flex-basis: auto;
-        margin-right: 40px;
     }
 
     .season-filter:last-child {
@@ -67,7 +70,7 @@ let Container = styled.div`
     }
 
     .active-link .season-filter__selector  {
-        background-color: red !important;
+        background-color: var(--color) !important;
     }
 
     @media(max-width: 768px) {
@@ -180,11 +183,17 @@ export default function Component ({ data }) {
                     </Link>
                 </div>
                 <div class="season-filter">
+                    <Link href={`/${data._lang}/media/photos`}>
+                        <div class="season-filter__selector"></div>
+                        <div class="season-filter__label p">Photos</div>
+                    </Link>
+                </div>                  
+                <div class="season-filter">
                     <Link href={`/${data._lang}/media/disques`}>
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Disques</div>
                     </Link>
-                </div>
+                </div>              
                 </div>
             </div> 
     </Container>       

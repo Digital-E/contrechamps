@@ -42,8 +42,10 @@ let Container = styled.div`
         margin-right: 30px;
     }
 
-    .season-filter:last-child {
-        padding-right: 30px;
+    @media(min-width: 990px) {
+        .season-filter:last-child {
+            padding-right: 30px;
+        }
     }
 
     .season-filter:hover .season-filter__selector {
@@ -67,7 +69,7 @@ let Container = styled.div`
     }
 
     .season-filter--active .season-filter__selector  {
-        background-color: red;
+        background-color: var(--color);
     }
 
 
@@ -102,6 +104,10 @@ let Container = styled.div`
             width: 30px;
             background: linear-gradient(90deg, transparent 0%, white 90%);
             z-index: 999;
+        }
+
+        .season-filters > div:nth-child(2) {
+            display: none;
         }
     }
 `
@@ -204,7 +210,7 @@ export default function Component ({ data }) {
     useEffect(() => {
         // Check if URL has tag
         if(tags.length === 0 || !initCheckSessionStorageForTag) return;
-        // checkSessionStorageForTag();
+        checkSessionStorageForTag();
     }, [tags])
     
 
@@ -263,8 +269,6 @@ export default function Component ({ data }) {
 
         document.querySelectorAll(".month-wrapper").forEach((itemOne, indexOne) => {
             let amountHidden = 0;
-
-            console.log(itemOne.children[1].children[0])
 
             let amount = itemOne.children[1].children[0].children.length
 

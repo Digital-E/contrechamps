@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { mediaPageQuery, mediaSlugsQuery, pressQuery, videosQuery, disquesQuery, photosQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
@@ -52,6 +52,8 @@ export default function Post({ data = {}, preview }) {
         return <PressList data={allMedia} />
       case 'video':
         return <VideoList data={allMedia} />
+      case 'photo':
+        return <VideoList data={allMedia} isPhoto={true} />        
       case 'disque':
         return <DisqueList data={allMedia} />
       break;
@@ -111,6 +113,10 @@ export async function getStaticProps({ params, preview = false }) {
     })
   } else if (data.type === "disque") {
     allMedia = await getClient(preview).fetch(disquesQuery, {
+      lang: params.lang
+    })
+  } else if (data.type === "photo") {
+    allMedia = await getClient(preview).fetch(photosQuery, {
       lang: params.lang
     })
   }

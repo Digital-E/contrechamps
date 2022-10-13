@@ -21,7 +21,7 @@ const Container = styled.div`
 `
 
 
-export default function Component({ data, isExpandable }) {
+export default function Component({ data, isExpandable, isPhoto }) {
     let [showData, setShowData] = useState([]);
 
     useEffect(() => {
@@ -33,13 +33,13 @@ export default function Component({ data, isExpandable }) {
     if(isExpandable) {
         return (
             <Container className="border-top">
-                {showData.map(item => <VideoListItem data={item} />)}
+                {showData.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )
     } else {
         return (
             <Container className="border-top">
-                {data.map(item => <VideoListItem data={item} />)}
+                {data.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )
     }

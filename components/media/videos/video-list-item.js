@@ -26,6 +26,7 @@ const Container = styled.div`
 
 
     ::after {
+        display: ${props => props.isPhoto ? 'none' : 'block'};
         content: '';
         position: absolute;
         opacity: 0;
@@ -67,10 +68,10 @@ const Text = styled.div`
 `
 
 
-export default function Component({ data }) {
+export default function Component({ data, isPhoto }) {
     
     return (
-        <Container>
+        <Container isPhoto={isPhoto}>
             <Link href={data.slug}>
                 <Thumbnail>
                     <Image data={data.image} />
