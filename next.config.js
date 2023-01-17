@@ -22,6 +22,7 @@ module.exports = {
       { source: "/billetterie", destination: "/fr/billetterie", permanent: false },
       { source: "/en/publishing", destination: "/fr/a-propos/editions", permanent: true },
       { source: "/fr/publishing", destination: "/fr/a-propos/editions", permanent: true },
+      { source: "/editions", destination: "https://editions-contrechamps.org", permanent: true },
     ];
   }
 }
