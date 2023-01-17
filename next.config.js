@@ -18,11 +18,10 @@ module.exports = {
       { source: "/media", destination: "/fr/media", permanent: false },
       { source: "/media/:media", destination: "/fr/media/:media", permanent: false },
       { source: "/media/:media/:slug", destination: "/fr/media/:media/:slug", permanent: false },
-      { source: "/editions", destination: "/fr/editions", permanent: false },
+      { source: "/editions", destination: "/fr/a-propos/editions", permanent: false },
       { source: "/billetterie", destination: "/fr/billetterie", permanent: false },
       { source: "/en/publishing", destination: "/fr/a-propos/editions", permanent: true },
       { source: "/fr/publishing", destination: "/fr/a-propos/editions", permanent: true },
-      { source: "/editions", destination: "https://editions-contrechamps.org", permanent: true },
     ];
   }
 }
