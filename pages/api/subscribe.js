@@ -7,7 +7,7 @@ let INFOMANIAK_PASSWORD="$2y$10$SbyXyKxi6QELUkDJ8kyrfesO/DW5u5VITNzfMt/2NHNX8MUA
 export default async (req, res) => {
   let listId = "127003";
 
-  console.log(INFOMANIAK_USERNAME, INFOMANIAK_PASSWORD)
+  // console.log(INFOMANIAK_USERNAME, INFOMANIAK_PASSWORD)
   
   const hash = Buffer.from(`${INFOMANIAK_USERNAME}:${INFOMANIAK_PASSWORD}`).toString("base64")
 
@@ -32,7 +32,7 @@ export default async (req, res) => {
     )
     .then((response) => response.json())
     .then(data => {
-        console.log(data)
+        // console.log(data)
         res.status(200).json(data);
     })
     .catch(err => {

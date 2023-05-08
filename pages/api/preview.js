@@ -11,15 +11,15 @@ export default async function preview(req, res) {
     return res.status(401).json({ message: 'Invalid token' })
   }
 
-  // Check if the post with the given `slug` exists
-  const post = await previewClient.fetch(allPostQuery, {
-    slug: req.query.slug,
-  })
+  // // Check if the post with the given `slug` exists
+  // const post = await previewClient.fetch(allPostQuery, {
+  //   slug: req.query.slug,
+  // })
 
-  // If the slug doesn't exist prevent preview mode from being enabled
-  if (!post) {
-    return res.status(401).json({ message: 'Invalid slug' })
-  }
+  // // If the slug doesn't exist prevent preview mode from being enabled
+  // if (!post) {
+  //   return res.status(401).json({ message: 'Invalid slug' })
+  // }
 
   // Enable Preview Mode by setting the cookies
   res.setPreviewData({})
@@ -45,6 +45,6 @@ export default async function preview(req, res) {
 
 
 
-  res.writeHead(307, { Location: splitSlug(post.slug) })
+  res.writeHead(307, { Location: splitSlug(req.query.slug) })
   res.end()
 }

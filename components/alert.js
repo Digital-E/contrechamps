@@ -9,6 +9,7 @@ let Container = styled.div`
   background: white;
   border: 1px solid black;
   padding: 15px 20px;
+  color: black;
 
   a {
     color: red;

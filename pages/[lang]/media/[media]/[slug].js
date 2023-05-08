@@ -5,7 +5,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../../components/header'
 import Layout from '../../../../components/layout'
 import { SITE_NAME } from '../../../../lib/constants'
-import { allMediaSlugsQuery, mediaQuery, menuQuery, footerQuery } from '../../../../lib/queries'
+import { allMediaSlugsQuery, previewMediaQuery, mediaQuery, menuQuery, footerQuery } from '../../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../../lib/sanity.server'
 
@@ -68,9 +68,15 @@ export async function getStaticProps({ params, preview = false }) {
   let slug = `${params.lang}__media__${params.media}__${params.slug}`
 
 
-  const data = await getClient(preview).fetch(mediaQuery, {
+  let data = await getClient(preview).fetch(mediaQuery, {
     slug: slug,
   })
+
+  if(preview) {
+    data = await getClient(preview).fetch(previewMediaQuery, {
+      slug: slug,
+    })
+  }
 
 
   // Get Menu And Footer

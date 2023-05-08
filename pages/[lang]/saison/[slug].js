@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { postQuery, postSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { previewPostQuery, postQuery, postSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
@@ -18,13 +18,7 @@ export default function Post({ data = {}, preview }) {
 
   const slug = data?.post?.slug
 
-  const {
-    data: { post, morePosts },
-  } = usePreviewSubscription(postQuery, {
-    params: { slug },
-    initialData: data,
-    enabled: preview && slug,
-  })
+  let post = data.post
 
 
   if (!router.isFallback && !slug) {
@@ -72,10 +66,17 @@ export async function getStaticProps({ params, preview = false }) {
   let slug = `${params.lang}__saison__${params.slug}`
 
 
-  const { post, morePosts } = await getClient(preview).fetch(postQuery, {
+  let { post } = await getClient(preview).fetch(postQuery, {
     slug: slug,
   })
 
+  if(preview) {
+    post = await getClient(preview).fetch(previewPostQuery, {
+      slug: slug,
+    })
+
+    post = post.post
+  }
 
   // Get Menu And Footer
 
@@ -93,7 +94,6 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       data: {
         post,
-        morePosts: overlayDrafts(morePosts),
         menuData,
         footerData
       },

@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { lEnsembleSlugsQuery, lEnsembleQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { lEnsembleSlugsQuery, previewLEnsembleQuery, lEnsembleQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { sanityClient, getClient } from '../../../lib/sanity.server'
 
 import splitSlug from "../../../lib/splitSlug"
@@ -51,9 +51,15 @@ export async function getStaticProps({ params, preview = false }) {
   let slug = `${params.lang}__a-propos__${params.slug}`
 
 
-  const data = await getClient(preview).fetch(lEnsembleQuery, {
+  let data = await getClient(preview).fetch(lEnsembleQuery, {
     slug: slug,
   })
+
+  if(preview) {
+    data = await getClient(preview).fetch(previewLEnsembleQuery, {
+      slug: slug,
+    })
+  }
 
   const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
     lang: params.lang

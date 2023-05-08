@@ -5,7 +5,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { actualiteBySlugQuery, actualiteSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { previewActualiteBySlugQuery, actualiteBySlugQuery, actualiteSlugsQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { sanityClient, getClient, overlayDrafts } from '../../../lib/sanity.server'
 
 import splitSlug from "../../../lib/splitSlug"
@@ -108,7 +108,13 @@ export async function getStaticProps({ params, preview = false }) {
   //   slug: slug,
   // })
 
-  const actualite = await getClient(preview).fetch(actualiteBySlugQuery, { slug: slug })
+  let actualite = await getClient(preview).fetch(actualiteBySlugQuery, { slug: slug })
+
+  if(preview) {
+    actualite = await getClient(preview).fetch(previewActualiteBySlugQuery, {
+      slug: slug,
+    })
+  }
 
 
   // Get Menu And Footer

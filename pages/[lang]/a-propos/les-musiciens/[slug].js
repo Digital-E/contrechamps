@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../../components/header'
 import Layout from '../../../../components/layout'
 import { SITE_NAME } from '../../../../lib/constants'
-import { lEnsembleMenuQuery, lesMusiciensMenuQuery, lesMusiciensSlugsQuery, lesMusiciensQuery, menuQuery, footerQuery } from '../../../../lib/queries'
+import { lEnsembleMenuQuery, previewLesMusiciensQuery, lesMusiciensMenuQuery, lesMusiciensSlugsQuery, lesMusiciensQuery, menuQuery, footerQuery } from '../../../../lib/queries'
 import { sanityClient, getClient } from '../../../../lib/sanity.server'
 
 import splitSlug from "../../../../lib/splitSlug"
@@ -50,9 +50,15 @@ export async function getStaticProps({ params, preview = false }) {
   let slug = `${params.lang}__a-propos__les-musiciens__${params.slug}`
 
 
-  const data = await getClient(preview).fetch(lesMusiciensQuery, {
+  let data = await getClient(preview).fetch(lesMusiciensQuery, {
     slug: slug,
   })
+
+  if(preview) {
+    data = await getClient(preview).fetch(previewLesMusiciensQuery, {
+      slug: slug,
+    })
+  }
 
   const lEnsembleMenu = await getClient(preview).fetch(lEnsembleMenuQuery, {
     lang: params.lang
