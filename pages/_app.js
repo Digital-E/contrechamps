@@ -18,7 +18,9 @@ function MyApp({ Component, pageProps, router }) {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
 
-    document.documentElement.style.setProperty('--color', `${pageProps.data?.menuData.color.hex}`);
+    // document.documentElement.style.setProperty('--color', `${pageProps.data?.menuData.color.hex}`);
+    document.documentElement.style.setProperty('--color', `rgba(255, 255, 255, 1)`);
+    document.documentElement.style.setProperty('--secondary-color', `rgba(255, 255, 255, 0.6)`);
   },[])
 
   return (

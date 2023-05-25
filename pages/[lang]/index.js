@@ -38,36 +38,20 @@ export default function Index({ data = {}, preview }) {
   useEffect(() => {
     // document.querySelector("body").classList.add("dark-background");
 
-    let now  = new Date();
-    now = now;
-
-    let events = data.allEvents.slice();
-
-    // let orderedEvents = events.sort(function(a,b) {
-    //   var aToDate = (new Date(a.startdate));
-    //   var bToDate = (new Date(b.startdate));
-    //   return Math.abs(aToDate - now) - Math.abs(bToDate - now);
-    // })
-
     let orderedEvents = data?.allEvents.sort(function(a,b){
       return  new Date(a.startdate) - new Date(b.startdate)
     });
 
     let allEventsArray = orderedEvents.filter(item => {
-      if(new Date(item.startdate) > new Date()) {
+      let today = new Date()
+      today.setHours(0,0,0,0)
+
+      if(new Date(item.startdate) > today) {
         return item
       }
     })
 
-    let splicedAllEventsArray = [];
-
-    if(data.homeData.video !== null) {
-      splicedAllEventsArray = allEventsArray.splice(0, 5)
-    } else {
-      splicedAllEventsArray = allEventsArray.splice(0, 6)
-    }
-
-    setAllEvents([...splicedAllEventsArray])
+    setAllEvents([...allEventsArray])
 
     return () => {
       // document.querySelector("body").classList.remove("dark-background");
@@ -89,7 +73,7 @@ export default function Index({ data = {}, preview }) {
         <Circles data={data?.homeData?.circles} />
         <Calendar data={data.allEvents} />
         {/* <Video data={homeData} title={homeData?.videoTitle}/> */}
-        <EventList data={allEvents} title={data?.homeData?.newsTitle} videoData={data?.homeData}/>
+        <EventList data={allEvents} />
       </Layout>
     </>
   )

@@ -52,7 +52,7 @@ html {
     --transition-in: 0.2s;
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
-    --color: red;
+    --background-colour:#00adef;
 }
 
 .border-top::before {
@@ -76,7 +76,7 @@ html {
 }
 
 .active-link {
-    color: var(--color);
+    color: var(--secondary-color);
 }
 
 a {
@@ -84,7 +84,7 @@ a {
 }
 
 a:hover, button:hover {
-    color: var(--color);
+    color: var(--secondary-color);
 }
 
 .button {
@@ -174,12 +174,12 @@ a:hover, button:hover {
   /* ------------------------------- Dark Styles ------------------------------ */
 
   .dark-background {
-      background: black;
+      background: var(--background-colour);
       color: white;
   }
 
   .dark-background header {
-      background: black;
+      background: var(--background-colour);
   }
 
   .dark-background header > div:nth-child(1) a {
@@ -205,17 +205,22 @@ a:hover, button:hover {
 
     .dark-background .season-filters {
         background-color: white !important;
-        color: black !important;
+        color: var(--background-colour) !important;
     }
 
     .dark-background .season-filter__selector {
-        background-color: black !important;
+        background-color: var(--colour) !important;
+        border: 1px solid var(--background-colour);
     }
 
     .dark-background .season-filter:hover  .season-filter__selector,
     .dark-background .season-filter--active .season-filter__selector
      {
-        background-color: var(--color) !important;
+        background-color: var(--background-colour) !important;
+    }
+
+    .dark-background .active-link .season-filter__selector {
+        background-color: var(--background-colour) !important;
     }
 
     .season-filter__label {
@@ -223,7 +228,7 @@ a:hover, button:hover {
     }
 
     .dark-background .season-filter__label {
-        color: black !important;
+        color: var(--background-colour) !important;
     }
 
     .dark-background .arrow-prev::after, .dark-background .arrow-next::after  {
@@ -231,7 +236,7 @@ a:hover, button:hover {
     }
 
     .dark-background .arrow-prev:hover::after, .dark-background .arrow-next:hover::after  {
-        border-top: 5px solid var(--color) !important;
+        border-top: 5px solid var(--secondary-color) !important;
     }
 
     .dark-background .home-calendar__day--has-event::after {
@@ -260,13 +265,13 @@ a:hover, button:hover {
     }
 
     .dark-background .home-calendar__modal {
-        background-color: black !important;
+        background-color: var(--background-colour) !important;
         border: 1px solid white !important;
     }
 
     .dark-background .home-calendar__event:hover a {
         background-color: white !important;
-        color: black !important;
+        color: var(--background-colour) !important;
     }
 
     .dark-background .home-calendar__event {
@@ -275,7 +280,11 @@ a:hover, button:hover {
 
     .dark-background .event-tile:hover a {
         background-color: white !important;
-        color: black !important;
+        color: var(--background-colour) !important;
+    }
+
+    .dark-background .event-tile:hover h1 {
+        color: var(--background-colour) !important;
     }
 
     .dark-background .button {
@@ -283,13 +292,17 @@ a:hover, button:hover {
     }
 
     .button.active-link {
-        border: 1px solid var(--color);
+        border: 1px solid var(--secondary-color);
     }
 
     .dark-background .media-item:hover > a
      {
         background: white;
-        color: black;
+        color: var(--background-colour);
+    }
+
+    .dark-background .media-item:hover .media-item__text {
+        color: var(--background-colour);
     }
 
 /* -------------------------------------------------------------------------- */
