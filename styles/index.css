@@ -111,7 +111,7 @@ a:hover, button:hover {
 }
 
 .plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
-    background: var(--color) !important;
+    background: var(--background-colour) !important;
 }
 
 .CookieConsent {
@@ -208,6 +208,10 @@ a:hover, button:hover {
         color: var(--background-colour) !important;
     }
 
+    .dark-background .season-filters a:hover {
+        color: rgba(0, 173, 239, 0.6) !important;
+    }
+
     .dark-background .season-filter__selector {
         background-color: var(--colour) !important;
         border: 1px solid var(--background-colour);
@@ -278,12 +282,13 @@ a:hover, button:hover {
         border-top: 1px solid white !important;
     }
 
-    .dark-background .event-tile:hover a {
+    .dark-background .event-tile:hover > a {
         background-color: white !important;
         color: var(--background-colour) !important;
+        transition: var(--transition-out);
     }
 
-    .dark-background .event-tile:hover h1 {
+    .dark-background .event-tile:hover h1, .dark-background .event-tile:hover a  {
         color: var(--background-colour) !important;
     }
 

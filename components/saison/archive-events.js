@@ -70,8 +70,10 @@ export default function Component ({ data }) {
         let currentMonth = d.getMonth();
         let currentYear = d.getFullYear();
 
-        let endYear = currentYear + 1;
-        let yearIncrement = currentYear - 1;
+        // let endYear = currentYear + 1;
+        // let yearIncrement = currentYear - 1;
+        let endYear = 2050;
+        let yearIncrement = 2022;
 
         let eventsByMonthArray = [];
 
@@ -87,11 +89,6 @@ export default function Component ({ data }) {
             return format(parseISO(date.toISOString()), 'yyyy-LL-dd');
         }
 
-        // function getDateFormat(date) {
-        //     console.log(date)
-        //     return format(parseISO(date), 'yyyy-LL-dd');
-        // }
-
         let getMonthsInYear = (year) => {
             let i = 0;
 
@@ -105,6 +102,7 @@ export default function Component ({ data }) {
 
                 i++;
             }
+
         }
 
         while(yearIncrement <= endYear) {
@@ -113,6 +111,10 @@ export default function Component ({ data }) {
 
             yearIncrement ++;
         }
+
+        eventsByMonthArray = eventsByMonthArray.sort(function(a,b){
+            return  new Date(b.date) - new Date(a.date)
+        });
 
 
         data.forEach(item => {
@@ -141,21 +143,21 @@ export default function Component ({ data }) {
 
         let pastEventsSpliceIndex = 0;
 
-        eventsByMonthArray.forEach((item, index) => {
-            if(item.date === getDate(currentMonth, currentYear)) {
-                pastEventsSpliceIndex = index + 1;
-            }
-        });
+        // eventsByMonthArray.forEach((item, index) => {
+        //     if(item.date === getDate(currentMonth, currentYear)) {
+        //         pastEventsSpliceIndex = index + 1;
+        //     }
+        // });
 
-        let prePastEvents = eventsByMonthArray.splice(0, pastEventsSpliceIndex);
+        // let prePastEvents = eventsByMonthArray.splice(0, pastEventsSpliceIndex);
 
-        let pastEvents = prePastEvents.map(item => {
-            let obj = item;
-            obj.passed = true;
-            return obj;
-        });
+        // let pastEvents = prePastEvents.map(item => {
+        //     let obj = item;
+        //     obj.passed = true;
+        //     return obj;
+        // });
 
-        eventsByMonthArray = [...pastEvents];
+        // eventsByMonthArray = [...pastEvents];
 
         eventsByMonthArray = eventsByMonthArray.filter(item => {
             return item.events.length > 0 ? item : false

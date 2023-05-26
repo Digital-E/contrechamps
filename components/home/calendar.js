@@ -366,18 +366,6 @@ let Container = styled.div`
     }
 `
 
-// let monthNames = [
-//     "January", "February", "March",
-//     "April", "May", "June",
-//     "July", "August", "September",
-//     "October", "November", "December"];
-
-// let monthNamesFr = [
-//     "Janvier", "Février", "Mars",
-//     "Avril", "Mai", "Juin",
-//     "Juillet", "Août", "Septembre",
-//     "Octobre", "Novembre", "Décembre"];
-
 const Blank = styled.div``
 
 
@@ -396,8 +384,8 @@ export default function Component({ data }) {
     let startIndex = 0;
     let startIndexHasBeenSet = false;
 
-    let endYear = 2023;
-    let yearIncrement = 2020;
+    let endYear = 2050;
+    let yearIncrement = 2022;
 
     useEffect(() => {
         let currentYear = new Date().getFullYear();
@@ -444,14 +432,10 @@ export default function Component({ data }) {
 
 
         while(yearIncrement <= endYear) {
-
             getMonthsInYear(yearIncrement);
 
             yearIncrement ++;
         }
-
-
-        getMonthsInYear(currentYear);
 
 
         months.forEach((itemOne, indexOne) => {

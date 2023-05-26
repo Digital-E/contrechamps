@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 
@@ -39,20 +39,43 @@ let List = styled.div`
 
 
 export default function Component({ data, title, videoData }) {
+    let [allEvents, setAllEvents] = useState([])
+    let [featured, setFeatured] = useState([])
 
     useEffect(() => {
-        const player = new Plyr('.player');
-    }, []);
+        setTimeout(() => {
+            const player = new Plyr('.player');
+        }, 10)
+
+        let featuredArray = [];
+
+        let newData = data.map(item => {
+            let obj = item;
+
+            if(item.featured) {
+                featuredArray.push(item)
+                return null
+            }
+
+            return item
+        })
+
+        setFeatured(featuredArray)
+
+        setAllEvents(newData)
+    }, [data])
+    
 
     return (
         <Container>
-            {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
             <List>
                 {
-                    (videoData?.video !== null && videoData !== undefined) && <EventListTile data={videoData} isVideo={true} />
-                }
+                    featured.map(item => (
+                        <EventListTile data={item} />
+                    ))
+                }                
                 {
-                    data?.map(item => (
+                    allEvents.map(item => (
                         <EventListTile data={item} />
                     ))
                 }

@@ -38,6 +38,7 @@ const RowTop = styled.div`
 const Text = styled.div`
     * {
         line-height: 1;
+        margin: 0 0 10px 0;
     }
 `
 

@@ -254,6 +254,10 @@ export default function Component ({ data }) {
             tile.classList.remove("hide-tile")
         })
 
+        document.querySelectorAll(".month-wrapper").forEach(item => {
+            item.classList.remove("hide-month-wrapper")
+        })
+
         if(index === 0) return;
 
         let sanitizedTag = sanitizeTag(tag)

@@ -72,7 +72,6 @@ export default function Index({ data = {}, preview }) {
         {/* <Overlay /> */}
         <Circles data={data?.homeData?.circles} />
         <Calendar data={data.allEvents} />
-        {/* <Video data={homeData} title={homeData?.videoTitle}/> */}
         <EventList data={allEvents} />
       </Layout>
     </>
