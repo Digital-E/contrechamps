@@ -69,10 +69,6 @@ let Container = styled.div`
         line-height: 1;
     }
 
-    .active-link .season-filter__selector  {
-        background-color: var(--color) !important;
-    }
-
     @media(max-width: 768px) {
         position: fixed;
         width: 100%;

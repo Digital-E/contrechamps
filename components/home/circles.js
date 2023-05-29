@@ -5,6 +5,9 @@ import Orb from "./orb"
 
 import _ from "lodash"
 
+// import videoMP4 from '../../public/videos/13_M_CatherineLamb_1024x1024-hevc-safari.mp4'
+// import videoWebm from '../../public/videos/13_M_CatherineLamb_1024x1024-vp9-chrome.webm'
+
 const Container = styled.div`
     position: relative;
     z-index: 0;
@@ -92,6 +95,8 @@ export default ({ data }) => {
     useEffect(() => {
         let shuffleOrbs = _.shuffle(data)
         let fourOrbs = shuffleOrbs.splice(0,4);
+
+        
         
         setAllOrbs([...fourOrbs]);
     }, []);

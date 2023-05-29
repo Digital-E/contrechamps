@@ -55,7 +55,7 @@ const Container = styled.div`
     .error-label {
       position: absolute;
       right: 10px;
-      color: gray;
+      color: var(--colour);
     }
 
 

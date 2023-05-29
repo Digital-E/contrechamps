@@ -129,20 +129,17 @@ let SoundIcon = styled.div`
     
 `
 
+const TicketLinks = styled.div`
+    > div {
+      margin-bottom: 10px;
+    }
+`
 
 
 
 export default function EventHeader({ data }) {
 
   let [soundOn, setSoundOn] = useState(false);
-
-  // useEffect(() => {
-  //     if(soundOn) {
-  //         document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
-  //     } else {
-  //         document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
-  //     }
-  // }, [soundOn]) 
   
   const toggleSound = () => {
     if(!soundOn) {
@@ -195,9 +192,14 @@ export default function EventHeader({ data }) {
           <Location>
             <Body content={data.location}/>
           </Location>
-          <div>
-            {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
-          </div>
+          <TicketLinks>
+            <div>
+              {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
+            </div>
+            <div>
+              {data.ticketLinkTwo && <Button url={data.ticketLinkTwo} label={data.ticketLinkLabelTwo} />}
+            </div>
+          </TicketLinks>
         </Information>
       </ColRight>
     </Container>

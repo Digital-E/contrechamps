@@ -19,7 +19,7 @@ export default function Post({ data = {}, preview }) {
 
 
   let allEvents = data?.allEvents.sort(function(a,b){
-    return  new Date(a.startdate) - new Date(b.startdate)
+    return  new Date(b.startdate) - new Date(a.startdate)
   });
 
   data = data?.data;
