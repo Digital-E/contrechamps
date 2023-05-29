@@ -50,8 +50,6 @@ export default function Component({ data, title, videoData }) {
         let featuredArray = [];
 
         let newData = data.map(item => {
-            let obj = item;
-
             if(item.featured) {
                 featuredArray.push(item)
                 return null

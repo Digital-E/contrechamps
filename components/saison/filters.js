@@ -20,8 +20,8 @@ let Container = styled.div`
 
     .season-filters {
         display: flex;
-        border-top: var(--border-width) solid black;
-        border-bottom: var(--border-width) solid black;
+        // border-top: var(--border-width) solid black;
+        // border-bottom: var(--border-width) solid black;
         background: black;
         color: white;
     }
@@ -78,7 +78,7 @@ let Container = styled.div`
             padding: 0 20px;
             flex-wrap: nowrap;
             overflow: scroll;
-            border-bottom: 1px solid black;
+            // border-bottom: 1px solid black;
         }
 
         .season-filters > div:nth-child(2) {
@@ -124,6 +124,8 @@ let Archive = styled.div`
 `
 let Wrapper = styled.div`   
     display: flex;
+    flex-wrap: nowrap !important;
+    align-items: flex-start;
     margin-left: auto;
 
     @media(max-width: 1260px) {
