@@ -133,7 +133,7 @@ const Location = styled.div`
 
 const Vignette = styled.div`
     // color: var(--color);
-    // min-height: 400px;
+    min-height: 300px;
 `
 
 
