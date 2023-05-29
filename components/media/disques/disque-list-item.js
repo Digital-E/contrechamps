@@ -32,7 +32,8 @@ const Container = styled.div`
         }
 
         :hover .button {
-            border: 1px solid black;
+            border: 1px solid var(--background-colour);
+            color: var(--background-colour);
             transition: border var(--transition-in);
         }
 
@@ -59,6 +60,7 @@ align-items: flex-end;
 
 
 const Text = styled.div`
+
 * {
     line-height: 1;
     margin: 10px 0;
@@ -72,7 +74,7 @@ export default function Component({ data }) {
         <Container className="border-top media-item">
             <Link href={data.slug}>
                 <Wrapper>
-                    <Text><Body content={data.text} /></Text>
+                    <Text className="media-item__text"><Body content={data.text} /></Text>
                     <Button url={data.link} label={data.linkLabel} />
                 </Wrapper>
             </Link>

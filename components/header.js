@@ -93,14 +93,8 @@ let List = styled.ul`
 
 let ListItem = styled.li`
   &&:last-child {
-      margin-left: auto;
-      margin-right: 0;
-      // border: 1px solid white;
-      // border-radius: 999px;
-      // padding: 0.5em 0.7em;
-      // height: -webkit-fit-content;
-      // height: -moz-fit-content;
-      // height: fit-content;
+      // margin-left: auto;
+      // margin-right: 0;
   }
 `
 
@@ -127,7 +121,6 @@ let Menu = styled.div`
     position: absolute;
     flex-direction: column;
     padding: 75px 20px 20px 20px;
-    border-bottom: 1px solid black;
     background: white;
 
     ${ListItem} {
@@ -199,7 +192,8 @@ export default function Header({ data }) {
         <List>
           {
           data.menuItems.map((item, index) => {
-            let isLast = index === data.menuItems.length - 1 ? true : false
+            // let isLast = index === data.menuItems.length - 1 ? true : false
+            let isLast = false
             return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
           })
           }

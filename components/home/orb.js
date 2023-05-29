@@ -27,7 +27,8 @@ const Orb = styled.div`
         width: 100%;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) scale(6.7);
+        // transform: translate(-50%, -50%) scale(6.7);
+        transform: translate(-50%, -50%) scale(3.7);
         z-index: 999;
         pointer-events: none;
         transition: opacity 0.3s;
@@ -90,6 +91,7 @@ export default ({ data, index }) => {
     let orbRef = useRef();
     let orbWrapperRef = useRef();
     let [isHovered, setIsHovered] = useState(false);
+  
 
     let togglePlay = (orb, action) => {
 
@@ -101,8 +103,8 @@ export default ({ data, index }) => {
 
         if(action === "play") {
             setIsHovered(true)
-            // video.muted = false
             video.play();
+
             if(circlesContainer) {
                 circlesContainer.style.zIndex = "999999";
             }
@@ -250,6 +252,7 @@ export default ({ data, index }) => {
             muted="true"
             preload={true}
             onPause={() => setIsHovered(false)}
+            onEnded={() => togglePlay(orbRef.current.parentNode, "play")}
             // autoPlay="true"
             playsInline="true"
             onLoadStart={() => loadedData()}

@@ -61,11 +61,7 @@ let ColLeft = styled.div`
     height: calc(33.3333vw * 0.5);
     min-height: calc(33.3333vw * 0.5);
 
-    > div:first-child:not(.plyr) {
-        height: 100% !important;
-    }
-
-    > span:first-child:not(.plyr) {
+    > div, > span, > a > div, > a > span {
         height: 100% !important;
     }
 
@@ -91,29 +87,29 @@ let ColRight = styled.div`
     height: 100%;
     margin-top: 15px;
 
-    > h1 {
+    > a > h1 {
         margin-bottom: 40px;
     }
 
-    > div:nth-child(2) {
+    > a > div:nth-child(2) {
         margin-top: auto;
         display: flex;
     }
 
-    > div:nth-child(2) > div * {
+    > a > div:nth-child(2) > div * {
         margin: 0;
     }
 
-    > div:nth-child(2) > div:nth-child(1) {
+    > a > div:nth-child(2) > div:nth-child(1) {
         display: flex;
         flex-basis: 40%;
     }
 
-    > div:nth-child(2) > div:nth-child(1) > div {
+    > a > div:nth-child(2) > div:nth-child(1) > div {
         margin-top: auto;
     }
 
-    > div:nth-child(2) > div:nth-child(2) {
+    > a > div:nth-child(2) > div:nth-child(2) {
         flex-basis: 60%;
     }
 
@@ -121,7 +117,7 @@ let ColRight = styled.div`
         padding: 0;
         margin-top: 15px;
 
-        > h1 {
+        > a > h1 {
             margin-bottom: 20px;
         }
     }
@@ -136,14 +132,16 @@ const Location = styled.div`
 `
 
 const Vignette = styled.div`
-    color: var(--color);
-    min-height: 400px;
+    // color: var(--color);
+    min-height: 300px;
 `
 
 
 
 
 export default function Component({ data, isVideo }) {
+
+    if(data === null) return null
 
     let item = data;
 
@@ -157,18 +155,26 @@ export default function Component({ data, isVideo }) {
     tags = tags.join(" ");
 
 
-    return !isVideo ? (
+    return (
     <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
-        <Link href={item.slug}>
+        <a>
             {
-                item._type === 'post' ?
+                (item.image === 'post' || item.image !== null || item.video !== null) ?
                 <ColLeft>
-                    <Image data={item.image} />
+                {
+                    item.video ?
+                    <Video data={item?.video} />
+                    :
+                    <Link href={item.slug}>
+                        <Image data={item.image} />
+                    </Link>
+                }
                 </ColLeft>
                 :
                 null
             }
             <ColRight>
+                <Link href={item.slug}>
                 {
                 item._type === 'post' ?
                     <>
@@ -190,34 +196,9 @@ export default function Component({ data, isVideo }) {
                     :
                     <Vignette><Body content={item.textVignette} /></Vignette>
                 }
-            </ColRight>
-        </Link>
-    </ListItem>
-    )
-    :
-    (
-    <ListItem key={item._id} className={`border-bottom ${tags}`}>
-        <a href>
-            <ColLeft>
-                <Video data={item?.video} />
-            </ColLeft>
-            <ColRight>
-                <h1>{item.title}</h1>
-                <div>
-                    <div>
-                        <div className="h4">
-                            <Body content={item?.textfieldone} />
-                        </div>
-                        <div>
-
-                        </div>
-                    </div>
-                    <Location className="h4">
-                        <div><Body content={item?.textfieldtwo} /></div>
-                    </Location>
-                </div>
+                </Link>
             </ColRight>
         </a>
-    </ListItem>        
+    </ListItem>
     )
 }
