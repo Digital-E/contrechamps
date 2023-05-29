@@ -50,7 +50,6 @@ const VignetteWrapper = styled.div`
 
 const Vignette = styled.div`
   margin-bottom: 20px;
-  color: var(--color);
 
   @media(max-width: 989px) {
   }
