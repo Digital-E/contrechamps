@@ -52,7 +52,7 @@ const Vignette = styled.div`
   margin-bottom: 20px;
 
   @media(max-width: 989px) {
-  }
+  };
 `
 
 
