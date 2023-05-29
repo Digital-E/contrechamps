@@ -191,7 +191,7 @@ a:hover, button:hover {
   }
 
   .dark-background .nav--open {
-      background: black;
+      background: var(--background-colour);
   }
 
   .dark-background .border-bottom::after, .dark-background .border-top::before {

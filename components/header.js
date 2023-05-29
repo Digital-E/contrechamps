@@ -121,7 +121,6 @@ let Menu = styled.div`
     position: absolute;
     flex-direction: column;
     padding: 75px 20px 20px 20px;
-    border-bottom: 1px solid black;
     background: white;
 
     ${ListItem} {
