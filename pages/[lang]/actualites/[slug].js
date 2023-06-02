@@ -72,7 +72,7 @@ export default function Actualite({ data = {}, preview }) {
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0,0);
-    }, 0)
+    }, 10)
   }, [])
 
 

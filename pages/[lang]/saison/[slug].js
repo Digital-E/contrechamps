@@ -24,7 +24,7 @@ export default function Post({ data = {}, preview }) {
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0,0);
-    }, 0)
+    }, 10)
   }, [])
 
 
