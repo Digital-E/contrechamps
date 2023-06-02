@@ -70,103 +70,84 @@ let InnerMonthDivider = styled.div`
 `
 
 
-
 export default function Component ({ data }) {
-    let [eventsByMonth, setEventsByMonth] = useState([]);
 
-    let router = useRouter();
+    let d = new Date();
+    let currentMonth = d.getMonth();
+    let currentYear = d.getFullYear();
 
-    let pastEvents = [];
+    let endYear = currentYear + 1;
+    let yearIncrement = currentYear - 1;
 
-    useEffect(() => {
-        let d = new Date();
-        let currentMonth = d.getMonth();
-        let currentYear = d.getFullYear();
+    let eventsByMonthArray = [];
 
-        let endYear = currentYear + 1;
-        let yearIncrement = currentYear - 1;
+    function getDate(month, year) {
+        var date = new Date(year, month, 1);
 
-        let eventsByMonthArray = [];
-
-        function getDate(month, year) {
-            var date = new Date(year, month, 1);
-
-            return format(parseISO(date.toISOString()), 'yyyy-LL');
-        }
+        return format(parseISO(date.toISOString()), 'yyyy-LL');
+    }
 
 
-        let getMonthsInYear = (year) => {
-            let i = 0;
+    let getMonthsInYear = (year) => {
+        let i = 0;
 
-            while(i < 12) {
-                let obj = {
-                    date: getDate(i, year),
-                    events: []
-                }
-
-                eventsByMonthArray.push(obj);
-
-                i++;
+        while(i < 12) {
+            let obj = {
+                date: getDate(i, year),
+                events: []
             }
+
+            eventsByMonthArray.push(obj);
+
+            i++;
         }
+    }
 
-        while(yearIncrement <= endYear) {
+    while(yearIncrement <= endYear) {
 
-            getMonthsInYear(yearIncrement);
+        getMonthsInYear(yearIncrement);
 
-            yearIncrement ++;
-        }
-
-
-        data.forEach(item => {
-            let date = parseISO(item.startdate)
-            let eventMonth = date.toString() !== "Invalid Date" ? format(date, 'yyyy-LL') : null;
+        yearIncrement ++;
+    }
 
 
-            eventsByMonthArray.forEach((month) => {
-
-                if(month.date === eventMonth) {
-                    month.events.push(item)
-                }
-
-                if(month.events.length > 0) {
-                    month.longMonth = format(parseISO(month.events[0]?.startdate), 'LLLL', {locale: month.events[0]?._lang === "fr" ? fr : enGB});
-                    month.year = format(parseISO(month.events[0]?.startdate), 'yyyy')
-                }
-            })
-        })
+    data.forEach(item => {
+        let date = parseISO(item.startdate)
+        let eventMonth = date.toString() !== "Invalid Date" ? format(date, 'yyyy-LL') : null;
 
 
-        let pastEventsSpliceIndex = 0;
+        eventsByMonthArray.forEach((month) => {
 
-        eventsByMonthArray.forEach((item, index) => {
-            if(item.date === getDate(currentMonth, currentYear)) {
-                pastEventsSpliceIndex = index;
+            if(month.date === eventMonth) {
+                month.events.push(item)
             }
-        });
 
-        let prePastEvents = eventsByMonthArray.splice(0, pastEventsSpliceIndex);
-
-        // let pastEvents = prePastEvents.map(item => {
-        //     let obj = item;
-        //     obj.passed = true;
-        //     return obj;
-        // });
-
-        // eventsByMonthArray.push(...pastEvents)
-
-        eventsByMonthArray = eventsByMonthArray.filter(item => {
-            return item.events.length > 0 ? item : false
+            if(month.events.length > 0) {
+                month.longMonth = format(parseISO(month.events[0]?.startdate), 'LLLL', {locale: month.events[0]?._lang === "fr" ? fr : enGB});
+                month.year = format(parseISO(month.events[0]?.startdate), 'yyyy')
+            }
         })
+    })
 
-        setEventsByMonth([...eventsByMonthArray]);
-    },[]);
+
+    let pastEventsSpliceIndex = 0;
+
+    eventsByMonthArray.forEach((item, index) => {
+        if(item.date === getDate(currentMonth, currentYear)) {
+            pastEventsSpliceIndex = index;
+        }
+    });
+
+
+    eventsByMonthArray = eventsByMonthArray.filter(item => {
+        return item.events.length > 0 ? item : false
+    })
 
 
     return (
         <Container>
             {
-                eventsByMonth.map(item => {
+                eventsByMonthArray.map(item => {
 
                     let monthAndYear = `${item.longMonth}-${item.year}`
 

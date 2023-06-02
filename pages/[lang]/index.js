@@ -1,62 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Layout from '../../components/layout'
 import { SITE_NAME } from '../../lib/constants'
 import { indexQuery, actualitesQuery, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../../lib/sanity'
-import { getClient, overlayDrafts } from '../../lib/sanity.server'
+import { getClient } from '../../lib/sanity.server'
 
 
 // Components
 import EventList from "../../components/home/event-list"
 import Circles from '../../components/home/circles'
 import Calendar from '../../components/home/calendar'
-import Overlay from "../../components/home/overlay"
 
 export default function Index({ data = {}, preview }) {
-  // const heroPost = allPosts[0]
-  // const morePosts = allPosts.slice(1)
-  let [allEvents, setAllEvents] = useState([]);
   const router = useRouter()
 
   const slug = data?.homeData?.slug
 
-  // const {
-  //   data: { homeData },
-  // } = usePreviewSubscription(homeQuery, {
-  //   params: { slug },
-  //   initialData: data,
-  //   enabled: preview && slug,
-  // })
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
 
-  useEffect(() => {
-    // document.querySelector("body").classList.add("dark-background");
+  // Order Events
 
-    let orderedEvents = data?.allEvents.sort(function(a,b){
-      return  new Date(a.startdate) - new Date(b.startdate)
-    });
+  let orderedEvents = data.allEvents.sort(function(a,b){
+    return  new Date(a.startdate) - new Date(b.startdate)
+  });
 
-    let allEventsArray = orderedEvents.filter(item => {
-      let today = new Date()
-      today.setHours(0,0,0,0)
+  let allEventsArray = orderedEvents.filter(item => {
+    let today = new Date()
+    today.setHours(0,0,0,0)
 
-      if(new Date(item.startdate) > today) {
-        return item
-      }
-    })
-
-    setAllEvents([...allEventsArray])
-
-    return () => {
-      // document.querySelector("body").classList.remove("dark-background");
+    if(new Date(item.startdate) > today) {
+      return item
     }
-  }, []);
+  })
 
 
   return (
@@ -72,7 +52,7 @@ export default function Index({ data = {}, preview }) {
         {/* <Overlay /> */}
         <Circles data={data?.homeData?.circles} />
         <Calendar data={data.allEvents} />
-        <EventList data={allEvents} />
+        <EventList data={allEventsArray} />
       </Layout>
     </>
   )
