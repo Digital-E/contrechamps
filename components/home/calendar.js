@@ -300,9 +300,9 @@ let Container = styled.div`
     .home-calendar__event {
         border-top: var(--border-width) solid black;
     }
-    
 
-    .home-calendar__event a {
+
+    .home-calendar__event > a {
         display: block;
         padding: 10px 10px;
     
@@ -313,7 +313,6 @@ let Container = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
             transition: var(--transition-in);
             cursor: pointer;
         }
@@ -384,7 +383,7 @@ export default function Component({ data }) {
     let startIndex = 0;
     let startIndexHasBeenSet = false;
 
-    let endYear = 2050;
+    let endYear = new Date().getFullYear() + 2;
     let yearIncrement = 2022;
 
     useEffect(() => {

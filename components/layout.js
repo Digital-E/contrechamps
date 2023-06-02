@@ -10,9 +10,8 @@ export default function Layout({ preview, children }) {
   let router = useRouter()
 
   useEffect(() => {
-
     updateScroll();
-
+    
     setTimeout(() => {
       if(window.location.hash !== '') {
             let headerHeight = document.querySelector('header').getBoundingClientRect().height

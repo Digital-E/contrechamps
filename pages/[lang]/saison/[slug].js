@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -19,6 +20,12 @@ export default function Post({ data = {}, preview }) {
   const slug = data?.post?.slug
 
   let post = data.post
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0,0);
+    }, 50)
+  }, [])
 
 
   if (!router.isFallback && !slug) {

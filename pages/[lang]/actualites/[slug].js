@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
@@ -67,6 +68,12 @@ export default function Actualite({ data = {}, preview }) {
   }
 
   let actualite = data.actualite
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0,0);
+    }, 50)
+  }, [])
 
 
   return (
