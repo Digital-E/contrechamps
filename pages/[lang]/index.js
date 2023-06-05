@@ -29,6 +29,8 @@ export default function Index({ data = {}, preview }) {
     return  new Date(a.startdate) - new Date(b.startdate)
   });
 
+  let featured = orderedEvents.filter(item => item.featured)
+
   let allEventsArray = orderedEvents.filter(item => {
     let today = new Date()
     today.setHours(0,0,0,0)
@@ -37,6 +39,8 @@ export default function Index({ data = {}, preview }) {
       return item
     }
   })
+
+  featured.forEach(item => allEventsArray.push(item))
 
 
   return (

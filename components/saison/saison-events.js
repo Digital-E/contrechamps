@@ -77,7 +77,7 @@ export default function Component ({ data }) {
     let currentYear = d.getFullYear();
 
     let endYear = currentYear + 1;
-    let yearIncrement = currentYear - 1;
+    let yearIncrement = currentYear;
 
     let eventsByMonthArray = [];
 
@@ -130,13 +130,15 @@ export default function Component ({ data }) {
     })
 
 
-    let pastEventsSpliceIndex = 0;
+    // let pastEventsSpliceIndex = 0;
 
-    eventsByMonthArray.forEach((item, index) => {
-        if(item.date === getDate(currentMonth, currentYear)) {
-            pastEventsSpliceIndex = index;
-        }
-    });
+    eventsByMonthArray.splice(0,5)
+
+    // eventsByMonthArray.forEach((item, index) => {
+    //     if(item.date === getDate(currentMonth, currentYear)) {
+    //         pastEventsSpliceIndex = index;
+    //     }
+    // });
 
 
     eventsByMonthArray = eventsByMonthArray.filter(item => {
