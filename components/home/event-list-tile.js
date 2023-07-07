@@ -87,6 +87,12 @@ let ColRight = styled.div`
     height: 100%;
     margin-top: 15px;
 
+    > a {
+        height: 100%;
+        display: flex;
+        flex-direction: column;        
+    }
+
     > a > h1 {
         margin-bottom: 40px;
     }
