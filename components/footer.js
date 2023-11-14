@@ -80,12 +80,12 @@ export default function Header({ data }) {
 
   return (
     <Container className="border-top">
-      <Col><Body content={data.textFieldOne} /></Col>
-      <Col><Body content={data.textFieldTwo} /></Col>
-      <Col><Body content={data.textFieldThree} /></Col>
+      <Col><Body content={data?.textFieldOne} /></Col>
+      <Col><Body content={data?.textFieldTwo} /></Col>
+      <Col><Body content={data?.textFieldThree} /></Col>
       <Socials>
         <List>
-          {data.socialItems.map(item => (
+          {data?.socialItems.map(item => (
             <ListItem><Link href={item.url}>{item.label}</Link></ListItem>
           ))}
         </List>

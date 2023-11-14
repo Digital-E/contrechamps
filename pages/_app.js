@@ -18,17 +18,17 @@ function MyApp({ Component, pageProps, router }) {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
 
-    document.documentElement.style.setProperty('--color', `rgba(${pageProps.data?.menuData.color?.rgb.r},${pageProps.data?.menuData.color?.rgb.g}, ${pageProps.data?.menuData.color?.rgb.b}, ${pageProps.data?.menuData.color?.rgb.a})`);
+    document.documentElement.style.setProperty('--color', `rgba(${pageProps.data?.menuData?.color?.rgb.r},${pageProps.data?.menuData?.color?.rgb.g}, ${pageProps.data?.menuData?.color?.rgb.b}, ${pageProps.data?.menuData?.color?.rgb.a})`);
 
-    document.documentElement.style.setProperty('--secondary-color', `rgba(${pageProps.data?.menuData.secondaryColor?.rgb.r},${pageProps.data?.menuData.secondaryColor?.rgb.g}, ${pageProps.data?.menuData.secondaryColor?.rgb.b}, ${pageProps.data?.menuData.secondaryColor?.rgb.a})`);
+    document.documentElement.style.setProperty('--secondary-color', `rgba(${pageProps.data?.menuData?.secondaryColor?.rgb.r},${pageProps.data?.menuData?.secondaryColor?.rgb.g}, ${pageProps.data?.menuData?.secondaryColor?.rgb.b}, ${pageProps.data?.menuData?.secondaryColor?.rgb.a})`);
   },[])
 
   return (
     <>
       <Header data={pageProps.data?.menuData} />
       <CookieConsent
-        buttonText={pageProps.data?.menuData.cookieaccept}
-        declineButtonText={pageProps.data?.menuData.cookierefuse}
+        buttonText={pageProps.data?.menuData?.cookieaccept}
+        declineButtonText={pageProps.data?.menuData?.cookierefuse}
         enableDeclineButton
         cookieName={"ContrechampsCHCookieConsent"}
         onAccept={() => {
@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps, router }) {
         }}
         onDecline={() => {}}
         >
-        <Body content={pageProps.data?.menuData.cookietext} />
+        <Body content={pageProps.data?.menuData?.cookietext} />
       </CookieConsent>
       <RouterScrollProvider>     
         <Component {...pageProps} />

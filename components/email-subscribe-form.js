@@ -281,12 +281,12 @@ const SignupForm = ({ data }) => {
       >
         <Form>                         
             <MyTextInput
-            label={data.text_three}
+            label={data?.text_three}
             name="email"
             type="email"
-            placeholder={data.emailPlaceholder}
+            placeholder={data?.emailPlaceholder}
             />       
-            <Submit>{data.submitButtonText}</Submit>
+            <Submit>{data?.submitButtonText}</Submit>
         </Form>
       </Formik>
     </Container>

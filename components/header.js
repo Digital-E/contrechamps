@@ -191,7 +191,7 @@ export default function Header({ data }) {
       <Menu className={menuOpen ? "nav--open" : ""}>
         <List>
           {
-          data.menuItems.map((item, index) => {
+          data?.menuItems.map((item, index) => {
             // let isLast = index === data.menuItems.length - 1 ? true : false
             let isLast = false
             return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
