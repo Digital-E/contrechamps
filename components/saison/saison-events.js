@@ -77,7 +77,7 @@ export default function Component ({ data }) {
     let currentYear = d.getFullYear();
 
     let endYear = currentYear + 1;
-    let yearIncrement = currentYear;
+    let yearIncrement = currentYear - 1;
 
     let eventsByMonthArray = [];
 
@@ -144,7 +144,6 @@ export default function Component ({ data }) {
         return item.events.length > 0 ? item : false
     })
 
-
     return (
         <Container>
             {
@@ -156,7 +155,7 @@ export default function Component ({ data }) {
                         <MonthWrapper className={item.passed === true ? "passed-event month-wrapper": "month-wrapper"} id={`${sanitizeTag(monthAndYear)}`}>
                             <MonthDivider className="border-top border-bottom">
                                 <InnerMonthDivider>
-                                    <div className="h1">{item.longMonth}</div>
+                                    <div className="h1">{item.longMonth} {item.year}</div>
                                     {/* <div className="p year">{item.year}</div> */}
                                 </InnerMonthDivider>
                             </MonthDivider>
