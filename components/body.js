@@ -15,11 +15,11 @@ const myPortableTextComponents = {
 
   marks: {
     link: ({children, value}) => {
-      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+      const rel = !value.href?.startsWith('/') ? 'noreferrer noopener' : undefined
 
       var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
       var regex = new RegExp(expression);
-      let isURL = value.href.match(regex) !== null ? true : false
+      let isURL = value.href?.match(regex) !== null ? true : false
 
       return (
         <a target={isURL ? "_blank" : undefined} href={value.href} rel={rel}>
