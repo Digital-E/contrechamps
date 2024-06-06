@@ -198,12 +198,12 @@ export default function Header({ data }) {
           })
           }
         </List>
-        {/* <LanguageSwitch>
+        <LanguageSwitch>
           <List>
             <ListItem><div className="h4"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
             <ListItem><div className="h4"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
           </List> 
-        </LanguageSwitch> */}
+        </LanguageSwitch>
       </Menu>
     </Container>
   )

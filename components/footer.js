@@ -54,6 +54,10 @@ let Socials = styled.div`
     margin-left: 5px;
   }
 
+  ${ListItem}:hover svg {
+    opacity: 0.6;
+  }
+
   @media(max-width: 767px) {
     ${ListItem} {
       margin-left: 0;
@@ -85,9 +89,26 @@ export default function Header({ data }) {
       <Col><Body content={data?.textFieldThree} /></Col>
       <Socials>
         <List>
-          {data?.socialItems.map(item => (
-            <ListItem><Link href={item.url}>{item.label}</Link></ListItem>
-          ))}
+          {data?.socialItems.map((item, index) => {
+          if(index === data.socialItems.length - 1) {
+            return (
+              <ListItem>
+                <Link href={item.url}>
+                  <svg fill="#ffffff" version="1.1" id="Capa_1"  width="25px" height="25px" viewBox="0 0 97.75 97.75" xmlSpace="preserve">
+                  <g>
+                    <path d="M48.875,0C21.882,0,0,21.882,0,48.875S21.882,97.75,48.875,97.75S97.75,75.868,97.75,48.875S75.868,0,48.875,0z
+                      M64.835,70.857H12.593l20.32-43.965h52.244L64.835,70.857z"/>
+                  </g>
+                  </svg>
+                </Link>
+              </ListItem>
+            )
+          } else {
+            return (
+              <ListItem><Link href={item.url}>{item.label}</Link></ListItem>
+            )
+          }
+          })}
         </List>
       </Socials>        
       <Newsletter>
