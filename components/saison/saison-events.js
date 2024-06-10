@@ -77,7 +77,11 @@ export default function Component ({ data }) {
     let currentYear = d.getFullYear();
 
     let endYear = currentYear + 1;
-    let yearIncrement = currentYear - 1;
+    let yearIncrement = currentYear;
+
+    if(currentMonth < 5) {
+        yearIncrement = currentYear - 1
+    }
 
     let eventsByMonthArray = [];
 
