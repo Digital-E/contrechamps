@@ -21,9 +21,11 @@ import VideoList from "../../../components/media/videos/video-list"
 import DisqueList from "../../../components/media/disques/disque-list"
 
 const Container = styled.div`
+  margin-top: -4px;
+
   @media(max-width: 768px) {
     width: 100%;
-    margin-top: 91px;
+    margin-top: 87px;
   }
 `
 

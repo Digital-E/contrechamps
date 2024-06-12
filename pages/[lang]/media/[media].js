@@ -23,7 +23,7 @@ import DisqueList from "../../../components/media/disques/disque-list"
 const Container = styled.div`
   @media(max-width: 768px) {
     width: 100%;
-    margin-top: 91px;
+    margin-top: 87px;
   }
 `
 

@@ -63,6 +63,7 @@ const Text = styled.div`
     padding: 0 20px;
     width: 100%;
     user-select: none;
+    color: var(--ternary-color);
 
     &.hovered {
         opacity: 1;

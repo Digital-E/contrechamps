@@ -102,7 +102,7 @@ let Container = styled.div`
             top: 0;
             height: 35px;
             width: 30px;
-            background: linear-gradient(90deg, transparent 0%, white 90%);
+            background: linear-gradient(90deg, transparent 0%, var(--ternary-color) 90%);
             z-index: 999;
         }
 

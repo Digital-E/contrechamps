@@ -52,7 +52,11 @@ html {
     --transition-in: 0.2s;
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
-    --background-colour:#00adef;
+    --background-colour: white;
+    --color: #5b5c59;
+    --secondary-color: rgba(92,91,89, 0.6);
+    --ternary-color: rgb(138,92,196);
+    --quaternary-color: rgba(138,92,196, 0.6);
 }
 
 .border-top::before {
@@ -60,7 +64,7 @@ html {
     position: absolute;
     top: 0;
     width: calc(100% - 40px);
-    height: 1px;
+    height: 4px;
     background: black;
     left: 20px;
 }
@@ -70,13 +74,13 @@ html {
     position: absolute;
     bottom: 0;
     width: calc(100% - 40px);
-    height: 1px;
+    height: 4px;
     background: black;
     left: 20px;
 }
 
 .active-link {
-    color: var(--secondary-color);
+    color: var(--color) !important;
 }
 
 a {
@@ -107,7 +111,7 @@ a:hover, button:hover {
 
 
 .plyr--full-ui input[type=range] {
-    color: white !important;
+    color: var(--color) !important;
 }
 
 .plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded=true] {
@@ -158,7 +162,7 @@ a:hover, button:hover {
   }
 
   header {
-      background: white;
+      background: var(--color);
   }
 
   header > div:nth-child(1) a {
@@ -169,7 +173,40 @@ a:hover, button:hover {
 
   .dark-background {
       background: var(--background-colour);
-      color: white;
+      color: var(--color);
+  }
+
+  .dark-background .caption {
+    color: var(--ternary-color);
+  }
+
+  .dark-background  footer ul a,
+  .dark-background  footer p
+   {
+    color: var(--ternary-color);
+  }
+
+  .dark-background h1,
+  .dark-background .h1,
+  .dark-background h2,
+  .dark-background .h2,
+  .dark-background h3,
+  .dark-background .h3,
+  .dark-background h4,
+  .dark-background .h4,
+  .dark-background h5,
+  .dark-background .h5,
+  .dark-background a
+   {
+    color: var(--ternary-color);
+  }
+
+  .dark-background header > div:nth-child(1) .active-link {
+    color: var(--ternary-color) !important;
+  }
+
+  .dark-background a:hover {
+    color: var(--quaternary-color);
   }
 
   .dark-background header {
@@ -177,11 +214,11 @@ a:hover, button:hover {
   }
 
   .dark-background header > div:nth-child(1) a {
-    color: white !important;
+    color: var(--ternary-color) !important;
   }
 
   .dark-background .nav-mobile-burger > div {
-      background: white !important;
+      background: var(--color) !important;
   }
 
   .dark-background .nav--open {
@@ -189,21 +226,20 @@ a:hover, button:hover {
   }
 
   .dark-background .border-bottom::after, .dark-background .border-top::before {
-      background: white;
+      background: var(--ternary-color);
   }
 
-    /* .dark-background .season-filters > div {
-        background-color: white !important;
-        color: black !important;
-    } */
-
     .dark-background .season-filters {
-        background-color: white !important;
+        background-color: var(--ternary-color) !important;
         color: var(--background-colour) !important;
     }
 
-    .dark-background .season-filters a:hover {
-        color: rgba(0, 173, 239, 0.6) !important;
+    .dark-background .season-filters a {
+        color: var(--background-colour) !important;
+    }
+
+    .dark-background .season-filters p a:hover {
+        opacity: 0.6;
     }
 
     .dark-background .season-filter__selector {
@@ -222,7 +258,7 @@ a:hover, button:hover {
     }
 
     .season-filter__label {
-        color: white !important;
+        color: var(--color) !important;
     }
 
     .dark-background .season-filter__label {
@@ -230,7 +266,7 @@ a:hover, button:hover {
     }
 
     .dark-background .arrow-prev::after, .dark-background .arrow-next::after  {
-        border-top: 5px solid white !important;
+        border-top: 5px solid var(--ternary-color) !important;
     }
 
     .dark-background .arrow-prev:hover::after, .dark-background .arrow-next:hover::after  {
@@ -238,69 +274,82 @@ a:hover, button:hover {
     }
 
     .dark-background .home-calendar__day--has-event::after {
-        background: white !important;
+        background: var(--ternary-color) !important;
     }
 
     .dark-background .home-calendar__day--has-two-events::before {
-        background: white !important;
+        background: var(--ternary-color) !important;
+    }
+
+    .dark-background .home-calendar__day {
+        color: var(--ternary-color);
     }
 
     .dark-background button {
-        border-color: white !important;
+        border-color: var(--ternary-color)!important;
+        color: var(--ternary-color);
     }
 
     button:hover, .button:hover {
-        border-color: var(--color) !important;
-        color: var(--color);
+        border-color: var(--ternary-color) !important;
+        color: var(--background-colour) !important;
+        background-color: var(--ternary-color);
     }
 
     .dark-background input::placeholder {
-        color: white !important;
+        color: var(--ternary-color) !important;
     }
 
     .dark-background input {
-        border-color: white !important;
+        border-color: var(--ternary-color) !important;
+        color: var(--ternary-color);
     }
 
     .dark-background .home-calendar__modal {
         background-color: var(--background-colour) !important;
-        border: 1px solid white !important;
+        border: 1px solid var(--ternary-color) !important;
     }
 
-    .dark-background .home-calendar__event:hover a {
-        background-color: white !important;
+    .dark-background .home-calendar__event:hover a
+     {
+        background-color: var(--ternary-color)!important;
         color: var(--background-colour) !important;
     }
 
-    .dark-background .home-calendar__event {
-        border-top: 1px solid white !important;
+    .dark-background .home-calendar__event:hover * {
+        color: var(--background-colour) !important;
     }
 
-    .dark-background .event-tile:hover > a {
-        background-color: white !important;
-        color: var(--background-colour) !important;
+    .dark-background .event-tile:hover > a
+     {
+        background-color: var(--ternary-color)!important;
+        color: var(--background-color) !important;
         transition: var(--transition-out);
     }
 
-    .dark-background .event-tile:hover h1, .dark-background .event-tile:hover a  {
+    .dark-background .event-tile:hover * {
+        color: var(--background-color) !important;
+    }
+
+    .dark-background .event-tile:hover h1, .dark-background .event-tile:hover a, .dark-background .event-tile:hover p  {
         color: var(--background-colour) !important;
     }
 
     .dark-background .button {
-        border: 1px solid white;
+        border: 1px solid var(--ternary-color);
     }
 
     .button.active-link {
-        border: 1px solid var(--secondary-color);
+        border: 1px solid var(--color);
     }
 
     .dark-background .media-item:hover > a
      {
-        background: white;
+        background: var(--ternary-color);
         color: var(--background-colour);
     }
 
-    .dark-background .media-item:hover .media-item__text {
+    .dark-background .media-item:hover .media-item__text * {
         color: var(--background-colour);
     }
 

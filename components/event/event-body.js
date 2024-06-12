@@ -17,6 +17,7 @@ const Container = styled.div`
 
 const ColLeft = styled.div`
   flex-basis: 30%;
+  padding-right: 20px;
 
   @media(max-width: 990px) {
     flex-basis: 100%;

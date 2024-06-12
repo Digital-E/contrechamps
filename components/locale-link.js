@@ -22,8 +22,6 @@ const LinkComponent = ({href, children}) => {
         window.location.href = newPathname
     }
 
-    console.log(`/${router.query.lang}`, href)
-
     return (
         // <Link href={`${href}`} scroll={false}>
             <a onClick={() => navigateTo()} className={`/${router.query.lang}` === href ? "active-link" : ""}>{children}</a>

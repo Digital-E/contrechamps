@@ -18,9 +18,9 @@ function MyApp({ Component, pageProps, router }) {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
 
-    document.documentElement.style.setProperty('--color', `rgba(${pageProps.data?.menuData?.color?.rgb.r},${pageProps.data?.menuData?.color?.rgb.g}, ${pageProps.data?.menuData?.color?.rgb.b}, ${pageProps.data?.menuData?.color?.rgb.a})`);
+    // document.documentElement.style.setProperty('--color', `rgba(${pageProps.data?.menuData?.color?.rgb.r},${pageProps.data?.menuData?.color?.rgb.g}, ${pageProps.data?.menuData?.color?.rgb.b}, ${pageProps.data?.menuData?.color?.rgb.a})`);
 
-    document.documentElement.style.setProperty('--secondary-color', `rgba(${pageProps.data?.menuData?.secondaryColor?.rgb.r},${pageProps.data?.menuData?.secondaryColor?.rgb.g}, ${pageProps.data?.menuData?.secondaryColor?.rgb.b}, ${pageProps.data?.menuData?.secondaryColor?.rgb.a})`);
+    // document.documentElement.style.setProperty('--secondary-color', `rgba(${pageProps.data?.menuData?.secondaryColor?.rgb.r},${pageProps.data?.menuData?.secondaryColor?.rgb.g}, ${pageProps.data?.menuData?.secondaryColor?.rgb.b}, ${pageProps.data?.menuData?.secondaryColor?.rgb.a})`);
   },[])
 
   return (
