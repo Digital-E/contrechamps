@@ -40,7 +40,20 @@ export default function Index({ data = {}, preview }) {
     }
   })
 
-  featured.forEach(item => allEventsArray.push(item))
+  let filteredFeatured = featured;
+
+  featured.forEach((itemOne, indexOne) => {
+    allEventsArray.forEach((itemTwo, indexTwo) => {
+      if(itemOne._id === itemTwo._id) {
+        filteredFeatured.pop(indexOne, 1)
+      }
+    })
+  })
+  
+  filteredFeatured.forEach((item, index) => {
+    allEventsArray.push(item)
+  })
+
 
 
   return (
@@ -79,12 +92,13 @@ export async function getStaticProps({ preview = false, params }) {
     slug: params.lang
   });
 
+
   // All Actualites
   const allActualites = await getClient(preview).fetch(actualitesQuery, {
     slug: params.lang
   });
 
-  allEvents = [...allEvents, ...allActualites]
+  allEvents = [...allEvents,...allActualites]
 
   // Get Menu And Footer
 

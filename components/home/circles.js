@@ -74,7 +74,7 @@ let SoundIcon = styled.div`
     backdrop-filter: blur(20px);
 
     svg {
-        fill: white;
+        fill: var(--ternary-color);
         height: 100%;
         width: 100%;
     }
