@@ -52,11 +52,10 @@ html {
     --transition-in: 0.2s;
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
-    --background-colour: white;
+    /* --background-colour: white;
     --color: #5b5c59;
     --secondary-color: rgba(92,91,89, 0.6);
-    --ternary-color: rgb(138,92,196);
-    --quaternary-color: rgba(138,92,196, 0.6);
+    --ternary-color: rgb(138,92,196); */
 }
 
 .border-top::before {
