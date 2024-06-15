@@ -106,13 +106,13 @@ let SoundIcon = styled.div`
     cursor: pointer;
     height: 25px;
     width: 25px;
-    border: 1px solid white;
+    border: 1px solid var(--ternary-color);
     border-radius: 999px;
     padding: 5px;
     backdrop-filter: blur(20px);
 
     svg {
-        fill: white;
+        fill: var(--ternary-color);
         height: 100%;
         width: 100%;
     }

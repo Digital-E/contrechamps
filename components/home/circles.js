@@ -68,7 +68,7 @@ let SoundIcon = styled.div`
     cursor: pointer;
     height: 30px;
     width: 30px;
-    border: 1px solid white;
+    border: 1px solid var(--ternary-color);
     border-radius: 999px;
     padding: 5px;
     backdrop-filter: blur(20px);
@@ -93,12 +93,13 @@ export default ({ data }) => {
     let [soundOn, setSoundOn] = useState(false);
 
     useEffect(() => {
-        let shuffleOrbs = _.shuffle(data)
-        let fourOrbs = shuffleOrbs.splice(0,4);
+        // let shuffleOrbs = _.shuffle(data)
+        // let fourOrbs = shuffleOrbs.splice(0,4);
 
         
         
-        setAllOrbs([...fourOrbs]);
+        // setAllOrbs([...fourOrbs]);
+        setAllOrbs([...data])
     }, []);
 
     // useEffect(() => {
