@@ -35,7 +35,7 @@ export default function Component({ data, isSubSubPage }) {
     <Container>
       <Menu>
         <List>
-          {data?.menuItems.map(item => <ListItem key={item._id}><div className="h5"><Link href={item.url} isSubSubPage={isSubSubPage}>{item.label}</Link></div></ListItem>)}
+          {data?.menuItems.map(item => <ListItem key={item._id}><div className="p"><Link href={item.url} isSubSubPage={isSubSubPage}>{item.label}</Link></div></ListItem>)}
         </List>
       </Menu>
     </Container>

@@ -176,7 +176,7 @@ export default function Header({ data }) {
 
   return (
     <Container className={menuOpen ? "nav--open" : ""}>
-      <div className="h4" 
+      <div className="p" 
         onClick={() => {
           setMenuOpen(false);
           sessionStorage.setItem('contrechampsAcceptedSound', "true");
@@ -194,14 +194,14 @@ export default function Header({ data }) {
           data?.menuItems.map((item, index) => {
             // let isLast = index === data.menuItems.length - 1 ? true : false
             let isLast = false
-            return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="h4"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
+            return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="p"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
           })
           }
         </List>
         <LanguageSwitch>
           <List>
-            <ListItem><div className="h4"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
-            <ListItem><div className="h4"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
+            <ListItem><div className="p"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
+            <ListItem><div className="p"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
           </List> 
         </LanguageSwitch>
       </Menu>
