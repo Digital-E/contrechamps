@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Link from './link'
+import InclusiviteIcon from './inclusivite-icon'
 import LocaleLink from "./locale-link"
 import styled from "styled-components"
 
@@ -161,6 +162,10 @@ let LanguageSwitch = styled.div`
       margin-right: 10px;
     }
   }
+
+  // li:last-child {
+  //   margin-left: 25px;
+  // }
 `
 
 
@@ -202,6 +207,11 @@ export default function Header({ data }) {
           <List>
             <ListItem><div className="p"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
             <ListItem><div className="p"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
+            {/* <ListItem>
+              <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
+                <InclusiviteIcon />            
+              </Link>
+            </ListItem>             */}
           </List> 
         </LanguageSwitch>
       </Menu>

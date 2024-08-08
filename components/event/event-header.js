@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import DateComponent from '../date-component'
 import styled from "styled-components"
 import Body from "../body"
 import Button from "../button"
+import InclusiviteIcon from '../inclusivite-icon'
+import Link from '../link'
 
 import Orb from "../home/orb"
 
@@ -134,11 +137,21 @@ const TicketLinks = styled.div`
       margin-bottom: 10px;
     }
 `
+ 
+const InclusiviteIconContainer = styled.div`
+  margin-top: 18px;
+  margin-left: 15px;
+
+  svg {
+    width: 20px;
+  }
+`
+
 
 
 
 export default function EventHeader({ data }) {
-
+  const router = useRouter();
   let [soundOn, setSoundOn] = useState(false);
   
   const toggleSound = () => {
@@ -200,6 +213,14 @@ export default function EventHeader({ data }) {
               {data.ticketLinkTwo && <Button url={data.ticketLinkTwo} label={data.ticketLinkLabelTwo} />}
             </div>
           </TicketLinks>
+          {
+            data.inclusivite === true &&
+            <InclusiviteIconContainer>
+              <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
+                <InclusiviteIcon />
+              </Link>
+          </InclusiviteIconContainer>
+          }
         </Information>
       </ColRight>
     </Container>

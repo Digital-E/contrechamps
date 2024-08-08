@@ -25,7 +25,7 @@ let MonthWrapper = styled.div`
 
 let MonthDivider = styled.div`
     position: relative;
-    margin: -1px auto 0 auto;
+    margin: -4px auto 0 auto;
     text-align: center;
     text-transform: capitalize;
 `

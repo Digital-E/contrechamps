@@ -8,6 +8,8 @@ import sanitizeTag from "../../lib/sanitizeTag"
 
 import Link from "../link"
 
+import InclusiviteIcon from '../inclusivite-icon'
+
 
 
 let ListItem = styled.div`
@@ -31,10 +33,11 @@ let ListItem = styled.div`
             background: black;
             transition: var(--transition-in);
             cursor: pointer;
-        }
-    
-        :hover {
             color: white;
+        }
+
+        :hover svg path {
+            fill: white;
         }
     }
 
@@ -138,10 +141,19 @@ const Location = styled.div`
 `
 
 const Vignette = styled.div`
-    // color: var(--color);
+    display: flex;
+    flex-direction: column;
     min-height: 300px;
+}
 `
 
+const InclusiviteIconContainer = styled.div`
+    margin-top: 5px !important;
+`
+
+const InclusiviteIconContainerVignette = styled.div`
+    margin-top: auto !important;
+`
 
 
 
@@ -184,23 +196,39 @@ export default function Component({ data, isVideo }) {
                 {
                 item._type === 'post' ?
                     <>
-                        <h1>{item.title}</h1>
+                        <h1>
+                            {item.title}
+                        </h1>
                         <div>
                             <div>
-                                <div className={`h4 home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
+                                <div className={`p home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
                                     <DateComponent data={item} />
+                                    {
+                                        item.inclusivite && 
+                                        <InclusiviteIconContainer>
+                                            <InclusiviteIcon />
+                                        </InclusiviteIconContainer>
+                                    }
                                 </div>
                                 <div>
 
                                 </div>
                             </div>
-                            <Location className="h4">
+                            <Location className="p">
                                 <div><Body content={item.location} /></div>
                             </Location>
                         </div>
                     </>
                     :
-                    <Vignette><Body content={item.textVignette} /></Vignette>
+                    <Vignette>
+                        <Body content={item.textVignette} />
+                        {
+                            item.inclusivite && 
+                            <InclusiviteIconContainerVignette>
+                                <InclusiviteIcon />
+                            </InclusiviteIconContainerVignette>  
+                        }                      
+                    </Vignette>
                 }
                 </Link>
             </ColRight>

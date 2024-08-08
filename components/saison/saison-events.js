@@ -12,7 +12,7 @@ import EventList from "../home/event-list"
 
 let Container = styled.div`
     position: relative;
-    margin-top: -4px;
+    margin-top: -5px;
 
     > div:last-child > div:last-child::after   {
         display: none !important;
@@ -37,7 +37,7 @@ let MonthWrapper = styled.div`
 
 let MonthDivider = styled.div`
     position: relative;
-    margin: -1px auto 0 auto;
+    margin: -4px auto 0 auto;
     text-align: center;
     text-transform: capitalize;
 `

@@ -15,6 +15,9 @@ import Body from "../../../components/body"
 import EventHeader from '../../../components/event/event-header'
 import EventBody from '../../../components/event/event-body'
 
+import InclusiviteIcon from '../../../components/inclusivite-icon'
+import Link from '../../../components/link'
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -55,6 +58,14 @@ const Vignette = styled.div`
   @media(max-width: 989px) {
   };
 `
+const InclusiviteIconContainer = styled.div`
+  margin: 20px 0;
+  width: fit-content;
+
+  svg {
+    width: 20px;
+  }
+`
 
 
 export default function Actualite({ data = {}, preview }) {
@@ -92,10 +103,20 @@ export default function Actualite({ data = {}, preview }) {
                   content={actualite.content}
                 />
               </Head>
-              <Container>
+              <Container>              
                   <VignetteWrapper>
                   <div></div>
-                  <Vignette><Body content={actualite.textVignette} /></Vignette>
+                  <Vignette>
+                    {
+                      actualite.inclusivite === true &&
+                      <InclusiviteIconContainer>
+                        <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
+                          <InclusiviteIcon />
+                        </Link>
+                      </InclusiviteIconContainer>
+                    }                      
+                    <Body content={actualite.textVignette} />
+                  </Vignette>
                   </VignetteWrapper>
                 <EventBody data={actualite} />
               </Container>              

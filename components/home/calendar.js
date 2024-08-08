@@ -12,7 +12,14 @@ import sanitizeTag from "../../lib/sanitizeTag"
 import { parseISO, format } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
 
+import InclusiviteIcon from '../inclusivite-icon'
+
 let Container = styled.div`
+
+    p {
+    margin: 0;
+    }
+
 
     .home-calendar {
         position: relative;
@@ -367,6 +374,10 @@ let Container = styled.div`
 
 const Blank = styled.div``
 
+const InclusiviteIconContainer = styled.div`
+    margin-top: 5px !important;
+`
+
 
 export default function Component({ data }) {
 
@@ -586,10 +597,10 @@ export default function Component({ data }) {
                 <div class="home-calendar__month">
                     <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
                     <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
-                    <span class="home-calendar__year h5">
+                    <span class="home-calendar__year p">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                     </span>
-                    <span class="h5">
+                    <span class="p">
                         <Link href={`/${router.query.lang}/saison#${allMonths[currentMonthIndex][0] && sanitizeTag(format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL-yyyy', {locale: router.query.lang === "fr" ? fr : enGB}))}`}>
                             {
                                 allMonths[currentMonthIndex][0] && 
@@ -605,7 +616,7 @@ export default function Component({ data }) {
                     }
                     {allMonths[currentMonthIndex].map((item, index) => {
                         return (
-                            <div class={`h5 home-calendar__day 
+                            <div class={`p home-calendar__day 
                                 ${item.events.length > 0 &&'home-calendar__day--has-event'} 
                                 ${item.events.length > 1 && 'home-calendar__day--has-two-events'}
                                 `}>
@@ -621,6 +632,12 @@ export default function Component({ data }) {
                                                         <div>
                                                         {/* {item.index === undefined && <DateComponent data={item} />} */}
                                                         {(item.occurences) && <DateComponent data={item.occurences[item.index]} />}
+                                                        {
+                                                            item.inclusivite && 
+                                                            <InclusiviteIconContainer>
+                                                                <InclusiviteIcon />
+                                                            </InclusiviteIconContainer>
+                                                        }                                                        
                                                         </div>
                                                         <div>
                                                         <h6><Body content={item.location} /></h6>
