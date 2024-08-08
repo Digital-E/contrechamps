@@ -48,7 +48,7 @@ export default function Component({ data }) {
     return (
         <Container className="border-top media-item">
             <a href={data.pressLink || data.documentURL} target="_blank">
-                <RowTop className="h5 media-item__text">
+                <RowTop className="p media-item__text">
                     <div>
                         <Date dateString={data.date} withYear={true} />
                     </div>

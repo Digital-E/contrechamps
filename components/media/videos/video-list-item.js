@@ -76,7 +76,7 @@ export default function Component({ data, isPhoto }) {
                 <Thumbnail>
                     <Image data={data.image} />
                 </Thumbnail>
-                <Text className="h5">{data.title}</Text>
+                <Text className="p">{data.title}</Text>
             </Link>
         </Container>
     )
