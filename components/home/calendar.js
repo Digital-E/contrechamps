@@ -79,7 +79,7 @@ let Container = styled.div`
     .arrow-next::after {
         content:"";
         position: absolute;
-        top: 0.65em;
+        top: 1.2em;
         right: -2.7em;
         transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
         width: 0;
@@ -92,7 +92,7 @@ let Container = styled.div`
     .arrow-prev::after {
         content:"";
         position: absolute;
-        top: 0.65em;
+        top: 1.2em;
         right: -1.5em;
         transform: translateY(-50%) rotateZ(90deg) scale(1.5);
         width: 0;
