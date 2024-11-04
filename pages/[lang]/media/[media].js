@@ -48,21 +48,39 @@ export default function Post({ data = {}, preview }) {
     return <ErrorPage statusCode={404} />
   }
 
-  let ListSwitch = (type, allMedia, orderedMediaList) => {
+  // OLD
+  let ListSwitch = (type, allMedia) => {
 
     switch(type) {
       case 'presse':
         return <PressList data={allMedia} />
       case 'video':
-        return <VideoList data={orderedMediaList.mediaItems} />
+        return <VideoList data={allMedia} />
       case 'photo':
-        return <VideoList data={orderedMediaList.mediaItems} isPhoto={true} />        
+        return <VideoList data={allMedia} isPhoto={true} />        
       case 'disque':
-        return <DisqueList data={orderedMediaList.mediaItems} />
+        return <DisqueList data={allMedia} />
       break;
       return null;
     }
   }
+
+  // NEW
+  // let ListSwitch = (type, allMedia, orderedMediaList) => {
+
+  //   switch(type) {
+  //     case 'presse':
+  //       return <PressList data={allMedia} />
+  //     case 'video':
+  //       return <VideoList data={orderedMediaList.mediaItems} />
+  //     case 'photo':
+  //       return <VideoList data={orderedMediaList.mediaItems} isPhoto={true} />        
+  //     case 'disque':
+  //       return <DisqueList data={orderedMediaList.mediaItems} />
+  //     break;
+  //     return null;
+  //   }
+  // }
 
   return (
     <Layout preview={preview}>
