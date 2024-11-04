@@ -25,21 +25,23 @@ export default function Component({ data, isExpandable, isPhoto }) {
     let [showData, setShowData] = useState([]);
 
     useEffect(() => {
-        let spliceData = JSON.parse(JSON.stringify(data)).splice(0, 3);
+        if(data) {
+            let spliceData = JSON.parse(JSON.stringify(data)).splice(0, 3);
 
-        setShowData(spliceData);
+            setShowData(spliceData);
+        }
     }, []);
 
     if(isExpandable) {
         return (
             <Container className="border-top">
-                {showData.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
+                {showData?.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )
     } else {
         return (
             <Container className="border-top">
-                {data.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
+                {data?.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )
     }

@@ -7,18 +7,20 @@ export default function Component({ data, isExpandable }) {
     let [showData, setShowData] = useState([]);
 
     useEffect(() => {
-        let spliceData = JSON.parse(JSON.stringify(data)).splice(0, 3);
+        if(data) {
+            let spliceData = JSON.parse(JSON.stringify(data)).splice(0, 3);
 
-        setShowData(spliceData);
+            setShowData(spliceData);
+        }
     }, []);
 
     if(isExpandable) {
         return (
             <>
-            {showData.map(item => <DisqueListItem data={item} />)}
+            {showData?.map(item => <DisqueListItem data={item} />)}
             </>
         )
     } else {
-        return data.map(item => <DisqueListItem data={item} />)
+        return data?.map(item => <DisqueListItem data={item} />)
     }
 }

@@ -72,7 +72,7 @@ export default function Component({ data, isPhoto }) {
     
     return (
         <Container isPhoto={isPhoto}>
-            <Link href={data.slug}>
+            <Link href={data.slug.current}>
                 <Thumbnail>
                     <Image data={data.image} />
                 </Thumbnail>
