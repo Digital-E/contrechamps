@@ -23,6 +23,33 @@
     src: url("/fonts/Social Media Circled.otf");
 }
 
+/* Fonts 2025 */
+
+@font-face {
+    font-family: "Courier Roman";
+    src: url("/fonts/fonts2025/Courier.ttc") format("ttc")
+    ;
+}
+
+@font-face {
+    font-family: "Paperback Roman";
+    src: url("/fonts/fonts2025/PB12-Roman.otf") format("otf")
+    ;
+}
+
+@font-face {
+    font-family: "Paperback Roman Italic";
+    src: url("/fonts/fonts2025/PB12-Italic.otf") format("otf")
+    ;
+}
+
+@font-face {
+    font-family: "Schmalfette Grotesk";
+    src: url("/fonts/fonts2025/SchmalfetteGrotesk.woff2") format("woff2"),
+    url("/fonts/fonts2025/SchmalfetteGrotesk.woff") format("woff")
+    ;
+}
+
 *::-webkit-scrollbar {
     display: none;
   }
@@ -52,6 +79,7 @@ html {
     --transition-in: 0.2s;
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
+    --gray: rgb(217, 217, 217);
     /* --background-colour: white;
     --color: #5b5c59;
     --secondary-color: rgba(92,91,89, 0.6);
@@ -63,7 +91,7 @@ html {
     position: absolute;
     top: 0;
     width: calc(100% - 40px);
-    height: 4px;
+    height: 2px;
     background: black;
     left: 20px;
 }
@@ -73,7 +101,7 @@ html {
     position: absolute;
     bottom: 0;
     width: calc(100% - 40px);
-    height: 4px;
+    height: 2px;
     background: black;
     left: 20px;
 }
@@ -91,13 +119,16 @@ a:hover, button:hover {
 }
 
 .button {
-    font-family: 'Es Klarheit Grotesk Medium';
+    font-family: 'Courier';
     display: inline-block;
     border: 1px solid black;
-    border-radius: 999px;
     padding: 0.5em 0.7em;
     height: fit-content;
     line-height: 1;
+}
+
+.button.p {
+    font-family: 'Courier';
 }
 
 .button, button {
@@ -157,11 +188,11 @@ a:hover, button:hover {
   }
 
   .layout {
-      margin-top: 55px;
+      margin-top: 40px;
   }
 
   header {
-      background: var(--color);
+      background: white;
   }
 
   header > div:nth-child(1) a {
@@ -265,11 +296,11 @@ a:hover, button:hover {
     }
 
     .dark-background .arrow-prev::after, .dark-background .arrow-next::after  {
-        border-top: 5px solid var(--ternary-color) !important;
+        /* border-top: 5px solid var(--ternary-color) !important; */
     }
 
     .dark-background .arrow-prev:hover::after, .dark-background .arrow-next:hover::after  {
-        border-top: 5px solid var(--secondary-color) !important;
+        /* border-top: 5px solid var(--secondary-color) !important; */
     }
 
     .dark-background .home-calendar__day--has-event::after {
@@ -290,9 +321,9 @@ a:hover, button:hover {
     }
 
     button:hover, .button:hover {
-        border-color: var(--ternary-color) !important;
+        /* border-color: var(--ternary-color) !important;
         color: var(--background-colour) !important;
-        background-color: var(--ternary-color);
+        background-color: var(--ternary-color); */
     }
 
     .dark-background input::placeholder {
@@ -300,8 +331,8 @@ a:hover, button:hover {
     }
 
     .dark-background input {
-        border-color: var(--ternary-color) !important;
-        color: var(--ternary-color);
+        /* border-color: var(--ternary-color) !important;
+        color: var(--ternary-color); */
     }
 
     .dark-background .home-calendar__modal {
@@ -357,63 +388,63 @@ a:hover, button:hover {
 /* -------------------------------------------------------------------------- */
 
 h1, .h1 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 5rem; */
     font-size: 3.3rem;
-    letter-spacing: -0.03em;
+    /* letter-spacing: -0.03em; */
     font-weight: 100;
     margin: 0;
     line-height: 1;
 }
 
 h2, .h2 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 4rem; */
     font-size: 2.8rem;
-    letter-spacing: -0.04em;
+    /* letter-spacing: -0.04em; */
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
 }
 
 h3, .h3 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 2.8rem; */
     font-size: 1.9rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
 }
 
 h4, .h4 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 1.8rem; */
     /* font-size: 1.3rem; */
     font-size: 1.7rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
 }
 
 h5, .h5 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 1.6rem; */
     /* font-size: 1.12rem; */
     /* font-size: 1.3rem; */
     font-size: 1.5rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
 }
 
 h6, .h6 {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Schmalfette Grotesk";
     /* font-size: 1.3rem; */
     font-size: 1.3rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -421,103 +452,103 @@ h6, .h6 {
 
 
 p, .p {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Paperback Roman";
     /* font-size: 1.3rem; */
     font-size: 1rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 10px 0;
     line-height: 1.3;
 }
 
 input, input::placeholder, button, .error-label {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Courier";
     font-size: 1rem;
 }
 
 time {
     font-size: 1rem;
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
 }
 
 .caption {
-    font-family: "Es Klarheit Grotesk Medium";
+    font-family: "Courier";
     display: inline-block;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-top: 0.5rem;
 }
 
 @media(max-width: 768px) {
     h1, .h1 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 2.5rem;
-        letter-spacing: -0.03em;
+        /* letter-spacing: -0.03em; */
         font-weight: 100;
         margin: 0;
         line-height: 1;
     }
     
     h2, .h2 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 2rem;
-        letter-spacing: -0.04em;
+        /* letter-spacing: -0.04em; */
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
     }
     
     h3, .h3 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 1.5rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
     }
     
     h4, .h4 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 1rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
     }
     
     h5, .h5 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 1rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
     }
     
     h6, .h6 {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Schmalfette Grotesk";
         font-size: 1rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
     }
     
     p, .p {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Paperback Roman";
         font-size: 1rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 10px 0;
         line-height: 1.3;
     }
 
     input, input::placeholder, button {
-        font-family: "Es Klarheit Grotesk Medium";
+        font-family: "Courier";
         font-size: 1rem;
     }
 
     time {
         font-size: 1rem;
-        letter-spacing: -0.02em;
+        /* letter-spacing: -0.02em; */
     }
 }

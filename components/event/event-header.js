@@ -67,6 +67,10 @@ const Information = styled.div`
   width: 100%;
   margin-top: 50px;
 
+  p {
+    font-family: "Courier";
+  }
+
   @media(max-width: 990px) {
     flex-wrap: wrap;
   }
@@ -167,7 +171,7 @@ export default function EventHeader({ data }) {
   return (
     <Container>
       <ColLeft className="event-header__col-left">
-        {data.videoMp4 !== null ?
+        {/* {data.videoMp4 !== null ?
         <>
         <Orb data={data}/>
         <SoundIcon onClick={() => toggleSound()} className={soundOn ? "sound-on sound-icon" : "sound-off sound-icon"}> 
@@ -186,7 +190,7 @@ export default function EventHeader({ data }) {
         </SoundIcon>
         </>
         :
-        null}
+        null} */}
       </ColLeft>
       <ColRight>
         <Title>{data.title}</Title>

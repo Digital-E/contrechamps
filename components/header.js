@@ -15,6 +15,10 @@ let Container = styled.header`
   z-index: 2;
   top: 0;
 
+  > div:nth-child(1) {
+    z-index: 1;
+  }
+
 
   max-width: 1800px;
 
@@ -25,6 +29,7 @@ let Container = styled.header`
 
   .p {
    margin: 0;
+   text-transform: uppercase;
   }
 
   .nav-mobile-burger {
@@ -79,7 +84,7 @@ let List = styled.ul`
 
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 
   @media(min-width: 1061px) {
     align-items: center;
@@ -105,7 +110,7 @@ let Menu = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  flex-basis: 70%;
+  flex-basis: 90%;
   // max-width: 1100px;
 
   > ul:nth-child(1) > li {
@@ -145,7 +150,7 @@ let Menu = styled.div`
 
 
 let LanguageSwitch = styled.div`
-  margin-left: 80px;
+  // margin-left: 80px;
   width: fit-content;
 
   ${ListItem} {
@@ -180,7 +185,7 @@ export default function Header({ data }) {
 
 
   return (
-    <Container className={menuOpen ? "nav--open" : ""}>
+    <Container className={menuOpen ? "nav--open border-bottom" : "border-bottom"}>
       <div className="p" 
         onClick={() => {
           setMenuOpen(false);

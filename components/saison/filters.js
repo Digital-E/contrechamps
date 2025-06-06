@@ -17,13 +17,20 @@ gsap.registerPlugin(ScrollTrigger);
 let Container = styled.div`
     position: relative;
     z-index: 1;
+    // background: white,
 
     .season-filters {
         display: flex;
         // border-top: var(--border-width) solid black;
         // border-bottom: var(--border-width) solid black;
-        background: black;
+        background: white;
         color: white;
+        padding: 5px 0;
+    }
+
+    .season-filters .p {
+        font-family: "Courier";
+        font-size: 0.9rem;
     }
 
 
@@ -57,7 +64,7 @@ let Container = styled.div`
         height: 13px;
         min-width: 13px;
         min-height: 13px;
-        // border: var(--border-width) solid black;
+        border: 1px solid black;
         background: white;
         border-radius: 999px;
     }
@@ -102,7 +109,8 @@ let Container = styled.div`
             top: 0;
             height: 35px;
             width: 30px;
-            background: linear-gradient(90deg, transparent 0%, var(--ternary-color) 90%);
+            // background: linear-gradient(90deg, transparent 0%, var(--ternary-color) 90%);
+            background: linear-gradient(90deg, transparent 0%, white 90%);
             z-index: 999;
         }
 
@@ -295,7 +303,7 @@ export default function Component ({ data }) {
     }
     
     return (
-        <Container ref={filtersRef}>
+        <Container ref={filtersRef} className="border-bottom">
             <div class="season-filters">
                 <div>
                 {data.tags?.map((item, index) => (
@@ -309,14 +317,14 @@ export default function Component ({ data }) {
                     </div>
                 ))}
                 </div>
-                <Wrapper>
+                {/* <Wrapper>
                 <Document>
                     <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                 </Document>
                 <Archive>
                     <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
                 </Archive>
-                </Wrapper>
+                </Wrapper> */}
             </div>
     </Container>       
     )

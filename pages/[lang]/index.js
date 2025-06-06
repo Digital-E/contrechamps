@@ -67,7 +67,7 @@ export default function Index({ data = {}, preview }) {
           />
         </Head>
         {/* <Overlay /> */}
-        <Circles data={data?.homeData?.circles} />
+        {/* <Circles data={data?.homeData?.circles} /> */}
         <Calendar data={data.allEvents} />
         <EventList data={allEventsArray} />
       </Layout>

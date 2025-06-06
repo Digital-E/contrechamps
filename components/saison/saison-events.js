@@ -51,11 +51,12 @@ let InnerMonthDivider = styled.div`
 
     > .h1 {
         line-height: 1.2;
+        text-transform: uppercase;
     }
 
     @media(min-width: 768px) {
         > .h1 {
-            font-size: 6rem;
+            // font-size: 6rem;
         }
 
         .year {

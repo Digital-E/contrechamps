@@ -19,6 +19,10 @@ const ColLeft = styled.div`
   flex-basis: 30%;
   padding-right: 20px;
 
+  p {
+    font-family: "Courier";
+  }
+
   @media(max-width: 990px) {
     flex-basis: 100%;
     margin-top: 50px;

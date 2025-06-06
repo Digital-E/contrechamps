@@ -16,8 +16,9 @@ import InclusiviteIcon from '../inclusivite-icon'
 
 let Container = styled.div`
 
-    p {
+    .p {
     margin: 0;
+    font-family: "Courier";
     }
 
 
@@ -54,7 +55,7 @@ let Container = styled.div`
     }
 
     .home-calendar__month {
-        text-transform: capitalize;
+        text-transform: uppercase;
     }
 
     .home-calendar__year {
@@ -63,30 +64,61 @@ let Container = styled.div`
 
     .home-calendar__month > span:nth-child(4) {
         display: inline-block;
-        text-decoration: underline;
+        // text-decoration: underline;
         position: relative;
         color: var(--color);
         width: 5.5em;
         margin-left: 20px;
     }
 
-    .arrow-next, .arrow-prev {
+    .arrow-next {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+
+        position: relative;
+        transform: scale(var(--ggs,1));
+        width: 22px;
+        height: 17px;
+        border-left: 2px solid transparent;
+        border-bottom: 2px solid        
+    }
+
+    .arrow-prev {
         position: relative;
         cursor: pointer;
         user-select: none;
     }
 
+    .arrow-next, .arrow-next::after {
+        // content:"";
+        // position: absolute;
+        // top: 1.2em;
+        // right: -2.7em;
+        // transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
+        // width: 0;
+        // height: 0;
+        // border-left: 5px solid transparent;
+        // border-right: 5px solid transparent;
+        // border-top: 5px solid black;
+
+    display: block;
+    box-sizing: border-box;
+    border-right: 2px solid transparent
+
+    }
+
     .arrow-next::after {
-        content:"";
-        position: absolute;
-        top: 1.2em;
-        right: -2.7em;
-        transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid black;
+        content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-left: 2px solid;
+    border-top: 2px solid;
+    border-bottom: 2px solid transparent;
+    transform: rotate(45deg) skew(10deg,10deg);
+    left: -1px;
+    bottom: -12px
     }
 
     .arrow-prev::after {
@@ -102,9 +134,9 @@ let Container = styled.div`
         border-top: 5px solid black;
     }
 
-    .arrow-prev:hover::after, .arrow-next:hover::after {
-        border-top: 5px solid var(--color);
-    }
+    // .arrow-prev:hover::after, .arrow-next:hover::after {
+    //     border-top: 5px solid var(--color);
+    // }
 
     .home-calendar__day {
         position: relative;
@@ -308,6 +340,14 @@ let Container = styled.div`
         border-top: var(--border-width) solid black;
     }
 
+    .home-calendar__event:hover {
+        background: var(--gray);
+    }
+
+    .home-calendar__event p {
+        font-family: "Courier";
+    }
+
 
     .home-calendar__event > a {
         display: block;
@@ -325,7 +365,7 @@ let Container = styled.div`
         }
     
         :hover {
-            color: white;
+            color: black;
         }
     }
 

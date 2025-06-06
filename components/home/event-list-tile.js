@@ -16,6 +16,10 @@ let ListItem = styled.div`
     position: relative;
     flex-basis: 33.3333%;
 
+    p {
+        font-family: Courier;
+    }
+
     > a {
         display: flex;
         flex-direction: column;
@@ -30,14 +34,14 @@ let ListItem = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
+            background: var(--gray);
             transition: var(--transition-in);
             cursor: pointer;
-            color: white;
+            color: black;
         }
 
         :hover svg path {
-            fill: white;
+            fill: black;
         }
     }
 
@@ -96,6 +100,10 @@ let ColRight = styled.div`
         flex-direction: column;        
     }
 
+    > a:hover {
+        color: black !important;
+    }    
+
     > a > h1 {
         margin-bottom: 40px;
     }
@@ -105,7 +113,7 @@ let ColRight = styled.div`
         display: flex;
     }
 
-    > a > div:nth-child(2) > div * {
+    > a > div:nth-child(2) .p, > a > div:nth-child(2) p {
         margin: 0;
     }
 
