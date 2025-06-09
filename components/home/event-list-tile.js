@@ -163,6 +163,20 @@ const InclusiviteIconContainerVignette = styled.div`
     margin-top: auto !important;
 `
 
+const Pastille = styled.div`
+    display: ${props => props.backgroundColor === "--gray" && "none" };
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 999px;
+    margin-bottom: 5px;
+    background: var(${props => (props.backgroundColor)});
+`
+
+
 
 
 export default function Component({ data, isVideo }) {
@@ -229,6 +243,7 @@ export default function Component({ data, isVideo }) {
                         <div>
                             <div>
                                 <div className={`p home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
+                                    <Pastille backgroundColor={backgroundColorFunc(item)} />
                                     <DateComponent data={item} />
                                     {
                                         item.inclusivite && 

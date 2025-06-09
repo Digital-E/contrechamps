@@ -28,11 +28,11 @@ export default function Post({ data = {}, preview }) {
   }
 
   useEffect(() => {
-    document.querySelector("body").classList.add("dark-background");
+    // document.querySelector("body").classList.add("dark-background");
 
-    return () => {
-      document.querySelector("body").classList.remove("dark-background");
-    }
+    // return () => {
+    //   document.querySelector("body").classList.remove("dark-background");
+    // }
   }, []);
 
 

@@ -60,6 +60,7 @@ const Thumbnail = styled.div`
 `
 
 const Text = styled.div`
+    font-family: "Courier";
     margin-top: 5px;
 
     * {

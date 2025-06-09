@@ -18,13 +18,13 @@ const Container = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
+            background: var(--gray);
             transition: var(--transition-in);
             cursor: pointer;
         }
     
         :hover {
-            color: white;
+            color: black;
         }
 
         .button {
@@ -32,13 +32,14 @@ const Container = styled.div`
         }
 
         :hover .button {
-            border: 1px solid var(--background-colour);
-            color: var(--background-colour);
+            // border: 1px solid var(--background-colour);
+            // color: var(--background-colour);
             transition: border var(--transition-in);
         }
 
         .button a:hover {
             color: inherit;
+            color: var(--secondary-color);
         }
     }
 `

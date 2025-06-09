@@ -29,7 +29,7 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 15px 20px 0px 20px;
+        padding: 25px 20px 0px 20px;
     }
 
     @media(max-width: 1200px) {
@@ -55,6 +55,7 @@ let Container = styled.div`
     }
 
     .home-calendar__month {
+        position: relative;
         text-transform: uppercase;
     }
 
@@ -72,71 +73,78 @@ let Container = styled.div`
     }
 
     .arrow-next {
-        position: relative;
+        position: absolute;
+        right: -25px;
+        top: 6px;
+        z-index: 999;        
         cursor: pointer;
-        user-select: none;
+        user-select: none;    
+    }
 
+    .arrow-prev {
+        position: absolute;
+        right: -10px;
+        top: 7px;
+        z-index: 999;        
+        cursor: pointer;
+        user-select: none; 
+    }    
+        
+    .arrow-prev__inner {
         position: relative;
-        transform: scale(var(--ggs,1));
-        width: 22px;
-        height: 17px;
+        transform: scale(var(--ggs,1)) rotate(-90deg);
+        width: 11px;
+        height: 8.5px;
+        border-left: 2px solid transparent;
+        border-bottom: 2px solid       
+    }
+
+    .arrow-next__inner {
+        position: relative;
+        transform: scale(var(--ggs,1)) rotate(90deg);
+        width: 11px;
+        height: 8.5px;
         border-left: 2px solid transparent;
         border-bottom: 2px solid        
     }
 
-    .arrow-prev {
-        position: relative;
-        cursor: pointer;
-        user-select: none;
+    .arrow-next__inner, .arrow-next__inner::after {
+        display: block;
+        box-sizing: border-box;
+        border-right: 2px solid transparent
     }
 
-    .arrow-next, .arrow-next::after {
-        // content:"";
-        // position: absolute;
-        // top: 1.2em;
-        // right: -2.7em;
-        // transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
-        // width: 0;
-        // height: 0;
-        // border-left: 5px solid transparent;
-        // border-right: 5px solid transparent;
-        // border-top: 5px solid black;
+    .arrow-prev__inner, .arrow-prev__inner::after {
+        display: block;
+        box-sizing: border-box;
+        border-right: 2px solid transparent
+    }    
 
-    display: block;
-    box-sizing: border-box;
-    border-right: 2px solid transparent
-
-    }
-
-    .arrow-next::after {
+    .arrow-next__inner::after {
         content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-left: 2px solid;
-    border-top: 2px solid;
-    border-bottom: 2px solid transparent;
-    transform: rotate(45deg) skew(10deg,10deg);
-    left: -1px;
-    bottom: -12px
-    }
-
-    .arrow-prev::after {
-        content:"";
         position: absolute;
-        top: 1.2em;
-        right: -1.5em;
-        transform: translateY(-50%) rotateZ(90deg) scale(1.5);
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid black;
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid;
+        border-top: 2px solid;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg) skew(10deg,10deg);
+        left: -1px;
+        bottom: -7px
     }
 
-    // .arrow-prev:hover::after, .arrow-next:hover::after {
-    //     border-top: 5px solid var(--color);
-    // }
+    .arrow-prev__inner::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid;
+        border-top: 2px solid;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg) skew(10deg,10deg);
+        left: -1px;
+        bottom: -7px
+    }
 
     .home-calendar__day {
         position: relative;
@@ -340,9 +348,21 @@ let Container = styled.div`
         border-top: var(--border-width) solid black;
     }
 
-    .home-calendar__event:hover {
-        background: var(--gray);
+    .home-calendar__event.orange:hover {
+        background: var(--orange);
     }
+
+    .home-calendar__event.blue:hover {
+        background: var(--blue);
+    }
+        
+    .home-calendar__event.green:hover {
+        background: var(--green);
+    }    
+
+    .home-calendar__event.gray:hover {
+        background: var(--gray);
+    }            
 
     .home-calendar__event p {
         font-family: "Courier";
@@ -417,6 +437,20 @@ const Blank = styled.div``
 const InclusiviteIconContainer = styled.div`
     margin-top: 5px !important;
 `
+
+const Pastille = styled.div`
+    display: ${props => props.backgroundColor === "--gray" && "none" };
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 999px;
+    margin-bottom: 5px !important;
+    background: var(${props => (props.backgroundColor)});
+`
+
 
 
 export default function Component({ data }) {
@@ -624,6 +658,44 @@ export default function Component({ data }) {
 
         }
     }, [currentMonthIndex])
+
+    const backgroundColorFunc = (item) => {
+
+        let colorVar = "gray";
+
+        item.tags.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "green"
+            } else {
+                colorVar = "gray"
+            }
+        })
+
+        return colorVar
+    }
+
+    const backgroundColorFuncPastille = (item) => {
+
+        let colorVar = "--gray";
+
+        item.tags.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "--orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "--blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "--green"
+            } else {
+                colorVar = "--gray"
+            }
+        })
+
+        return colorVar
+    }
     
 
 
@@ -635,8 +707,12 @@ export default function Component({ data }) {
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}
                 </div>
                 <div class="home-calendar__month">
-                    <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
-                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
+                    <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}>
+                        <div class="arrow-prev__inner"></div>
+                    </div>
+                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}>
+                        <div class="arrow-next__inner"></div>
+                    </div>
                     <span class="home-calendar__year p">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                     </span>
@@ -666,11 +742,12 @@ export default function Component({ data }) {
                                     <div class="home-calendar__events">
                                         {
                                             item.events.map((item, index) => (
-                                                <div class="home-calendar__event">
+                                                <div class={`home-calendar__event ${backgroundColorFunc(item)}`}>
                                                     <Link href={item.slug}>
                                                     <div class="home-calendar__information">
                                                         <div>
                                                         {/* {item.index === undefined && <DateComponent data={item} />} */}
+                                                        <Pastille backgroundColor={backgroundColorFuncPastille(item)} />
                                                         {(item.occurences) && <DateComponent data={item.occurences[item.index]} />}
                                                         {
                                                             item.inclusivite && 

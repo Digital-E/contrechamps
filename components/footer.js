@@ -13,6 +13,7 @@ let Container = styled.footer`
   padding: 20px;
   margin-top: -2px;
   margin-bottom: 30px;
+  background: white;
 
   p {
    margin: 0;

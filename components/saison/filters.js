@@ -69,8 +69,12 @@ let Container = styled.div`
 
     .season-filter:hover .season-filter__selector {
         // background-color: rgb(255, 0, 0, 1);
-        background-color: black !important;
     }
+
+    .season-filter:hover .season-filter__label {
+        text-decoration: underline;
+    }
+
 
     .season-filter__selector {
         width: 13px;
@@ -88,8 +92,9 @@ let Container = styled.div`
         white-space: nowrap;
     }
 
-    .season-filter--active .season-filter__selector  {
-        background-color: var(--color) !important;
+    .season-filter--active .season-filter__label  {
+        // background-color: var(--color) !important;
+        text-decoration: underline;
     }
 
 

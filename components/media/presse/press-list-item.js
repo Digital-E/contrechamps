@@ -15,13 +15,13 @@ const Container = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
+            background: var(--gray);
             transition: var(--transition-in);
             cursor: pointer;
         }
     
         :hover {
-            color: white;
+            color: black;
         }
     }
 `
@@ -29,6 +29,7 @@ const Container = styled.div`
 const RowTop = styled.div`
     display: flex;
     margin-bottom: 40px;
+    font-family: "Courier";
 
     > div {
         flex-basis: 50%;
