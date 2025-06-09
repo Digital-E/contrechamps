@@ -193,7 +193,14 @@ export default function EventHeader({ data }) {
         null} */}
       </ColLeft>
       <ColRight>
-        <Title>{data.title}</Title>
+        <Title>
+          {
+            data.pageTitle === null ?
+            data.title
+            :
+            <Body content={data.pageTitle} />
+          }
+        </Title>
         <Information>
           <Date className="h4">
             {/* <DateInner>

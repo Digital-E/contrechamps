@@ -74,7 +74,7 @@ let Container = styled.div`
 
     .arrow-next {
         position: absolute;
-        right: -25px;
+        right: -35px;
         top: 6px;
         z-index: 999;        
         cursor: pointer;
@@ -83,7 +83,7 @@ let Container = styled.div`
 
     .arrow-prev {
         position: absolute;
-        right: -10px;
+        right: -20px;
         top: 7px;
         z-index: 999;        
         cursor: pointer;
