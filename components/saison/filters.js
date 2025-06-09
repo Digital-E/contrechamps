@@ -28,6 +28,18 @@ let Container = styled.div`
         padding: 5px 0;
     }
 
+    .season-filters > div > div:nth-child(2) > .season-filter__selector {
+        background-color: var(--orange);
+    }
+
+    .season-filters > div > div:nth-child(4) > .season-filter__selector {
+        background-color: var(--blue);
+    }   
+
+    .season-filters > div > div:nth-child(5) > .season-filter__selector {
+        background-color: var(--green);
+    }          
+
     .season-filters .p {
         font-family: "Courier";
         font-size: 0.9rem;
@@ -56,7 +68,8 @@ let Container = styled.div`
     }
 
     .season-filter:hover .season-filter__selector {
-        background-color: rgb(255, 0, 0, 1);
+        // background-color: rgb(255, 0, 0, 1);
+        background-color: black !important;
     }
 
     .season-filter__selector {
@@ -76,7 +89,7 @@ let Container = styled.div`
     }
 
     .season-filter--active .season-filter__selector  {
-        background-color: var(--color);
+        background-color: var(--color) !important;
     }
 
 

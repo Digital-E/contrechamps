@@ -16,6 +16,10 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   margin-top: 100px;
+
+  &&.force-font-courier p {
+    font-family: "Courier";
+  }
   
   @media(max-width: 767px) {
     flex-wrap: wrap;
@@ -47,7 +51,7 @@ const ColRight = styled.div`
 
 let scrollTriggerInstance = null;
 
-export default function Component({ data, menuData }) {
+export default function Component({ data, menuData, slug }) {
     let menuRef = useRef();
 
     let init = (reset) => {
@@ -99,7 +103,7 @@ export default function Component({ data, menuData }) {
     })
 
   return (
-    <Container>
+    <Container className={slug === "infos-pratiques" && "force-font-courier"}>
       <ColLeft>
         <div ref={menuRef}>
             <Menu data={menuData} />

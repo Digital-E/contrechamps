@@ -80,6 +80,9 @@ html {
     --transition-out: 0.3s;
     --lateral-padding: 0 20px;
     --gray: rgb(217, 217, 217);
+    --orange: rgb(229,123,58);
+    --blue:rgb(0,171,233);
+    --green: rgb(96,170,85);
     /* --background-colour: white;
     --color: #5b5c59;
     --secondary-color: rgba(92,91,89, 0.6);
@@ -107,7 +110,8 @@ html {
 }
 
 .active-link {
-    color: var(--color) !important;
+    /* color: var(--color) !important; */
+    color: var(--secondary-color);
 }
 
 a {

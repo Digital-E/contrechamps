@@ -34,7 +34,7 @@ let ListItem = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: var(--gray);
+            background: var(${props => (props.backgroundColor)});
             transition: var(--transition-in);
             cursor: pointer;
             color: black;
@@ -180,9 +180,28 @@ export default function Component({ data, isVideo }) {
 
     tags = tags.join(" ");
 
+    const backgroundColorFunc = (item) => {
+
+        let colorVar = "--gray";
+
+        item.tags.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "--orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "--blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "--green"
+            } else {
+                colorVar = "--gray"
+            }
+        })
+
+        return colorVar
+    }
+
 
     return (
-    <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
+    <ListItem key={item._id} className={`border-bottom event-tile ${tags}`} backgroundColor={backgroundColorFunc(item)}>
         <a>
             {
                 (item.image === 'post' || item.image !== null || item.video !== null) ?

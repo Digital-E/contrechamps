@@ -7,6 +7,12 @@ let Container = styled.div`
 
   .p {
    margin: 0;
+   font-family: "Courier";
+  }
+
+  .active-link {
+    color: black !important;
+    text-decoration: underline;
   }
 `
 
