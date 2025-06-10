@@ -89,6 +89,10 @@ let Container = styled.div`
         cursor: pointer;
         user-select: none; 
     }    
+
+    .arrow-next:hover, .arrow-prev:hover {
+        opacity: 0.3;
+    }
         
     .arrow-prev__inner {
         position: relative;
