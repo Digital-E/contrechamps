@@ -40,6 +40,11 @@ let ListItem = styled.div`
             color: black;
         }
 
+        :hover .image-overlay {
+            opacity: 0.6;
+            transition: var(--transition-in);
+        }
+
         :hover svg path {
             fill: black;
         }
@@ -65,6 +70,7 @@ let ListItem = styled.div`
 `
 
 let ColLeft = styled.div`
+    position: relative;
     height: calc(33.3333vw * 0.5);
     min-height: calc(33.3333vw * 0.5);
 
@@ -176,6 +182,15 @@ const Pastille = styled.div`
     background: var(${props => (props.backgroundColor)});
 `
 
+const ImageOverlay = styled.div`
+    position: absolute;
+    transition: var(--transition-out);
+    z-index: 1;
+    opacity: 0;    
+    height: 100%;
+    width: 100%;
+    background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
+`
 
 
 
@@ -205,8 +220,6 @@ export default function Component({ data, isVideo }) {
                 colorVar = "--blue"
             } else if (item.label === "Tout Public") {
                 colorVar = "--green"
-            } else {
-                colorVar = "--gray"
             }
         })
 
@@ -220,6 +233,7 @@ export default function Component({ data, isVideo }) {
             {
                 (item.image === 'post' || item.image !== null || item.video !== null) ?
                 <ColLeft>
+                <ImageOverlay className="image-overlay" backgroundColor={backgroundColorFunc(item)} />
                 {
                     item.video ?
                     <Video data={item?.video} />

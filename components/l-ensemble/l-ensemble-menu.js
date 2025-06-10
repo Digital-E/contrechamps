@@ -8,6 +8,7 @@ let Container = styled.div`
   .p {
    margin: 0;
    font-family: "Courier";
+   text-transform: uppercase;
   }
 
   .active-link {
@@ -22,7 +23,7 @@ let List = styled.ul`
 `
 
 let ListItem = styled.li`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `
 
 let Menu = styled.div`

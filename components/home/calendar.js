@@ -76,7 +76,7 @@ let Container = styled.div`
         position: absolute;
         right: -35px;
         top: 6px;
-        z-index: 999;        
+        z-index: 1;        
         cursor: pointer;
         user-select: none;    
     }
@@ -85,7 +85,7 @@ let Container = styled.div`
         position: absolute;
         right: -20px;
         top: 7px;
-        z-index: 999;        
+        z-index: 1;        
         cursor: pointer;
         user-select: none; 
     }    
@@ -225,6 +225,11 @@ let Container = styled.div`
     .home-calendar__day:hover {
         cursor: pointer;
         transition-duration: var(--transition-in);
+    }
+
+    .home-calendar__event:hover .image-overlay {
+        opacity: 0.6;
+        // transition: var(--transition-in);
     }
 
     .home-calendar__day:hover > span {
@@ -419,6 +424,7 @@ let Container = styled.div`
     }
 
     .home-calendar__image {
+        position: relative;
         height: calc(0.5 * 400px);
     }
 
@@ -451,7 +457,15 @@ const Pastille = styled.div`
     background: var(${props => (props.backgroundColor)});
 `
 
-
+const ImageOverlay = styled.div`
+    position: absolute;
+    // transition: var(--transition-out);
+    z-index: 1;
+    opacity: 0;    
+    height: 100%;
+    width: 100%;
+    background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
+`
 
 export default function Component({ data }) {
 
@@ -670,8 +684,6 @@ export default function Component({ data }) {
                 colorVar = "blue"
             } else if (item.label === "Tout Public") {
                 colorVar = "green"
-            } else {
-                colorVar = "gray"
             }
         })
 
@@ -689,8 +701,6 @@ export default function Component({ data }) {
                 colorVar = "--blue"
             } else if (item.label === "Tout Public") {
                 colorVar = "--green"
-            } else {
-                colorVar = "--gray"
             }
         })
 
@@ -763,7 +773,10 @@ export default function Component({ data }) {
                                                     <div class="home-calendar__title">
                                                         <h4>{item.title}</h4>
                                                     </div>
-                                                    <div class="home-calendar__image"><Image data={item.image} /></div>
+                                                    <div class="home-calendar__image">
+                                                        <ImageOverlay className="image-overlay" backgroundColor={backgroundColorFuncPastille(item)} />
+                                                        <Image data={item.image} />
+                                                    </div>
                                                     </Link>
                                                 </div>
                                             ))
