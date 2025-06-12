@@ -124,6 +124,7 @@ a:hover, button:hover {
 
 .button {
     font-family: 'Courier';
+    font-size: 0.9rem;
     display: inline-block;
     border: 1px solid black;
     padding: 0.5em 0.7em;
@@ -133,6 +134,7 @@ a:hover, button:hover {
 
 .button.p {
     font-family: 'Courier';
+    font-size: 0.9rem;
 }
 
 .button, button {
@@ -158,6 +160,7 @@ a:hover, button:hover {
   }
   
   .CookieConsent p {
+    font-family: "Courier";
     margin: 0;
     color: black;
   }
@@ -176,12 +179,15 @@ a:hover, button:hover {
   .CookieConsent #rcc-decline-button,
   .CookieConsent #rcc-confirm-button {
     color: black !important;
+    text-decoration: underline;
     background: transparent !important;
     margin: 10px !important;
   }
   
-  .CookieConsent #rcc-confirm-button {
-    border: 1px solid black !important;
+  .CookieConsent #rcc-confirm-button,
+  .CookieConsent #rcc-decline-button
+   {
+    /* border-bottom: 1px solid black !important; */
   }
 
   @media(min-width: 1800px) {
@@ -396,6 +402,7 @@ h1, .h1 {
     /* font-size: 5rem; */
     font-size: 3.3rem;
     /* letter-spacing: -0.03em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1;
@@ -406,6 +413,7 @@ h2, .h2 {
     /* font-size: 4rem; */
     font-size: 2.8rem;
     /* letter-spacing: -0.04em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -414,8 +422,10 @@ h2, .h2 {
 h3, .h3 {
     font-family: "Schmalfette Grotesk";
     /* font-size: 2.8rem; */
+    /* font-size: 1.9rem; */
     font-size: 1.9rem;
     /* letter-spacing: -0.02em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -427,6 +437,7 @@ h4, .h4 {
     /* font-size: 1.3rem; */
     font-size: 1.7rem;
     /* letter-spacing: -0.02em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -439,6 +450,7 @@ h5, .h5 {
     /* font-size: 1.3rem; */
     font-size: 1.5rem;
     /* letter-spacing: -0.02em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -449,6 +461,7 @@ h6, .h6 {
     /* font-size: 1.3rem; */
     font-size: 1.3rem;
     /* letter-spacing: -0.02em; */
+    letter-spacing: 0.01em;
     font-weight: 100;
     margin: 0;
     line-height: 1.3;
@@ -467,7 +480,7 @@ p, .p {
 
 input, input::placeholder, button, .error-label {
     font-family: "Courier";
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 time {
@@ -482,11 +495,25 @@ time {
     margin-top: 0.5rem;
 }
 
+.force-courier p,
+.force-courier .p,
+.force-courier time
+ {
+    font-family: "Courier" !important;
+    font-size: 0.9rem;
+}
+
+.force-courier-all * {
+    font-family: "Courier" !important;
+    font-size: 0.9rem;
+}
+
 @media(max-width: 768px) {
     h1, .h1 {
         font-family: "Schmalfette Grotesk";
         font-size: 2.5rem;
         /* letter-spacing: -0.03em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1;
@@ -494,8 +521,11 @@ time {
     
     h2, .h2 {
         font-family: "Schmalfette Grotesk";
-        font-size: 2rem;
+        /* font-size: 2rem; */
+        /* font-size: 3.3rem; */
+        font-size: 2.8rem;
         /* letter-spacing: -0.04em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
@@ -503,8 +533,11 @@ time {
     
     h3, .h3 {
         font-family: "Schmalfette Grotesk";
-        font-size: 1.5rem;
+        /* font-size: 1.5rem; */
+        /* font-size: 2.8rem; */
+        font-size: 1.9rem;
         /* letter-spacing: -0.02em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
@@ -514,6 +547,7 @@ time {
         font-family: "Schmalfette Grotesk";
         font-size: 1.7rem;
         /* letter-spacing: -0.02em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
@@ -521,8 +555,10 @@ time {
     
     h5, .h5 {
         font-family: "Schmalfette Grotesk";
-        font-size: 1rem;
+        /* font-size: 1rem; */
+        font-size: 1.5rem;
         /* letter-spacing: -0.02em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1.3;
@@ -530,8 +566,10 @@ time {
     
     h6, .h6 {
         font-family: "Schmalfette Grotesk";
-        font-size: 1rem;
+        /* font-size: 1rem; */
+        font-size: 1.3rem;
         /* letter-spacing: -0.02em; */
+        letter-spacing: 0.01em;
         font-weight: 100;
         margin: 0;
         line-height: 1.3;

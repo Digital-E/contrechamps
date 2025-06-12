@@ -16,9 +16,6 @@ let ListItem = styled.div`
     position: relative;
     flex-basis: 33.3333%;
 
-    p {
-        font-family: Courier;
-    }
 
     > a {
         display: flex;
@@ -256,7 +253,7 @@ export default function Component({ data, isVideo }) {
                         </h1>
                         <div>
                             <div>
-                                <div className={`p home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
+                                <div className={`p home-tile-date force-courier ${item.location === null ? 'hide-tile-date force-courier' : ''}`}>
                                     <Pastille backgroundColor={backgroundColorFunc(item)} />
                                     <DateComponent data={item} />
                                     {
@@ -270,7 +267,7 @@ export default function Component({ data, isVideo }) {
 
                                 </div>
                             </div>
-                            <Location className="p">
+                            <Location className="p force-courier">
                                 <div><Body content={item.location} /></div>
                             </Location>
                         </div>

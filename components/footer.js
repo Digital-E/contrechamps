@@ -12,12 +12,11 @@ let Container = styled.footer`
   flex-direction: column;
   padding: 20px;
   margin-top: -2px;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   background: white;
 
   p {
    margin: 0;
-   font-family: Courier;
   }
 
 `
@@ -40,9 +39,9 @@ let ListItem = styled.li`
 `
 
 const Col = styled.div`
-  * {
-    font-size: 1rem;
-  }
+  // * {
+  //   font-size: 1rem;
+  // }
 
   margin-bottom: 25px;
 `
@@ -101,7 +100,7 @@ export default function Header({ data }) {
   if(data === undefined) return null;
 
   return (
-    <Container className="border-top border-bottom">
+    <Container className="border-top force-courier">
       <Col><Body content={data?.textFieldOne} /></Col>
       <Col><Body content={data?.textFieldTwo} /></Col>
       <Col><Body content={data?.textFieldThree} /></Col>

@@ -7,7 +7,6 @@ let Container = styled.div`
 
   .p {
    margin: 0;
-   font-family: "Courier";
    text-transform: uppercase;
   }
 
@@ -39,7 +38,7 @@ export default function Component({ data, isSubSubPage }) {
   if(data === undefined) return null;
 
   return (
-    <Container>
+    <Container className="force-courier">
       <Menu>
         <List>
           {data?.menuItems.map(item => <ListItem key={item._id}><div className="p"><Link href={item.url} isSubSubPage={isSubSubPage}>{item.label}</Link></div></ListItem>)}

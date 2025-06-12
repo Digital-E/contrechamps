@@ -75,7 +75,7 @@ export default function Component({ data }) {
         <Container className="border-top media-item">
             <Link href={data.slug?.current || data.slug}>
                 <Wrapper>
-                    <Text className="media-item__text"><Body content={data.text} /></Text>
+                    <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>
                     <Button url={data.link} label={data.linkLabel} />
                 </Wrapper>
             </Link>

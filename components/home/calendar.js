@@ -427,6 +427,12 @@ let Container = styled.div`
         margin: 20px 0 5px 0;
     }
 
+    .home-calendar__title h4 {
+        font-family: "Courier" !important;
+        font-size: 1rem;
+        text-decoration: underline;
+    }
+
     .home-calendar__image {
         position: relative;
         height: calc(0.5 * 400px);

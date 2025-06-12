@@ -16,14 +16,17 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   margin-top: 100px;
-
-  &&.force-font-courier p {
-    font-family: "Courier";
-  }
   
   @media(max-width: 767px) {
     flex-wrap: wrap;
     margin-top: 20px;
+  }
+
+  blockquote::after {
+    content: "················································································································································································";
+    position: absolute;
+    font-size: 0.6rem;
+
   }
 `
 
@@ -103,7 +106,7 @@ export default function Component({ data, menuData, slug }) {
     })
 
   return (
-    <Container className={slug === "infos-pratiques" && "force-font-courier"}>
+    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement")) && "force-courier"}>
       <ColLeft>
         <div ref={menuRef}>
             <Menu data={menuData} />

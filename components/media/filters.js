@@ -33,11 +33,6 @@ let Container = styled.div`
         margin-right: 40px;
     }
 
-    .season-filter .p {
-        font-family: "Courier";
-        font-size: 0.9rem;
-    }
-
     .season-filter > a {
         display: flex;
         align-items: center;
@@ -168,7 +163,7 @@ export default function Component ({ data }) {
 
     return (
         <Container ref={filtersRef}>
-            <div class="season-filters border-bottom">
+            <div class="season-filters border-bottom force-courier">
                 <div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/all`}>

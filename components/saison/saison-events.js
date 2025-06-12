@@ -52,6 +52,7 @@ let InnerMonthDivider = styled.div`
     > .h1 {
         line-height: 1.2;
         text-transform: uppercase;
+        padding-top: 5px;
     }
 
     @media(min-width: 768px) {

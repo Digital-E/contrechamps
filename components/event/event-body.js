@@ -19,10 +19,6 @@ const ColLeft = styled.div`
   flex-basis: 30%;
   padding-right: 20px;
 
-  p {
-    font-family: "Courier";
-  }
-
   @media(max-width: 990px) {
     flex-basis: 100%;
     margin-top: 50px;
@@ -52,7 +48,7 @@ export default function EventHeader({ data }) {
 
   return (
     <Container>
-      <ColLeft>
+      <ColLeft className="force-courier">
         <Body content={data.information} />
       </ColLeft>
       <ColRight>

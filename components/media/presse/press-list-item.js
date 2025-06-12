@@ -29,7 +29,6 @@ const Container = styled.div`
 const RowTop = styled.div`
     display: flex;
     margin-bottom: 40px;
-    font-family: "Courier";
 
     > div {
         flex-basis: 50%;
@@ -49,15 +48,15 @@ export default function Component({ data }) {
     return (
         <Container className="border-top media-item">
             <a href={data.pressLink || data.documentURL} target="_blank">
-                <RowTop className="p media-item__text">
+                <RowTop className="p media-item__text force-courier">
                     <div>
                         <Date dateString={data.date} withYear={true} />
                     </div>
-                    <div>
+                    <div className="p">
                         {data.pressLinkLabel}
                     </div>
                 </RowTop>
-                <Text className="media-item__text"><Body content={data.text} /></Text>
+                <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>
             </a>
         </Container>
     )

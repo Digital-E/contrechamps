@@ -21,7 +21,8 @@ const Container = styled.div`
     // }
 
     h2, h3, h4, h5, h6, p {
-      columns: 2;
+      // columns: 2;
+      width: 50%
     }
   }
 `

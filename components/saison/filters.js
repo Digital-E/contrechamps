@@ -40,11 +40,6 @@ let Container = styled.div`
         background-color: var(--green);
     }          
 
-    .season-filters .p {
-        font-family: "Courier";
-        font-size: 0.9rem;
-    }
-
 
     .season-filters > div {
         display: flex;
@@ -322,7 +317,7 @@ export default function Component ({ data }) {
     
     return (
         <Container ref={filtersRef} className="border-bottom">
-            <div class="season-filters">
+            <div class="season-filters force-courier">
                 <div>
                 {data.tags?.map((item, index) => (
                     <div key={item._id} 
