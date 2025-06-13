@@ -32,6 +32,7 @@ const Container = styled.div`
 
 const ColLeft = styled.div`
   flex-basis: 30%;
+  z-index: -1;
 
   > div *:nth-child(1) {
     margin-top: 0px !important;

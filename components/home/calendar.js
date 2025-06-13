@@ -299,7 +299,7 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        width: 350px;
+        width: 450px;
         max-height: 600px;
         border: 1px solid black;
         background-color: white;
@@ -329,8 +329,26 @@ let Container = styled.div`
 
     @media(min-width: 992px) {
         .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
-            margin-left: -300px;
+            margin-left: -400px;
+        }         
+    }
+
+    @media(max-width: 991px) {
+        .home-calendar__event.orange {
+            background: var(--orange);
         }
+
+        .home-calendar__event.blue {
+            background: var(--blue);
+        }
+            
+        .home-calendar__event.green {
+            background: var(--green);
+        }    
+
+        .home-calendar__event.gray {
+            background: var(--gray);
+        }       
     }
 
 

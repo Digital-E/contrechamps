@@ -57,12 +57,12 @@ let ListItem = styled.div`
 
     @media(max-width: 992px) {
         flex-basis: 100%;
-    }
 
-    @media(max-width: 992px) {
         > a > div {
             flex-basis: auto;
-        }
+        }     
+            
+        background: var(${props => (props.backgroundColor)});
     }
 `
 

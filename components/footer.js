@@ -14,6 +14,7 @@ let Container = styled.footer`
   margin-top: -2px;
   // margin-bottom: 30px;
   background: white;
+  z-index: 1;
 
   p {
    margin: 0;

@@ -122,6 +122,11 @@ a:hover, button:hover {
     color: var(--secondary-color);
 }
 
+button:hover, .button:hover {
+    background: black !important;
+    color: white;
+}
+
 .button {
     font-family: 'Courier';
     font-size: 0.9rem;

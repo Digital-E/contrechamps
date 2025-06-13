@@ -28,7 +28,7 @@ const Container = styled.div`
 
 const RowTop = styled.div`
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     > div {
         flex-basis: 50%;
