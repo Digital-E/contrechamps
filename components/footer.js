@@ -75,9 +75,9 @@ let Socials = styled.div`
 let Newsletter = styled.div`
   flex-grow: 1;
 
-  @media(max-width: 1330px) {
-    margin-left: 0;
-  }
+  // @media(max-width: 1330px) {
+  //   margin-left: 0;
+  // }
 `
 
 let Logo = styled.div`

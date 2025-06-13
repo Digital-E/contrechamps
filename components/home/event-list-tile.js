@@ -187,6 +187,7 @@ const ImageOverlay = styled.div`
     height: 100%;
     width: 100%;
     background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
+    pointer-events: none;
 `
 
 
