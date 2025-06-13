@@ -476,7 +476,7 @@ h6, .h6 {
 p, .p {
     font-family: "Paperback Roman";
     /* font-size: 1.3rem; */
-    font-size: 1rem;
+    font-size: 1.1rem;
     /* letter-spacing: -0.02em; */
     font-weight: 100;
     margin: 10px 0;
@@ -485,7 +485,7 @@ p, .p {
 
 ul {
     font-family: "Paperback Roman";
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.3;
 }
 
@@ -522,7 +522,8 @@ time {
 @media(max-width: 768px) {
     h1, .h1 {
         font-family: "Schmalfette Grotesk";
-        font-size: 2.5rem;
+        /* font-size: 2.5rem; */
+        font-size: 3.3rem;
         /* letter-spacing: -0.03em; */
         letter-spacing: 0.01em;
         font-weight: 100;
@@ -588,7 +589,7 @@ time {
     
     p, .p {
         font-family: "Paperback Roman";
-        font-size: 1rem;
+        font-size: 1.1rem;
         /* letter-spacing: -0.02em; */
         font-weight: 100;
         margin: 10px 0;

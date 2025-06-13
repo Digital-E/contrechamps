@@ -15,6 +15,10 @@ let Container = styled.header`
   z-index: 2;
   top: 0;
 
+  p, .p {
+    font-size: 1rem;
+  }
+
   > div:nth-child(1) {
     z-index: 1;
   }
@@ -101,6 +105,9 @@ let ListItem = styled.li`
   &&:last-child {
       // margin-left: auto;
       // margin-right: 0;
+  }
+  p {
+    font-size: 1rem;
   }
 `
 
