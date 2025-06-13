@@ -483,6 +483,12 @@ p, .p {
     line-height: 1.3;
 }
 
+ul {
+    font-family: "Paperback Roman";
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
 input, input::placeholder, button, .error-label {
     font-family: "Courier";
     font-size: 0.9rem;
