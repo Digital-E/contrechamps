@@ -147,7 +147,7 @@ button:hover, .button:hover {
 }
 
 * { 
-    /* font-feature-settings: 'ss02'; */
+    font-feature-settings: 'ss02';
 }
 
 

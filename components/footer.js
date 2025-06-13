@@ -49,8 +49,12 @@ const Col = styled.div`
 
 
 let Socials = styled.div`
-  font-family: "Social Media Circled";
-  font-size: 1.5em;
+
+  li {
+    font-family: "Social Media Circled";
+    font-size: 1.5em;
+    line-height: 1;
+  }
 
   ${ListItem} {
     margin-right: 5px;
