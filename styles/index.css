@@ -27,19 +27,19 @@
 
 @font-face {
     font-family: "Courier Roman";
-    src: url("/fonts/fonts2025/Courier.ttc") format("ttc")
+    src: url("/fonts/fonts2025/Courier.ttc")
     ;
 }
 
 @font-face {
     font-family: "Paperback Roman";
-    src: url("/fonts/fonts2025/PB12-Roman.otf") format("otf")
+    src: url("/fonts/fonts2025/PB12-Roman.otf")
     ;
 }
 
 @font-face {
     font-family: "Paperback Roman Italic";
-    src: url("/fonts/fonts2025/PB12-Italic.otf") format("otf")
+    src: url("/fonts/fonts2025/PB12-Italic.otf")
     ;
 }
 
@@ -147,7 +147,7 @@ button:hover, .button:hover {
 }
 
 * { 
-    font-feature-settings: 'ss02';
+    /* font-feature-settings: 'ss02'; */
 }
 
 
