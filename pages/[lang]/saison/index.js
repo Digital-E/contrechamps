@@ -5,7 +5,7 @@ import ErrorPage from 'next/error'
 import Header from '../../../components/header'
 import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
-import { indexQuery, actualitesQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
+import { indexQuery, actualitesQuery, indexQueryPreview, actualitesQueryPreview, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { getClient } from '../../../lib/sanity.server'
 
 import SaisonHeader from '../../../components/saison/saison-header'
@@ -81,6 +81,22 @@ export async function getStaticProps({ params, preview = false }) {
   });
 
   allEvents = [...allEvents, ...allActualites]
+
+  if(preview) {
+    // All Events Preview
+
+   let allEventsPreview = await getClient(preview).fetch(indexQueryPreview, {
+      slug: params.lang
+    }); 
+    
+    // All Actualites Preview
+    let allActualitesPreview = await getClient(preview).fetch(actualitesQueryPreview, {
+      slug: params.lang
+    }); 
+    
+    
+    allEvents = [...allEventsPreview, ...allActualitesPreview];
+  }   
 
   // Get Menu And Footer
 
