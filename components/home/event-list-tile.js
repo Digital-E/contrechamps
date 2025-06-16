@@ -215,13 +215,13 @@ export default function Component({ data, isVideo }) {
         item.tags?.forEach(item => {
             if(alreadyHasColor) return true
 
-            if(sanitizeTag(item.label) === "abonnement") {
+            if(sanitizeTag(item.label) === "abonnement" || sanitizeTag(item.label) === "subscription") {
                 colorVar = "--orange"
                 alreadyHasColor = true
-            } else if (sanitizeTag(item.label) === "tournee") {
+            } else if (sanitizeTag(item.label) === "tournee" || sanitizeTag(item.label) ===  "tour") {
                 colorVar = "--blue"
                 alreadyHasColor = true
-            } else if (sanitizeTag(item.label) === "tout-public") {
+            } else if (sanitizeTag(item.label) === "tout-public" || sanitizeTag(item.label) ===  "all-audiences") {
                 colorVar = "--green"
                 alreadyHasColor = true
             }

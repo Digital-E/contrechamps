@@ -47,6 +47,8 @@ const ColRight = styled.div`
 
     @media(max-width: 767px) {
         flex-basis: 100%;
+        width: calc(100vw - 50px);
+        overflow: hidden;
     }
 `
 
