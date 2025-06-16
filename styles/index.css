@@ -54,6 +54,10 @@
     display: none;
   }
 
+* {
+    text-underline-offset: 3px;
+}
+
 /* * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -168,6 +172,7 @@ button:hover, .button:hover {
     font-family: "Courier";
     margin: 0;
     color: black;
+    font-size: 0.9rem;
   }
 
   

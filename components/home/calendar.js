@@ -391,11 +391,6 @@ let Container = styled.div`
         background: var(--gray);
     }            
 
-    .home-calendar__event p {
-        font-family: "Courier";
-    }
-
-
     .home-calendar__event > a {
         display: block;
         padding: 10px 10px;
@@ -780,7 +775,7 @@ export default function Component({ data }) {
                                     <div class="home-calendar__events">
                                         {
                                             item.events.map((item, index) => (
-                                                <div class={`home-calendar__event ${backgroundColorFunc(item)}`}>
+                                                <div class={`home-calendar__event force-courier ${backgroundColorFunc(item)}`}>
                                                     <Link href={item.slug}>
                                                     <div class="home-calendar__information">
                                                         <div>

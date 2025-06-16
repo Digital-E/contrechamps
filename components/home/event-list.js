@@ -62,7 +62,6 @@ export default function Component({ data, title, videoData }) {
 
         setAllEvents(newData)
     }, [data])
-    
 
     return (
         <Container>

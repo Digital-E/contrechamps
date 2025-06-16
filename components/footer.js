@@ -10,7 +10,7 @@ let Container = styled.footer`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 70px 20px 20px 20px;
   margin-top: -2px;
   // margin-bottom: 30px;
   background: white;

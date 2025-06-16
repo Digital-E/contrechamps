@@ -211,7 +211,7 @@ export default function Component({ data, isVideo }) {
 
         let colorVar = "--gray";
 
-        item.tags.forEach(item => {
+        item.tags?.forEach(item => {
             if(item.label === "Abonnement") {
                 colorVar = "--orange"
             } else if (item.label === "Tournée") {
