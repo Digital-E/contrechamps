@@ -8,8 +8,9 @@ import styled from "styled-components";
 const Container = styled.div`
 
     padding: 0;
+    width: fit-content;
 
-    // margin: 10px 0;
+    margin: 70px 0 30px 0;
 
     label {
       text-transform: lowercase;
@@ -18,20 +19,15 @@ const Container = styled.div`
 
     form {
         display: flex;
-        flex-direction: row;
-    }
-
-    @media(max-width: 1330px) {
-      form {
         flex-direction: column;
-      }
     }
 
     form input {
-        background-color: transparent;
+        background-color: rgb(237, 237, 237);
         padding: 5px 25px;
-        border: 1px solid black;
+        border: 1px solid transparent;
         height: 40px;
+        text-align: center;
     }
 
     form input::placeholder {
@@ -45,7 +41,6 @@ const Container = styled.div`
 
     .text-input {
         width: 100%;
-        border-radius: 999px;
     }
 
     .text-input.error {
@@ -86,27 +81,16 @@ const Container = styled.div`
         border: none;
         background: none;
         width: fit-content;
-        margin: 0 auto 0 0.5em;
         height: fit-content;
         border: 1px solid black;
-        border-radius: 999px;
         padding: 5px 25px;
         height: 40px;
-    }
-
-    @media(max-width: 1330px) {
-      button {
-        margin: 0;
-      }
+        text-transform: uppercase;
     }
 
     .disabled {
         // pointer-events: none;
         // opacity: 0.3;
-    }
-
-    @media(max-width: 1330px) {
-      margin: 30px 0;
     }
 `;
 
@@ -271,7 +255,7 @@ const SignupForm = ({ data }) => {
         validationSchema={Yup.object({
           email: Yup.string()
             .email("Invalid")
-            .required("Required")
+            // .required("Required")
         })}
         onSubmit={async (values, { setSubmitting }) => {
           // await new Promise(r => setTimeout(r, 500));

@@ -37,7 +37,7 @@ let MonthWrapper = styled.div`
 
 let MonthDivider = styled.div`
     position: relative;
-    margin: -4px auto 0 auto;
+    margin: -2px auto 0 auto;
     text-align: center;
     text-transform: capitalize;
 `
@@ -51,11 +51,13 @@ let InnerMonthDivider = styled.div`
 
     > .h1 {
         line-height: 1.2;
+        text-transform: uppercase;
+        padding-top: 5px;
     }
 
     @media(min-width: 768px) {
         > .h1 {
-            font-size: 6rem;
+            // font-size: 6rem;
         }
 
         .year {

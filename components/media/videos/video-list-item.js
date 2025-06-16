@@ -71,7 +71,7 @@ const Text = styled.div`
 export default function Component({ data, isPhoto }) {
     
     return (
-        <Container isPhoto={isPhoto}>
+        <Container isPhoto={isPhoto} className="force-courier">
             <Link href={data.slug?.current || data.slug}>
                 <Thumbnail>
                     <Image data={data.image} />

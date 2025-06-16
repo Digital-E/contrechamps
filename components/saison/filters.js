@@ -17,14 +17,28 @@ gsap.registerPlugin(ScrollTrigger);
 let Container = styled.div`
     position: relative;
     z-index: 1;
+    // background: white,
 
     .season-filters {
         display: flex;
         // border-top: var(--border-width) solid black;
         // border-bottom: var(--border-width) solid black;
-        background: black;
+        background: white;
         color: white;
+        padding: 5px 0;
     }
+
+    .season-filters > div > div:nth-child(2) > .season-filter__selector {
+        background-color: var(--orange);
+    }
+
+    .season-filters > div > div:nth-child(4) > .season-filter__selector {
+        background-color: var(--blue);
+    }   
+
+    .season-filters > div > div:nth-child(5) > .season-filter__selector {
+        background-color: var(--green);
+    }          
 
 
     .season-filters > div {
@@ -49,15 +63,20 @@ let Container = styled.div`
     }
 
     .season-filter:hover .season-filter__selector {
-        background-color: rgb(255, 0, 0, 1);
+        // background-color: rgb(255, 0, 0, 1);
     }
+
+    .season-filter:hover .season-filter__label {
+        text-decoration: underline;
+    }
+
 
     .season-filter__selector {
         width: 13px;
         height: 13px;
         min-width: 13px;
         min-height: 13px;
-        // border: var(--border-width) solid black;
+        border: 1px solid black;
         background: white;
         border-radius: 999px;
     }
@@ -68,8 +87,9 @@ let Container = styled.div`
         white-space: nowrap;
     }
 
-    .season-filter--active .season-filter__selector  {
-        background-color: var(--color);
+    .season-filter--active .season-filter__label  {
+        // background-color: var(--color) !important;
+        text-decoration: underline;
     }
 
 
@@ -102,7 +122,8 @@ let Container = styled.div`
             top: 0;
             height: 35px;
             width: 30px;
-            background: linear-gradient(90deg, transparent 0%, var(--ternary-color) 90%);
+            // background: linear-gradient(90deg, transparent 0%, var(--ternary-color) 90%);
+            background: linear-gradient(90deg, transparent 0%, white 90%);
             z-index: 999;
         }
 
@@ -295,8 +316,8 @@ export default function Component ({ data }) {
     }
     
     return (
-        <Container ref={filtersRef}>
-            <div class="season-filters">
+        <Container ref={filtersRef} className="border-bottom">
+            <div class="season-filters force-courier">
                 <div>
                 {data.tags?.map((item, index) => (
                     <div key={item._id} 
@@ -309,14 +330,14 @@ export default function Component ({ data }) {
                     </div>
                 ))}
                 </div>
-                <Wrapper>
+                {/* <Wrapper>
                 <Document>
                     <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                 </Document>
                 <Archive>
                     <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
                 </Archive>
-                </Wrapper>
+                </Wrapper> */}
             </div>
     </Container>       
     )

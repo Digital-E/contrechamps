@@ -18,13 +18,13 @@ const Container = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
+            background: var(--gray);
             transition: var(--transition-in);
             cursor: pointer;
         }
     
         :hover {
-            color: white;
+            color: black;
         }
 
         .button {
@@ -32,13 +32,14 @@ const Container = styled.div`
         }
 
         :hover .button {
-            border: 1px solid var(--background-colour);
-            color: var(--background-colour);
+            // border: 1px solid var(--background-colour);
+            // color: var(--background-colour);
             transition: border var(--transition-in);
         }
 
         .button a:hover {
             color: inherit;
+            color: var(--secondary-color);
         }
     }
 `
@@ -74,7 +75,7 @@ export default function Component({ data }) {
         <Container className="border-top media-item">
             <Link href={data.slug?.current || data.slug}>
                 <Wrapper>
-                    <Text className="media-item__text"><Body content={data.text} /></Text>
+                    <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>
                     <Button url={data.link} label={data.linkLabel} />
                 </Wrapper>
             </Link>

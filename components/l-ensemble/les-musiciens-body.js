@@ -79,7 +79,7 @@ let renderSlice = (slice) => {
           case 'video':
           return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
           case 'image':
-          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice} /></SliceWrapper>
+          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice}  hasCaption={true}/></SliceWrapper>
           case 'Text':
           return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
       }

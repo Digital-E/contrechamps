@@ -16,8 +16,9 @@ import InclusiviteIcon from '../inclusivite-icon'
 
 let Container = styled.div`
 
-    p {
+    .p {
     margin: 0;
+    font-family: "Courier";
     }
 
 
@@ -28,7 +29,7 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 15px 20px 0px 20px;
+        padding: 25px 20px 0px 20px;
     }
 
     @media(max-width: 1200px) {
@@ -54,7 +55,8 @@ let Container = styled.div`
     }
 
     .home-calendar__month {
-        text-transform: capitalize;
+        position: relative;
+        text-transform: uppercase;
     }
 
     .home-calendar__year {
@@ -63,47 +65,89 @@ let Container = styled.div`
 
     .home-calendar__month > span:nth-child(4) {
         display: inline-block;
-        text-decoration: underline;
+        // text-decoration: underline;
         position: relative;
         color: var(--color);
         width: 5.5em;
         margin-left: 20px;
     }
 
-    .arrow-next, .arrow-prev {
-        position: relative;
+    .arrow-next {
+        position: absolute;
+        right: -35px;
+        top: 6px;
+        z-index: 1;        
         cursor: pointer;
-        user-select: none;
+        user-select: none;    
     }
 
-    .arrow-next::after {
-        content:"";
+    .arrow-prev {
         position: absolute;
-        top: 1.2em;
-        right: -2.7em;
-        transform: translateY(-50%) rotateZ(-90deg) scale(1.5);
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid black;
+        right: -20px;
+        top: 7px;
+        z-index: 1;        
+        cursor: pointer;
+        user-select: none; 
+    }    
+
+    .arrow-next:hover, .arrow-prev:hover {
+        opacity: 0.3;
+    }
+        
+    .arrow-prev__inner {
+        position: relative;
+        transform: scale(var(--ggs,1)) rotate(-90deg);
+        width: 11px;
+        height: 8.5px;
+        border-left: 2px solid transparent;
+        border-bottom: 2px solid       
     }
 
-    .arrow-prev::after {
-        content:"";
+    .arrow-next__inner {
+        position: relative;
+        transform: scale(var(--ggs,1)) rotate(90deg);
+        width: 11px;
+        height: 8.5px;
+        border-left: 2px solid transparent;
+        border-bottom: 2px solid        
+    }
+
+    .arrow-next__inner, .arrow-next__inner::after {
+        display: block;
+        box-sizing: border-box;
+        border-right: 2px solid transparent
+    }
+
+    .arrow-prev__inner, .arrow-prev__inner::after {
+        display: block;
+        box-sizing: border-box;
+        border-right: 2px solid transparent
+    }    
+
+    .arrow-next__inner::after {
+        content: "";
         position: absolute;
-        top: 1.2em;
-        right: -1.5em;
-        transform: translateY(-50%) rotateZ(90deg) scale(1.5);
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid black;
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid;
+        border-top: 2px solid;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg) skew(10deg,10deg);
+        left: -1px;
+        bottom: -7px
     }
 
-    .arrow-prev:hover::after, .arrow-next:hover::after {
-        border-top: 5px solid var(--color);
+    .arrow-prev__inner::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid;
+        border-top: 2px solid;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg) skew(10deg,10deg);
+        left: -1px;
+        bottom: -7px
     }
 
     .home-calendar__day {
@@ -187,6 +231,11 @@ let Container = styled.div`
         transition-duration: var(--transition-in);
     }
 
+    .home-calendar__event:hover .image-overlay {
+        opacity: 0.6;
+        // transition: var(--transition-in);
+    }
+
     .home-calendar__day:hover > span {
         opacity: 0.5;
     }
@@ -250,7 +299,7 @@ let Container = styled.div`
     .home-calendar__modal {
         display: none;
         position: absolute;
-        width: 350px;
+        width: 450px;
         max-height: 600px;
         border: 1px solid black;
         background-color: white;
@@ -280,8 +329,26 @@ let Container = styled.div`
 
     @media(min-width: 992px) {
         .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
-            margin-left: -300px;
+            margin-left: -400px;
+        }         
+    }
+
+    @media(max-width: 991px) {
+        .home-calendar__event.orange {
+            background: var(--orange);
         }
+
+        .home-calendar__event.blue {
+            background: var(--blue);
+        }
+            
+        .home-calendar__event.green {
+            background: var(--green);
+        }    
+
+        .home-calendar__event.gray {
+            background: var(--gray);
+        }       
     }
 
 
@@ -308,6 +375,21 @@ let Container = styled.div`
         border-top: var(--border-width) solid black;
     }
 
+    .home-calendar__event.orange:hover {
+        background: var(--orange);
+    }
+
+    .home-calendar__event.blue:hover {
+        background: var(--blue);
+    }
+        
+    .home-calendar__event.green:hover {
+        background: var(--green);
+    }    
+
+    .home-calendar__event.gray:hover {
+        background: var(--gray);
+    }            
 
     .home-calendar__event > a {
         display: block;
@@ -325,7 +407,7 @@ let Container = styled.div`
         }
     
         :hover {
-            color: white;
+            color: black;
         }
     }
 
@@ -358,7 +440,14 @@ let Container = styled.div`
         margin: 20px 0 5px 0;
     }
 
+    .home-calendar__title h4 {
+        font-family: "Courier" !important;
+        font-size: 1rem;
+        text-decoration: underline;
+    }
+
     .home-calendar__image {
+        position: relative;
         height: calc(0.5 * 400px);
     }
 
@@ -378,6 +467,28 @@ const InclusiviteIconContainer = styled.div`
     margin-top: 5px !important;
 `
 
+const Pastille = styled.div`
+    display: ${props => props.backgroundColor === "--gray" && "none" };
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 999px;
+    margin-bottom: 5px !important;
+    background: var(${props => (props.backgroundColor)});
+`
+
+const ImageOverlay = styled.div`
+    position: absolute;
+    // transition: var(--transition-out);
+    z-index: 1;
+    opacity: 0;    
+    height: 100%;
+    width: 100%;
+    background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
+`
 
 export default function Component({ data }) {
 
@@ -584,6 +695,40 @@ export default function Component({ data }) {
 
         }
     }, [currentMonthIndex])
+
+    const backgroundColorFunc = (item) => {
+
+        let colorVar = "gray";
+
+        item.tags.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "green"
+            }
+        })
+
+        return colorVar
+    }
+
+    const backgroundColorFuncPastille = (item) => {
+
+        let colorVar = "--gray";
+
+        item.tags.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "--orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "--blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "--green"
+            }
+        })
+
+        return colorVar
+    }
     
 
 
@@ -595,8 +740,12 @@ export default function Component({ data }) {
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}
                 </div>
                 <div class="home-calendar__month">
-                    <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}></div>
-                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}></div>
+                    <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}>
+                        <div class="arrow-prev__inner"></div>
+                    </div>
+                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}>
+                        <div class="arrow-next__inner"></div>
+                    </div>
                     <span class="home-calendar__year p">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                     </span>
@@ -626,11 +775,12 @@ export default function Component({ data }) {
                                     <div class="home-calendar__events">
                                         {
                                             item.events.map((item, index) => (
-                                                <div class="home-calendar__event">
+                                                <div class={`home-calendar__event force-courier ${backgroundColorFunc(item)}`}>
                                                     <Link href={item.slug}>
                                                     <div class="home-calendar__information">
                                                         <div>
                                                         {/* {item.index === undefined && <DateComponent data={item} />} */}
+                                                        <Pastille backgroundColor={backgroundColorFuncPastille(item)} />
                                                         {(item.occurences) && <DateComponent data={item.occurences[item.index]} />}
                                                         {
                                                             item.inclusivite && 
@@ -646,7 +796,10 @@ export default function Component({ data }) {
                                                     <div class="home-calendar__title">
                                                         <h4>{item.title}</h4>
                                                     </div>
-                                                    <div class="home-calendar__image"><Image data={item.image} /></div>
+                                                    <div class="home-calendar__image">
+                                                        <ImageOverlay className="image-overlay" backgroundColor={backgroundColorFuncPastille(item)} />
+                                                        <Image data={item.image} />
+                                                    </div>
                                                     </Link>
                                                 </div>
                                             ))

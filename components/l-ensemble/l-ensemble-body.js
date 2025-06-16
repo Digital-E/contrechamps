@@ -21,6 +21,12 @@ const Container = styled.div`
     flex-wrap: wrap;
     margin-top: 20px;
   }
+
+  // blockquote::after {
+  //   content: "················································································································································································";
+  //   position: absolute;
+  //   font-size: 0.6rem;
+  // }
 `
 
 const ColLeft = styled.div`
@@ -47,7 +53,7 @@ const ColRight = styled.div`
 
 let scrollTriggerInstance = null;
 
-export default function Component({ data, menuData }) {
+export default function Component({ data, menuData, slug }) {
     let menuRef = useRef();
 
     let init = (reset) => {
@@ -99,7 +105,7 @@ export default function Component({ data, menuData }) {
     })
 
   return (
-    <Container>
+    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && "force-courier"}>
       <ColLeft>
         <div ref={menuRef}>
             <Menu data={menuData} />

@@ -18,8 +18,8 @@ let Container = styled.div`
         display: flex;
         border-top: var(--border-width) solid black;
         border-bottom: var(--border-width) solid black;
-        background: black;
-        color: white;
+        background: white;
+        color: black;
     }
 
     
@@ -53,15 +53,19 @@ let Container = styled.div`
     }
 
     .season-filter > a:hover .season-filter__selector {
-        background-color: rgb(255, 0, 0, 1);
+        background-color: black;
     }
 
     .season-filter__selector {
         width: 13px;
         height: 13px;
-        // border: var(--border-width) solid black;
-        background: white;
+        border: 1px solid black;
+        background-color: white;
         border-radius: 999px;
+    }
+
+    .active-link .season-filter__selector {
+        background-color: black;
     }
 
     .season-filter__label {
@@ -89,6 +93,7 @@ let Container = styled.div`
             content: "";
             position: absolute;
             right: 0;
+            left: auto;
             top: 0;
             height: 35px;
             width: 30px;
@@ -158,7 +163,7 @@ export default function Component ({ data }) {
 
     return (
         <Container ref={filtersRef}>
-            <div class="season-filters">
+            <div class="season-filters border-bottom force-courier">
                 <div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/all`}>

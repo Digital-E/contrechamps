@@ -12,7 +12,7 @@ import splitSlug from "../../../lib/splitSlug"
 import LEnsembleBody from '../../../components/l-ensemble/l-ensemble-body'
 
 
-export default function Component({ data = {}, preview }) {
+export default function Component({ data = {}, preview, shortSlug }) {
   const router = useRouter()
 
   const slug = data?.data?.slug
@@ -21,7 +21,6 @@ export default function Component({ data = {}, preview }) {
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
-
 
   return (
     <Layout preview={preview}>
@@ -39,7 +38,7 @@ export default function Component({ data = {}, preview }) {
                   content={data.data.content}
                 />
               </Head>
-              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} />
+              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} slug={data.shortSlug}/>
           </>
         )}
     </Layout>
@@ -49,6 +48,8 @@ export default function Component({ data = {}, preview }) {
 export async function getStaticProps({ params, preview = false }) {
 
   let slug = `${params.lang}__a-propos__${params.slug}`
+
+  let shortSlug = params.slug;
 
 
   let data = await getClient(preview).fetch(lEnsembleQuery, {
@@ -85,7 +86,8 @@ export async function getStaticProps({ params, preview = false }) {
         data,
         lEnsembleMenu,
         menuData,
-        footerData
+        footerData,
+        shortSlug
       },
     },
   }

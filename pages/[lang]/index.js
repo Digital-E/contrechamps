@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import Layout from '../../components/layout'
 import { SITE_NAME } from '../../lib/constants'
-import { indexQuery, actualitesQuery, homeQuery, menuQuery, footerQuery } from '../../lib/queries'
+import { indexQuery, actualitesQuery, homeQuery, indexQueryPreview, actualitesQueryPreview, menuQuery, footerQuery } from '../../lib/queries'
 import { getClient } from '../../lib/sanity.server'
 
 
@@ -67,7 +67,7 @@ export default function Index({ data = {}, preview }) {
           />
         </Head>
         {/* <Overlay /> */}
-        <Circles data={data?.homeData?.circles} />
+        {/* <Circles data={data?.homeData?.circles} /> */}
         <Calendar data={data.allEvents} />
         <EventList data={allEventsArray} />
       </Layout>
@@ -92,13 +92,29 @@ export async function getStaticProps({ preview = false, params }) {
     slug: params.lang
   });
 
-
   // All Actualites
   const allActualites = await getClient(preview).fetch(actualitesQuery, {
     slug: params.lang
   });
 
+
   allEvents = [...allEvents,...allActualites]
+
+  if(preview) {
+    // All Events Preview
+
+   let allEventsPreview = await getClient(preview).fetch(indexQueryPreview, {
+      slug: params.lang
+    }); 
+    
+    // All Actualites Preview
+    let allActualitesPreview = await getClient(preview).fetch(actualitesQueryPreview, {
+      slug: params.lang
+    }); 
+    
+    
+    allEvents = [...allEventsPreview, ...allActualitesPreview];
+  } 
 
   // Get Menu And Footer
 

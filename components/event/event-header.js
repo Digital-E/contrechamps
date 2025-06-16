@@ -22,30 +22,30 @@ const Container = styled.div`
 const ColLeft = styled.div`
   position: relative;
 
-  > div:nth-child(1) {
-    height: 20vw;
-    width: 20vw;
-  }
+  // > div:nth-child(1) {
+  //   height: 20vw;
+  //   width: 20vw;
+  // }
 
-  @media (max-width: 1199px) {
-    > div:nth-child(1) {
-      height: 25vw !important;
-      width: 25vw !important;
-    }
-  }
+  // @media (max-width: 1199px) {
+  //   > div:nth-child(1) {
+  //     height: 25vw !important;
+  //     width: 25vw !important;
+  //   }
+  // }
 
-  @media (max-width: 990px) {
-    > div:nth-child(1) {
-      height: 50vw !important;
-      width: 50vw !important;
-    }
+  // @media (max-width: 990px) {
+  //   > div:nth-child(1) {
+  //     height: 50vw !important;
+  //     width: 50vw !important;
+  //   }
 
-    > div:nth-child(1)  {
-      left: -4vw;
-    }
+  //   > div:nth-child(1)  {
+  //     left: -4vw;
+  //   }
 
-    padding-bottom: 20px;
-  }
+  //   padding-bottom: 20px;
+  // }
 
 `
 
@@ -66,6 +66,10 @@ const Information = styled.div`
   display: flex;
   width: 100%;
   margin-top: 50px;
+
+  p {
+    font-family: "Courier";
+  }
 
   @media(max-width: 990px) {
     flex-wrap: wrap;
@@ -134,7 +138,22 @@ let SoundIcon = styled.div`
 
 const TicketLinks = styled.div`
     > div {
-      margin-bottom: 10px;
+      margin-bottom 10px;
+    }
+
+    a {
+      width: 180px;
+      text-align: center;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    @media(max-width: 989px) {
+      margin-bottom: 50px;
+      margin-top: 10px;
     }
 `
  
@@ -167,7 +186,15 @@ export default function EventHeader({ data }) {
   return (
     <Container>
       <ColLeft className="event-header__col-left">
-        {data.videoMp4 !== null ?
+        <TicketLinks>
+          <div>
+            {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
+          </div>
+          <div>
+            {data.ticketLinkTwo && <Button url={data.ticketLinkTwo} label={data.ticketLinkLabelTwo} />}
+          </div>
+        </TicketLinks>      
+        {/* {data.videoMp4 !== null ?
         <>
         <Orb data={data}/>
         <SoundIcon onClick={() => toggleSound()} className={soundOn ? "sound-on sound-icon" : "sound-off sound-icon"}> 
@@ -186,11 +213,18 @@ export default function EventHeader({ data }) {
         </SoundIcon>
         </>
         :
-        null}
+        null} */}
       </ColLeft>
       <ColRight>
-        <Title>{data.title}</Title>
-        <Information>
+        <Title>
+          {
+            data.pageTitle === null ?
+            data.title
+            :
+            <Body content={data.pageTitle} />
+          }
+        </Title>
+        <Information className="force-courier">
           <Date className="h4">
             {/* <DateInner>
               <DateComponent data={data} />
@@ -205,14 +239,6 @@ export default function EventHeader({ data }) {
           <Location>
             <Body content={data.location}/>
           </Location>
-          <TicketLinks>
-            <div>
-              {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
-            </div>
-            <div>
-              {data.ticketLinkTwo && <Button url={data.ticketLinkTwo} label={data.ticketLinkLabelTwo} />}
-            </div>
-          </TicketLinks>
           {
             data.inclusivite === true &&
             <InclusiviteIconContainer>

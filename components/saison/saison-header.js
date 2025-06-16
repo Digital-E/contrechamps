@@ -16,12 +16,13 @@ const Container = styled.div`
   @media(min-width: 768px) {
     display: block;
 
-    &.border-bottom::after {
-      display: none;
-    }
+    // &.border-bottom::after {
+    //   display: none;
+    // }
 
     h2, h3, h4, h5, h6, p {
-      columns: 2;
+      // columns: 2;
+      // width: 50%
     }
   }
 `

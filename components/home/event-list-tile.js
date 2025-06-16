@@ -16,6 +16,7 @@ let ListItem = styled.div`
     position: relative;
     flex-basis: 33.3333%;
 
+
     > a {
         display: flex;
         flex-direction: column;
@@ -30,14 +31,19 @@ let ListItem = styled.div`
         transition: var(--transition-out);
     
         :hover {
-            background: black;
+            background: var(${props => (props.backgroundColor)});
             transition: var(--transition-in);
             cursor: pointer;
-            color: white;
+            color: black;
+        }
+
+        :hover .image-overlay {
+            opacity: 0.6;
+            transition: var(--transition-in);
         }
 
         :hover svg path {
-            fill: white;
+            fill: black;
         }
     }
 
@@ -51,16 +57,17 @@ let ListItem = styled.div`
 
     @media(max-width: 992px) {
         flex-basis: 100%;
-    }
 
-    @media(max-width: 992px) {
         > a > div {
             flex-basis: auto;
-        }
+        }     
+            
+        background: var(${props => (props.backgroundColor)});
     }
 `
 
 let ColLeft = styled.div`
+    position: relative;
     height: calc(33.3333vw * 0.5);
     min-height: calc(33.3333vw * 0.5);
 
@@ -96,6 +103,10 @@ let ColRight = styled.div`
         flex-direction: column;        
     }
 
+    > a:hover {
+        color: black !important;
+    }    
+
     > a > h1 {
         margin-bottom: 40px;
     }
@@ -105,7 +116,7 @@ let ColRight = styled.div`
         display: flex;
     }
 
-    > a > div:nth-child(2) > div * {
+    > a > div:nth-child(2) .p, > a > div:nth-child(2) p {
         margin: 0;
     }
 
@@ -155,6 +166,30 @@ const InclusiviteIconContainerVignette = styled.div`
     margin-top: auto !important;
 `
 
+const Pastille = styled.div`
+    display: ${props => props.backgroundColor === "--gray" && "none" };
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
+    border: 1px solid black;
+    background: white;
+    border-radius: 999px;
+    margin-bottom: 5px;
+    background: var(${props => (props.backgroundColor)});
+`
+
+const ImageOverlay = styled.div`
+    position: absolute;
+    transition: var(--transition-out);
+    z-index: 1;
+    opacity: 0;    
+    height: 100%;
+    width: 100%;
+    background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
+    pointer-events: none;
+`
+
 
 
 export default function Component({ data, isVideo }) {
@@ -172,13 +207,31 @@ export default function Component({ data, isVideo }) {
 
     tags = tags.join(" ");
 
+    const backgroundColorFunc = (item) => {
+
+        let colorVar = "--gray";
+
+        item.tags?.forEach(item => {
+            if(item.label === "Abonnement") {
+                colorVar = "--orange"
+            } else if (item.label === "Tournée") {
+                colorVar = "--blue"
+            } else if (item.label === "Tout Public") {
+                colorVar = "--green"
+            }
+        })
+
+        return colorVar
+    }
+
 
     return (
-    <ListItem key={item._id} className={`border-bottom event-tile ${tags}`}>
+    <ListItem key={item._id} className={`border-bottom event-tile ${tags}`} backgroundColor={backgroundColorFunc(item)}>
         <a>
             {
                 (item.image === 'post' || item.image !== null || item.video !== null) ?
                 <ColLeft>
+                <ImageOverlay className="image-overlay" backgroundColor={backgroundColorFunc(item)} />
                 {
                     item.video ?
                     <Video data={item?.video} />
@@ -201,7 +254,8 @@ export default function Component({ data, isVideo }) {
                         </h1>
                         <div>
                             <div>
-                                <div className={`p home-tile-date ${item.location === null ? 'hide-tile-date' : ''}`}>
+                                <div className={`p home-tile-date force-courier ${item.location === null ? 'hide-tile-date force-courier' : ''}`}>
+                                    <Pastille backgroundColor={backgroundColorFunc(item)} />
                                     <DateComponent data={item} />
                                     {
                                         item.inclusivite && 
@@ -214,7 +268,7 @@ export default function Component({ data, isVideo }) {
 
                                 </div>
                             </div>
-                            <Location className="p">
+                            <Location className="p force-courier">
                                 <div><Body content={item.location} /></div>
                             </Location>
                         </div>

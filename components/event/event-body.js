@@ -48,7 +48,7 @@ export default function EventHeader({ data }) {
 
   return (
     <Container>
-      <ColLeft>
+      <ColLeft className="force-courier">
         <Body content={data.information} />
       </ColLeft>
       <ColRight>
