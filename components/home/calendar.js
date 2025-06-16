@@ -699,14 +699,20 @@ export default function Component({ data }) {
     const backgroundColorFunc = (item) => {
 
         let colorVar = "gray";
+        let alreadyHasColor = false
 
-        item.tags.forEach(item => {
-            if(item.label === "Abonnement") {
+        item.tags?.forEach(item => {
+            if(alreadyHasColor) return true
+
+            if(sanitizeTag(item.label) === "abonnement") {
                 colorVar = "orange"
-            } else if (item.label === "Tournée") {
+                alreadyHasColor = true
+            } else if (sanitizeTag(item.label) === "tournee") {
                 colorVar = "blue"
-            } else if (item.label === "Tout Public") {
+                alreadyHasColor = true
+            } else if (sanitizeTag(item.label) === "tout-public") {
                 colorVar = "green"
+                alreadyHasColor = true
             }
         })
 
@@ -716,14 +722,20 @@ export default function Component({ data }) {
     const backgroundColorFuncPastille = (item) => {
 
         let colorVar = "--gray";
+        let alreadyHasColor = false
 
-        item.tags.forEach(item => {
-            if(item.label === "Abonnement") {
+        item.tags?.forEach(item => {
+            if(alreadyHasColor) return true
+
+            if(sanitizeTag(item.label) === "abonnement") {
                 colorVar = "--orange"
-            } else if (item.label === "Tournée") {
+                alreadyHasColor = true
+            } else if (sanitizeTag(item.label) === "tournee") {
                 colorVar = "--blue"
-            } else if (item.label === "Tout Public") {
+                alreadyHasColor = true
+            } else if (sanitizeTag(item.label) === "tout-public") {
                 colorVar = "--green"
+                alreadyHasColor = true
             }
         })
 
