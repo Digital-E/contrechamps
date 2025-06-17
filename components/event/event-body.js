@@ -32,6 +32,12 @@ const ColRight = styled.div`
     flex-basis: 100%;
     order: -1;
   }
+
+  @media(max-width: 767px) {
+      flex-basis: 100%;
+      width: calc(100vw - 50px);
+      overflow: hidden;
+  }  
 `
 
 const SliceWrapper = styled.div`
