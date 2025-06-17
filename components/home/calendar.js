@@ -442,7 +442,7 @@ let Container = styled.div`
 
     .home-calendar__title h4 {
         font-family: "Courier" !important;
-        font-size: 1rem;
+        font-size: 0.9rem;
         text-decoration: underline;
     }
 

@@ -7,6 +7,7 @@ const Container = styled.div`
 let Header = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: relative;
     padding: 0 20px;
     margin-top: -1px;
