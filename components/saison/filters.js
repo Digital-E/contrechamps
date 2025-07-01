@@ -148,6 +148,7 @@ let Wrapper = styled.div`
     flex-wrap: nowrap !important;
     align-items: flex-start;
     margin-left: auto;
+    color: black;
 
     @media(max-width: 1260px) {
         margin-left: 0;
@@ -330,14 +331,14 @@ export default function Component ({ data }) {
                     </div>
                 ))}
                 </div>
-                {/* <Wrapper>
-                <Document>
-                    <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
-                </Document>
-                <Archive>
-                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
-                </Archive>
-                </Wrapper> */}
+                <Wrapper>
+                    <Document>
+                        <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
+                    </Document>
+                    <Archive>
+                        <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
+                    </Archive>
+                </Wrapper>
             </div>
     </Container>       
     )
