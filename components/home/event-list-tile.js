@@ -15,6 +15,7 @@ import InclusiviteIcon from '../inclusivite-icon'
 let ListItem = styled.div`
     position: relative;
     flex-basis: 33.3333%;
+    z-index: 0;
 
 
     > a {
@@ -70,6 +71,7 @@ let ColLeft = styled.div`
     position: relative;
     height: calc(33.3333vw * 0.5);
     min-height: calc(33.3333vw * 0.5);
+    z-index: 0;
 
     > div, > span, > a > div, > a > span {
         height: 100% !important;

@@ -16,7 +16,9 @@ const SliceWrapper = styled.div`
     }
 
     @media(min-width: 990px) {
-        &&.image-slice {
+        &&.image-slice,
+        &&.video-slice
+         {
             width: 50%;
         }
     }
@@ -27,7 +29,7 @@ let renderSlice = (slice ,index) => {
     
       switch(slice._type) {
           case 'video':
-          return <SliceWrapper key={slice._id}><Video data={slice.video} id={`video-${index}`}/></SliceWrapper>
+          return <SliceWrapper key={slice._id} className="video-slice"><Video data={slice} id={`video-${index}`} hasCaption={true}/></SliceWrapper>
           case 'image':
           return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice} hasCaption={true} /></SliceWrapper>
           case 'Text':

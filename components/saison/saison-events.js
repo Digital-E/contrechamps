@@ -138,7 +138,7 @@ export default function Component ({ data }) {
 
     // let pastEventsSpliceIndex = 0;
 
-    eventsByMonthArray.splice(0,5)
+    eventsByMonthArray.splice(0,6)
 
     // eventsByMonthArray.forEach((item, index) => {
     //     if(item.date === getDate(currentMonth, currentYear)) {

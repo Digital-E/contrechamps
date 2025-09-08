@@ -73,6 +73,10 @@ const Information = styled.div`
 
   @media(max-width: 990px) {
     flex-wrap: wrap;
+
+    &&.force-courier > div:nth-child(2) > p {
+      font-family: 'Paperback Roman' !important;
+    }
   }
 `
 

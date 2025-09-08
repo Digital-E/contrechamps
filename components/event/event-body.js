@@ -21,7 +21,7 @@ const ColLeft = styled.div`
 
   @media(max-width: 990px) {
     flex-basis: 100%;
-    margin-top: 50px;
+    margin-bottom: 50px;
   }
 `
 
@@ -30,7 +30,6 @@ const ColRight = styled.div`
 
   @media(max-width: 990px) {
     flex-basis: 100%;
-    order: -1;
   }
 
   @media(max-width: 767px) {

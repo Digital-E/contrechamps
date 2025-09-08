@@ -239,7 +239,8 @@ export default function Component ({ data }) {
     
 
     let setFilterSessionStorage = (tag) => {
-        sessionStorage.setItem('contrechamps-filter-tag', sanitizeTag(tag))
+        window.location.hash = `${sanitizeTag(tag)}`
+        // sessionStorage.setItem('contrechamps-filter-tag', sanitizeTag(tag))
     }
 
     let toggleTag = (index, init) => {
@@ -257,15 +258,21 @@ export default function Component ({ data }) {
     }
 
     let checkSessionStorageForTag = () => {
-        let tag = sessionStorage.getItem('contrechamps-filter-tag');
+        // let tag = sessionStorage.getItem('contrechamps-filter-tag');
+        let tag = window.location.hash.split("#")[1]
 
         if(tag !== null) {
             data?.tags.forEach((item, index) => {
                 if(sanitizeTag(item.tag) === tag) {
                     toggleTag(index, true);
+
+                    setTimeout(() => {
+                        window.location.hash = `${sanitizeTag(item.tag)}`
+                    }, 10)                    
                 }
             })
         }
+    
 
         initCheckSessionStorageForTag = false;
     }

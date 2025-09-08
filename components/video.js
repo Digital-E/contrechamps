@@ -1,17 +1,18 @@
 
 
-export default function Component({ data, id }) {
+export default function Component({ data, id, hasCaption }) {
 
-    let videoId = data;
+    let videoId = data.video;
 
     let regExp = /[a-zA-Z]/g;
 
-    let isYoutube = regExp.test(data);
+    let isYoutube = regExp.test(data.video);
 
     return videoId !== null ?
         // isYoutube ?
         // <div id="player" className="player" data-plyr-provider="youtube" data-plyr-embed-id={videoId}></div>
         // :
+        <>
         <div class="plyr__video-embed player" id={id}>
             <iframe
             src={
@@ -26,6 +27,8 @@ export default function Component({ data, id }) {
             allow="autoplay"
             ></iframe>
         </div>
+        {(hasCaption && data.caption) && <span className="caption">{data.caption}</span>}
+        </>
     :
     null
 }
