@@ -232,6 +232,12 @@ export default function Component ({ data }) {
     }, []);
 
     useEffect(() => {
+        setTimeout(() => {
+            checkSessionStorageForTag()
+        }, 10)   
+    }, [router])
+
+    useEffect(() => {
         // Check if URL has tag
         if(tags.length === 0 || !initCheckSessionStorageForTag) return;
         checkSessionStorageForTag();
@@ -239,7 +245,11 @@ export default function Component ({ data }) {
     
 
     let setFilterSessionStorage = (tag) => {
-        window.location.hash = `${sanitizeTag(tag)}`
+
+        if(tag === "Toute la saison") return  window.location.hash = ``
+        
+        window.location.hash = `#!${sanitizeTag(tag)}`
+
         // sessionStorage.setItem('contrechamps-filter-tag', sanitizeTag(tag))
     }
 
@@ -247,6 +257,8 @@ export default function Component ({ data }) {
         let unselectTags = tags
 
         unselectTags.forEach(item => item.selected = false)
+
+        if(unselectTags[index] === undefined) return;
 
         unselectTags[index].selected = true;
 
@@ -259,18 +271,20 @@ export default function Component ({ data }) {
 
     let checkSessionStorageForTag = () => {
         // let tag = sessionStorage.getItem('contrechamps-filter-tag');
-        let tag = window.location.hash.split("#")[1]
+        let tag = window.location.hash.split("#!")[1]
 
-        if(tag !== null) {
+        if(tag !== null && tag !== undefined) {
             data?.tags.forEach((item, index) => {
                 if(sanitizeTag(item.tag) === tag) {
                     toggleTag(index, true);
-
                     setTimeout(() => {
-                        window.location.hash = `${sanitizeTag(item.tag)}`
+                        if(item.tag === "Toute la saison") return
+                        window.location.hash = `#!${sanitizeTag(item.tag)}`
                     }, 10)                    
                 }
             })
+        } else {
+            toggleTag(0, true);
         }
     
 
