@@ -17,11 +17,17 @@ const SliceWrapper = styled.div`
     }
 
     @media(min-width: 990px) {
-        &&.image-slice,
-        &&.video-slice
+        &&.grid-slice-2 .image-slice,
+        &&.grid-slice-2 .video-slice
          {
             width: calc(50% - 5px);
         }
+
+        &&.grid-slice-3 .image-slice,
+        &&.grid-slice-3 .video-slice
+         {
+            width: calc(33.3333% - 5px);
+        }        
     }
 `
 
@@ -36,7 +42,7 @@ let renderSlice = (slice ,index) => {
           case 'Text':
           return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
           case 'Grid':
-          return <SliceWrapper key={slice._id} className="grid-slice"><Grid data={slice}/></SliceWrapper>;          
+          return <SliceWrapper key={slice._id} className={`grid-slice-${slice.columns}`}><Grid data={slice}/></SliceWrapper>;          
       }
 }
 
