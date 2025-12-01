@@ -1,4 +1,6 @@
 import '../styles/index.css'
+import 'plyr/dist/plyr.css'
+import '../styles/flickity.css'
 
 import { useEffect } from 'react'
 

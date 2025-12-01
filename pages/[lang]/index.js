@@ -12,6 +12,7 @@ import { getClient } from '../../lib/sanity.server'
 import EventList from "../../components/home/event-list"
 import Circles from '../../components/home/circles'
 import Calendar from '../../components/home/calendar'
+import Slides from '../../components/home/slides'
 
 export default function Index({ data = {}, preview }) {
   const router = useRouter()
@@ -68,6 +69,7 @@ export default function Index({ data = {}, preview }) {
         </Head>
         {/* <Overlay /> */}
         {/* <Circles data={data?.homeData?.circles} /> */}
+        <Slides data={data?.homeData?.slides} />
         <Calendar data={data.allEvents} />
         <EventList data={allEventsArray} />
       </Layout>
