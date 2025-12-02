@@ -5,6 +5,10 @@ import Video from "../video"
 import Plyr from 'plyr';
 
 let Container = styled.div`
+    position: relative;
+    height: 100%;
+    width: 100%;
+
     video {
         position: absolute;
         height: 100%;
@@ -108,8 +112,8 @@ let SoundIcon = styled.div`
     position: absolute;
     // right: 20px;
     // bottom: 50px;
-    top: 30px;
-    right: 35px;
+    top: 15px;
+    right: 20px;
     z-index: 999;
     cursor: pointer;
     height: 30px;
@@ -132,13 +136,18 @@ let SoundIcon = styled.div`
 `
 let PlayPause = styled.div`
     position: absolute;
-    right: 65px;
-    top: 30px;
+    right: 55px;
+    top: 15px;
     pointer-events: all;
+    backdrop-filter: blur(20px);
+    border-radius: 999px;
+    height: 30px;
+    width: 30px;
+    z-index: 1;
 
     svg {
-        height: 38px;
-        width: 38px;
+        // height: 38px;
+        // width: 38px;
     }
 `
 
