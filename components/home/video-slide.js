@@ -227,7 +227,7 @@ export default function Component({ data, title, index, cellIndex }) {
     </svg>  
     }                
     </SoundIcon>        
-    <video ref={videoRef} muted autoPlay loop>
+    <video ref={videoRef} muted autoPlay loop playsInline>
         <source src={item.videoMp4} type="video/mp4" />
     </video>
     {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
