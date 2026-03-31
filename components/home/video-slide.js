@@ -228,7 +228,9 @@ export default function Component({ data, title, index, cellIndex }) {
     }                
     </SoundIcon>        
     <video ref={videoRef} muted autoPlay loop playsInline>
-        <source src={item.videoMp4} type="video/mp4" />
+        <source src={item.videoMp4} 
+        type="video/mp4" 
+        />
     </video>
     {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
     {/* <ListItem key={item?._id} className="border-bottom">

@@ -664,7 +664,7 @@ export default function Component({ data }) {
     
             if(window.innerWidth > 989) {
                 document.querySelectorAll('.home-calendar__modal').forEach((item) => {
-                    item.style.maxHeight = `${modalHeight}px`
+                    // item.style.maxHeight = `${modalHeight}px`
                 })
             }
         }, 500)
