@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import styled from 'styled-components'
-import { useRouter } from 'next/router'
 
 import Layout from '../../components/layout'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import { SITE_NAME } from '../../lib/constants'
-import { menuQuery, footerQuery } from '../../lib/queries'
+import { menuQuery, footerQuery, inscriptionNewsletterQuery, previewInscriptionNewsletterQuery } from '../../lib/queries'
 import { getClient } from '../../lib/sanity.server'
+import Body from '../../components/body'
 
 import EmailSubscribeForm from '../../components/email-subscribe-form'
 
@@ -19,6 +19,10 @@ const Wrapper = styled.div`
   @media(max-width: 1200px) {
     width: 100%;
   }
+
+  > div:last-child {
+    margin-top: 50px !important;
+  }
 `
 
 const Title = styled.h1`
@@ -26,20 +30,20 @@ const Title = styled.h1`
 `
 
 export default function InscriptionNewsletter({ data = {}, preview }) {
-  const router = useRouter()
-  const lang = router.query.lang
+  const pageData = data.pageData
+  const title = pageData?.title
 
-  const title = lang === 'en_gb' ? 'Newsletter Sign Up' : 'Inscription à la newsletter'
 
   return (
     <Layout preview={preview}>
       <Head>
         <title>{title} | {SITE_NAME}</title>
+        <meta name="description" content={pageData?.content} />
       </Head>
       <Header data={data.menuData} />
       <Wrapper>
         <Title className="h1">{title}</Title>
-        <p>Inscrivez-vous à notre newsletter pour recevoir les dernières actualités.</p>
+        {pageData?.text && <Body content={pageData.text} />}
         <EmailSubscribeForm data={data.footerData} />
       </Wrapper>
     </Layout>
@@ -47,6 +51,12 @@ export default function InscriptionNewsletter({ data = {}, preview }) {
 }
 
 export async function getStaticProps({ params, preview = false }) {
+  const slug = `${params.lang}__inscription-newsletter`
+
+  const pageData = preview
+    ? await getClient(preview).fetch(previewInscriptionNewsletterQuery, { slug })
+    : await getClient(preview).fetch(inscriptionNewsletterQuery, { slug })
+
   const menuData = await getClient(preview).fetch(menuQuery, {
     lang: params.lang,
   })
@@ -59,6 +69,7 @@ export async function getStaticProps({ params, preview = false }) {
     props: {
       preview,
       data: {
+        pageData,
         menuData,
         footerData,
       },
