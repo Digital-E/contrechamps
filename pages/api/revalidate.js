@@ -1,20 +1,38 @@
 import { isValidRequest } from '@sanity/webhook'
 import { sanityClient } from '../../lib/sanity.server'
 
-const AUTHOR_UPDATED_QUERY = `
-  *[_type == "author" && _id == $id] {
-    "slug": *[_type == "post" && references(^._id)].slug.current
-  }["slug"][]`
+// Slugs are stored as "${lang}__${section}__${slug}" (e.g. "fr__saison__mon-evenement")
+// These queries return that raw slug.current value.
 const POST_UPDATED_QUERY = `*[_type == "post" && _id == $id].slug.current`
+const NEWS_UPDATED_QUERY = `*[_type == "news" && _id == $id].slug.current`
 
-const getQueryForType = (type) => {
+// Convert a Sanity composite slug into the actual Next.js route path.
+// "fr__saison__mon-evenement" → "/fr/saison/mon-evenement"
+const toSaisonRoute = (slug) => {
+  const parts = slug.split('__')
+  return `/${parts[0]}/saison/${parts[2]}`
+}
+const toActualitesRoute = (slug) => {
+  const parts = slug.split('__')
+  return `/${parts[0]}/actualites/${parts[2]}`
+}
+
+const HOME_ROUTES = ['/fr', '/en_gb']
+
+const getRoutesForType = async (type, id) => {
   switch (type) {
-    case 'author':
-      return AUTHOR_UPDATED_QUERY
-    case 'post':
-      return POST_UPDATED_QUERY
+    case 'post': {
+      const slugs = await sanityClient.fetch(POST_UPDATED_QUERY, { id })
+      const arr = Array.isArray(slugs) ? slugs : [slugs]
+      return [...HOME_ROUTES, ...arr.filter(Boolean).map(toSaisonRoute)]
+    }
+    case 'news': {
+      const slugs = await sanityClient.fetch(NEWS_UPDATED_QUERY, { id })
+      const arr = Array.isArray(slugs) ? slugs : [slugs]
+      return [...HOME_ROUTES, ...arr.filter(Boolean).map(toActualitesRoute)]
+    }
     default:
-      throw new TypeError(`Unknown type: ${type}`)
+      return HOME_ROUTES
   }
 }
 
@@ -35,12 +53,8 @@ export default async function revalidate(req, res) {
     return res.status(400).json({ message: invalidId })
   }
 
-  log(`Querying post slug for _id '${id}', type '${_type}' ..`)
-  const slug = await sanityClient.fetch(getQueryForType(_type), { id })
-  const slugs = (Array.isArray(slug) ? slug : [slug]).map(
-    (_slug) => `/posts/${_slug}`
-  )
-  const staleRoutes = ['/', ...slugs]
+  log(`Querying routes for _id '${id}', type '${_type}' ..`)
+  const staleRoutes = await getRoutesForType(_type, id)
 
   try {
     await Promise.all(

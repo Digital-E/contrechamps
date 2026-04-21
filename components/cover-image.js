@@ -14,6 +14,7 @@ export default function CoverImage({ title, slug, image: source }) {
         layout="responsive"
         width={2000}
         height={1000}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px"
         alt={`Cover Image for ${title}`}
         src={urlForImage(source).height(1000).width(2000).url()}
       />
