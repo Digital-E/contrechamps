@@ -32,7 +32,7 @@ const getRoutesForType = async (type, id) => {
       return [...HOME_ROUTES, ...arr.filter(Boolean).map(toActualitesRoute)]
     }
     default:
-      return HOME_ROUTES
+      return []
   }
 }
 
@@ -51,6 +51,13 @@ export default async function revalidate(req, res) {
     const invalidId = 'Invalid _id'
     log(invalidId, true)
     return res.status(400).json({ message: invalidId })
+  }
+
+  // Sanity auto-saves drafts (prefixed with "drafts.") on every keystroke.
+  // These are not published content and should never trigger ISR revalidation.
+  if (id.startsWith('drafts.')) {
+    log(`Skipping draft document '${id}'`)
+    return res.status(200).json({ message: 'Skipping draft' })
   }
 
   log(`Querying routes for _id '${id}', type '${_type}' ..`)
