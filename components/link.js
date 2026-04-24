@@ -51,7 +51,7 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage, isLast}) => {
 
 
     return (
-        <Link href={newUrl}>
+        <Link href={newUrl} prefetch={false}>
             <a target={isURL ? "_blank" : undefined} className={router.asPath === newUrl ? `active-link ${isLast ? "button" : ""}` : subPageIsActive ? `active-link ${isLast ? "button" : ""}` : `${isLast ? "button" : ""}`}>{children}</a>
         </Link>
     )
