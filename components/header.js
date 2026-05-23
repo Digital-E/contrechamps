@@ -3,6 +3,7 @@ import { useState } from "react"
 import Link from './link'
 import InclusiviteIcon from './inclusivite-icon'
 import LocaleLink from "./locale-link"
+import Logo from "./logo"
 import styled from "styled-components"
 
 let Container = styled.header`
@@ -10,19 +11,24 @@ let Container = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
+  align-items: flex-end;
+  padding: 10px 40px;
   z-index: 2;
   top: 0;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
-  p, .p {
-    font-size: 1rem;
+  @media(max-width: 767px) {
+    padding: 10px 20px;
   }
 
   > div:nth-child(1) {
     z-index: 1;
-  }
 
+    a {
+      color: black !important;
+    }
+  }
 
   max-width: 1800px;
 
@@ -30,10 +36,17 @@ let Container = styled.header`
     z-index: 2;
   }
 
-
   .p {
-   margin: 0;
-   text-transform: uppercase;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: "Barlow Condensed SemiBold";
+    font-size: 1.2rem;
+  }
+
+  .active-link {
+    font-family: "Barlow Condensed ExtraBold";
+    opacity: 1 !important;
+    color: black !important;
   }
 
   .nav-mobile-burger {
@@ -49,28 +62,6 @@ let Container = styled.header`
     z-index: 1;
 }
 
-.nav-mobile-burger > div {
-    height: 1px;
-    width: 30px;
-    background-color: black;
-    margin: 3px 0px;
-}
-
-&.nav--open .nav-mobile-burger > div:nth-child(1) {
-    position: absolute;
-    transform: rotateZ(45deg);
-    transform-origin: center center;
-}
-
-&.nav--open .nav-mobile-burger > div:nth-child(2) {
-    position: absolute;
-    transform: rotateZ(-45deg);
-    transform-origin: center center;
-}
-
-&.nav--open .nav-mobile-burger > div:nth-child(3) {
-    display: none;
-}
 
 @media(max-width: 1060px) {
   background: white;
@@ -121,7 +112,7 @@ let Menu = styled.div`
   // max-width: 1100px;
 
   > ul:nth-child(1) > li {
-    margin-right: 3rem;
+    margin-right: 2.5rem;
   }
   
 
@@ -192,18 +183,16 @@ export default function Header({ data }) {
 
 
   return (
-    <Container className={menuOpen ? "nav--open border-bottom" : "border-bottom"}>
+    <Container className={menuOpen ? "nav--open" : ""}>
       <div className="p" 
         onClick={() => {
           setMenuOpen(false);
           sessionStorage.setItem('contrechampsAcceptedSound', "true");
           }}>
-          <Link href={`/${router.asPath.split("/")[1]}`}>Contrechamps</Link>
+          <Link href={`/${router.asPath.split("/")[1]}`}><Logo height={35} /></Link>
       </div>
       <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
-        <div></div>
-        <div></div>
-        <div></div>
+        <img src={menuOpen ? "/icons/xmark-solid-full.svg" : "/icons/bars-solid-full.svg"} alt="menu" width={35} height={35} />
       </div>
       <Menu className={menuOpen ? "nav--open" : ""}>
         <List>

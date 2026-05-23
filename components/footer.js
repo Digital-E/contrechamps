@@ -1,146 +1,148 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
 import Link from './link'
 import styled from "styled-components"
 import Body from "./body"
-
 import EmailSubscribe from "./email-subscribe"
 
 let Container = styled.footer`
   position: relative;
   display: flex;
-  flex-direction: column;
-  padding: 70px 20px 20px 20px;
-  margin-top: -2px;
-  // margin-bottom: 30px;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 40px 40px;
   background: white;
   z-index: 1;
+  gap: 40px;
 
   p {
-   margin: 0;
+    margin: 0;
   }
 
-`
-
-let List = styled.ul`
-  display: flex;
-  flex-direction: row;
-
-  li:last-child svg {
-    // fill: var(--ternary-color);
-    fill: rgb(171, 171, 171);
+  @media(max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
   }
-
-  a {
-    color: rgb(171, 171, 171);
-  }
-`
-
-let ListItem = styled.li`
 `
 
 const Col = styled.div`
-  // * {
-  //   font-size: 1rem;
-  // }
+  * strong {
+    font-family: "Barlow Condensed SemiBold";
+  }
 
-  margin-bottom: 25px;
+  &:nth-child(1) > * {
+    font-family: "Barlow Condensed Bold";
+    font-size: 1.1rem;
+  }
+
+  &:nth-child(2) > * {
+    font-family: "Barlow Condensed Regular";
+    font-size: 1.1rem;
+  }
+
+  &:nth-child(3) > * {
+    font-family: "Barlow Condensed Regular";
+    font-size: 1.1rem;
+  }
+
+  p { margin: 0; }
 `
 
+const InfoGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+`
 
 let Socials = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 
   li {
     font-family: "Social Media Circled";
-    font-size: 1.5em;
+    font-size: 1.6rem;
     line-height: 1;
+    list-style: none;
   }
 
-  ${ListItem} {
-    margin-right: 5px;
-  }
-
-  ${ListItem}:hover svg, ${ListItem}:hover {
+  li:hover {
     opacity: 0.6;
   }
 
-  @media(max-width: 767px) {
-    ${ListItem} {
-      margin-left: 0;
-      margin-right: 5px;
-    }
+  li:last-child svg {
+    fill: black;
+  }
+
+  li:last-child:hover {
+    opacity: 0.6;
   }
 `
 
 let Newsletter = styled.div`
-  flex-grow: 1;
+  flex-shrink: 0;
 
-  // @media(max-width: 1330px) {
-  //   margin-left: 0;
-  // }
-`
-
-let Logo = styled.div`
-  width: 80px;
-  position: absolute;
-  bottom: 30px;
-  right: 15px;
-
-  :hover {
-    opacity: 0.7;
-  }
-
-  @media(max-width: 989px) {
-    position: relative;
-    margin-top: 30px;
-    right: 0;
+  @media(max-width: 900px) {
+    width: 100%;
   }
 `
 
+const RightGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  flex-shrink: 0;
 
+  @media(max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+`
 
-export default function Header({ data }) {
-  const router = useRouter();
-
-  if(data === undefined) return null;
+export default function Footer({ data }) {
+  if (data === undefined) return null
 
   return (
-    <Container className="border-top force-courier">
-      <Col><Body content={data?.textFieldOne} /></Col>
-      <Col><Body content={data?.textFieldTwo} /></Col>
-      <Col><Body content={data?.textFieldThree} /></Col>
-      <Socials>
-        <List>
-          {data?.socialItems.map((item, index) => {
-          if(index === data.socialItems.length - 1) {
-            return (
-              <ListItem>
-                <Link href={item.url}>
-                  <svg version="1.1" id="Capa_1"  width="25px" height="25px" viewBox="0 0 97.75 97.75" xmlSpace="preserve">
-                  <g>
-                    <path d="M48.875,0C21.882,0,0,21.882,0,48.875S21.882,97.75,48.875,97.75S97.75,75.868,97.75,48.875S75.868,0,48.875,0z
-                      M64.835,70.857H12.593l20.32-43.965h52.244L64.835,70.857z"/>
-                  </g>
-                  </svg>
-                </Link>
-              </ListItem>
-            )
-          } else {
-            return (
-              <ListItem><Link href={item.url}>{item.label}</Link></ListItem>
-            )
-          }
-          })}
-        </List>
-      </Socials>        
-      <Newsletter>
-        <EmailSubscribe data={data} />
-      </Newsletter>
-      <Logo>
-        <Link href={`/${router.asPath.split("/")[1]}`}>
-          <img src='/images/Contrechamps_Logo.png'/>
-        </Link>
-      </Logo>      
+    <Container>
+      <InfoGroup>
+        <Col><Body content={data?.textFieldOne} /></Col>
+        <Col><Body content={data?.textFieldTwo} /></Col>
+        <Col><Body content={data?.textFieldThree} /></Col>
+      </InfoGroup>
+      <RightGroup>
+        <Socials>
+          <ul style={{ display: 'flex', gap: '10px', margin: 0, padding: 0 }}>
+            {data?.socialItems.map((item, index) => {
+              if (index === data.socialItems.length - 1) {
+                return (
+                  <li key={index}>
+                    <Link href={item.url}>
+                      <svg version="1.1" width="26px" height="26px" viewBox="0 0 97.75 97.75">
+                        <g>
+                          <path d="M48.875,0C21.882,0,0,21.882,0,48.875S21.882,97.75,48.875,97.75S97.75,75.868,97.75,48.875S75.868,0,48.875,0z M64.835,70.857H12.593l20.32-43.965h52.244L64.835,70.857z"/>
+                        </g>
+                      </svg>
+                    </Link>
+                  </li>
+                )
+              }
+              return (
+                <li key={index}><Link href={item.url}>{item.label}</Link></li>
+              )
+            })}
+          </ul>
+        </Socials>
+        <Newsletter>
+          <EmailSubscribe data={data} />
+        </Newsletter>
+      </RightGroup>
     </Container>
   )
 }

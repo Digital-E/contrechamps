@@ -18,7 +18,8 @@ let Container = styled.div`
 
     .p {
     margin: 0;
-    font-family: "Courier";
+    font-family: "Barlow Condensed Medium";
+    font-size: 1.2rem;
     }
 
 
@@ -29,19 +30,45 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 25px 20px 0px 20px;
+        padding: 50px 40px 0px 40px;
     }
 
-    @media(max-width: 1200px) {
+    @media(max-width: 1350px) {
         .home-calendar {
             justify-content: flex-start;
             flex-direction: column;
+            padding: 20px 40px;
+        }
+
+        .home-calendar__col-left {
+            position: relative;
+            width: 100%;
+        }
+
+        .home-calendar__month {
+            position: static;
+            width: 100% !important;
+        }
+
+        .arrow-next {
+            position: absolute;
+            top: 2px;
+            right: 0 !important;
+            left: auto;
+        }
+
+        .arrow-prev {
+            position: absolute;
+            top: 2px;
+            right: 25px !important;
+            left: auto;
         }
     }
 
     @media(max-width: 767px) {
         .home-calendar {
             flex-direction: column;
+            padding: 20px 20px;
         }
     }
 
@@ -57,10 +84,19 @@ let Container = styled.div`
     .home-calendar__month {
         position: relative;
         text-transform: uppercase;
+        width: 11.7rem;
+    }
+
+    .home-calendar__agenda-label {
+        font-family: "Barlow Condensed ExtraBold";
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-right: 10px;
     }
 
     .home-calendar__year {
         display: inline-block;
+        margin-right: 10px;
     }
 
     .home-calendar__month > span:nth-child(4) {
@@ -68,92 +104,36 @@ let Container = styled.div`
         // text-decoration: underline;
         position: relative;
         color: var(--color);
-        width: 5.5em;
-        margin-left: 20px;
     }
 
     .arrow-next {
         position: absolute;
-        right: -35px;
-        top: 6px;
-        z-index: 1;        
+        right: -70px;
+        top: 2px;
+        z-index: 1;
         cursor: pointer;
-        user-select: none;    
+        user-select: none;
+        font-size: 1.1rem;
     }
 
     .arrow-prev {
         position: absolute;
-        right: -20px;
-        top: 7px;
-        z-index: 1;        
+        right: -45px;
+        top: 2px;
+        z-index: 1;
         cursor: pointer;
-        user-select: none; 
-    }    
+        user-select: none;
+        font-size: 1.1rem;
+    }
 
     .arrow-next:hover, .arrow-prev:hover {
         opacity: 0.3;
-    }
-        
-    .arrow-prev__inner {
-        position: relative;
-        transform: scale(var(--ggs,1)) rotate(-90deg);
-        width: 11px;
-        height: 8.5px;
-        border-left: 2px solid transparent;
-        border-bottom: 2px solid       
-    }
-
-    .arrow-next__inner {
-        position: relative;
-        transform: scale(var(--ggs,1)) rotate(90deg);
-        width: 11px;
-        height: 8.5px;
-        border-left: 2px solid transparent;
-        border-bottom: 2px solid        
-    }
-
-    .arrow-next__inner, .arrow-next__inner::after {
-        display: block;
-        box-sizing: border-box;
-        border-right: 2px solid transparent
-    }
-
-    .arrow-prev__inner, .arrow-prev__inner::after {
-        display: block;
-        box-sizing: border-box;
-        border-right: 2px solid transparent
-    }    
-
-    .arrow-next__inner::after {
-        content: "";
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-left: 2px solid;
-        border-top: 2px solid;
-        border-bottom: 2px solid transparent;
-        transform: rotate(45deg) skew(10deg,10deg);
-        left: -1px;
-        bottom: -7px
-    }
-
-    .arrow-prev__inner::after {
-        content: "";
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        border-left: 2px solid;
-        border-top: 2px solid;
-        border-bottom: 2px solid transparent;
-        transform: rotate(45deg) skew(10deg,10deg);
-        left: -1px;
-        bottom: -7px
     }
 
     .home-calendar__day {
         position: relative;
         display: inline-block;
-        padding: 0 8px;
+        padding: 0 10px;
         transition-duration: var(--transition-out);
         align-items: center;
         margin-bottom: 20px;
@@ -163,7 +143,7 @@ let Container = styled.div`
         text-align: center;
     }
 
-    @media(max-width: 1200px) {
+    @media(max-width: 1350px) {
         .home-calendar__col-right {
             margin-top: 20px;
             margin-left: -5px;
@@ -175,7 +155,7 @@ let Container = styled.div`
         .home-calendar__col-right {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            margin-top: 50px;
+            margin-top: 20px;
             margin-left: 0;
             padding-left: 0;
             max-width: 500px;
@@ -196,7 +176,7 @@ let Container = styled.div`
         }
 
         .home-calendar__col-right {
-            margin-top: 50px;
+            margin-top: 20px;
             margin-left: 0;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -223,7 +203,7 @@ let Container = styled.div`
     .home-calendar__day > span {
         display: block;
         position: relative;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
 
     .home-calendar__day:hover {
@@ -746,18 +726,15 @@ export default function Component({ data }) {
 
     return (
         <Container>
-            <div class="home-calendar border-bottom">
+            <div class="home-calendar">
                 <div class="home-calendar__col-left">
                 <div>
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}
                 </div>
                 <div class="home-calendar__month">
-                    <div class="arrow-prev" onClick={() => changeMonthIndex("prev")}>
-                        <div class="arrow-prev__inner"></div>
-                    </div>
-                    <div class="arrow-next" onClick={() => changeMonthIndex("next")}>
-                        <div class="arrow-next__inner"></div>
-                    </div>
+                    <i class="fa-solid fa-circle-chevron-left arrow-prev" onClick={() => changeMonthIndex("prev")}></i>
+                    <i class="fa-solid fa-circle-chevron-right arrow-next" onClick={() => changeMonthIndex("next")}></i>
+                    <span class="home-calendar__agenda-label">AGENDA</span>
                     <span class="home-calendar__year p">
                         {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
                     </span>

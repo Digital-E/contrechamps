@@ -79,7 +79,7 @@ const Slide = styled.div`
 
 const ColLeft = styled.div`
     flex-basis: 100%;
-    padding: 15px 20px;
+    padding: 0px 0px;
 
     > span {
         position: absolute;
