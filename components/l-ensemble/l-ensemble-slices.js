@@ -54,5 +54,5 @@ export default function Component({ data }) {
         const players = Plyr.setup('.player');
     },[])
 
-  return data !== null ? data.map((slice, index) => renderSlice(slice, index)) : null
+  return data ? data.map((slice, index) => renderSlice(slice, index)) : null
 }

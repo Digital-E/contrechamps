@@ -11,66 +11,47 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 let Container = styled.div`
+    position: relative;
     z-index: 1;
 
     .season-filters {
-        position: relative;
         display: flex;
-        border-top: var(--border-width) solid black;
-        border-bottom: var(--border-width) solid black;
         background: white;
-        color: black;
+        color: white;
+        padding: 5px 0;
     }
-
-    
 
     .season-filters > div {
         display: flex;
-        padding: 0px 30px;
+        padding: 0 40px;
+        flex-wrap: wrap;
+        margin-top: -1px;
     }
 
     .season-filter {
-        margin-right: 40px;
-    }
-
-    .season-filter > a {
         display: flex;
         align-items: center;
         cursor: pointer;
         flex-basis: auto;
+        margin-right: 30px;
     }
 
-    .season-filter:last-child {
-        padding-right: 30px;
-    }
-
-    @media(max-width: 767px) {
-        .season-filter > a {
-            display: flex;
-            justify-content: center;
-            margin-right: 0;
-        }
-    }
-
-    .season-filter > a:hover .season-filter__selector {
-        background-color: black;
+    .season-filter > a:hover .season-filter__label {
+        color: var(--secondary-color);
     }
 
     .season-filter__selector {
-        width: 13px;
-        height: 13px;
-        border: 1px solid black;
-        background-color: white;
-        border-radius: 999px;
-    }
-
-    .active-link .season-filter__selector {
-        background-color: black;
+        display: none;
     }
 
     .season-filter__label {
-        margin-left: 5px;
+        font-family: "Barlow Condensed Medium";
         line-height: 1;
+        white-space: nowrap;
+    }
+
+    .active-link .season-filter__label {
+        font-family: "Barlow Condensed ExtraBold";
     }
 
     @media(max-width: 768px) {
@@ -79,21 +60,15 @@ let Container = styled.div`
         top: 55px;
 
         .season-filters > div {
-            flex-wrap: wrap;
             padding: 0 20px;
             flex-wrap: nowrap;
             overflow: scroll;
-        } 
-
-        .season-filter {
-            margin-right: 30px;
         }
 
         .season-filters::after {
             content: "";
             position: absolute;
             right: 0;
-            left: auto;
             top: 0;
             height: 35px;
             width: 30px;
@@ -163,35 +138,30 @@ export default function Component ({ data }) {
 
     return (
         <Container ref={filtersRef}>
-            <div class="season-filters border-bottom force-courier">
+            <div class="season-filters force-courier">
                 <div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/all`}>
-                        <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Tout</div>
                     </Link>
                 </div>                
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/presse`}>
-                        <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Presse</div>
                     </Link>
                 </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/videos`}>
-                        <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Videos</div>
                     </Link>
                 </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/photos`}>
-                        <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Photos</div>
                     </Link>
                 </div>                  
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/disques`}>
-                        <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">Disques</div>
                     </Link>
                 </div>              

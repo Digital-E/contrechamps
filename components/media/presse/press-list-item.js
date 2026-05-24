@@ -9,7 +9,11 @@ const Container = styled.div`
     > a {
         display: block;
         opacity: 1;
-        padding: 20px;
+        padding: 20px 40px;
+
+        @media(max-width: 767px) {
+            padding: 20px;
+        }
 
     
         transition: var(--transition-out);
@@ -33,10 +37,17 @@ const RowTop = styled.div`
     > div {
         flex-basis: 50%;
     }
+
+    * {
+        font-family: "Barlow Condensed Regular";
+        font-size: 1.3rem;
+    }
 `
 
 const Text = styled.div`
     * {
+        font-family: "Barlow Condensed Medium";
+        font-size: 2rem;
         line-height: 1;
         margin: 0 0 10px 0;
     }
@@ -56,7 +67,7 @@ export default function Component({ data }) {
                         {data.pressLinkLabel}
                     </div>
                 </RowTop>
-                <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>
+                <Text className="media-item__text"><Body content={data.text} /></Text>
             </a>
         </Container>
     )

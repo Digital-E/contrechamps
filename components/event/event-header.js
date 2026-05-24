@@ -99,7 +99,7 @@ const TicketLinks = styled.div`
     a {
       display: inline-flex;
       align-items: center;
-      min-width: 200px;
+      min-width: 250px;
       justify-content: center;
       background: black;
       color: white !important;

@@ -48,6 +48,11 @@ let InnerMonthDivider = styled.div`
     width: fit-content;
     margin: 0 40px;
 
+    .h2 {
+        font-family: "Quatorze CC Bold";
+        font-weight: bold;
+    }
+
     @media(max-width: 767px) {
         margin: 0 20px;
     }

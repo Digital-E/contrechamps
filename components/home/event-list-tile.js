@@ -41,6 +41,7 @@ let Meta = styled.div`
     gap: 4px;
 
     h1, h2, h3, h4, h5, h6 {
+        font-family: "Quatorze CC Bold";
         font-size: 1.5rem;
     }
 
@@ -75,6 +76,10 @@ let Meta = styled.div`
     }
 `
 
+const InclusiviteIconWrapper = styled.div`
+    margin-top: 8px;
+`;
+
 export default function Component({ data }) {
     if (data === null || data === undefined) return null
 
@@ -104,7 +109,7 @@ export default function Component({ data }) {
                     {item._type !== 'post' && item.textVignette && (
                         <Body content={item.textVignette} />
                     )}
-                    {item.inclusivite && <InclusiviteIcon />}
+                    {item.inclusivite && <InclusiviteIconWrapper><InclusiviteIcon /></InclusiviteIconWrapper>}
                 </Meta>
             </Link>
         </Tile>

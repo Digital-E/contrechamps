@@ -145,20 +145,32 @@ html {
     content: "";
     position: absolute;
     top: 0;
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
     height: 2px;
     background: black;
-    left: 20px;
+    left: 40px;
 }
 
 .border-bottom::after {
     content: "";
     position: absolute;
     bottom: 0;
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
     height: 2px;
     background: black;
-    left: 20px;
+    left: 40px;
+}
+
+@media(max-width: 767px) {
+    .border-top::before {
+        width: calc(100% - 40px);
+        left: 20px;
+    }
+
+    .border-bottom::after {
+        width: calc(100% - 40px);
+        left: 20px;
+    }
 }
 
 .active-link {
@@ -459,7 +471,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-    font-family: "Quatorze CC Bold";
+    font-family: "Barlow Condensed Medium";
     /* font-size: 4rem; */
     font-size: 2.8rem;
     /* letter-spacing: -0.04em; */
@@ -470,10 +482,8 @@ h2, .h2 {
 }
 
 h3, .h3 {
-    font-family: "Quatorze CC Bold";
-    /* font-size: 2.8rem; */
-    /* font-size: 1.9rem; */
-    font-size: 1.9rem;
+    font-family: "Barlow Condensed Medium";
+    font-size: 2rem;
     /* letter-spacing: -0.02em; */
     letter-spacing: 0.01em;
     font-weight: 100;
@@ -482,7 +492,7 @@ h3, .h3 {
 }
 
 h4, .h4 {
-    font-family: "Quatorze CC Bold";
+    font-family: "Barlow Condensed Medium";
     /* font-size: 1.8rem; */
     /* font-size: 1.3rem; */
     font-size: 1.7rem;
@@ -494,7 +504,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-    font-family: "Quatorze CC Bold";
+    font-family: "Barlow Condensed Medium";
     /* font-size: 1.6rem; */
     /* font-size: 1.12rem; */
     /* font-size: 1.3rem; */
@@ -507,7 +517,7 @@ h5, .h5 {
 }
 
 h6, .h6 {
-    font-family: "Quatorze CC Bold";
+    font-family: "Barlow Condensed Medium";
     /* font-size: 1.3rem; */
     font-size: 1.3rem;
     /* letter-spacing: -0.02em; */
@@ -528,7 +538,7 @@ p, .p {
 }
 
 ul {
-    font-family: "Paperback Roman";
+    /* font-family: "Paperback Roman"; */
     font-size: 1.1rem;
     line-height: 1.3;
 }
@@ -550,18 +560,6 @@ time {
     margin-top: 0.5rem;
 }
 
-.force-courier p,
-.force-courier .p,
-.force-courier time
- {
-    font-family: "Courier" !important;
-    font-size: 0.9rem;
-}
-
-.force-courier-all * {
-    font-family: "Courier" !important;
-    font-size: 0.9rem;
-}
 
 @media(max-width: 768px) {
     h1, .h1 {
@@ -576,7 +574,7 @@ time {
     }
     
     h2, .h2 {
-        font-family: "Quatorze CC Bold";
+        font-family: "Barlow Condensed Medium";
         /* font-size: 2rem; */
         /* font-size: 3.3rem; */
         font-size: 2.8rem;
@@ -588,10 +586,10 @@ time {
     }
     
     h3, .h3 {
-        font-family: "Quatorze CC Bold";
+        font-family: "Barlow Condensed Medium";
         /* font-size: 1.5rem; */
         /* font-size: 2.8rem; */
-        font-size: 1.9rem;
+        font-size: 2rem;
         /* letter-spacing: -0.02em; */
         letter-spacing: 0.01em;
         font-weight: 100;
@@ -600,7 +598,7 @@ time {
     }
     
     h4, .h4 {
-        font-family: "Quatorze CC Bold";
+        font-family: "Barlow Condensed Medium";
         font-size: 1.7rem;
         /* letter-spacing: -0.02em; */
         letter-spacing: 0.01em;
@@ -610,7 +608,7 @@ time {
     }
     
     h5, .h5 {
-        font-family: "Quatorze CC Bold";
+        font-family: "Barlow Condensed Medium";
         /* font-size: 1rem; */
         font-size: 1.5rem;
         /* letter-spacing: -0.02em; */
@@ -621,7 +619,7 @@ time {
     }
     
     h6, .h6 {
-        font-family: "Quatorze CC Bold";
+        font-family: "Barlow Condensed Medium";
         /* font-size: 1rem; */
         font-size: 1.3rem;
         /* letter-spacing: -0.02em; */

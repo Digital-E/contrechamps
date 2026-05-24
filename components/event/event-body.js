@@ -66,11 +66,13 @@ const ColRight = styled.div`
   flex-basis: 40%;
 
   @media(max-width: 1200px) {
-    flex-basis: 100%;
+    flex-basis: 80%;
+    margin-left: 20%;
   }
 
   @media(max-width: 990px) {
     flex-basis: 100%;
+    margin-left: 0;
     order: 3;
   }
 

@@ -5,18 +5,18 @@ import VideoListItem from "./video-list-item";
 
 const Container = styled.div`
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 40px;
 
-    > div {
-        flex-basis: calc(33.3333% - 10px);
+    @media(max-width: 990px) {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     @media(max-width: 767px) {
-        > div {
-            flex-basis: 100%;
-        }  
+        grid-template-columns: 1fr;
+        padding: 20px;
     }
 `
 
