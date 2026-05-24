@@ -9,6 +9,7 @@ import EventList from "../home/event-list"
 
 let Container = styled.div`
     position: relative;
+    padding-top: 20px;
 
     > div:last-child > div:last-child::after   {
         display: none !important;
@@ -35,16 +36,13 @@ let InnerMonthDivider = styled.div`
     position: relative;
     width: fit-content;
     // margin: 0 auto;
-    margin: 0 20px;
+    margin: 0 40px;
 
     > .h1 {
         line-height: 1.2;
     }
 
     @media(min-width: 768px) {
-        > .h1 {
-            font-size: 6rem;
-        }
 
         .year {
             position: absolute;
@@ -54,7 +52,7 @@ let InnerMonthDivider = styled.div`
     }
 
     @media(max-width: 767px) {
-        padding: 10px 0;
+        margin: 0 20px;
     }
 `
 
@@ -175,7 +173,7 @@ export default function Component ({ data }) {
 
                     return (
                         <MonthWrapper className={item.passed === true && "passed-event"}>
-                            <MonthDivider className="border-top border-bottom">
+                            <MonthDivider className="">
                                 <InnerMonthDivider>
                                     <div className="h1">{item.longMonth}&nbsp;&nbsp;{item.year}</div>
                                     {/* <div className="p year">{item.year}</div> */}

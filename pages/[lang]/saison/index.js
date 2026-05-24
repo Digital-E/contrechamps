@@ -52,7 +52,7 @@ export default function Post({ data = {}, preview }) {
                   content={data.content}
                 />
               </Head>
-              <SaisonHeader data={data} withBorder={true} hideOnMobile={true} />
+              <SaisonHeader data={data} withBorder={false} hideOnMobile={true} />
               <Filters data={data} />
               <SaisonEvents data={allEvents} />
           </>

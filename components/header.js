@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from './link'
 import InclusiviteIcon from './inclusivite-icon'
 import LocaleLink from "./locale-link"
@@ -16,7 +16,12 @@ let Container = styled.header`
   z-index: 2;
   top: 0;
   background: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  transition: box-shadow 0.2s ease;
+
+  &.scrolled {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
 
   @media(max-width: 767px) {
     padding: 10px 20px;
@@ -177,13 +182,20 @@ let LanguageSwitch = styled.div`
 
 export default function Header({ data }) {
   let [menuOpen, setMenuOpen] = useState(false);
+  let [scrolled, setScrolled] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   if(data === undefined) return null;
 
 
   return (
-    <Container className={menuOpen ? "nav--open" : ""}>
+    <Container className={[menuOpen ? "nav--open" : "", scrolled ? "scrolled" : ""].join(" ").trim()}>
       <div className="p" 
         onClick={() => {
           setMenuOpen(false);

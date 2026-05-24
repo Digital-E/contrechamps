@@ -107,7 +107,7 @@ export default function Component({ data, menuData, slug }) {
     })
 
   return (
-    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && "force-courier"}>
+    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && ""}>
       <ColLeft>
         <div ref={menuRef}>
             <Menu data={menuData} />

@@ -3,7 +3,11 @@ import Body from "../body"
 
 const Container = styled.div`
   position: relative;
-  padding: 20px;
+  padding: 20px 40px;
+
+  @media(max-width: 767px) {
+    padding: 20px;
+  }
   // display: ${props => props.hideOnMobile ? "none" : "block"};
   display: none;
 

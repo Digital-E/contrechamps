@@ -12,45 +12,17 @@ import Orb from "../home/orb"
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  margin-bottom: 30px;
 
   @media(max-width: 990px) {
     flex-direction: column;
   }
-`
-
-const ColLeft = styled.div`
-  position: relative;
-
-  // > div:nth-child(1) {
-  //   height: 20vw;
-  //   width: 20vw;
-  // }
-
-  // @media (max-width: 1199px) {
-  //   > div:nth-child(1) {
-  //     height: 25vw !important;
-  //     width: 25vw !important;
-  //   }
-  // }
-
-  // @media (max-width: 990px) {
-  //   > div:nth-child(1) {
-  //     height: 50vw !important;
-  //     width: 50vw !important;
-  //   }
-
-  //   > div:nth-child(1)  {
-  //     left: -4vw;
-  //   }
-
-  //   padding-bottom: 20px;
-  // }
 
 `
+
 
 const ColRight = styled.div`
-  flex-basis: 70%;
+  flex-basis: 100%;
 
   @media(max-width: 990px) {
     flex-basis: 100%;
@@ -62,102 +34,93 @@ const Title = styled.h1`
   width: 80%;
 `
 
+const Subtitle = styled.p`
+  font-family: "Barlow Condensed Medium";
+  font-size: 2rem;
+  margin-top: 8px;
+  margin-bottom: 0;
+`
+
 const Information = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 50px;
-
-  p {
-    font-family: "Courier";
-  }
 
   @media(max-width: 990px) {
     flex-wrap: wrap;
-
-    &&.force-courier > div:nth-child(2) > p {
-      font-family: 'Paperback Roman' !important;
-    }
   }
 `
 
 const Date = styled.div`
   flex-basis: 30%;
   line-height: 1.2;
-  font-size: 1.8em;
-  margin-top: 10px;
+  font-size: 1.5em;
 
   * {
     margin: 0;
   }
 
   @media(max-width: 990px) {
-    flex-basis: 50%;
-    margin-bottom: 50px;
-  }
-`
-
-const Location = styled.div`
-  flex-grow: 1;
-
-  @media(max-width: 990px) {
-    flex-basis: 50%;
   }
 `
 
 const DateInner = styled.div`
+  display: flex;
   position: relative;
   margin-bottom: 20px;
-`
 
-let SoundIcon = styled.div`
-    position: absolute;
-    left: 16vw;
-    bottom: 50px;
-    z-index: 25;
-    cursor: pointer;
-    height: 25px;
-    width: 25px;
-    border: 1px solid var(--ternary-color);
-    border-radius: 999px;
-    padding: 5px;
-    backdrop-filter: blur(20px);
+  > p {
+    display: flex;
+    align-items: center;
+  }
 
-    svg {
-        fill: var(--ternary-color);
-        height: 100%;
-        width: 100%;
-    }
+  > p > time:nth-child(1) {
+    font-family: "Barlow Condensed Bold";
+    font-size: 1.5em;
+  }
+ 
+  > p > p:nth-child(2) {
+    font-family: "Barlow Condensed Regular";
+    font-size: 1.5em;
+  }
 
-    @media (max-width: 1199px) {
-      left: 20vw;
-      bottom: 30px;
-    }
-
-    @media(max-width: 990px) {
-      left: 35vw;
-      bottom: 60px;
-    }
-    
+  > p > time:nth-child(3) {
+    font-family: "Barlow Condensed Regular";
+    font-size: 1.5em;
+  }
 `
 
 const TicketLinks = styled.div`
+    margin-top: 30px;
+
     > div {
-      margin-bottom 10px;
+      margin-bottom: 10px;
     }
 
     a {
-      width: 180px;
-      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      min-width: 200px;
+      justify-content: center;
+      background: black;
+      color: white !important;
+      border: 1px solid black;
+      padding: 0 20px;
+      height: 40px;
+      font-family: "Barlow Condensed Medium";
+      font-size: 1.1rem;
+      white-space: nowrap;
+      cursor: pointer;
       margin: 0;
+      text-decoration: none;
     }
 
-    p {
-      margin: 0;
+    a:hover {
+      background: white !important;
+      color: black !important;
     }
 
     @media(max-width: 989px) {
-      margin-bottom: 50px;
-      margin-top: 10px;
+      margin-bottom: 20px;
     }
 `
  
@@ -175,21 +138,36 @@ const InclusiviteIconContainer = styled.div`
 
 export default function EventHeader({ data }) {
   const router = useRouter();
-  let [soundOn, setSoundOn] = useState(false);
-  
-  const toggleSound = () => {
-    if(!soundOn) {
-        document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
-        setSoundOn(!soundOn)
-    } else {
-        document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
-        setSoundOn(!soundOn)
-    }
-}
 
   return (
     <Container>
-      <ColLeft className="event-header__col-left">
+      <ColRight>
+        <Date>
+          {data.occurences?.map((item, i) =>
+            <DateInner key={i}>
+              <DateComponent data={item} eventPage={true} />
+            </DateInner>
+          )}
+        </Date>
+        <Title>
+          {
+            data.pageTitle === null || data.pageTitle === undefined ?
+            data.title
+            :
+            <Body content={data.pageTitle} />
+          }
+        </Title>
+        {data.subtitle && <Subtitle>{data.subtitle}</Subtitle>}
+        <Information className="">
+          {
+            data.inclusivite === true &&
+            <InclusiviteIconContainer>
+              <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
+                <InclusiviteIcon />
+              </Link>
+            </InclusiviteIconContainer>
+          }
+        </Information>
         <TicketLinks>
           <div>
             {data.ticketLink && <Button url={data.ticketLink} label={data.ticketLinkLabel} />}
@@ -197,61 +175,7 @@ export default function EventHeader({ data }) {
           <div>
             {data.ticketLinkTwo && <Button url={data.ticketLinkTwo} label={data.ticketLinkLabelTwo} />}
           </div>
-        </TicketLinks>      
-        {/* {data.videoMp4 !== null ?
-        <>
-        <Orb data={data}/>
-        <SoundIcon onClick={() => toggleSound()} className={soundOn ? "sound-on sound-icon" : "sound-off sound-icon"}> 
-          {!soundOn ?
-          <svg className="sound-icon" width="18px" height="18px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="12.4 12.5 14.5 10.4 16.6 12.5 18 11.1 15.9 9 18 6.9 16.6 5.5 14.5 7.6 12.4 5.5 11 6.9 13.1 9 11 11.1"></polygon>
-            <path d="M3.78571429,6.00820648 L0.714285714,6.00820648 C0.285714286,6.00820648 0,6.30901277 0,6.76022222 L0,11.2723167 C0,11.7235261 0.285714286,12.0243324 0.714285714,12.0243324 L3.78571429,12.0243324 L7.85714286,15.8819922 C8.35714286,16.1827985 9,15.8819922 9,15.2803796 L9,2.75215925 C9,2.15054666 8.35714286,1.77453879 7.85714286,2.15054666 L3.78571429,6.00820648 Z"></path>
-          </svg>
-          :
-          <svg className="sound-icon" width="18px" height="18px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.5999996,3.3 C15.1999996,2.9 14.5999996,2.9 14.1999996,3.3 C13.7999996,3.7 13.7999996,4.3 14.1999996,4.7 C15.3999996,5.9 15.9999996,7.4 15.9999996,9 C15.9999996,10.6 15.3999996,12.1 14.1999996,13.3 C13.7999996,13.7 13.7999996,14.3 14.1999996,14.7 C14.3999996,14.9 14.6999996,15 14.8999996,15 C15.1999996,15 15.3999996,14.9 15.5999996,14.7 C17.0999996,13.2 17.9999996,11.2 17.9999996,9 C17.9999996,6.8 17.0999996,4.8 15.5999996,3.3 L15.5999996,3.3 Z"></path>
-              <path d="M11.2819745,5.28197449 C10.9060085,5.65794047 10.9060085,6.22188944 11.2819745,6.59785542 C12.0171538,7.33303477 12.2772954,8.05605449 12.2772954,9.00000021 C12.2772954,9.93588462 11.851678,10.9172014 11.2819745,11.4869049 C10.9060085,11.8628709 10.9060085,12.4268199 11.2819745,12.8027859 C11.4271642,12.9479755 11.9176724,13.0649528 12.2998149,12.9592565 C12.4124479,12.9281035 12.5156669,12.8776063 12.5978555,12.8027859 C13.773371,11.732654 14.1311161,10.1597914 14.1312523,9.00000021 C14.1312723,8.8299555 14.1286311,8.66015647 14.119665,8.4897429 C14.0674781,7.49784946 13.8010171,6.48513613 12.5978554,5.28197449 C12.2218894,4.9060085 11.6579405,4.9060085 11.2819745,5.28197449 Z"></path>
-              <path d="M3.78571429,6.00820648 L0.714285714,6.00820648 C0.285714286,6.00820648 0,6.30901277 0,6.76022222 L0,11.2723167 C0,11.7235261 0.285714286,12.0243324 0.714285714,12.0243324 L3.78571429,12.0243324 L7.85714286,15.8819922 C8.35714286,16.1827985 9,15.8819922 9,15.2803796 L9,2.75215925 C9,2.15054666 8.35714286,1.77453879 7.85714286,2.15054666 L3.78571429,6.00820648 Z"></path>
-          </svg>  
-          }                
-        </SoundIcon>
-        </>
-        :
-        null} */}
-      </ColLeft>
-      <ColRight>
-        <Title>
-          {
-            data.pageTitle === null ?
-            data.title
-            :
-            <Body content={data.pageTitle} />
-          }
-        </Title>
-        <Information className="force-courier">
-          <Date className="h4">
-            {/* <DateInner>
-              <DateComponent data={data} />
-            </DateInner> */}
-            {data.occurences?.map(item => 
-              <>
-                  <DateInner>
-                    <DateComponent data={item} />
-                  </DateInner>
-                </>) }
-          </Date>
-          <Location>
-            <Body content={data.location}/>
-          </Location>
-          {
-            data.inclusivite === true &&
-            <InclusiviteIconContainer>
-              <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
-                <InclusiviteIcon />
-              </Link>
-          </InclusiviteIconContainer>
-          }
-        </Information>
+        </TicketLinks>
       </ColRight>
     </Container>
   )

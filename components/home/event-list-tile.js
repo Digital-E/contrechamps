@@ -79,9 +79,10 @@ export default function Component({ data }) {
     if (data === null || data === undefined) return null
 
     let item = data
+    let tagClasses = (item.tags || []).map(t => sanitizeTag(t.label)).join(' ')
 
     return (
-        <Tile>
+        <Tile className={`event-tile ${tagClasses}`}>
             <Link href={item.slug}>
                 {item.image && (
                     <ImageWrapper>
