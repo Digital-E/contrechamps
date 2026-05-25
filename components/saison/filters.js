@@ -186,7 +186,7 @@ export default function Component ({ data }) {
                 trigger: filtersRef.current,
                 id: "scroll-trigger",
                 pin: filtersRef.current,
-                start: `top-=${headerHeight} top`,
+                start: `top-=${headerHeight-1} top`,
                 end: "max",
                 pinSpacing: false
             });

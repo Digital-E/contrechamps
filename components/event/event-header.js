@@ -83,7 +83,7 @@ const DateInner = styled.div`
     font-size: 1.5em;
   }
 
-  > p > time:nth-child(3) {
+  > p > time:nth-child(3), > p > time:nth-child(4) {
     font-family: "Barlow Condensed Regular";
     font-size: 1.5em;
   }

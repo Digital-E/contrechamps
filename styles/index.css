@@ -225,14 +225,13 @@ button:hover, .button:hover {
 
 .CookieConsent {
     background-color: #ffffff !important;
-    border-top: 1px solid black !important;
   }
   
   .CookieConsent p {
-    font-family: "Courier";
+    font-family: "Barlow Condensed Medium";
     margin: 0;
     color: black;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   
@@ -248,16 +247,28 @@ button:hover, .button:hover {
   
   .CookieConsent #rcc-decline-button,
   .CookieConsent #rcc-confirm-button {
-    color: black !important;
-    text-decoration: underline;
-    background: transparent !important;
-    margin: 10px !important;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: black !important;
+    color: white !important;
+    border: 1px solid black !important;
+    padding: 0 20px !important;
+    height: 40px;
+    font-family: "Barlow Condensed Medium" !important;
+    font-size: 1.1rem !important;
+    white-space: nowrap;
+    cursor: pointer;
+    margin: 10px 5px !important;
+    border-radius: 0 !important;
   }
-  
-  .CookieConsent #rcc-confirm-button,
-  .CookieConsent #rcc-decline-button
-   {
-    /* border-bottom: 1px solid black !important; */
+
+  .CookieConsent #rcc-decline-button:hover,
+  .CookieConsent #rcc-confirm-button:hover {
+    background: white !important;
+    color: black !important;
   }
 
   @media(min-width: 1800px) {
