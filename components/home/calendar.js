@@ -426,7 +426,7 @@ let Container = styled.div`
         display: none;
     }
 
-    @media(max-width: 767px) {
+    @media(max-width: 1000px) {
         .home-calendar__mobile-trigger {
             display: inline-flex;
             align-items: center;

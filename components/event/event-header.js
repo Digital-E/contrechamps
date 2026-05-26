@@ -79,7 +79,7 @@ const DateInner = styled.div`
   }
  
   > p > p:nth-child(2) {
-    font-family: "Barlow Condensed Regular";
+    font-family: "Barlow Condensed Light";
     font-size: 1.5em;
   }
 

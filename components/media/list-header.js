@@ -12,7 +12,7 @@ let Header = styled.div`
     padding: 0 40px;
 
     > span {
-      font-size: 5rem;
+      font-size: 2rem;
       line-height: 1.2;
     }
 
@@ -20,7 +20,7 @@ let Header = styled.div`
         padding: 0 40px;
 
         > span {
-            font-size: 6rem;
+            font-size: 2rem;
             margin: 0;
             line-height: 1.2;
         }

@@ -56,6 +56,14 @@ let Meta = styled.div`
         line-height: 1;
     }
 
+    .date-meta > p > pnth-child(2) {
+        font-family: "Barlow Condensed Light";
+    }
+    
+    // .date-meta > p > time:nth-child(3), .date-meta > p > time:nth-child(4) {
+    //     font-family: "Barlow Condensed Regular";
+    // }
+
     .description {
         margin-top: 5px;
         font-family: "Barlow Condensed Medium";

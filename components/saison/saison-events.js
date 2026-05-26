@@ -51,6 +51,7 @@ let InnerMonthDivider = styled.div`
     .h2 {
         font-family: "Quatorze CC Bold";
         font-weight: bold;
+        font-size: 2rem;
     }
 
     @media(max-width: 767px) {
