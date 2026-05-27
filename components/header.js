@@ -120,6 +120,10 @@ let Menu = styled.div`
     margin-right: 2.5rem;
   }
   
+  > ul:nth-child(1) > li:last-child {
+    margin-right: 0;
+  }  
+  
 
   ${ListItem} {
     margin-left: 0;
@@ -218,8 +222,8 @@ export default function Header({ data }) {
         </List>
         <LanguageSwitch>
           <List>
-            <ListItem><div className="p"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
-            <ListItem><div className="p"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem>
+            {/* <ListItem><div className="p"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
+            <ListItem><div className="p"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem> */}
             {/* <ListItem>
               <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
                 <InclusiviteIcon />            

@@ -136,19 +136,10 @@ export default function Component ({ data }) {
     })
 
 
-    // let pastEventsSpliceIndex = 0;
-
-    eventsByMonthArray.splice(0,6)
-
-    // eventsByMonthArray.forEach((item, index) => {
-    //     if(item.date === getDate(currentMonth, currentYear)) {
-    //         pastEventsSpliceIndex = index;
-    //     }
-    // });
-
+    const currentDateStr = format(new Date(currentYear, currentMonth, 1), 'yyyy-LL')
 
     eventsByMonthArray = eventsByMonthArray.filter(item => {
-        return item.events.length > 0 ? item : false
+        return item.events.length > 0 && item.date >= currentDateStr
     })
 
     return (
