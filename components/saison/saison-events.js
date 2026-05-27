@@ -12,7 +12,7 @@ import EventList from "../home/event-list"
 
 let Container = styled.div`
     position: relative;
-    margin-top: -5px;
+    margin-top: 20px;
 
     > div:last-child > div:last-child::after   {
         display: none !important;
@@ -24,7 +24,7 @@ let Container = styled.div`
 
     @media(max-width: 768px) {
         width: 100%;
-        margin-top: 130px;
+        margin-top: 100px;
     }
 `
 
@@ -46,19 +46,19 @@ let InnerMonthDivider = styled.div`
     display: block;
     position: relative;
     width: fit-content;
-    // margin: 0 auto;
-    margin: 0 20px;
+    margin: 0 40px;
 
-    > .h1 {
-        line-height: 1.2;
-        text-transform: uppercase;
-        padding-top: 5px;
+    .h2 {
+        font-family: "Quatorze CC Bold";
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    @media(max-width: 767px) {
+        margin: 0 20px;
     }
 
     @media(min-width: 768px) {
-        > .h1 {
-            // font-size: 6rem;
-        }
 
         .year {
             position: absolute;
@@ -136,19 +136,10 @@ export default function Component ({ data }) {
     })
 
 
-    // let pastEventsSpliceIndex = 0;
-
-    eventsByMonthArray.splice(0,6)
-
-    // eventsByMonthArray.forEach((item, index) => {
-    //     if(item.date === getDate(currentMonth, currentYear)) {
-    //         pastEventsSpliceIndex = index;
-    //     }
-    // });
-
+    const currentDateStr = format(new Date(currentYear, currentMonth, 1), 'yyyy-LL')
 
     eventsByMonthArray = eventsByMonthArray.filter(item => {
-        return item.events.length > 0 ? item : false
+        return item.events.length > 0 && item.date >= currentDateStr
     })
 
     return (
@@ -160,9 +151,9 @@ export default function Component ({ data }) {
 
                     return (
                         <MonthWrapper className={item.passed === true ? "passed-event month-wrapper": "month-wrapper"} id={`${sanitizeTag(monthAndYear)}`}>
-                            <MonthDivider className="border-top border-bottom">
+                            <MonthDivider className="">
                                 <InnerMonthDivider>
-                                    <div className="h1">{item.longMonth} {item.year}</div>
+                                    <div className="h2">{item.longMonth} {item.year}</div>
                                     {/* <div className="p year">{item.year}</div> */}
                                 </InnerMonthDivider>
                             </MonthDivider>

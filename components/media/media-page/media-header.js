@@ -62,16 +62,9 @@ export default function EventHeader({ data }) {
 
   return (
     <Container>
-      {/* <ColLeft></ColLeft> */}
       <ColRight>
         <Title>{data.title}</Title>
         <Information>
-          {/* <Date className="h4">
-            <DateComponent data={data} />
-          </Date>
-          <Location>
-            <Body content={data.location}/>
-          </Location> */}
           <div>
             {
                 data.ticketLinkLabel ?

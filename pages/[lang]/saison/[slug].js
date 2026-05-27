@@ -60,7 +60,7 @@ export default function Post({ data = {}, preview }) {
                   />
                 )}
               </Head>
-              <EventHeader data={post} />
+              {/* <EventHeader data={post} /> */}
               <EventBody data={post} />
           </>
         )}

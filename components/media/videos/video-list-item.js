@@ -60,6 +60,8 @@ const Thumbnail = styled.div`
 `
 
 const Text = styled.div`
+    font-family: "Barlow Condensed Medium";
+    font-size: 1.3rem;
     margin-top: 5px;
 
     * {

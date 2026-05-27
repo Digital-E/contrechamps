@@ -12,12 +12,16 @@ import Body from '../../components/body'
 import EmailSubscribeForm from '../../components/email-subscribe-form'
 
 const Wrapper = styled.div`
-  padding: 60px 20px 60px 20px;
+  padding: 60px 40px;
   width: 100%;
   margin: 0 auto;
 
   @media(max-width: 1200px) {
     width: 100%;
+  }
+
+  @media(max-width: 767px) {
+    padding: 60px 20px;
   }
 
   > div:last-child {

@@ -104,7 +104,7 @@ export default function Actualite({ data = {}, preview }) {
                 />
               </Head>
               <Container>              
-                  <VignetteWrapper>
+                  {/* <VignetteWrapper>
                   <div></div>
                   <Vignette>
                     {
@@ -117,7 +117,7 @@ export default function Actualite({ data = {}, preview }) {
                     }                      
                     <Body content={actualite.textVignette} />
                   </Vignette>
-                  </VignetteWrapper>
+                  </VignetteWrapper> */}
                 <EventBody data={actualite} />
               </Container>              
           </>

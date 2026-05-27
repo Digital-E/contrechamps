@@ -43,7 +43,7 @@ let Container = styled.div`
 
     .season-filters > div {
         display: flex;
-        padding: 0 30px;
+        padding: 0 40px;
         flex-wrap: wrap;
         margin-top: -1px;
     }
@@ -67,42 +67,35 @@ let Container = styled.div`
     }
 
     .season-filter:hover .season-filter__label {
-        text-decoration: underline;
+        color: var(--secondary-color);
     }
 
 
     .season-filter__selector {
-        width: 13px;
-        height: 13px;
-        min-width: 13px;
-        min-height: 13px;
-        border: 1px solid black;
-        background: white;
-        border-radius: 999px;
+        display: none;
     }
 
     .season-filter__label {
-        margin-left: 5px;
+        font-family: "Barlow Condensed Medium";
         line-height: 1;
         white-space: nowrap;
     }
 
     .season-filter--active .season-filter__label  {
-        // background-color: var(--color) !important;
-        text-decoration: underline;
+        font-family: "Barlow Condensed ExtraBold";
     }
 
 
     @media(max-width: 1260px) {
         .season-filters > div:nth-child(1) {
-            padding: 0 20px;
+            padding: 0 40px;
             flex-wrap: nowrap;
             overflow: scroll;
             // border-bottom: 1px solid black;
         }
 
         .season-filters > div:nth-child(2) {
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         .season-filters {
@@ -114,6 +107,11 @@ let Container = styled.div`
         position: fixed;
         width: 100%;
         top: 55px;
+        padding: 0 0px;
+
+        .season-filters > div:nth-child(1) {
+            padding: 0 20px;
+        }
 
         .season-filters::after {
             content: "";
@@ -150,6 +148,11 @@ let Wrapper = styled.div`
     margin-left: auto;
     color: black;
 
+    p {
+        font-family: "Barlow Condensed Medium";
+        font-size: 1.1rem;
+    }
+
     @media(max-width: 1260px) {
         margin-left: 0;
     }
@@ -183,7 +186,7 @@ export default function Component ({ data }) {
                 trigger: filtersRef.current,
                 id: "scroll-trigger",
                 pin: filtersRef.current,
-                start: `top-=${headerHeight} top`,
+                start: `top-=${headerHeight-1} top`,
                 end: "max",
                 pinSpacing: false
             });
@@ -314,32 +317,18 @@ export default function Component ({ data }) {
             }
         })
 
-        // Hide Title if list empty
-
-        document.querySelectorAll(".month-wrapper").forEach((itemOne, indexOne) => {
-            let amountHidden = 0;
-
-            let amount = itemOne.children[1].children[0].children.length
-
-            Array.from(itemOne.children[1].children[0].children).forEach(itemTwo => {
-                if(itemTwo.classList.contains("hide-tile")) {
-                    amountHidden += 1;
-                }
-            })
-
-            if(amount === amountHidden) {
-                document.querySelectorAll(".month-wrapper")[indexOne].classList.add("hide-month-wrapper")
-            } else {
-                document.querySelectorAll(".month-wrapper")[indexOne].classList.remove("hide-month-wrapper")
-            }
-
+        // Hide month header if all tiles in it are hidden
+        document.querySelectorAll(".month-wrapper").forEach(monthEl => {
+            const tiles = Array.from(monthEl.querySelectorAll(".event-tile"))
+            const allHidden = tiles.length > 0 && tiles.every(t => t.classList.contains("hide-tile"))
+            monthEl.classList.toggle("hide-month-wrapper", allHidden)
         })
 
     }
     
     return (
-        <Container ref={filtersRef} className="border-bottom">
-            <div class="season-filters force-courier">
+        <Container ref={filtersRef}>
+            <div class="season-filters">
                 <div>
                 {data.tags?.map((item, index) => (
                     <div key={item._id} 

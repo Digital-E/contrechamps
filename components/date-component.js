@@ -12,7 +12,7 @@ export default function Component({ data }) {
         <Date dateString={data.startdate}  withYear={data.enddate === null ? true : false} />
             { data.enddate !== null ? "-" : ""}
         <Date dateString={data.enddate} withYear={true} />
-        <br />
+        {data.starttime !== null && <p>&nbsp;|&nbsp;</p>}
         <Time timeString={data.starttime} />
             { data.endtime !== null ? "-" : ""}
         <Time timeString={data.endtime} />

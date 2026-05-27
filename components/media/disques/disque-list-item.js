@@ -12,7 +12,11 @@ const Container = styled.div`
     > a {
         display: block;
         opacity: 1;
-        padding: 20px;
+        padding: 20px 40px;
+
+        @media(max-width: 767px) {
+            padding: 20px;
+        }
 
     
         transition: var(--transition-out);
@@ -28,18 +32,23 @@ const Container = styled.div`
         }
 
         .button {
-            transition: border var(--transition-out);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: black;
+            color: white !important;
+            border: 1px solid black;
+            padding: 0 20px;
+            height: 40px;
+            font-family: "Barlow Condensed Medium";
+            font-size: 1.1rem;
+            white-space: nowrap;
+            text-decoration: none;
         }
 
-        :hover .button {
-            // border: 1px solid var(--background-colour);
-            // color: var(--background-colour);
-            transition: border var(--transition-in);
-        }
-
-        .button a:hover {
-            color: inherit;
-            color: var(--secondary-color);
+        .button:hover {
+            background: white !important;
+            color: black !important;
         }
     }
 `

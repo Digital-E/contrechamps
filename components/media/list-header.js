@@ -9,39 +9,54 @@ let Header = styled.div`
     align-items: center;
     justify-content: space-between;
     position: relative;
-    padding: 0 20px;
-    margin-top: -1px;
+    padding: 0 40px;
 
     > span {
-      font-size: 5rem;
+      font-size: 2rem;
       line-height: 1.2;
     }
 
     @media(min-width: 768px) {
-        padding: 0 20px;
+        padding: 0 40px;
 
         > span {
-            font-size: 6rem;
+            font-size: 2rem;
             margin: 0;
             line-height: 1.2;
         }
     }
 
     > a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: black;
+      color: white !important;
+      border: 1px solid black;
+      padding: 0 20px;
+      height: 40px;
+      font-family: "Barlow Condensed Medium";
+      font-size: 1.1rem;
+      white-space: nowrap;
+      text-decoration: none;
       margin-left: 1.5rem;
-      // margin-top: 1rem;
-      margin-top: 0.2rem;
+    }
+
+    > a:hover {
+      background: white !important;
+      color: black !important;
+    }
+
+    @media(max-width: 767px) {
+      padding: 0 20px;
     }
 
     @media(max-width: 989px) {
-      // flex-direction: column;
-      // align-items: flex-start;
       justify-content: space-between;
 
       > a {
         margin-left: 0rem;
         margin-top: 0rem;
-        // margin-bottom: 1rem;
         margin-bottom: 0;
       }
     }

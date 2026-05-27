@@ -100,7 +100,7 @@ export default function Post({ data = {}, preview }) {
               </Head>
               <Filters data={data.data} />
               <Container>
-                <MediasHeader data={data.data} />
+                {data.data.text && <MediasHeader data={data.data} />}
                 <ListHeader data={data.data} />
                 {ListSwitch(data.data.type, data.allMedia, data.orderedMediaList)}
               </Container>

@@ -8,11 +8,13 @@ let Container = styled.div`
   .p {
    margin: 0;
    text-transform: uppercase;
+   font-family: "Barlow Condensed Medium";
+   font-size: 1rem;
   }
 
   .active-link {
     color: black !important;
-    text-decoration: underline;
+    font-family: "Barlow Condensed Bold";
   }
 `
 
@@ -22,7 +24,7 @@ let List = styled.ul`
 `
 
 let ListItem = styled.li`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `
 
 let Menu = styled.div`
@@ -38,7 +40,7 @@ export default function Component({ data, isSubSubPage }) {
   if(data === undefined) return null;
 
   return (
-    <Container className="force-courier">
+    <Container>
       <Menu>
         <List>
           {data?.menuItems.map(item => <ListItem key={item._id}><div className="p"><Link href={item.url} isSubSubPage={isSubSubPage}>{item.label}</Link></div></ListItem>)}

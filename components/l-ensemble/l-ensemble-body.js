@@ -14,42 +14,66 @@ gsap.registerPlugin(ScrollTrigger);
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0 40px;
   margin-top: 100px;
-  
+
+  @media(max-width: 1200px) {
+    flex-wrap: wrap;
+  }
+
   @media(max-width: 767px) {
     flex-wrap: wrap;
     margin-top: 20px;
+    padding: 0 20px;
   }
-
-  // blockquote::after {
-  //   content: "················································································································································································";
-  //   position: absolute;
-  //   font-size: 0.6rem;
-  // }
 `
 
 const ColLeft = styled.div`
-  flex-basis: 30%;
+  flex-basis: 20%;
+  padding-right: 40px;
 
   > div *:nth-child(1) {
     margin-top: 0px !important;
   }
 
   @media(max-width: 767px) {
-      flex-basis: 100%;
-      margin-bottom: 50px;
+    flex-basis: 100%;
+    margin-bottom: 50px;
+    order: 4;
+  }
+`
+
+const ColMiddle = styled.div`
+  flex-basis: 40%;
+  padding-right: 80px;
+
+  @media(max-width: 1200px) {
+    flex: 1;
+    padding-right: 0;
+  }
+
+  @media(max-width: 767px) {
+    flex-basis: 100%;
+    order: 1;
+    padding: 0;
   }
 `
 
 const ColRight = styled.div`
-  flex-basis: 70%;
+  flex-basis: 40%;
 
-    @media(max-width: 767px) {
-        flex-basis: 100%;
-        width: calc(100vw - 50px);
-        overflow: hidden;
-    }
+  @media(max-width: 1200px) {
+    flex-basis: 80%;
+    margin-left: 20%;
+  }
+
+  @media(max-width: 767px) {
+    flex-basis: 100%;
+    margin-left: 0;
+    width: calc(100vw - 40px);
+    overflow: hidden;
+    order: 3;
+  }
 `
 
 
@@ -65,9 +89,9 @@ export default function Component({ data, menuData, slug }) {
               ScrollTrigger.getById("scroll-trigger")?.kill(true);
           }
         }
-    
+
         if(window.innerWidth > 989) {
-    
+
             scrollTriggerInstance = ScrollTrigger.create({
                 trigger: menuRef.current,
                 id: "scroll-trigger",
@@ -76,8 +100,8 @@ export default function Component({ data, menuData, slug }) {
                 end: "max",
                 pinSpacing: false
             });
-    
-        } 
+
+        }
     }
 
     let initWrapper = () => {
@@ -95,8 +119,8 @@ export default function Component({ data, menuData, slug }) {
 
         return () => {
             window.removeEventListener("resize", initWrapper)
-        }        
-        
+        }
+
 
     }, []);
 
@@ -107,14 +131,17 @@ export default function Component({ data, menuData, slug }) {
     })
 
   return (
-    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && "force-courier"}>
+    <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && ""}>
       <ColLeft>
         <div ref={menuRef}>
             <Menu data={menuData} />
         </div>
       </ColLeft>
-      <ColRight>
+      <ColMiddle>
         <Slices data={data.slices} />
+      </ColMiddle>
+      <ColRight>
+        <Slices data={data.slicesRight} />
       </ColRight>
     </Container>
   )
