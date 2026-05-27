@@ -151,7 +151,7 @@ let Container = styled.div`
 
     }
 
-    @media(max-width: 1000px) {
+    @media(max-width: 1100px) {
         .home-calendar__col-right {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -207,8 +207,12 @@ let Container = styled.div`
     }
 
     .home-calendar__day:hover {
-        cursor: pointer;
+        cursor: default;
         transition-duration: var(--transition-in);
+    }
+
+    .home-calendar__day--has-event:hover {
+        cursor: pointer;
     }
 
     .home-calendar__event:hover .image-overlay {
@@ -426,7 +430,7 @@ let Container = styled.div`
         display: none;
     }
 
-    @media(max-width: 1000px) {
+    @media(max-width: 1100px) {
         .home-calendar__mobile-trigger {
             display: inline-flex;
             align-items: center;

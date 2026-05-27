@@ -41,7 +41,7 @@ let renderSlice = (slice ,index) => {
 
 const Grid = ({ data, hasCaption }) => {
 
-    return <GridWrapper>{data.gridItems !== null ? data.gridItems.map((slice, index) => renderSlice(slice, index)) : null}</GridWrapper>
+    return <GridWrapper>{data.gridItems?.map((slice, index) => renderSlice(slice, index))}</GridWrapper>
 }
 
 export default Grid;

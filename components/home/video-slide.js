@@ -6,14 +6,12 @@ import Plyr from 'plyr';
 
 let Container = styled.div`
     position: relative;
-    height: 100%;
     width: 100%;
 
     video {
-        position: absolute;
-        height: 100%;
+        display: block;
         width: 100%;
-        object-fit: cover;
+        height: auto;
     }
 `
 
@@ -153,10 +151,25 @@ let PlayPause = styled.div`
 
 
 
+const MobileVideo = styled.div`
+    display: none;
+    @media(max-width: 989px) {
+        display: block;
+    }
+`
+
+const DesktopVideo = styled.div`
+    display: block;
+    @media(max-width: 989px) {
+        display: ${({ hasMobileAlt }) => hasMobileAlt ? 'none' : 'block'};
+    }
+`
+
 export default function Component({ data, title, index, cellIndex }) {
     let [soundOn, setSoundOn] = useState(false);
     let [play, setPlay] = useState(true);
     let videoRef = useRef();
+    let mobileVideoRef = useRef();
     let playPauseRef = useRef();
 
     let item = data;
@@ -193,16 +206,18 @@ export default function Component({ data, title, index, cellIndex }) {
     useEffect(() => {
         if(cellIndex !== index) {
             setPlay(false)
-            videoRef.current.pause()
+            videoRef.current?.pause()
             setSoundOn(false)
-            videoRef.current.muted = true
+            if(videoRef.current) videoRef.current.muted = true
+            mobileVideoRef.current?.pause()
+            if(mobileVideoRef.current) mobileVideoRef.current.muted = true
         }
     }, [cellIndex])
 
     return item?.video !== null ? (
     <>
     <Container>
-    <PlayPause ref={playPauseRef}  onClick={() => togglePlay()}>
+    {/* <PlayPause ref={playPauseRef}  onClick={() => togglePlay()}>
     {
         play ?
         // <span>PAUSE</span>
@@ -226,12 +241,19 @@ export default function Component({ data, title, index, cellIndex }) {
         <path className="no-skip" d="M3.78571429,6.00820648 L0.714285714,6.00820648 C0.285714286,6.00820648 0,6.30901277 0,6.76022222 L0,11.2723167 C0,11.7235261 0.285714286,12.0243324 0.714285714,12.0243324 L3.78571429,12.0243324 L7.85714286,15.8819922 C8.35714286,16.1827985 9,15.8819922 9,15.2803796 L9,2.75215925 C9,2.15054666 8.35714286,1.77453879 7.85714286,2.15054666 L3.78571429,6.00820648 Z"></path>
     </svg>  
     }                
-    </SoundIcon>        
-    <video ref={videoRef} muted autoPlay loop playsInline>
-        <source src={item.videoMp4} 
-        type="video/mp4" 
-        />
-    </video>
+    </SoundIcon>         */}
+    {item.videoMp4Mobile && (
+        <MobileVideo>
+            <video ref={mobileVideoRef} muted autoPlay loop playsInline>
+                <source src={item.videoMp4Mobile} type="video/mp4" />
+            </video>
+        </MobileVideo>
+    )}
+    <DesktopVideo hasMobileAlt={!!item.videoMp4Mobile}>
+        <video ref={videoRef} muted autoPlay loop playsInline>
+            <source src={item.videoMp4} type="video/mp4" />
+        </video>
+    </DesktopVideo>
     {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
     {/* <ListItem key={item?._id} className="border-bottom">
             <ColLeft>

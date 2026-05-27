@@ -52,22 +52,15 @@ const Carousel = styled.div`
 const Slide = styled.div`
     display: flex;
     width: 100%;
-    height: 75vh;
 
     > a {
-        display: flex;  
+        display: flex;
         width: 100%;
         pointer-events: none;
     }
 
     > a:hover * {
         color: var(--black) !important;
-    }
-
-    div, img {
-        // height: 100% !important;
-        // width: 100% !important;
-        // object-fit: cover;
     }
 
     @media(max-width: 989px) {
@@ -81,17 +74,8 @@ const ColLeft = styled.div`
     flex-basis: 100%;
     padding: 0px 0px;
 
-    > span {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100% !important;
-        width: 100% !important;
-        object-fit: cover !important;
-    }
-
     img {
-        object-fit: cover;
+        object-fit: contain !important;
     }
 `
 
@@ -106,6 +90,20 @@ const ColRight = styled.div`
 
 
 const Text = styled.div``
+
+const MobileOnly = styled.div`
+    display: none;
+    @media(max-width: 989px) {
+        display: block;
+    }
+`
+
+const DesktopOnly = styled.div`
+    display: block;
+    @media(max-width: 989px) {
+        display: ${({ hasMobileAlt }) => hasMobileAlt ? 'none' : 'block'};
+    }
+`
 
 
 export default function Component ({ data }) {
@@ -124,8 +122,8 @@ export default function Component ({ data }) {
             cellAlign: "center",
             percentPosition: true,
             wrapAround: true,
-            autoPlay: 4000 
-            // setGallerySize: false
+            autoPlay: 4000,
+            setGallerySize: true
         })
 
         flickity.on('change', (cellIndex) => {
@@ -147,6 +145,7 @@ export default function Component ({ data }) {
     useEffect(() => {
         setTimeout(() => {
             init();
+            setTimeout(() => flickity?.resize(), 100)
         }, 10)
     }, []);
 
@@ -167,7 +166,14 @@ export default function Component ({ data }) {
                                     <ColLeft>
                                         {
                                             item.image ?
-                                            <Image data={item.image} />
+                                            <>
+                                                {item.imageMobile && (
+                                                    <MobileOnly><Image data={item.imageMobile} /></MobileOnly>
+                                                )}
+                                                <DesktopOnly hasMobileAlt={!!item.imageMobile}>
+                                                    <Image data={item.image} />
+                                                </DesktopOnly>
+                                            </>
                                             :
                                             <Video data={item} index={index} cellIndex={cellIndex} />
                                         }

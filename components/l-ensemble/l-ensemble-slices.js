@@ -7,6 +7,7 @@ import Body from "../body"
 import Image from "../image"
 import Video from "../video"
 import Grid from "./grid"
+import LogoGrid from "./logo-grid"
 
 const SliceWrapper = styled.div`
     margin: 0 0 30px 0;
@@ -42,7 +43,9 @@ let renderSlice = (slice ,index) => {
           case 'Text':
           return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
           case 'Grid':
-          return <SliceWrapper key={slice._id} className={`grid-slice-${slice.columns}`}><Grid data={slice}/></SliceWrapper>;          
+          return <SliceWrapper key={slice._id} className={`grid-slice-${slice.columns}`}><Grid data={slice}/></SliceWrapper>;
+          case 'LogoGrid':
+          return <SliceWrapper key={slice._id}><LogoGrid data={slice} /></SliceWrapper>;
       }
 }
 
