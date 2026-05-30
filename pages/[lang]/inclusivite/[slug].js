@@ -39,7 +39,7 @@ export default function Component({ data = {}, preview }) {
                   content={data.data.content}
                 />
               </Head>
-              <LEnsembleBody data={data.data} menuData={data.inclusiviteMenu} />
+              <LEnsembleBody data={data.data} menuData={data.inclusiviteMenu} mainMenuData={data.menuData} />
           </>
         )}
     </Layout>

@@ -1,12 +1,10 @@
 import { useEffect, useRef } from "react";
 
 import styled from "styled-components"
-import Body from "../body"
 
-import Image from "../image"
-import Video from "../video"
+import Slices from "./l-ensemble-slices"
 
-import Menu from "./l-ensemble-menu"
+import NestedMenu from "../nested-menu"
 
 import { gsap } from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -16,119 +14,94 @@ gsap.registerPlugin(ScrollTrigger);
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0 40px;
   margin-top: 100px;
 
-  @media(max-width: 767px) {
-    margin-top: 20px;
+  @media(max-width: 1200px) {
     flex-wrap: wrap;
   }
 
+  @media(max-width: 767px) {
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
 `
 
 const ColLeft = styled.div`
-  flex-basis: 30%;
+  flex-basis: 20%;
+  padding-right: 40px;
 
-  @media(max-width: 767px) {
-    flex-basis: 50%;
-    margin-bottom: 50px;
-  }
-`
-
-const ColMiddle = styled.div`
-  flex-basis: 30%;
-  padding: 0 20px;
-
-  @media(max-width: 767px) {
-    flex-basis: 50%;
-  }
-`
-
-const ColRight = styled.div`
-  flex-basis: 70%;
-
-  @media(min-width: 768px) {
-    > div *:nth-child(1) {
-      margin-top: 0px !important;
-    }
+  > div *:nth-child(1) {
+    margin-top: 0px !important;
   }
 
   @media(max-width: 767px) {
     flex-basis: 100%;
+    margin-bottom: 50px;
+    order: 4;
   }
 `
 
-const SliceWrapper = styled.div`
-    margin: 0 0 30px 0;
+const ColMiddle = styled.div`
+  flex-basis: 40%;
+  padding-right: 80px;
 
-    &.double-col * {
-        columns: 2;
-        column-gap: 50px;
-    }
+  @media(max-width: 1200px) {
+    flex: 1;
+    padding-right: 0;
+  }
 
-    @media(min-width: 990px) {
-      &&.image-slice {
-          width: 50%;
-      }
-    }
+  @media(max-width: 767px) {
+    flex-basis: 100%;
+    order: 1;
+    padding: 0;
+  }
 `
 
+const ColRight = styled.div`
+  flex-basis: 40%;
 
-let renderSlice = (slice) => {
-      switch(slice._type) {
-          case 'video':
-          return <SliceWrapper key={slice._id}><Video data={slice.video}/></SliceWrapper>
-          case 'image':
-          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice}  hasCaption={true}/></SliceWrapper>
-          case 'Text':
-          return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
-      }
-}
+  @media(max-width: 1200px) {
+    flex-basis: 80%;
+    margin-left: 20%;
+  }
+
+  @media(max-width: 767px) {
+    flex-basis: 100%;
+    margin-left: 0;
+    width: calc(100vw - 40px);
+    overflow: hidden;
+    order: 3;
+  }
+`
 
 
 let scrollTriggerInstance = null;
 
-let scrollTriggerInstanceTwo = null;
-
-export default function Component({ data, menuData, menuTwoData, isSubSubPage }) {
+export default function Component({ data, mainMenuData, slug }) {
     let menuRef = useRef();
-    let menuRefTwo = useRef();
 
     let init = (reset) => {
 
-        if(reset === true) {
-          if(scrollTriggerInstance !== null) {
+        if(reset === true) {
+          if(scrollTriggerInstance !== null) {
               ScrollTrigger.getById("scroll-trigger")?.kill(true);
           }
-
-          if(scrollTriggerInstanceTwo !== null && scrollTriggerInstanceTwo !== undefined) {
-            ScrollTrigger.getById("scroll-trigger-two")?.kill(true);
         }
-        }
-    
-        if(window.innerWidth > 767) {
 
-          let headerHeight = document.querySelector("header").offsetHeight;
-    
+        if(window.innerWidth > 989) {
+
             scrollTriggerInstance = ScrollTrigger.create({
                 trigger: menuRef.current,
                 id: "scroll-trigger",
                 pin: menuRef.current,
                 start: `top-=120 top`,
-                end: document.querySelector("body").scrollHeight - menuRef.current.offsetHeight - document.querySelector("footer").offsetHeight - 65,
+                end: "max",
                 pinSpacing: false
             });
 
-            scrollTriggerInstanceTwo = ScrollTrigger.create({
-                trigger: menuRefTwo.current,
-                id: "scroll-trigger-two",
-                pin: menuRefTwo.current,
-                start: `top-=120 top`,
-                end: document.querySelector("body").scrollHeight - menuRefTwo.current.offsetHeight - document.querySelector("footer").offsetHeight - 65,
-                pinSpacing: false
-            });           
-    
-        } 
+        }
     }
 
     let initWrapper = () => {
@@ -137,8 +110,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
 
     useEffect(() => {
 
-
-        if(window.innerWidth > 767) {
+        if(window.innerWidth > 989) {
             init();
         }
 
@@ -146,8 +118,7 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
 
         return () => {
             window.removeEventListener("resize", initWrapper)
-        }        
-        
+        }
 
     }, []);
 
@@ -161,16 +132,17 @@ export default function Component({ data, menuData, menuTwoData, isSubSubPage })
     <Container>
       <ColLeft>
         <div ref={menuRef}>
-            <Menu data={menuData} isSubSubPage={isSubSubPage} />
+            <NestedMenu items={(() => {
+                const nested = mainMenuData?.menuItems?.filter(item => item.subItems?.length > 0) ?? []
+                return nested.length > 0 ? [...nested[0].subItems, ...nested.slice(1)] : []
+            })()} />
         </div>
       </ColLeft>
       <ColMiddle>
-        <div ref={menuRefTwo}>
-            <Menu data={menuTwoData} />
-        </div>
+        <Slices data={data?.slices} />
       </ColMiddle>
       <ColRight>
-        {data?.slices.map(slice => renderSlice(slice))}
+        <Slices data={data?.slicesRight} />
       </ColRight>
     </Container>
   )

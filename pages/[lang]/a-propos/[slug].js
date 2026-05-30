@@ -38,7 +38,7 @@ export default function Component({ data = {}, preview, shortSlug }) {
                   content={data.data.content}
                 />
               </Head>
-              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} slug={data.shortSlug}/>
+              <LEnsembleBody data={data.data} menuData={data.lEnsembleMenu} mainMenuData={data.menuData} slug={data.shortSlug}/>
           </>
         )}
     </Layout>

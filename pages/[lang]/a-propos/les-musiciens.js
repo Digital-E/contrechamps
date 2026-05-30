@@ -7,7 +7,7 @@ import { SITE_NAME } from '../../../lib/constants'
 import { lesMusiciensMenuQuery, lEnsembleMenuQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { sanityClient, getClient } from '../../../lib/sanity.server'
 
-import LesMusiciensBody from '../../../components/l-ensemble/les-musiciens-body'
+import LEnsembleBody from '../../../components/l-ensemble/l-ensemble-body'
 
 export default function Component({ data = {}, preview }) {
   const router = useRouter()
@@ -33,7 +33,7 @@ export default function Component({ data = {}, preview }) {
                 </title>
               </Head>
 
-              <LesMusiciensBody data={null} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} />
+              <LEnsembleBody data={null} mainMenuData={data.menuData} />
 
           </>
         )}

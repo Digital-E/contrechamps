@@ -1,15 +1,7 @@
-import { useEffect, useRef } from "react";
-
 import styled from "styled-components"
 
 import Slices from "./l-ensemble-slices"
-
-import Menu from "./l-ensemble-menu"
-
-import { gsap } from "gsap/dist/gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import NestedMenu from "../nested-menu"
 
 const Container = styled.div`
   display: flex;
@@ -40,6 +32,16 @@ const ColLeft = styled.div`
     flex-basis: 100%;
     margin-bottom: 50px;
     order: 4;
+  }
+`
+
+const MenuPin = styled.div`
+  @media(min-width: 990px) {
+    position: sticky;
+    top: 110px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 `
 
@@ -76,72 +78,22 @@ const ColRight = styled.div`
   }
 `
 
-
-let scrollTriggerInstance = null;
-
-export default function Component({ data, menuData, slug }) {
-    let menuRef = useRef();
-
-    let init = (reset) => {
-
-        if(reset === true) {
-          if(scrollTriggerInstance !== null) {
-              ScrollTrigger.getById("scroll-trigger")?.kill(true);
-          }
-        }
-
-        if(window.innerWidth > 989) {
-
-            scrollTriggerInstance = ScrollTrigger.create({
-                trigger: menuRef.current,
-                id: "scroll-trigger",
-                pin: menuRef.current,
-                start: `top-=120 top`,
-                end: "max",
-                pinSpacing: false
-            });
-
-        }
-    }
-
-    let initWrapper = () => {
-        init(true)
-    }
-
-    useEffect(() => {
-
-
-        if(window.innerWidth > 989) {
-            init();
-        }
-
-        window.addEventListener("resize", initWrapper)
-
-        return () => {
-            window.removeEventListener("resize", initWrapper)
-        }
-
-
-    }, []);
-
-    useEffect(() => {
-      if(window.innerWidth > 989) {
-          initWrapper();
-      }
-    })
-
+export default function Component({ data, menuData, mainMenuData, slug }) {
   return (
     <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && ""}>
       <ColLeft>
-        <div ref={menuRef}>
-            <Menu data={menuData} />
-        </div>
+        <MenuPin>
+          <NestedMenu noUppercaseNested items={(() => {
+            const nested = mainMenuData?.menuItems?.filter(item => item.subItems?.length > 0) ?? []
+            return nested.length > 0 ? [...nested[0].subItems, ...nested.slice(1)] : []
+          })()} />
+        </MenuPin>
       </ColLeft>
       <ColMiddle>
-        <Slices data={data.slices} />
+        <Slices data={data?.slices} />
       </ColMiddle>
       <ColRight>
-        <Slices data={data.slicesRight} />
+        <Slices data={data?.slicesRight} />
       </ColRight>
     </Container>
   )

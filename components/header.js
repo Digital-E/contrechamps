@@ -1,9 +1,9 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import Link from './link'
-import InclusiviteIcon from './inclusivite-icon'
 import LocaleLink from "./locale-link"
 import Logo from "./logo"
+import NestedMenu from './nested-menu'
 import styled from "styled-components"
 
 let Container = styled.header`
@@ -29,17 +29,12 @@ let Container = styled.header`
 
   > div:nth-child(1) {
     z-index: 1;
-
-    a {
-      color: black !important;
-    }
+    a { color: black !important; }
   }
 
   max-width: 1800px;
 
-  > .h4 {
-    z-index: 2;
-  }
+  > .h4 { z-index: 2; }
 
   .p {
     margin: 0;
@@ -57,53 +52,17 @@ let Container = styled.header`
   .nav-mobile-burger {
     display: none;
     flex-direction: column;
-    -webkit-box-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     justify-content: center;
     position: relative;
     width: 30px;
     height: 35px;
     z-index: 1;
-}
-
-
-@media(max-width: 1060px) {
-  background: white;
-  
-  .nav-mobile-burger {
-    display: flex;
-  }
-}
-
-`
-
-let List = styled.ul`
-  display: flex;
-  flex-direction: row;
-
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-
-  @media(min-width: 1061px) {
-    align-items: center;
   }
 
-  @media(min-width: 768px) and (max-width: 1300px) {
-    // .h4 {
-    //   font-size: 1rem !important;
-    // }
-  }
-`
-
-let ListItem = styled.li`
-  &&:last-child {
-      // margin-left: auto;
-      // margin-right: 0;
-  }
-  p {
-    font-size: 1rem;
+  @media(max-width: 1060px) {
+    background: white;
+    .nav-mobile-burger { display: flex; }
   }
 `
 
@@ -114,80 +73,83 @@ let Menu = styled.div`
   left: 0;
   width: 100%;
   flex-basis: 90%;
-  // max-width: 1100px;
-
-  > ul:nth-child(1) > li {
-    margin-right: 2.5rem;
-  }
-  
-  > ul:nth-child(1) > li:last-child {
-    margin-right: 0;
-  }  
-  
-
-  ${ListItem} {
-    margin-left: 0;
-  }
-
-  @media(max-width: 1060px) {
-    display: none;
-    position: absolute;
-    flex-direction: column;
-    padding: 75px 20px 20px 20px;
-    background: white;
-
-    ${ListItem} {
-      margin-left: 0px;
-      margin-bottom: 10px;
-    }
-
-    > ul {
-      flex-direction: column;
-    }
-
-    &.nav--open {
-      display: flex;
-    }
-  }
 
   @media(max-width: 1230px) {
     flex-basis: 80%;
   }
-`
-
-
-let LanguageSwitch = styled.div`
-  // margin-left: 80px;
-  width: fit-content;
-
-  ${ListItem} {
-    margin-left: 15px;
-  }
-
 
   @media(max-width: 1060px) {
-    margin-left: 0;
-    margin-top: 20px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 75px 20px 40px 20px;
+    background: white;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
-    ${ListItem} {
-      margin-left: 0;
-      margin-right: 10px;
-    }
+    &.nav--open { display: flex; }
+
   }
-
-  // li:last-child {
-  //   margin-left: 25px;
-  // }
 `
 
+/* ── Desktop flat list ── */
+let DesktopList = styled.ul`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
 
+  > li { margin-right: 2.5rem; }
+  > li:last-child { margin-right: 0; }
 
+  p { font-size: 1rem; }
+
+  @media(max-width: 1060px) { display: none; }
+`
+
+/* ── Mobile accordion wrapper ── */
+let MobileMenuWrapper = styled.div`
+  display: none;
+  width: 100%;
+
+  @media(max-width: 1060px) { display: block; }
+`
+
+let MobileFade = styled.div`
+  display: none;
+
+  @media(max-width: 1060px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, white 50%, transparent);
+    z-index: 3;
+    pointer-events: none;
+  }
+`
+
+let LanguageSwitch = styled.div`
+  width: fit-content;
+
+  @media(max-width: 1060px) {
+    margin-top: 20px;
+  }
+`
 
 
 export default function Header({ data }) {
-  let [menuOpen, setMenuOpen] = useState(false);
-  let [scrolled, setScrolled] = useState(false);
-  const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0)
@@ -195,42 +157,44 @@ export default function Header({ data }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  if(data === undefined) return null;
+  if (data === undefined) return null
 
+  const closeMenu = () => setMenuOpen(false)
 
   return (
     <Container className={[menuOpen ? "nav--open" : "", scrolled ? "scrolled" : ""].join(" ").trim()}>
-      <div className="p" 
+      <div className="p"
         onClick={() => {
-          setMenuOpen(false);
-          sessionStorage.setItem('contrechampsAcceptedSound', "true");
-          }}>
-          <Link href={`/${router.asPath.split("/")[1]}`}><Logo height={35} /></Link>
+          setMenuOpen(false)
+          sessionStorage.setItem('contrechampsAcceptedSound', "true")
+        }}>
+        <Link href={`/${router.asPath.split("/")[1]}`}><Logo height={35} /></Link>
       </div>
+
       <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
         <img src={menuOpen ? "/icons/xmark-solid-full.svg" : "/icons/bars-solid-full.svg"} alt="menu" width={35} height={35} />
       </div>
+
       <Menu className={menuOpen ? "nav--open" : ""}>
-        <List>
-          {
-          data?.menuItems.map((item, index) => {
-            // let isLast = index === data.menuItems.length - 1 ? true : false
-            let isLast = false
-            return <ListItem key={item._id}  onClick={() => setMenuOpen(false)} ><div className="p"><Link href={item.url} isMenu={true} isLast={isLast}>{item.label}</Link></div></ListItem>
-          })
-          }
-        </List>
-        <LanguageSwitch>
-          <List>
-            {/* <ListItem><div className="p"><LocaleLink href="/fr">Fr</LocaleLink></div></ListItem>
-            <ListItem><div className="p"><LocaleLink href="/en_gb">En</LocaleLink></div></ListItem> */}
-            {/* <ListItem>
-              <Link href={`/${router.asPath.split("/")[1]}/inclusivite/test`}>
-                <InclusiviteIcon />            
-              </Link>
-            </ListItem>             */}
-          </List> 
-        </LanguageSwitch>
+        <MobileFade />
+
+        {/* Desktop: flat list, items with subItems link via item.url */}
+        <DesktopList>
+          {data?.menuItems.map((item, i) => (
+            <li key={item._key || i} onClick={closeMenu}>
+              <div className="p">
+                <Link href={item.url} isMenu={true}>{item.label}</Link>
+              </div>
+            </li>
+          ))}
+        </DesktopList>
+
+        {/* Mobile: accordion */}
+        <MobileMenuWrapper>
+          <NestedMenu items={data?.menuItems} onNavigate={closeMenu} />
+        </MobileMenuWrapper>
+
+        <LanguageSwitch />
       </Menu>
     </Container>
   )

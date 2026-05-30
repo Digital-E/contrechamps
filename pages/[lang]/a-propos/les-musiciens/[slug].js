@@ -9,7 +9,7 @@ import { sanityClient, getClient } from '../../../../lib/sanity.server'
 
 import splitSlug from "../../../../lib/splitSlug"
 
-import LesMusiciensBody from '../../../../components/l-ensemble/les-musiciens-body'
+import LEnsembleBody from '../../../../components/l-ensemble/l-ensemble-body'
 
 export default function Component({ data = {}, preview }) {
   const router = useRouter()
@@ -38,7 +38,7 @@ export default function Component({ data = {}, preview }) {
                   content={data.content}
                 />
               </Head>
-              <LesMusiciensBody data={data.data} menuData={data.lEnsembleMenu} menuTwoData={data.lesMusiciensMenu} isSubPage={true} isSubSubPage={true} />
+              <LEnsembleBody data={data.data} mainMenuData={data.menuData} slug={data.data?.slug} />
           </>
         )}
     </Layout>
