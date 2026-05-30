@@ -45,7 +45,7 @@ const SubList = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: 6px;
-  padding-left: 14px;
+  padding-left: 22px;
 `
 
 const SubItem = styled.li`
@@ -58,7 +58,7 @@ const SubSubList = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: 6px;
-  padding-left: 14px;
+  padding-left: 22px;
 `
 
 const SubSubItem = styled.li`
