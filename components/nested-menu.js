@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from './link'
 import styled from 'styled-components'
@@ -96,6 +96,20 @@ export default function NestedMenu({ items, onNavigate, noUppercaseNested }) {
 
   const isSubDescendantActive = (sub) =>
     sub.subItems?.some(subsub => isUrlActive(subsub.url))
+
+  useEffect(() => {
+    if (window.innerWidth <= 1060) return
+    const updates = {}
+    items?.forEach((item, i) => {
+      if (isDescendantActive(item)) updates[i] = true
+      item.subItems?.forEach((sub, j) => {
+        if (isSubDescendantActive(sub)) updates[`${i}-${j}`] = true
+      })
+    })
+    if (Object.keys(updates).length > 0) {
+      setOpenItems(prev => ({ ...prev, ...updates }))
+    }
+  }, [router.asPath])
 
   return (
     <Wrapper>

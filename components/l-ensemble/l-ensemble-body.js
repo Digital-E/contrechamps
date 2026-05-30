@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 import styled from "styled-components"
 
 import Slices from "./l-ensemble-slices"
@@ -79,6 +81,15 @@ const ColRight = styled.div`
 `
 
 export default function Component({ data, menuData, mainMenuData, slug }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const onRouteComplete = () => setTimeout(() => window.scrollTo(0, 0), 0)
+    onRouteComplete()
+    router.events.on('routeChangeComplete', onRouteComplete)
+    return () => router.events.off('routeChangeComplete', onRouteComplete)
+  }, [])
+
   return (
     <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && ""}>
       <ColLeft>
