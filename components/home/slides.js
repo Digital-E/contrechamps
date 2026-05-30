@@ -107,14 +107,14 @@ const DesktopOnly = styled.div`
 
 
 export default function Component ({ data }) {
-    let flickity = null;
+    let flickityRef = useRef(null);
     let gallery = useRef();
     let [cellIndex, setCellIndex] = useState(0);
 
     let init = () => {
-        if(flickity !== null) return
+        if(flickityRef.current !== null) return
 
-        flickity = new Flickity(gallery.current, {
+        flickityRef.current = new Flickity(gallery.current, {
             prevNextButtons: false,
             pageDots: true,
             selectedAttraction: 0.07,
@@ -126,26 +126,30 @@ export default function Component ({ data }) {
             setGallerySize: true
         })
 
-        flickity.on('change', (cellIndex) => {
+        flickityRef.current.on('change', (cellIndex) => {
             setCellIndex(cellIndex)
         })
 
-        flickity.on('staticClick', (event, pointer, cellElement, cellIndex) => {
+        flickityRef.current.on('staticClick', (event, pointer, cellElement, cellIndex) => {
 
             if(pointer.target.className?.baseVal === "no-skip") return
 
             if(event.clientX < window.innerWidth / 2) {
-                flickity.previous()
+                flickityRef.current.previous()
             } else {
-                flickity.next()
+                flickityRef.current.next()
             }
         })
+    }
+
+    const handleVideoReady = () => {
+        flickityRef.current?.resize()
     }
 
     useEffect(() => {
         setTimeout(() => {
             init();
-            setTimeout(() => flickity?.resize(), 100)
+            setTimeout(() => flickityRef.current?.resize(), 100)
         }, 10)
     }, []);
 
@@ -175,7 +179,7 @@ export default function Component ({ data }) {
                                                 </DesktopOnly>
                                             </>
                                             :
-                                            <Video data={item} index={index} cellIndex={cellIndex} />
+                                            <Video data={item} index={index} cellIndex={cellIndex} onReady={handleVideoReady} />
                                         }
                                     </ColLeft>
                                     {/* <ColRight>

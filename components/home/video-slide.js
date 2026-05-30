@@ -165,7 +165,7 @@ const DesktopVideo = styled.div`
     }
 `
 
-export default function Component({ data, title, index, cellIndex }) {
+export default function Component({ data, title, index, cellIndex, onReady }) {
     let [soundOn, setSoundOn] = useState(false);
     let [play, setPlay] = useState(true);
     let videoRef = useRef();
@@ -213,6 +213,16 @@ export default function Component({ data, title, index, cellIndex }) {
             if(mobileVideoRef.current) mobileVideoRef.current.muted = true
         }
     }, [cellIndex])
+
+    useEffect(() => {
+        const handleMetadata = () => onReady?.()
+        videoRef.current?.addEventListener('loadedmetadata', handleMetadata)
+        mobileVideoRef.current?.addEventListener('loadedmetadata', handleMetadata)
+        return () => {
+            videoRef.current?.removeEventListener('loadedmetadata', handleMetadata)
+            mobileVideoRef.current?.removeEventListener('loadedmetadata', handleMetadata)
+        }
+    }, [])
 
     return item?.video !== null ? (
     <>
