@@ -28,6 +28,7 @@ export const ColLeft = styled.div`
   grid-column: 1;
   grid-row: 1 / span 2;
   padding-right: 40px;
+  margin-left: -3px;
 
   > div *:nth-child(1) {
     margin-top: 0px !important;
@@ -51,6 +52,10 @@ export const MenuPin = styled.div`
     max-height: calc(100vh - 120px);
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+
+  > div {
+    padding-left: 3px;
   }
 `
 

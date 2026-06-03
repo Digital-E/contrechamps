@@ -423,7 +423,7 @@ let Container = styled.div`
         display: contents;
         gap: 6px;
         position: relative;
-        top: 0.5px;
+        top: -1px;
     }
 
     .home-calendar__mobile-caret {
@@ -758,7 +758,7 @@ export default function Component({ data }) {
                             class={`home-calendar__mobile-caret ${mobileOpen ? "home-calendar__mobile-caret--open" : ""}`}
                             src="/icons/caret-right-solid-full.svg"
                             alt=""
-                            width={16}
+                            width={8}
                         />
                         <span class="home-calendar__agenda-label">AGENDA</span>
                     </span>

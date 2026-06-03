@@ -4,7 +4,7 @@ import Image from "../image"
 const Grid = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 50px;
 `
 
 const LogoItem = styled.a`

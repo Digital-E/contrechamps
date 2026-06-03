@@ -12,7 +12,7 @@ let Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 10px 40px;
+  padding: 20px 40px 10px 40px;
   z-index: 2;
   top: 0;
   background: white;
