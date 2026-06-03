@@ -104,6 +104,7 @@
 
 * {
     text-underline-offset: 3px;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* * {

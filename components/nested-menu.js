@@ -35,7 +35,11 @@ const Row = styled.div`
   user-select: none;
 `
 
-const Arrow = styled.img`
+const Arrow = styled(({ open, ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="254 155 200 330" width={8} height={8} {...props}>
+    <path d="M441.3 299.8C451.5 312.4 450.8 330.9 439.1 342.6L311.1 470.6C301.9 479.8 288.2 482.5 276.2 477.5C264.2 472.5 256.5 460.9 256.5 448L256.5 192C256.5 179.1 264.3 167.4 276.3 162.4C288.3 157.4 302 160.2 311.2 169.3L439.2 297.3L441.4 299.7z"/>
+  </svg>
+))`
   flex-shrink: 0;
   transition: transform 0.2s ease;
   transform: ${({ open }) => open ? 'rotate(90deg)' : 'rotate(0deg)'};
@@ -123,7 +127,7 @@ export default function NestedMenu({ items, onNavigate, noUppercaseNested }) {
             {hasChildren ? (
               <>
                 <Row clickable onClick={() => toggle(i)}>
-                  <Arrow src="/icons/caret-right-solid-full.svg" alt="" width={16} open={isOpen} />
+                  <Arrow open={isOpen} />
                   <span className={`p${isDescendantActive(item) ? ' active-link' : ''}`}>{item.label}</span>
                 </Row>
                 {isOpen && (
@@ -138,7 +142,7 @@ export default function NestedMenu({ items, onNavigate, noUppercaseNested }) {
                           {hasSubChildren ? (
                             <>
                               <Row clickable onClick={() => toggle(subKey)}>
-                                <Arrow src="/icons/caret-right-solid-full.svg" alt="" width={16} open={subIsOpen} />
+                                <Arrow open={subIsOpen} />
                                 <span className={`p${isSubDescendantActive(sub) ? ' active-link' : ''}`}>{sub.label}</span>
                               </Row>
                               {subIsOpen && (

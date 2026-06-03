@@ -5,40 +5,47 @@ import styled from "styled-components"
 import Slices from "./l-ensemble-slices"
 import NestedMenu from "../nested-menu"
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
+export const Container = styled.div`
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  grid-template-rows: auto 1fr;
   padding: 0 40px;
   margin-top: 100px;
 
   @media(max-width: 1200px) {
-    flex-wrap: wrap;
+    grid-template-columns: 20% 1fr;
   }
 
-  @media(max-width: 767px) {
-    flex-wrap: wrap;
-    margin-top: 20px;
-    padding: 0 20px;
+  @media(max-width: 1060px) {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 `
 
-const ColLeft = styled.div`
-  flex-basis: 20%;
+export const ColLeft = styled.div`
+  grid-column: 1;
+  grid-row: 1 / span 2;
   padding-right: 40px;
 
   > div *:nth-child(1) {
     margin-top: 0px !important;
   }
 
-  @media(max-width: 767px) {
-    flex-basis: 100%;
-    margin-bottom: 50px;
+  @media(max-width: 1200px) {
+    grid-row: 1 / span 4;
+  }
+
+  @media(max-width: 1060px) {
     order: 4;
+    margin-bottom: 50px;
+    padding-right: 0;
   }
 `
 
-const MenuPin = styled.div`
-  @media(min-width: 990px) {
+export const MenuPin = styled.div`
+  @media(min-width: 1060px) {
     position: sticky;
     top: 110px;
     max-height: calc(100vh - 120px);
@@ -47,36 +54,49 @@ const MenuPin = styled.div`
   }
 `
 
-const ColMiddle = styled.div`
-  flex-basis: 40%;
+export const ColMiddleFirst = styled.div`
+  grid-column: 2;
+  grid-row: 1;
   padding-right: 80px;
 
   @media(max-width: 1200px) {
-    flex: 1;
     padding-right: 0;
   }
 
-  @media(max-width: 767px) {
-    flex-basis: 100%;
+  @media(max-width: 1060px) {
     order: 1;
     padding: 0;
   }
 `
 
-const ColRight = styled.div`
-  flex-basis: 40%;
+export const ColMiddleRest = styled.div`
+  grid-column: 2;
+  grid-row: 2;
+  padding-right: 80px;
 
   @media(max-width: 1200px) {
-    flex-basis: 80%;
-    margin-left: 20%;
+    grid-row: 3;
+    padding-right: 0;
   }
 
-  @media(max-width: 767px) {
-    flex-basis: 100%;
-    margin-left: 0;
-    width: calc(100vw - 40px);
-    overflow: hidden;
+  @media(max-width: 1060px) {
     order: 3;
+    padding: 0;
+  }
+`
+
+export const ColRight = styled.div`
+  grid-column: 3;
+  grid-row: 1 / span 2;
+
+  @media(max-width: 1200px) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  @media(max-width: 1060px) {
+    order: 2;
+    overflow: hidden;
   }
 `
 
@@ -90,6 +110,9 @@ export default function Component({ data, menuData, mainMenuData, slug }) {
     return () => router.events.off('routeChangeComplete', onRouteComplete)
   }, [])
 
+  const firstSlice = data?.slices?.slice(0, 1)
+  const restSlices = data?.slices?.slice(1)
+
   return (
     <Container className={((slug === "infos-pratiques") || (slug === "l-equipe") || (slug === "soutiens-and-partenaires") || (slug === "billetterie-et-abonnement") || (slug === "le-comite") || (slug === "devenir-membre")) && ""}>
       <ColLeft>
@@ -100,12 +123,15 @@ export default function Component({ data, menuData, mainMenuData, slug }) {
           })()} />
         </MenuPin>
       </ColLeft>
-      <ColMiddle>
-        <Slices data={data?.slices} />
-      </ColMiddle>
+      <ColMiddleFirst>
+        <Slices data={firstSlice} />
+      </ColMiddleFirst>
       <ColRight>
         <Slices data={data?.slicesRight} />
       </ColRight>
+      <ColMiddleRest>
+        <Slices data={restSlices} />
+      </ColMiddleRest>
     </Container>
   )
 }
