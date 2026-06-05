@@ -9,12 +9,9 @@ import styled from "styled-components"
 let Container = styled.header`
   position: fixed;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 20px 40px 10px 40px;
   z-index: 2;
   top: 0;
+  left: 0;
   background: white;
   box-shadow: none;
   transition: box-shadow 0.2s ease;
@@ -22,23 +19,20 @@ let Container = styled.header`
   &.scrolled {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
+`
 
-  @media(min-width: 1801px) {
-    &.scrolled {
-      clip-path: inset(0 0 -20px 0);
-    }
-  }
-
-  @media(max-width: 767px) {
-    padding: 10px 20px;
-  }
+let Inner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px 40px 10px 40px;
+  max-width: 1800px;
+  margin: 0 auto;
 
   > div:nth-child(1) {
     z-index: 1;
     a { color: black !important; }
   }
-
-  max-width: 1800px;
 
   > .h4 { z-index: 2; }
 
@@ -66,8 +60,11 @@ let Container = styled.header`
     z-index: 1;
   }
 
+  @media(max-width: 767px) {
+    padding: 10px 20px;
+  }
+
   @media(max-width: 1060px) {
-    background: white;
     .nav-mobile-burger { display: flex; }
   }
 `
@@ -169,39 +166,41 @@ export default function Header({ data }) {
 
   return (
     <Container className={[menuOpen ? "nav--open" : "", scrolled ? "scrolled" : ""].join(" ").trim()}>
-      <div className="p"
-        onClick={() => {
-          setMenuOpen(false)
-          sessionStorage.setItem('contrechampsAcceptedSound', "true")
-        }}>
-        <Link href={`/${router.asPath.split("/")[1]}`}><Logo height={35} /></Link>
-      </div>
+      <Inner>
+        <div className="p"
+          onClick={() => {
+            setMenuOpen(false)
+            sessionStorage.setItem('contrechampsAcceptedSound', "true")
+          }}>
+          <Link href={`/${router.asPath.split("/")[1]}`}><Logo height={35} /></Link>
+        </div>
 
-      <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
-        <img src={menuOpen ? "/icons/xmark-solid-full.svg" : "/icons/bars-solid-full.svg"} alt="menu" width={35} height={35} />
-      </div>
+        <div class="nav-mobile-burger" onClick={() => setMenuOpen(!menuOpen)}>
+          <img src={menuOpen ? "/icons/xmark-solid-full.svg" : "/icons/bars-solid-full.svg"} alt="menu" width={35} height={35} />
+        </div>
 
-      <Menu className={menuOpen ? "nav--open" : ""}>
-        <MobileFade />
+        <Menu className={menuOpen ? "nav--open" : ""}>
+          <MobileFade />
 
-        {/* Desktop: flat list, items with subItems link via item.url */}
-        <DesktopList>
-          {data?.menuItems.map((item, i) => (
-            <li key={item._key || i} onClick={closeMenu}>
-              <div className="p">
-                <Link href={item.url} isMenu={true}>{item.label}</Link>
-              </div>
-            </li>
-          ))}
-        </DesktopList>
+          {/* Desktop: flat list, items with subItems link via item.url */}
+          <DesktopList>
+            {data?.menuItems.map((item, i) => (
+              <li key={item._key || i} onClick={closeMenu}>
+                <div className="p">
+                  <Link href={item.url} isMenu={true}>{item.label}</Link>
+                </div>
+              </li>
+            ))}
+          </DesktopList>
 
-        {/* Mobile: accordion */}
-        <MobileMenuWrapper>
-          <NestedMenu items={data?.menuItems} onNavigate={closeMenu} />
-        </MobileMenuWrapper>
+          {/* Mobile: accordion */}
+          <MobileMenuWrapper>
+            <NestedMenu items={data?.menuItems} onNavigate={closeMenu} />
+          </MobileMenuWrapper>
 
-        <LanguageSwitch />
-      </Menu>
+          <LanguageSwitch />
+        </Menu>
+      </Inner>
     </Container>
   )
 }
