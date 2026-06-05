@@ -73,20 +73,39 @@ const DateInner = styled.div`
     align-items: center;
   }
 
-  > p > time:nth-child(1) {
-    font-family: "Barlow Condensed Bold";
-    font-size: 1.5em;
-  }
+  // > p > time:nth-child(1) {
+  //   font-family: "Barlow Condensed Bold";
+  //   font-size: 1.5em;
+  // }
  
-  > p > p:nth-child(2) {
-    font-family: "Barlow Condensed Light";
-    font-size: 1.5em;
-  }
+  // > p > p:nth-child(2) {
+  //   font-family: "Barlow Condensed Light";
+  //   font-size: 1.5em;
+  // }
 
-  > p > time:nth-child(3), > p > time:nth-child(4) {
-    font-family: "Barlow Condensed Regular";
-    font-size: 1.5em;
-  }
+  // > p > time:nth-child(3), > p > time:nth-child(4) {
+  //   font-family: "Barlow Condensed Regular";
+  //   font-size: 1.5em;
+  // }
+
+    .datetime-left time, .datetime-left {
+      font-family: "Barlow Condensed Bold";
+      font-size: 1.8rem;
+    }   
+
+    p {
+      font-size: 1.8rem;
+    }
+
+    .datetime-right time {
+      font-family: "Barlow Condensed Regular";
+      font-size: 1.8rem;
+    }  
+      
+    > p > p:nth-child(2) {
+      font-family: "Barlow Condensed Light";
+      font-size: 1.8rem;
+    } 
 `
 
 const TicketLinks = styled.div`

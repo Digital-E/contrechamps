@@ -56,17 +56,25 @@ let Meta = styled.div`
         line-height: 1;
     }
 
-    .date-meta > p > time:nth-child(1) {
+    // .date-meta > p > time:nth-child(1) {
+    //     font-family: "Barlow Condensed Bold";
+    // }    
+        
+    .datetime-left {
         font-family: "Barlow Condensed Bold";
-    }        
+    }   
+
+    .datetime-right {
+        font-family: "Barlow Condensed Regular";
+    }   
 
     .date-meta > p > p:nth-child(2) {
         font-family: "Barlow Condensed Light";
     }
     
-    .date-meta > p > time:nth-child(3), .date-meta > p > time:nth-child(4) {
-        font-family: "Barlow Condensed Regular";
-    }
+    // .date-meta > p > time:nth-child(3), .date-meta > p > time:nth-child(4) {
+    //     font-family: "Barlow Condensed Regular";
+    // }
 
     .description {
         margin-top: 5px;

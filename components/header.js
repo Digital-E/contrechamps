@@ -23,6 +23,12 @@ let Container = styled.header`
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   }
 
+  @media(min-width: 1801px) {
+    &.scrolled {
+      clip-path: inset(0 0 -20px 0);
+    }
+  }
+
   @media(max-width: 767px) {
     padding: 10px 20px;
   }
