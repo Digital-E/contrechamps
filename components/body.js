@@ -22,7 +22,7 @@ const myPortableTextComponents = {
       let isURL = value.href?.match(regex) !== null ? true : false
 
       return (
-        <a target={isURL ? "_blank" : undefined} href={value.href} rel={rel}>
+        <a className="body-link" target={isURL ? "_blank" : undefined} href={value.href} rel={rel}>
           {children}
         </a>
       )

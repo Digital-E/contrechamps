@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
-import Image from "../image"
 import Video from "../video"
+import LightboxImage from "../event/lightbox-image"
 
 const GridWrapper = styled.div`
     display: flex;
@@ -35,7 +35,7 @@ let renderSlice = (slice ,index) => {
           case 'video':
           return <SliceWrapper key={slice._id} className="video-slice"><Video data={slice} id={`video-${index}`} hasCaption={true}/></SliceWrapper>
           case 'image':
-          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice} hasCaption={true} /></SliceWrapper>       
+          return <SliceWrapper key={slice._id} className="image-slice"><LightboxImage data={slice} hasCaption={true} /></SliceWrapper>
       }
 }
 

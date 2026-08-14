@@ -4,10 +4,10 @@ import Plyr from 'plyr';
 
 
 import Body from "../body"
-import Image from "../image"
 import Video from "../video"
 import Grid from "./grid"
 import LogoGrid from "./logo-grid"
+import LightboxImage from "../event/lightbox-image"
 
 const SliceWrapper = styled.div`
     margin: 0 0 30px 0;
@@ -39,7 +39,7 @@ let renderSlice = (slice ,index) => {
           case 'video':
           return <SliceWrapper key={slice._id} className="video-slice"><Video data={slice} id={`video-${index}`} hasCaption={true}/></SliceWrapper>
           case 'image':
-          return <SliceWrapper key={slice._id} className="image-slice"><Image data={slice} hasCaption={true} /></SliceWrapper>
+          return <SliceWrapper key={slice._id} className="image-slice"><LightboxImage data={slice} hasCaption={true} /></SliceWrapper>
           case 'Text':
           return <SliceWrapper key={slice._id} className={slice.doubleColumn ? "double-col" : ""}><Body content={slice.text} /></SliceWrapper>;
           case 'Grid':

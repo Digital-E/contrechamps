@@ -1,6 +1,10 @@
 import '../styles/index.css'
 import 'plyr/dist/plyr.css'
 import '../styles/flickity.css'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/zoom'
+import 'swiper/css/thumbs'
 
 import { useEffect } from 'react'
 

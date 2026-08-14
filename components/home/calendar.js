@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useRouter } from "next/router"
 
 import styled from "styled-components"
@@ -9,7 +9,7 @@ import DateComponent from "../date-component"
 
 import sanitizeTag from "../../lib/sanitizeTag"
 
-import { parseISO, format } from 'date-fns'
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, addMonths, subMonths } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
 
 import InclusiviteIcon from '../inclusivite-icon'
@@ -30,14 +30,14 @@ let Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 50px 40px 0px 40px;
+        padding: 20px 40px 0px 40px;
     }
 
     @media(max-width: 1350px) {
         .home-calendar {
             justify-content: flex-start;
             flex-direction: column;
-            padding: 20px 40px;
+            padding: 20px 40px 0px 40px;
         }
 
         .home-calendar__col-left {
@@ -136,7 +136,7 @@ let Container = styled.div`
         padding: 0 10px;
         transition-duration: var(--transition-out);
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
     }
 
     .home-calendar__day > span {
@@ -168,7 +168,7 @@ let Container = styled.div`
         }
     }
 
-    
+
 
     @media(max-width: 767px) {
         .home-calendar {
@@ -314,7 +314,7 @@ let Container = styled.div`
     @media(min-width: 992px) {
         .home-calendar__col-right > div:nth-child(n+15) .home-calendar__modal {
             margin-left: -400px;
-        }         
+        }
     }
 
     @media(max-width: 991px) and (min-width: 768px) {
@@ -344,13 +344,13 @@ let Container = styled.div`
             top: 50%;
             transform: translate(-50%, -50%);
             width: calc(100vw - 40px);
-        } 
-        
+        }
+
         .home-calendar__modal--show .home-calendar__modal-overlay {
             display: block;
         }
     }
-    
+
     .home-calendar__modal--show .home-calendar__modal {
         display: block;
     }
@@ -481,219 +481,97 @@ const ImageOverlay = styled.div`
     position: absolute;
     // transition: var(--transition-out);
     z-index: 1;
-    opacity: 0;    
+    opacity: 0;
     height: 100%;
     width: 100%;
     background: var(${props => (props.backgroundColor !== "--gray" && props.backgroundColor)});
 `
 
-export default function Component({ data }) {
+export default function Component({ data = [] }) {
 
     let router = useRouter();
+    let locale = router.query.lang === "fr" ? fr : enGB;
 
-    let [allMonths, setAllMonths ] = useState( [ [] ] );
-
-    let [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+    // The visible month. Left null until mount so the very first render
+    // (server + hydration) stays a no-op, exactly like before.
+    let [currentMonthDate, setCurrentMonthDate] = useState(null);
 
     let [mobileOpen, setMobileOpen] = useState(false);
 
-    let [allBlanks, setAllBlanks] = useState([]);
+    // Date-key ('yyyy-LL-dd') of the day whose modal is currently open.
+    let [activeDayKey, setActiveDayKey] = useState(null);
 
-    let months = [];
+    let minMonth = new Date(2022, 0, 1);
+    let maxMonth = new Date(new Date().getFullYear() + 2, 11, 1);
 
-    let startIndex = 0;
-    let startIndexHasBeenSet = false;
+    // Index every event occurence once, keyed by date. This replaces the old
+    // approach of re-scanning the entire dataset (and every occurence) for
+    // every single day of every month from 2022 through next-year+2 — that
+    // was O(years x days x events) done eagerly on mount. Now it's a single
+    // O(events) pass, memoized, and month switches are just map lookups.
+    let eventsByDate = useMemo(() => {
+        let map = new Map();
 
-    let endYear = new Date().getFullYear() + 2;
-    let yearIncrement = 2022;
+        data.forEach((item) => {
+            item.occurences?.forEach((occurence, index) => {
+                if (!occurence.startdate) return;
+
+                let list = map.get(occurence.startdate);
+                if (!list) {
+                    list = [];
+                    map.set(occurence.startdate, list);
+                }
+
+                list.push({ ...item, index });
+            });
+        });
+
+        return map;
+    }, [data]);
+
+    // Only build the currently visible month's days, on demand.
+    let { days, blanks } = useMemo(() => {
+        if (!currentMonthDate) return { days: [], blanks: [] };
+
+        let start = startOfMonth(currentMonthDate);
+        let end = endOfMonth(currentMonthDate);
+
+        let monthDays = eachDayOfInterval({ start, end }).map((date) => {
+            let key = format(date, 'yyyy-LL-dd');
+
+            return {
+                timestamp: date,
+                key,
+                events: eventsByDate.get(key) || [],
+            };
+        });
+
+        let dayIndex = getDay(start); // 0 (Sun) - 6 (Sat)
+        let prefixCount = dayIndex === 0 ? 6 : dayIndex - 1; // week starts Monday
+
+        return {
+            days: monthDays,
+            blanks: Array.from({ length: prefixCount }),
+        };
+    }, [currentMonthDate, eventsByDate]);
 
     useEffect(() => {
-        let currentYear = new Date().getFullYear();
-        let currentMonth = new Date().getMonth();
-
-
-        setCurrentMonthIndex(currentMonth);
-
-        function getDaysInMonth(month, year) {
-            var date = new Date(year, month, 1);
-
-            if(
-                format(parseISO(date.toISOString()), 'yyyy-LL-dd') 
-                === 
-                format(parseISO(new Date(currentYear, currentMonth, 1).toISOString()), 'yyyy-LL-dd')
-                ) {
-                startIndexHasBeenSet = true;
-            }
-
-            var days = [];
-            while (date.getMonth() === month) {
-              let obj = {
-                  timestamp: new Date(date),
-                  events: []
-              }
-              days.push(obj);
-              date.setDate(date.getDate() + 1);
-            }
-            return days;
-        }
-        
-        let getMonthsInYear = (year) => {
-            let i = 0;
-
-            while(i < 12) {
-                months.push(getDaysInMonth(i, year));
-                i++;
-
-                if(!startIndexHasBeenSet) {
-                    startIndex++;
-                }
-            }
-        }
-
-
-        while(yearIncrement <= endYear) {
-            getMonthsInYear(yearIncrement);
-
-            yearIncrement ++;
-        }
-
-
-        months.forEach((itemOne, indexOne) => {
-
-            itemOne.forEach((itemTwo, indexTwo) => {
-                data.forEach((itemThree, indexThree) => {
-
-                    let date = parseISO(itemTwo.timestamp.toISOString())
-
-                    // if(itemThree.startdate === format(date, 'yyyy-LL-dd')) {
-                    //     months[indexOne][indexTwo].events.push(itemThree)
-                    // }
-
-                    itemThree.occurences?.forEach((itemFour, indexFour) => {
-                        if(itemFour.startdate === format(date, 'yyyy-LL-dd')) {
-
-                            let newItemThree = Object.assign({}, itemThree);
-
-                            newItemThree.index = indexFour;
-                            
-                            months[indexOne][indexTwo].events.push(newItemThree)
-                        }
-                    })
-                })
-            })
-        })
-
-        // Set All Months
-
-        setAllMonths(months);
-
-
-        setCurrentMonthIndex(startIndex)
-
-
-        // Add Event Listeners to Days
-        setTimeout(() => {
-
-            let allHomeCalendarDays = document.querySelector(".home-calendar__col-right").children;
-
-
-            let toggleModalVisible = (item) => {
-
-                if(item.classList.contains("home-calendar__day--has-event")) {
-                    if(item.classList.contains("home-calendar__modal--show")) {
-                    item.classList.remove("home-calendar__modal--show")
-                    document.querySelector(".home-calendar").style.zIndex = "0";
-                    } else {
-                        item.classList.add("home-calendar__modal--show")
-                        document.querySelector(".home-calendar").style.zIndex = "999";
-                    }
-                }
-            }
-
-            let toggleModalVisibleOn = (item) => {
-                if(item.classList.contains("home-calendar__day--has-event")) {
-                    item.classList.add("home-calendar__modal--show")
-                    document.querySelector(".home-calendar").style.zIndex = "999";
-                }
-            }
-
-            let toggleModalVisibleOff = (item) => {
-                if(item.classList.contains("home-calendar__day--has-event")) {
-                    item.classList.remove("home-calendar__modal--show")
-                    document.querySelector(".home-calendar").style.zIndex = "0";
-                }
-            }
-
-            Array.from(allHomeCalendarDays).forEach(item => {
-                if(window.innerWidth > 768) {
-                    item.addEventListener("mouseenter", () => toggleModalVisible(item));
-                    item.addEventListener("mouseleave", () => toggleModalVisible(item));
-                } else {
-                    item.children[0]?.addEventListener("touchstart", () => toggleModalVisibleOn(item));
-                }
-            })
-            
-            Array.from(allHomeCalendarDays).forEach(item => {
-                item.children[1]?.addEventListener("touchstart", () => toggleModalVisibleOff(item));
-            })  
-
-        }, 0)
-
-    },[])
-
-    let changeMonthIndex = (action) => {
-
-        if(action === "prev") {
-            if(currentMonthIndex > 0) {
-                setCurrentMonthIndex(currentMonthIndex -= 1)
-            }
-        } else {
-            if(currentMonthIndex < allMonths.length - 1) {
-                setCurrentMonthIndex(currentMonthIndex += 1)
-            }
-        }
-    }
-
-    useEffect(() => {
-        setTimeout(() => {
-            let high = document.querySelector('.home-calendar__col-right').getBoundingClientRect().bottom
-            let low = window.innerHeight
-    
-            let modalHeight = low - high
-    
-            if(window.innerWidth > 989) {
-                document.querySelectorAll('.home-calendar__modal').forEach((item) => {
-                    // item.style.maxHeight = `${modalHeight}px`
-                })
-            }
-        }, 500)
-
+        setCurrentMonthDate(startOfMonth(new Date()));
     }, []);
 
-    useEffect(() => {
-        let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        setAllBlanks([]);
+    let changeMonthIndex = (action) => {
+        setActiveDayKey(null);
 
-        if(allMonths.length > 1) {
-            let monthStartDay = allMonths[currentMonthIndex][0].timestamp.toString().split(' ')[0]
-            let monthStartDayIndex = 0;
+        setCurrentMonthDate((prev) => {
+            if (!prev) return prev;
 
-            days.forEach((item, index) => {
-                if(item === monthStartDay) {
-                    monthStartDayIndex = index
-                }
-            })
+            let next = action === "prev" ? subMonths(prev, 1) : addMonths(prev, 1);
 
-            let blanksArray = []
+            if (next < minMonth || next > maxMonth) return prev;
 
-            for(let i = 0; i < monthStartDayIndex; i++) {
-                blanksArray.push(null)
-            }
-
-            setAllBlanks(blanksArray);
-
-        }
-    }, [currentMonthIndex])
+            return next;
+        });
+    }
 
     const backgroundColorFunc = (item) => {
 
@@ -740,12 +618,12 @@ export default function Component({ data }) {
 
         return colorVar
     }
-    
+
 
 
     return (
         <Container>
-            <div class="home-calendar">
+            <div class="home-calendar" style={{ zIndex: activeDayKey !== null ? 999 : 0 }}>
                 <div class="home-calendar__col-left">
                 <div>
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}
@@ -760,38 +638,54 @@ export default function Component({ data }) {
                             alt=""
                             width={8}
                         />
-                        <span class="home-calendar__agenda-label">AGENDA</span>
+                        <Link href={`/${router.query.lang}/saison`}>
+                            <span class="home-calendar__agenda-label">AGENDA</span>
+                        </Link>
                     </span>
                     <span class="home-calendar__year p">
-                        {allMonths[currentMonthIndex][0] && format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'yyyy')}
+                        {currentMonthDate && format(currentMonthDate, 'yyyy')}
                     </span>
                     <span class="p">
-                        <Link href={`/${router.query.lang}/saison#${allMonths[currentMonthIndex][0] && sanitizeTag(format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL-yyyy', {locale: router.query.lang === "fr" ? fr : enGB}))}`}>
-                            {
-                                allMonths[currentMonthIndex][0] && 
-                                format(parseISO(allMonths[currentMonthIndex][0].timestamp.toISOString()), 'LLLL', {locale: router.query.lang === "fr" ? fr : enGB})
-                            }
+                        <Link href={`/${router.query.lang}/saison#${currentMonthDate ? sanitizeTag(format(currentMonthDate, 'LLLL-yyyy', { locale })) : ''}`}>
+                            {currentMonthDate && format(currentMonthDate, 'LLLL', { locale })}
                         </Link>
                     </span>
                 </div>
                 </div>
                 <div class={`home-calendar__col-right ${mobileOpen ? "home-calendar__col-right--open" : ""}`}>
                     {
-                        allBlanks.map(item => <Blank />)
+                        blanks.map((_, blankIndex) => <Blank key={`blank-${blankIndex}`} />)
                     }
-                    {allMonths[currentMonthIndex].map((item, index) => {
+                    {days.map((day, index) => {
+                        let isActive = activeDayKey === day.key;
+                        let hasEvents = day.events.length > 0;
+
                         return (
-                            <div class={`p home-calendar__day 
-                                ${item.events.length > 0 &&'home-calendar__day--has-event'} 
-                                ${item.events.length > 1 && 'home-calendar__day--has-two-events'}
-                                `}>
-                                <span>{index + 1}</span>
-                                <div class="home-calendar__modal-overlay"></div>
+                            <div
+                                key={day.key}
+                                class={`p home-calendar__day
+                                    ${hasEvents ? 'home-calendar__day--has-event' : ''}
+                                    ${day.events.length > 1 ? 'home-calendar__day--has-two-events' : ''}
+                                    ${isActive ? 'home-calendar__modal--show' : ''}
+                                    `}
+                                onMouseEnter={() => {
+                                    if(hasEvents && window.innerWidth > 768) setActiveDayKey(day.key)
+                                }}
+                                onMouseLeave={() => {
+                                    if(window.innerWidth > 768) setActiveDayKey(null)
+                                }}
+                            >
+                                <span
+                                    onClick={() => {
+                                        if(hasEvents && window.innerWidth <= 768) setActiveDayKey(isActive ? null : day.key)
+                                    }}
+                                >{index + 1}</span>
+                                <div class="home-calendar__modal-overlay" onClick={() => setActiveDayKey(null)}></div>
                                 <div class="home-calendar__modal">
                                     <div class="home-calendar__events">
                                         {
-                                            item.events.map((item, index) => (
-                                                <div class={`home-calendar__event ${backgroundColorFunc(item)}`}>
+                                            day.events.map((item, eventIndex) => (
+                                                <div key={eventIndex} class={`home-calendar__event ${backgroundColorFunc(item)}`}>
                                                     <Link href={item.slug}>
                                                         {item.image && (
                                                             <div class="home-calendar__image">

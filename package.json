@@ -27,6 +27,7 @@
     "react-cookie-consent": "^7.4.1",
     "react-dom": "^17.0.2",
     "styled-components": "^5.3.5",
+    "swiper": "^14.1.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

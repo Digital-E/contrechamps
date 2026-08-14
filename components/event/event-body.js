@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import styled from "styled-components"
 
 import Slices from "../l-ensemble/l-ensemble-slices"
@@ -5,6 +6,7 @@ import Slices from "../l-ensemble/l-ensemble-slices"
 import Body from "../body"
 
 import Header from "./event-header"
+import LightboxProvider from "./event-lightbox"
 
 const Container = styled.div`
   display: grid;
@@ -107,28 +109,54 @@ const Location = styled.div`
   }
 `
 
+// Pulls every image out of a slices array, in document order, including
+// images nested inside Grid slices — so the lightbox can navigate across
+// all of them regardless of where they sit in the content stream.
+function flattenImages(slices = []) {
+  let images = []
+
+  slices.forEach((slice) => {
+    if(slice._type === 'image') {
+      images.push(slice)
+    } else if(slice._type === 'Grid') {
+      slice.gridItems?.forEach((item) => {
+        if(item._type === 'image') images.push(item)
+      })
+    }
+  })
+
+  return images
+}
+
 export default function EventBody({ data }) {
 
+  let lightboxImages = useMemo(() => [
+    ...flattenImages(data.slicesRight),
+    ...flattenImages(data.slices),
+  ], [data])
+
   return (
-    <Container>
-      <ColLeft>
-        {data.location && (
-          <Location>
-            <img src="/icons/location-dot-solid-full.svg" alt="" width={20} />
-            <Body content={data.location}/>
-          </Location>
-        )}
-        <Body content={data.information} />
-      </ColLeft>
-      <ColMiddleHeader>
-        <Header data={data} />
-      </ColMiddleHeader>
-      <ColRight>
-        <Slices data={data.slicesRight} />
-      </ColRight>
-      <ColMiddleSlices>
-        <Slices data={data.slices} />
-      </ColMiddleSlices>
-    </Container>
+    <LightboxProvider images={lightboxImages}>
+      <Container>
+        <ColLeft>
+          {data.location && (
+            <Location>
+              <img src="/icons/location-dot-solid-full.svg" alt="" width={20} />
+              <Body content={data.location}/>
+            </Location>
+          )}
+          <Body content={data.information} />
+        </ColLeft>
+        <ColMiddleHeader>
+          <Header data={data} />
+        </ColMiddleHeader>
+        <ColRight>
+          <Slices data={data.slicesRight} />
+        </ColRight>
+        <ColMiddleSlices>
+          <Slices data={data.slices} />
+        </ColMiddleSlices>
+      </Container>
+    </LightboxProvider>
   )
 }

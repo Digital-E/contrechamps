@@ -151,29 +151,26 @@ let PlayPause = styled.div`
 
 
 
-const MobileVideo = styled.div`
-    display: none;
-    @media(max-width: 989px) {
-        display: block;
-    }
-`
-
-const DesktopVideo = styled.div`
-    display: block;
-    @media(max-width: 989px) {
-        display: ${({ hasMobileAlt }) => hasMobileAlt ? 'none' : 'block'};
-    }
-`
-
-export default function Component({ data, title, index, cellIndex, onReady }) {
+export default function Component({ data, title, index, cellIndex, slideCount, onReady, onEnded }) {
     let [soundOn, setSoundOn] = useState(false);
     let [play, setPlay] = useState(true);
     let videoRef = useRef();
-    let mobileVideoRef = useRef();
     let playPauseRef = useRef();
 
     let item = data;
 
+    let isActive = index === cellIndex;
+
+    // Circular distance to the active slide, so the slide right before the
+    // first one counts as adjacent to the last one (matches wrapAround).
+    let rawDistance = Math.abs(index - cellIndex);
+    let circularDistance = slideCount ? Math.min(rawDistance, slideCount - rawDistance) : rawDistance;
+
+    // Only fetch video for the active slide and its immediate neighbours.
+    // Every other slide's <video> stays sourceless, so it never triggers a
+    // network request in the first place — this is what actually saves
+    // bandwidth, not how the bytes are fetched once we do fetch them.
+    let shouldLoad = circularDistance <= 1;
 
     // useEffect(() => {
     //     const player = new Plyr('.player');
@@ -181,46 +178,72 @@ export default function Component({ data, title, index, cellIndex, onReady }) {
 
     const toggleSound = () => {
         if(!soundOn) {
-            // document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
             videoRef.current.muted = false
             setSoundOn(!soundOn)
         } else {
-            // document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
             videoRef.current.muted = true
             setSoundOn(!soundOn)
         }
-    }  
-    
+    }
+
     const togglePlay = () => {
         if(!play) {
-            // document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = false)
             videoRef.current.play()
             setPlay(!play)
         } else {
-            // document.querySelectorAll(".orb-video").forEach(item => item.children[0].muted = true)
             videoRef.current.pause()
             setPlay(!play)
-        }        
+        }
     }
 
+    // Play/pause tracks the active slide. Every time the slide becomes
+    // active again — each "passage" through the carousel — the video
+    // restarts from the beginning rather than resuming where it left off.
     useEffect(() => {
-        if(cellIndex !== index) {
+        if(!videoRef.current) return
+
+        if(isActive) {
+            videoRef.current.currentTime = 0
+            videoRef.current.play()?.catch(() => {})
+        } else {
             setPlay(false)
-            videoRef.current?.pause()
+            videoRef.current.pause()
             setSoundOn(false)
-            if(videoRef.current) videoRef.current.muted = true
-            mobileVideoRef.current?.pause()
-            if(mobileVideoRef.current) mobileVideoRef.current.muted = true
+            videoRef.current.muted = true
         }
     }, [cellIndex])
+
+    // Advance the carousel once the active slide's video has actually
+    // played through in full, instead of on a fixed timer that could cut it
+    // off early.
+    useEffect(() => {
+        if(!videoRef.current || !isActive) return
+
+        let handleEnded = () => onEnded?.()
+        let videoEl = videoRef.current
+
+        videoEl.addEventListener('ended', handleEnded)
+        return () => videoEl.removeEventListener('ended', handleEnded)
+    }, [isActive])
+
+    // Only re-run source selection when the slide crosses into (or out of)
+    // the "near" window — not on every cellIndex change — so an
+    // already-buffering neighbour isn't restarted from scratch. Reloading
+    // with no <source> left (shouldLoad === false) also aborts any
+    // in-flight fetch and releases the buffered video once it's no longer
+    // near, instead of letting it keep downloading in the background.
+    useEffect(() => {
+        if(!videoRef.current) return
+
+        videoRef.current.load()
+        if(shouldLoad && isActive) videoRef.current.play()?.catch(() => {})
+    }, [shouldLoad])
 
     useEffect(() => {
         const handleMetadata = () => onReady?.()
         videoRef.current?.addEventListener('loadedmetadata', handleMetadata)
-        mobileVideoRef.current?.addEventListener('loadedmetadata', handleMetadata)
         return () => {
             videoRef.current?.removeEventListener('loadedmetadata', handleMetadata)
-            mobileVideoRef.current?.removeEventListener('loadedmetadata', handleMetadata)
         }
     }, [])
 
@@ -252,18 +275,14 @@ export default function Component({ data, title, index, cellIndex, onReady }) {
     </svg>  
     }                
     </SoundIcon>         */}
-    {item.videoMp4Mobile && (
-        <MobileVideo>
-            <video ref={mobileVideoRef} muted autoPlay loop playsInline>
-                <source src={item.videoMp4Mobile} type="video/mp4" />
-            </video>
-        </MobileVideo>
-    )}
-    <DesktopVideo hasMobileAlt={!!item.videoMp4Mobile}>
-        <video ref={videoRef} muted autoPlay loop playsInline>
+    <video ref={videoRef} muted playsInline preload={shouldLoad ? "auto" : "none"}>
+        {shouldLoad && item.videoMp4Mobile && (
+            <source src={item.videoMp4Mobile} media="(max-width: 989px)" type="video/mp4" />
+        )}
+        {shouldLoad && (
             <source src={item.videoMp4} type="video/mp4" />
-        </video>
-    </DesktopVideo>
+        )}
+    </video>
     {/* <Header className="border-bottom border-top"><span className="h1">{title}</span></Header> */}
     {/* <ListItem key={item?._id} className="border-bottom">
             <ColLeft>

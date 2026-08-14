@@ -47,7 +47,7 @@ let Meta = styled.div`
 
     time,p {
         // font-family: "Barlow Condensed Medium";
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         line-height: 1;
     }
 
@@ -93,6 +93,10 @@ let Meta = styled.div`
     p {
         display: flex;
         margin: 0;
+    }
+
+    .description * {
+        display: inline;
     }
 `
 

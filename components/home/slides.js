@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
 import Body from '../body'
@@ -39,6 +40,41 @@ const Container = styled.div`
     .flickity-page-dots .dot.is-selected {
         border: 1px solid black;
         background: white;
+    }
+
+    .flickity-prev-next-button {
+        background: white;
+        border: 1px solid black;
+        width: 36px;
+        height: 36px;
+    }
+
+    .flickity-prev-next-button.previous { left: 20px; }
+    .flickity-prev-next-button.next { right: 20px; }
+
+    .flickity-prev-next-button:hover {
+        background: black;
+    }
+
+    .flickity-button-icon {
+        fill: black;
+    }
+
+    .flickity-prev-next-button .flickity-button-icon {
+        left: 25%;
+        top: 25%;
+        width: 50%;
+        height: 50%;
+    }
+
+    .flickity-prev-next-button:hover .flickity-button-icon {
+        fill: white;
+    }
+
+    @media(max-width: 989px) {
+        .flickity-prev-next-button {
+            display: none;
+        }
     }
 `
 
@@ -106,33 +142,101 @@ const DesktopOnly = styled.div`
 `
 
 
+const IMAGE_SLIDE_DURATION = 4000;
+
+// Safety net only: video slides normally advance via onEnded once the video
+// has actually played through. This just guarantees the carousel never gets
+// stuck on a slide if a video fails to fire 'ended' (blocked autoplay, load
+// error, etc).
+const VIDEO_SLIDE_FALLBACK_DURATION = 20000;
+
 export default function Component ({ data }) {
+    let router = useRouter();
     let flickityRef = useRef(null);
     let gallery = useRef();
+    let advanceTimeoutRef = useRef(null);
+    // Once the user touches the slider (drag, tap, dot click, link click...)
+    // auto-advance stops for good — manual navigation still works fine.
+    let hasInteractedRef = useRef(false);
     let [cellIndex, setCellIndex] = useState(0);
+
+    const clearAdvanceTimer = () => {
+        if(advanceTimeoutRef.current) {
+            clearTimeout(advanceTimeoutRef.current)
+            advanceTimeoutRef.current = null
+        }
+    }
+
+    const markInteracted = () => {
+        if(hasInteractedRef.current) return
+        hasInteractedRef.current = true
+        clearAdvanceTimer()
+    }
+
+    // Images advance on a fixed timer. Videos advance themselves (via
+    // onEnded, see handleVideoEnded) once they've played fully — this timer
+    // only acts as a fallback for them.
+    const scheduleAdvanceForSlide = (slideIndex) => {
+        clearAdvanceTimer()
+
+        if(hasInteractedRef.current) return
+
+        let item = data?.[slideIndex]
+        if(!item) return
+
+        let duration = item.image ? IMAGE_SLIDE_DURATION : VIDEO_SLIDE_FALLBACK_DURATION
+
+        advanceTimeoutRef.current = setTimeout(() => {
+            flickityRef.current?.next()
+        }, duration)
+    }
+
+    const handleVideoEnded = () => {
+        clearAdvanceTimer()
+        if(hasInteractedRef.current) return
+        flickityRef.current?.next()
+    }
 
     let init = () => {
         if(flickityRef.current !== null) return
 
         flickityRef.current = new Flickity(gallery.current, {
-            prevNextButtons: false,
+            prevNextButtons: true,
             pageDots: true,
             selectedAttraction: 0.07,
             friction: 0.42,
             cellAlign: "center",
             percentPosition: true,
             wrapAround: true,
-            autoPlay: 4000,
+            autoPlay: false,
             setGallerySize: true
         })
 
         flickityRef.current.on('change', (cellIndex) => {
             setCellIndex(cellIndex)
+            scheduleAdvanceForSlide(cellIndex)
         })
 
         flickityRef.current.on('staticClick', (event, pointer, cellElement, cellIndex) => {
 
             if(pointer.target.className?.baseVal === "no-skip") return
+            if(pointer.target.closest?.('.flickity-prev-next-button')) return
+
+            let slideUrl = data?.[cellIndex]?.url
+
+            if(slideUrl) {
+                if(/^https?:\/\//i.test(slideUrl)) {
+                    window.open(slideUrl, '_blank')
+                } else {
+                    router.push(slideUrl)
+                }
+                return
+            }
+
+            // Desktop navigates with the prev/next arrow buttons instead of
+            // tapping the left/right half of the slide. Mobile (no arrows,
+            // per the CSS above) keeps the tap zones.
+            if(window.innerWidth > 989) return
 
             if(event.clientX < window.innerWidth / 2) {
                 flickityRef.current.previous()
@@ -140,6 +244,8 @@ export default function Component ({ data }) {
                 flickityRef.current.next()
             }
         })
+
+        scheduleAdvanceForSlide(flickityRef.current.selectedIndex || 0)
     }
 
     const handleVideoReady = () => {
@@ -151,6 +257,14 @@ export default function Component ({ data }) {
             init();
             setTimeout(() => flickityRef.current?.resize(), 100)
         }, 10)
+
+        let galleryEl = gallery.current
+        galleryEl?.addEventListener('pointerdown', markInteracted)
+
+        return () => {
+            clearAdvanceTimer()
+            galleryEl?.removeEventListener('pointerdown', markInteracted)
+        }
     }, []);
 
     return (
@@ -165,28 +279,35 @@ export default function Component ({ data }) {
                                 aria-label={`${index + 1} of ${data.length}`}
                                 // aria-current={selectedIndex === index ? true : false}
                             >
-                                {/* <Link href={item.link}> */}
-                                <a>
-                                    <ColLeft>
-                                        {
-                                            item.image ?
-                                            <>
-                                                {item.imageMobile && (
-                                                    <MobileOnly><Image data={item.imageMobile} /></MobileOnly>
-                                                )}
-                                                <DesktopOnly hasMobileAlt={!!item.imageMobile}>
-                                                    <Image data={item.image} />
-                                                </DesktopOnly>
-                                            </>
+                                {
+                                    (() => {
+                                        const slideContent = (
+                                            <ColLeft>
+                                                {
+                                                    item.image ?
+                                                    <>
+                                                        {item.imageMobile && (
+                                                            <MobileOnly><Image data={item.imageMobile} /></MobileOnly>
+                                                        )}
+                                                        <DesktopOnly hasMobileAlt={!!item.imageMobile}>
+                                                            <Image data={item.image} />
+                                                        </DesktopOnly>
+                                                    </>
+                                                    :
+                                                    <Video data={item} index={index} cellIndex={cellIndex} slideCount={data.length} onReady={handleVideoReady} onEnded={handleVideoEnded} />
+                                                }
+                                            </ColLeft>
+                                        )
+
+                                        return item.url ?
+                                            <Link href={item.url}>{slideContent}</Link>
                                             :
-                                            <Video data={item} index={index} cellIndex={cellIndex} onReady={handleVideoReady} />
-                                        }
-                                    </ColLeft>
-                                    {/* <ColRight>
-                                        <Text><Body content={item.text} /></Text>
-                                    </ColRight> */}
-                                </a>
-                                {/* </Link> */}
+                                            <a>{slideContent}</a>
+                                    })()
+                                }
+                                {/* <ColRight>
+                                    <Text><Body content={item.text} /></Text>
+                                </ColRight> */}
                             </Slide>                        
                     }
                         )
