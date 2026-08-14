@@ -147,7 +147,15 @@ export default function LightboxProvider({ images = [], children }) {
         setActiveIndex(index > -1 ? index : 0)
     }
 
-    let closeLightbox = () => setActiveIndex(null)
+    let closeLightbox = () => {
+        setActiveIndex(null)
+        // The thumbs Swiper instance gets destroyed along with the overlay
+        // on close, but this state lives in LightboxProvider (which stays
+        // mounted). Without resetting it, the next open would hand a
+        // stale, already-destroyed instance to the new main swiper's
+        // `thumbs` prop, which crashes trying to read its torn-down slides.
+        setThumbsSwiper(null)
+    }
 
     useEffect(() => {
         if(activeIndex === null) return
@@ -180,7 +188,7 @@ export default function LightboxProvider({ images = [], children }) {
                                 zoom
                                 loop={images.length > 1}
                                 initialSlide={activeIndex}
-                                thumbs={{ swiper: thumbsSwiper }}
+                                thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                             >
                                 {images.map((image) => (
                                     <SwiperSlide key={image._key}>
