@@ -327,7 +327,7 @@ export default function Component ({ data }) {
     }
     
     return (
-        <Container ref={filtersRef}>
+        <Container ref={filtersRef} className="season-filters-container">
             <div class="season-filters">
                 <div>
                 {data.tags?.map((item, index) => (

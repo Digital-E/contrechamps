@@ -288,6 +288,12 @@ button:hover, .button:hover {
       margin-top: 65px;
   }
 
+  @media(max-width: 767px) {
+      .layout {
+          margin-top: 55px;
+      }
+  }
+
   /* ------------------------------- Dark Styles ------------------------------ */
 
   .dark-background {

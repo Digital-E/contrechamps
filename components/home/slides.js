@@ -104,6 +104,13 @@ const Slide = styled.div`
             flex-direction: column;
         }
     }
+
+    /* The anchor itself has pointer-events: none (Flickity handles the
+       click), so the cursor has to be set here on desktop, where clicks
+       navigate the slide instead of just paging the carousel. */
+    @media(min-width: 990px) {
+        cursor: ${props => props.hasUrl ? 'pointer' : 'default'};
+    }
 `
 
 const ColLeft = styled.div`
@@ -277,6 +284,7 @@ export default function Component ({ data }) {
                                 role="group"
                                 aria-roledescription="slide"
                                 aria-label={`${index + 1} of ${data.length}`}
+                                hasUrl={!!item.url}
                                 // aria-current={selectedIndex === index ? true : false}
                             >
                                 {

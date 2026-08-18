@@ -75,6 +75,26 @@ let InnerMonthDivider = styled.div`
 
 export default function Component ({ data }) {
 
+    let router = useRouter()
+
+    // The site header is fixed, and the filters bar pins itself directly
+    // below it (see filters.js) — so the permanently-covered zone at the
+    // top of the viewport is header height + filters height, not just the
+    // filters alone. Measured at runtime since both vary by viewport/content.
+    let [coveredHeight, setCoveredHeight] = useState(0)
+
+    useEffect(() => {
+        function measureCoveredHeight() {
+            let headerEl = document.querySelector('header')
+            let filtersEl = document.querySelector('.season-filters-container')
+            setCoveredHeight((headerEl?.offsetHeight || 0) + (filtersEl?.offsetHeight || 0))
+        }
+
+        measureCoveredHeight()
+        window.addEventListener('resize', measureCoveredHeight)
+        return () => window.removeEventListener('resize', measureCoveredHeight)
+    }, [])
+
     let d = new Date();
     let currentMonth = d.getMonth();
     let currentYear = d.getFullYear();
@@ -142,6 +162,33 @@ export default function Component ({ data }) {
         return item.events.length > 0 && item.date >= currentDateStr
     })
 
+    // The calendar links here with ?month=yyyy-LL. That exact month might
+    // not have a section (no events, or it's already in the past and got
+    // filtered out above), so scroll to whichever available month is
+    // chronologically closest instead of landing nowhere.
+    useEffect(() => {
+        let targetMonth = router.query.month
+        if(!targetMonth || eventsByMonthArray.length === 0) return
+
+        let toMonthIndex = (dateStr) => {
+            let [year, month] = dateStr.split('-').map(Number)
+            return year * 12 + month
+        }
+
+        let targetIndex = toMonthIndex(targetMonth)
+
+        let closest = eventsByMonthArray.reduce((best, item) => {
+            let diff = Math.abs(toMonthIndex(item.date) - targetIndex)
+            return diff < best.diff ? { item, diff } : best
+        }, { item: eventsByMonthArray[0], diff: Infinity })
+
+        let id = sanitizeTag(`${closest.item.longMonth}-${closest.item.year}`)
+
+        setTimeout(() => {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 100)
+    }, [router.query.month])
+
     return (
         <Container>
             {
@@ -150,7 +197,7 @@ export default function Component ({ data }) {
                     let monthAndYear = `${item.longMonth}-${item.year}`
 
                     return (
-                        <MonthWrapper className={item.passed === true ? "passed-event month-wrapper": "month-wrapper"} id={`${sanitizeTag(monthAndYear)}`}>
+                        <MonthWrapper className={item.passed === true ? "passed-event month-wrapper": "month-wrapper"} id={`${sanitizeTag(monthAndYear)}`} style={{ scrollMarginTop: coveredHeight + 20 }}>
                             <MonthDivider className="">
                                 <InnerMonthDivider>
                                     <div className="h2">{item.longMonth} {item.year}</div>

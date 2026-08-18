@@ -646,7 +646,7 @@ export default function Component({ data = [] }) {
                         {currentMonthDate && format(currentMonthDate, 'yyyy')}
                     </span>
                     <span class="p">
-                        <Link href={`/${router.query.lang}/saison#${currentMonthDate ? sanitizeTag(format(currentMonthDate, 'LLLL-yyyy', { locale })) : ''}`}>
+                        <Link href={`/${router.query.lang}/saison${currentMonthDate ? `?month=${format(currentMonthDate, 'yyyy-LL')}#${sanitizeTag(format(currentMonthDate, 'LLLL-yyyy', { locale }))}` : ''}`}>
                             {currentMonthDate && format(currentMonthDate, 'LLLL', { locale })}
                         </Link>
                     </span>
