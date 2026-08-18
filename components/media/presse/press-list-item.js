@@ -30,13 +30,15 @@ const Container = styled.div`
     }
 `
 
-const RowTop = styled.div`
+const Row = styled.div`
     display: flex;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+`
 
-    > div {
-        flex-basis: 50%;
-    }
+const RowTop = styled.div`
+    margin-bottom: 5px;
 
     * {
         font-family: "Barlow Condensed Regular";
@@ -49,25 +51,31 @@ const Text = styled.div`
         font-family: "Barlow Condensed Medium";
         font-size: 2rem;
         line-height: 1;
-        margin: 0 0 10px 0;
+        margin: 0 0 5px 0;
     }
+`
+
+const LinkOutIcon = styled.img`
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
 `
 
 
 export default function Component({ data }) {
 
     return (
-        <Container className="border-top media-item">
+        <Container className="media-item">
             <a href={data.pressLink || data.documentURL} target="_blank">
-                <RowTop className="p media-item__text force-courier">
+                <Row>
                     <div>
-                        <Date dateString={data.date} withYear={true} />
+                        <RowTop className="p media-item__text force-courier">
+                            <Date dateString={data.date} withYear={true} />
+                        </RowTop>
+                        <Text className="media-item__text"><Body content={data.text} /></Text>
                     </div>
-                    <div className="p">
-                        {data.pressLinkLabel}
-                    </div>
-                </RowTop>
-                <Text className="media-item__text"><Body content={data.text} /></Text>
+                    <LinkOutIcon src="/icons/link-out.svg" alt="" />
+                </Row>
             </a>
         </Container>
     )

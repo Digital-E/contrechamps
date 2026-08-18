@@ -34,13 +34,13 @@ export default function Component({ data, isExpandable, isPhoto }) {
 
     if(isExpandable) {
         return (
-            <Container className="border-top">
+            <Container>
                 {showData?.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )
     } else {
         return (
-            <Container className="border-top">
+            <Container>
                 {data?.map(item => <VideoListItem data={item} isPhoto={isPhoto} />)}
             </Container>
         )

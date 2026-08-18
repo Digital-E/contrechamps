@@ -49,7 +49,7 @@ const ColLeft = styled.div`
   }
 
   @media(max-width: 990px) {
-    order: 4;
+    order: 3;
     margin-bottom: 50px;
     padding-right: 0;
   }
@@ -81,7 +81,7 @@ const ColMiddleSlices = styled.div`
   }
 
   @media(max-width: 990px) {
-    order: 3;
+    order: 4;
     padding: 0;
   }
 `

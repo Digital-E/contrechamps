@@ -81,7 +81,7 @@ const Text = styled.div`
 export default function Component({ data }) {
 
     return (
-        <Container className="border-top media-item">
+        <Container className="media-item">
             <Link href={data.slug?.current || data.slug}>
                 <Wrapper>
                     <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>

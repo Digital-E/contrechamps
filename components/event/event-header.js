@@ -54,19 +54,17 @@ const Date = styled.div`
   flex-basis: 30%;
   line-height: 1.2;
   font-size: 1.5em;
+  margin-bottom: 20px;
 
   * {
     margin: 0;
-  }
-
-  @media(max-width: 990px) {
   }
 `
 
 const DateInner = styled.div`
   display: flex;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 
   > p {
     display: flex;

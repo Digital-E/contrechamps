@@ -9,7 +9,6 @@ let Header = styled.div`
     align-items: center;
     justify-content: space-between;
     position: relative;
-    padding: 0 40px;
 
     > span {
       font-size: 2rem;
@@ -17,10 +16,10 @@ let Header = styled.div`
     }
 
     @media(min-width: 768px) {
-        padding: 0 40px;
+        padding: 20px 40px;
 
         > span {
-            font-size: 2rem;
+            font-size: 3rem;
             margin: 0;
             line-height: 1.2;
         }
@@ -48,7 +47,11 @@ let Header = styled.div`
     }
 
     @media(max-width: 767px) {
-      padding: 0 20px;
+      padding: 20px 20px;
+
+      > span {
+        font-size: 2.5rem
+      }
     }
 
     @media(max-width: 989px) {
