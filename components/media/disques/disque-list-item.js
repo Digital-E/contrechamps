@@ -1,92 +1,69 @@
 import styled from "styled-components"
 
+import Image from "../../image"
 import Link from "../../link"
 
-import Body from "../../body"
+const Thumbnail = styled.div`
+    position: relative;
 
-import Button from "../../button"
+    > span > span {
+        padding-top: 100% !important;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+`
 
 const Container = styled.div`
     position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+
+    @media(max-width: 600px) {
+        margin-bottom: 30px;
+    }
 
     > a {
-        display: block;
-        opacity: 1;
-        padding: 20px 40px;
+        color: inherit;
+    }
 
-        @media(max-width: 767px) {
-            padding: 20px;
-        }
+    > a > div:nth-child(1) {
+        background: black;
+    }
 
-    
+    > a img {
         transition: var(--transition-out);
-    
-        :hover {
-            background: var(--gray);
-            transition: var(--transition-in);
-            cursor: pointer;
-        }
-    
-        :hover {
-            color: black;
-        }
+    }
 
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: black;
-            color: white !important;
-            border: 1px solid black;
-            padding: 0 20px;
-            height: 40px;
-            font-family: "Barlow Condensed Medium";
-            font-size: 1.1rem;
-            white-space: nowrap;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            background: white !important;
-            color: black !important;
-        }
+    > a:hover img {
+        opacity: 0.5;
+        transition: var(--transition-in);
     }
 `
-
-const Wrapper = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: flex-end;
-
-@media(max-width: 767px) {
-    flex-direction: column;
-    align-items: flex-start;
-
-    .button {
-        margin-top: 25px;
-    }
-}
-`
-
 
 const Text = styled.div`
+    font-family: "Barlow Condensed Medium";
+    font-size: 1.3rem;
+    margin-top: 5px;
 
-* {
-    line-height: 1;
-    margin: 10px 0;
-}
+    * {
+        line-height: 1;
+    }
 `
 
 
 export default function Component({ data }) {
 
     return (
-        <Container className="media-item">
+        <Container className="force-courier">
             <Link href={data.slug?.current || data.slug}>
-                <Wrapper>
-                    <Text className="media-item__text force-courier-all"><Body content={data.text} /></Text>
-                    <Button url={data.link} label={data.linkLabel} />
-                </Wrapper>
+                <Thumbnail>
+                    <Image data={data.image} />
+                </Thumbnail>
+                {data.title && <Text className="p">{data.title}</Text>}
             </Link>
         </Container>
     )

@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import styled from "styled-components"
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -10,9 +11,11 @@ import { urlForImage, usePreviewSubscription } from '../../../../lib/sanity'
 import { sanityClient, getClient, overlayDrafts } from '../../../../lib/sanity.server'
 
 import splitSlug from "../../../../lib/splitSlug"
+import flattenImages from "../../../../lib/flattenImages"
 
 import MediaHeader from "../../../../components/media/media-page/media-header"
 import Slices from '../../../../components/l-ensemble/l-ensemble-slices'
+import LightboxProvider from '../../../../components/event/event-lightbox'
 
 const SlicesWrapper = styled.div`
     padding: 0 20px;
@@ -30,6 +33,9 @@ export default function Post({ data = {}, preview }) {
 
   const slug = data?.data?.slug
 
+  // Only photo pages get the lightbox — same one used on event pages.
+  let isPhotoPage = router.query.media === 'photos'
+  let lightboxImages = useMemo(() => flattenImages(data?.data?.slices), [data])
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -55,7 +61,13 @@ export default function Post({ data = {}, preview }) {
               </Head>
               <MediaHeader data={data} />
               <SlicesWrapper>
-                <Slices data={data.slices} />
+                {isPhotoPage ? (
+                  <LightboxProvider images={lightboxImages}>
+                    <Slices data={data.slices} />
+                  </LightboxProvider>
+                ) : (
+                  <Slices data={data.slices} />
+                )}
               </SlicesWrapper>
           </>
         )}

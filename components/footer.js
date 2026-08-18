@@ -91,6 +91,16 @@ let Newsletter = styled.div`
   }
 `
 
+const DocumentLink = styled.p`
+  flex-shrink: 0;
+  font-family: "Barlow Condensed Regular";
+  font-size: 1.1rem;
+
+  a:hover {
+    opacity: 0.6;
+  }
+`
+
 const RightGroup = styled.div`
   display: flex;
   flex-direction: row;
@@ -117,6 +127,11 @@ export default function Footer({ data }) {
         <Col><Body content={data?.textFieldThree} /></Col>
       </InfoGroup>
       <RightGroup>
+        {data?.documentURL && (
+          <DocumentLink>
+            <a href={data.documentURL} target="_blank">{data.documentLabel}</a>
+          </DocumentLink>
+        )}
         <Socials>
           <ul style={{ display: 'flex', gap: '10px', margin: 0, padding: 0 }}>
             {data?.socialItems.map((item, index) => {
