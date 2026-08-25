@@ -94,12 +94,16 @@ let Container = styled.div`
             // border-bottom: 1px solid black;
         }
 
+        .season-filter {
+            margin-right: 20px;
+        }
+
         .season-filters > div:nth-child(2) {
-            padding: 0 40px;
+            padding: 0 20px;
         }
 
         .season-filters {
-            flex-direction: column;
+            // flex-direction: column;
         }
     }
 
@@ -126,7 +130,7 @@ let Container = styled.div`
         }
 
         .season-filters > div:nth-child(2) {
-            display: none;
+            // display: none;
         }
     }
 `
@@ -140,13 +144,18 @@ let Document = styled.div`
 let Archive = styled.div`
     margin-left: 2rem;
     white-space: nowrap;
+
+    @media(max-width: 1260px) {
+        margin-left: 0;
+    }
 `
-let Wrapper = styled.div`   
+let Wrapper = styled.div`
     display: flex;
     flex-wrap: nowrap !important;
     align-items: flex-start;
     margin-left: auto;
     color: black;
+    position: relative;
 
     p {
         font-family: "Barlow Condensed Medium";
@@ -154,13 +163,27 @@ let Wrapper = styled.div`
     }
 
     @media(max-width: 1260px) {
-        margin-left: 0;
+        // margin-left: 0;
+    }
+
+    @media(max-width: 768px) {
+        &::before {
+            content: "";
+            position: absolute;
+            left: -30px;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(90deg, transparent 0%, white 90%);
+            pointer-events: none;
+            z-index: 999;
+        }
     }
 `
 
 let initCheckSessionStorageForTag = true;
 
-export default function Component ({ data }) {
+export default function Component ({ data, onTagChange }) {
     let filtersRef = useRef();
     let [tags, setTags] = useState([]);
 
@@ -267,7 +290,7 @@ export default function Component ({ data }) {
 
         setTags([...unselectTags])
 
-        hideTiles(unselectTags[index].tag, index);
+        onTagChange?.(index === 0 ? null : sanitizeTag(unselectTags[index].tag))
 
         setFilterSessionStorage(data.tags[index].tag)
     }
@@ -294,45 +317,13 @@ export default function Component ({ data }) {
         initCheckSessionStorageForTag = false;
     }
 
-    let hideTiles = (tag, index) => {
-
-        let allEvents = document.querySelectorAll(".event-tile");
-
-        allEvents.forEach(tile => {
-            tile.classList.remove("hide-tile")
-        })
-
-        document.querySelectorAll(".month-wrapper").forEach(item => {
-            item.classList.remove("hide-month-wrapper")
-        })
-
-        if(index === 0) return;
-
-        let sanitizedTag = sanitizeTag(tag)
-
-
-        allEvents.forEach(tile => {
-            if(!tile.classList.contains(sanitizedTag)) {
-                tile.classList.add("hide-tile")
-            }
-        })
-
-        // Hide month header if all tiles in it are hidden
-        document.querySelectorAll(".month-wrapper").forEach(monthEl => {
-            const tiles = Array.from(monthEl.querySelectorAll(".event-tile"))
-            const allHidden = tiles.length > 0 && tiles.every(t => t.classList.contains("hide-tile"))
-            monthEl.classList.toggle("hide-month-wrapper", allHidden)
-        })
-
-    }
-    
     return (
         <Container ref={filtersRef} className="season-filters-container">
             <div class="season-filters">
                 <div>
                 {data.tags?.map((item, index) => (
-                    <div key={item._id} 
-                        className={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"} 
+                    <div key={item._id}
+                        className={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"}
                         id={sanitizeTag(item.tag)}
                         onClick={() => toggleTag(index)}
                         >

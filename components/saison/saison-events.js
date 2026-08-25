@@ -18,10 +18,6 @@ let Container = styled.div`
         display: none !important;
     }
 
-    .hide-month-wrapper {
-        display: none;
-    }
-
     @media(max-width: 768px) {
         width: 100%;
         margin-top: 100px;
@@ -73,7 +69,7 @@ let InnerMonthDivider = styled.div`
 `
 
 
-export default function Component ({ data }) {
+export default function Component ({ data, selectedTag }) {
 
     let router = useRouter()
 
@@ -138,7 +134,15 @@ export default function Component ({ data }) {
     }
 
 
-    data.forEach(item => {
+    // Filter here, before the grid ever sees the data, rather than hiding
+    // non-matching tiles with CSS after render — that left gaps where a
+    // filtered-out tile used to sit instead of the remaining ones
+    // reflowing to fill the space.
+    let visibleEvents = selectedTag
+        ? data.filter(item => (item.tags || []).some(t => sanitizeTag(t.label) === selectedTag))
+        : data
+
+    visibleEvents.forEach(item => {
         let date = parseISO(item.startdate)
         let eventMonth = date.toString() !== "Invalid Date" ? format(date, 'yyyy-LL') : null;
 

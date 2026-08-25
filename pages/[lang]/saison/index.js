@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -22,6 +22,12 @@ export default function Post({ data = {}, preview }) {
   });
 
   data = data?.data;
+
+  // Sanitized tag string, or null for "show everything" — lifted here so
+  // both Filters (which sets it) and SaisonEvents (which filters by it,
+  // so its grid only ever renders matching events instead of hiding some
+  // via CSS after the fact) share the same selection.
+  let [selectedTag, setSelectedTag] = useState(null)
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -53,8 +59,8 @@ export default function Post({ data = {}, preview }) {
                 />
               </Head>
               <SaisonHeader data={data} withBorder={false} hideOnMobile={true} />
-              <Filters data={data} />
-              <SaisonEvents data={allEvents} />
+              <Filters data={data} onTagChange={setSelectedTag} />
+              <SaisonEvents data={allEvents} selectedTag={selectedTag} />
           </>
         )}
     </Layout>
