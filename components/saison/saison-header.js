@@ -37,6 +37,14 @@ const Container = styled.div`
 
 export default function EventHeader({ data, withBorder, hideOnMobile }) {
 
+  // Portable-text arrays come through as [] or a single empty block when
+  // there's no real content — treat those as empty and render nothing.
+  const isEmpty = !data?.text
+    || (Array.isArray(data.text) && data.text.every(block =>
+        !block.children || block.children.every(child => !child.text?.trim())))
+
+  if (isEmpty) return null
+
   return (
     <Container className={withBorder ? `border-bottom`: ''} hideOnMobile={hideOnMobile}>
         <Body content={data.text}/>

@@ -18,10 +18,9 @@ const Container = styled.div`
     position: relative;
 
     .flickity-page-dots {
-        position: absolute;
-        right: 35px;
-        bottom: 30px;
-        width: fit-content;
+        position: static;
+        width: 100%;
+        margin-top: 10px;
     }
 
     .flickity-page-dots li:only-child{
@@ -74,6 +73,31 @@ const Container = styled.div`
     @media(max-width: 989px) {
         .flickity-prev-next-button {
             display: none;
+        }
+    }
+
+    @media(min-width: 990px) {
+        .flickity-prev-next-button {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-out);
+        }
+
+        ${props => props.showArrows && `
+            .flickity-prev-next-button {
+                opacity: 1;
+                pointer-events: auto;
+                transition: opacity var(--transition-in);
+            }
+        `}
+
+        /* Resting the cursor on an arrow produces no mousemove events, so
+           the idle timer alone would hide it out from under the pointer.
+           Keep BOTH arrows visible (not just the hovered one) whenever
+           either is hovered, regardless of the timer/showArrows state. */
+        &:has(.flickity-prev-next-button:hover) .flickity-prev-next-button {
+            opacity: 1;
+            pointer-events: auto;
         }
     }
 `
@@ -157,15 +181,44 @@ const IMAGE_SLIDE_DURATION = 4000;
 // error, etc).
 const VIDEO_SLIDE_FALLBACK_DURATION = 20000;
 
+// How long the mouse can sit still over the slider before the arrows hide
+// again — they should only show while the mouse is actually moving.
+const ARROW_IDLE_TIMEOUT = 1200;
+
+// How long after the user last interacted with the slider (drag, arrow
+// click, dot click, link click...) before auto-advance resumes on its own.
+const RESUME_AUTOPLAY_AFTER = 4000;
+
 export default function Component ({ data }) {
     let router = useRouter();
     let flickityRef = useRef(null);
     let gallery = useRef();
     let advanceTimeoutRef = useRef(null);
     // Once the user touches the slider (drag, tap, dot click, link click...)
-    // auto-advance stops for good — manual navigation still works fine.
+    // auto-advance pauses, then resumes on its own after a period with no
+    // further interaction.
     let hasInteractedRef = useRef(false);
+    let resumeTimeoutRef = useRef(null);
     let [cellIndex, setCellIndex] = useState(0);
+    let [showArrows, setShowArrows] = useState(false);
+    let arrowsTimeoutRef = useRef(null);
+
+    const handleSliderMouseMove = () => {
+        setShowArrows(true)
+
+        if(arrowsTimeoutRef.current) clearTimeout(arrowsTimeoutRef.current)
+        arrowsTimeoutRef.current = setTimeout(() => {
+            setShowArrows(false)
+        }, ARROW_IDLE_TIMEOUT)
+    }
+
+    const handleSliderMouseLeave = () => {
+        if(arrowsTimeoutRef.current) {
+            clearTimeout(arrowsTimeoutRef.current)
+            arrowsTimeoutRef.current = null
+        }
+        setShowArrows(false)
+    }
 
     const clearAdvanceTimer = () => {
         if(advanceTimeoutRef.current) {
@@ -174,10 +227,24 @@ export default function Component ({ data }) {
         }
     }
 
+    const clearResumeTimer = () => {
+        if(resumeTimeoutRef.current) {
+            clearTimeout(resumeTimeoutRef.current)
+            resumeTimeoutRef.current = null
+        }
+    }
+
     const markInteracted = () => {
-        if(hasInteractedRef.current) return
         hasInteractedRef.current = true
         clearAdvanceTimer()
+
+        // Every fresh interaction pushes this back out, so auto-advance
+        // only resumes once the user has actually left the slider alone.
+        clearResumeTimer()
+        resumeTimeoutRef.current = setTimeout(() => {
+            hasInteractedRef.current = false
+            scheduleAdvanceForSlide(flickityRef.current?.selectedIndex ?? 0)
+        }, RESUME_AUTOPLAY_AFTER)
     }
 
     // Images advance on a fixed timer. Videos advance themselves (via
@@ -270,12 +337,14 @@ export default function Component ({ data }) {
 
         return () => {
             clearAdvanceTimer()
+            clearResumeTimer()
+            if(arrowsTimeoutRef.current) clearTimeout(arrowsTimeoutRef.current)
             galleryEl?.removeEventListener('pointerdown', markInteracted)
         }
     }, []);
 
     return (
-        <Container>
+        <Container showArrows={showArrows} onMouseMove={handleSliderMouseMove} onMouseLeave={handleSliderMouseLeave}>
             <Carousel ref={gallery} aria-live="polite" aria-label="carousel">
                 {
                     data?.map((item, index) => {

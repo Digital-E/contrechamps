@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
@@ -24,6 +24,10 @@ export default function Post({ data = {}, preview }) {
 
   data = data?.data;
 
+  // Sanitized tag string, or null for "show everything" — lifted here so
+  // both Filters (which sets it) and ArchiveEvents (which filters by it)
+  // share the same selection, exactly as on the saison page.
+  let [selectedTag, setSelectedTag] = useState(null)
 
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -50,9 +54,9 @@ export default function Post({ data = {}, preview }) {
                   Archive | {SITE_NAME}
                 </title>
               </Head>
-              {/* <SaisonHeader data={data} withBorder={true} /> */}
-              {/* <Filters data={data} /> */}
-              <ArchiveEvents data={allEvents} />
+              <SaisonHeader data={data} withBorder={false} hideOnMobile={true} />
+              <Filters data={data} onTagChange={setSelectedTag} />
+              <ArchiveEvents data={allEvents} selectedTag={selectedTag} />
           </>
         )}
     </Layout>

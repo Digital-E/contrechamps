@@ -49,20 +49,6 @@ let Container = styled.div`
             position: static;
             width: 100% !important;
         }
-
-        .arrow-next {
-            position: absolute;
-            top: 2px;
-            right: 0 !important;
-            left: auto;
-        }
-
-        .arrow-prev {
-            position: absolute;
-            top: 2px;
-            right: 25px !important;
-            left: auto;
-        }
     }
 
     @media(max-width: 767px) {
@@ -84,7 +70,7 @@ let Container = styled.div`
     .home-calendar__month {
         position: relative;
         text-transform: uppercase;
-        width: 11.7rem;
+        width: fit-content;
     }
 
     .home-calendar__agenda-label {
@@ -99,17 +85,19 @@ let Container = styled.div`
         margin-right: 10px;
     }
 
-    .home-calendar__month > span:nth-child(4) {
+    .home-calendar__month-name {
         display: inline-block;
         // text-decoration: underline;
         position: relative;
         color: var(--color);
+        width: 80px;
     }
 
-    .arrow-next {
-        position: absolute;
-        right: -70px;
-        top: 2px;
+    .arrow-prev, .arrow-next {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        top: -2.5px;
         z-index: 1;
         cursor: pointer;
         user-select: none;
@@ -117,13 +105,11 @@ let Container = styled.div`
     }
 
     .arrow-prev {
-        position: absolute;
-        right: -45px;
-        top: 2px;
-        z-index: 1;
-        cursor: pointer;
-        user-select: none;
-        font-size: 1.1rem;
+        margin-left: 12px;
+    }
+
+    .arrow-next {
+        margin-left: 8px;
     }
 
     .arrow-next:hover, .arrow-prev:hover {
@@ -430,6 +416,10 @@ let Container = styled.div`
         display: none;
     }
 
+    .home-calendar__agenda-plus {
+        display: none;
+    }
+
     @media(max-width: 1100px) {
         .home-calendar__mobile-trigger {
             display: inline-flex;
@@ -454,6 +444,35 @@ let Container = styled.div`
 
         .home-calendar__col-right--open {
             display: grid !important;
+        }
+
+        /* The AGENDA word only toggles the calendar open on mobile now —
+           navigation moved to the + icon after the month name — so its
+           link shouldn't intercept the click; letting it fall through
+           lets .home-calendar__mobile-trigger's onClick handle it. */
+        .home-calendar__mobile-trigger a {
+            pointer-events: none;
+        }
+
+        .home-calendar__agenda-plus {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-left: 8px;
+            position: relative;
+            top: -2px;
+            border: 1px solid black;
+            border-radius: 999px;
+            background: white;
+            color: black;
+            flex-shrink: 0;
+        }
+
+        .home-calendar__agenda-plus:hover {
+            background: black;
+            color: white;
         }
     }
 `
@@ -629,8 +648,6 @@ export default function Component({ data = [] }) {
                     {/* <span class="h6">{new Date().getFullYear()}</span> */}
                 </div>
                 <div class="home-calendar__month">
-                    <i class="fa-solid fa-circle-chevron-left arrow-prev" onClick={() => changeMonthIndex("prev")}></i>
-                    <i class="fa-solid fa-circle-chevron-right arrow-next" onClick={() => changeMonthIndex("next")}></i>
                     <span class="home-calendar__mobile-trigger" onClick={() => setMobileOpen(!mobileOpen)}>
                         <img
                             class={`home-calendar__mobile-caret ${mobileOpen ? "home-calendar__mobile-caret--open" : ""}`}
@@ -645,11 +662,20 @@ export default function Component({ data = [] }) {
                     <span class="home-calendar__year p">
                         {currentMonthDate && format(currentMonthDate, 'yyyy')}
                     </span>
-                    <span class="p">
+                    <span class="p home-calendar__month-name">
                         <Link href={`/${router.query.lang}/saison${currentMonthDate ? `?month=${format(currentMonthDate, 'yyyy-LL')}#${sanitizeTag(format(currentMonthDate, 'LLLL-yyyy', { locale }))}` : ''}`}>
                             {currentMonthDate && format(currentMonthDate, 'LLLL', { locale })}
                         </Link>
                     </span>
+                    <Link href={`/${router.query.lang}/saison`}>
+                        <span class="home-calendar__agenda-plus" aria-label="Voir l'agenda">
+                            <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                                <path d="M6 0v12M0 6h12" stroke="currentColor" strokeWidth="1.5" />
+                            </svg>
+                        </span>
+                    </Link>
+                    <i class="fa-solid fa-circle-chevron-left arrow-prev" onClick={() => changeMonthIndex("prev")}></i>
+                    <i class="fa-solid fa-circle-chevron-right arrow-next" onClick={() => changeMonthIndex("next")}></i>
                 </div>
                 </div>
                 <div class={`home-calendar__col-right ${mobileOpen ? "home-calendar__col-right--open" : ""}`}>

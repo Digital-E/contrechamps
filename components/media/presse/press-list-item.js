@@ -9,17 +9,17 @@ const Container = styled.div`
     > a {
         display: block;
         opacity: 1;
-        padding: 20px 40px;
+        padding: 0 40px 10px 40px;
 
         @media(max-width: 767px) {
-            padding: 20px;
+            padding: 0 20px 10px 20px;
         }
 
     
         transition: var(--transition-out);
     
         :hover {
-            background: var(--gray);
+            background: rgb(237, 237, 237);
             transition: var(--transition-in);
             cursor: pointer;
         }
@@ -49,9 +49,16 @@ const RowTop = styled.div`
 const Text = styled.div`
     * {
         font-family: "Barlow Condensed Medium";
-        font-size: 2rem;
         line-height: 1;
         margin: 0 0 5px 0;
+    }
+
+    > *:first-child {
+        font-size: 28px;
+    }
+
+    > *:first-child ~ * {
+        font-size: 20px;
     }
 `
 

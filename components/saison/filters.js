@@ -142,11 +142,15 @@ let Document = styled.div`
 `
 
 let Archive = styled.div`
-    margin-left: 2rem;
+    margin-left: 0;
+    margin-right: 0;
     white-space: nowrap;
+    color: black;
 
-    @media(max-width: 1260px) {
-        margin-left: 0;
+    p {
+        margin: 0;
+        font-family: "Barlow Condensed Medium";
+        line-height: 1;
     }
 `
 let Wrapper = styled.div`
@@ -331,14 +335,14 @@ export default function Component ({ data, onTagChange }) {
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
+                <Archive className="season-filter">
+                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
+                </Archive>
                 </div>
                 <Wrapper>
                     <Document>
                         <p><a href={data.documentURL} target="_blank">{data.documentLabel}</a></p>
                     </Document>
-                    <Archive>
-                        <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
-                    </Archive>
                 </Wrapper>
             </div>
     </Container>       

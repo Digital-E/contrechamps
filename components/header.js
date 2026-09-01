@@ -26,7 +26,7 @@ let Inner = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   padding: 20px 40px 10px 40px;
-  max-width: 1800px;
+  max-width: 1700px;
   margin: 0 auto;
 
   > div:nth-child(1) {

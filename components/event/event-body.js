@@ -50,7 +50,7 @@ const ColLeft = styled.div`
   }
 
   @media(max-width: 990px) {
-    order: 3;
+    order: 4;
     margin-bottom: 50px;
     padding-right: 0;
   }
@@ -76,13 +76,37 @@ const ColMiddleSlices = styled.div`
   grid-row: 2;
   padding-right: 80px;
 
+  /* Dissolve into Container's layout flow (grid on tablet, flex on
+     mobile) so its two children (first slice / rest) can be positioned
+     independently — the first slice needs to sit above ColRight, not
+     the whole block. */
   @media(max-width: 1200px) {
-    grid-row: 3;
+    display: contents;
+  }
+`
+
+const ColMiddleSlicesFirst = styled.div`
+  @media(max-width: 1200px) {
+    grid-column: 2;
+    grid-row: 2;
     padding-right: 0;
   }
 
   @media(max-width: 990px) {
-    order: 4;
+    order: 2;
+    padding: 0;
+  }
+`
+
+const ColMiddleSlicesRest = styled.div`
+  @media(max-width: 1200px) {
+    grid-column: 2;
+    grid-row: 4;
+    padding-right: 0;
+  }
+
+  @media(max-width: 990px) {
+    order: 5;
     padding: 0;
   }
 `
@@ -93,11 +117,11 @@ const ColRight = styled.div`
 
   @media(max-width: 1200px) {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   @media(max-width: 990px) {
-    order: 2;
+    order: 3;
     overflow: hidden;
   }
 `
@@ -116,6 +140,11 @@ export default function EventBody({ data }) {
     ...flattenImages(data.slicesRight),
     ...flattenImages(data.slices),
   ], [data])
+
+  // Sanity returns null (not undefined) for an unset array field.
+  let slices = data.slices || []
+  let firstSlice = slices.slice(0, 1)
+  let restSlices = slices.slice(1)
 
   return (
     <LightboxProvider images={lightboxImages}>
@@ -136,7 +165,12 @@ export default function EventBody({ data }) {
           <Slices data={data.slicesRight} />
         </ColRight>
         <ColMiddleSlices>
-          <Slices data={data.slices} />
+          <ColMiddleSlicesFirst>
+            <Slices data={firstSlice} />
+          </ColMiddleSlicesFirst>
+          <ColMiddleSlicesRest>
+            <Slices data={restSlices} />
+          </ColMiddleSlicesRest>
         </ColMiddleSlices>
       </Container>
     </LightboxProvider>

@@ -146,8 +146,18 @@ export default function Component ({ data }) {
                     </Link>
                 </div>                
                 <div class="season-filter">
+                    <Link href={`/${data._lang}/media/disques`}>
+                        <div class="season-filter__label p">Disques</div>
+                    </Link>
+                </div>
+                <div class="season-filter">
                     <Link href={`/${data._lang}/media/presse`}>
                         <div class="season-filter__label p">Presse</div>
+                    </Link>
+                </div>
+                <div class="season-filter">
+                    <Link href={`/${data._lang}/media/photos`}>
+                        <div class="season-filter__label p">Photos</div>
                     </Link>
                 </div>
                 <div class="season-filter">
@@ -155,16 +165,6 @@ export default function Component ({ data }) {
                         <div class="season-filter__label p">Videos</div>
                     </Link>
                 </div>
-                <div class="season-filter">
-                    <Link href={`/${data._lang}/media/photos`}>
-                        <div class="season-filter__label p">Photos</div>
-                    </Link>
-                </div>                  
-                <div class="season-filter">
-                    <Link href={`/${data._lang}/media/disques`}>
-                        <div class="season-filter__label p">Disques</div>
-                    </Link>
-                </div>              
                 </div>
             </div> 
     </Container>       

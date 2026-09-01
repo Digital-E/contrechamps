@@ -52,14 +52,14 @@ export default function Post({ data = {}, preview }) {
               {/* <MediasHeader data={data.data} /> */}
               <Filters data={data.data} />
               <Container>
-                <ListHeader data={data.pressePage} isExpandable={true} href={`${data.lang}__media__presse`}/>
-                <PressList data={data.allPresse} isExpandable={true} />
-                <ListHeader data={data.videoPage} isExpandable={true} href={`${data.lang}__media__videos`}/>
-                <VideoList data={data.allVideo} isExpandable={true} />
-                <ListHeader data={data.photoPage} isExpandable={true} href={`${data.lang}__media__photos`}/>
-                <VideoList data={data.allPhoto} isExpandable={true} isPhoto={true} />
                 <ListHeader data={data.disquesPage} isExpandable={true} href={`${data.lang}__media__disques`}/>
                 <DisqueList data={data.allDisque} isExpandable={true} />
+                <ListHeader data={data.pressePage} isExpandable={true} href={`${data.lang}__media__presse`}/>
+                <PressList data={data.allPresse} isExpandable={true} />
+                <ListHeader data={data.photoPage} isExpandable={true} href={`${data.lang}__media__photos`}/>
+                <VideoList data={data.allPhoto} isExpandable={true} isPhoto={true} />
+                <ListHeader data={data.videoPage} isExpandable={true} href={`${data.lang}__media__videos`}/>
+                <VideoList data={data.allVideo} isExpandable={true} />
               </Container>
           </>
         )}

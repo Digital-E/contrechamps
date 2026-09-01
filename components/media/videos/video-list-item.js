@@ -46,15 +46,17 @@ const Container = styled.div`
 
 
     > a > div:nth-child(1) {
-        background: black;
+        background: white;
     }
 
     > a img {
         transition: var(--transition-out);
     }
 
+    /* Lighten the image on hover, matching the home tiles: the thumbnail
+       sits on white, so dropping the image's opacity fades it toward white. */
     > a:hover img {
-        opacity: 0.5;
+        opacity: 0.7;
         transition: var(--transition-in);
     }
 

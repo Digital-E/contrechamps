@@ -19,7 +19,7 @@ let Container = styled.footer`
     margin: 0;
   }
 
-  @media(max-width: 900px) {
+  @media(max-width: 1250px) {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
@@ -86,7 +86,7 @@ let Socials = styled.div`
 let Newsletter = styled.div`
   flex-shrink: 0;
 
-  @media(max-width: 900px) {
+  @media(max-width: 1250px) {
     width: 100%;
   }
 `
@@ -108,7 +108,7 @@ const RightGroup = styled.div`
   gap: 30px;
   flex-shrink: 0;
 
-  @media(max-width: 900px) {
+  @media(max-width: 1250px) {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;

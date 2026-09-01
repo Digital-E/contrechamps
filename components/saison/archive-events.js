@@ -4,6 +4,8 @@ import { useRouter } from "next/router"
 import { parseISO, format, getMonth } from 'date-fns'
 import { enGB, fr } from 'date-fns/locale'
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 import styled from "styled-components"
 import EventList from "../home/event-list"
 
@@ -15,6 +17,10 @@ let Container = styled.div`
         display: none !important;
     }
 
+    @media(max-width: 768px) {
+        width: 100%;
+        margin-top: 100px;
+    }
 `
 
 let MonthWrapper = styled.div`
@@ -58,7 +64,7 @@ let InnerMonthDivider = styled.div`
 
 
 
-export default function Component ({ data }) {
+export default function Component ({ data, selectedTag }) {
     let [eventsByMonth, setEventsByMonth] = useState([]);
 
     let pastEvents = [];
@@ -115,7 +121,14 @@ export default function Component ({ data }) {
         });
 
 
-        data.forEach(item => {
+        // Filter by the selected tag before bucketing into months, exactly
+        // as saison-events does, so the archive list only ever renders
+        // matching events instead of hiding some after the fact.
+        let visibleEvents = selectedTag
+            ? data.filter(item => (item.tags || []).some(t => sanitizeTag(t.label) === selectedTag))
+            : data
+
+        visibleEvents.forEach(item => {
             let date = parseISO(item.startdate)
             let eventMonth = date.toString() !== "Invalid Date" ? format(date, 'yyyy-LL') : null;
 
@@ -162,8 +175,8 @@ export default function Component ({ data }) {
         })
 
         setEventsByMonth([...eventsByMonthArray]);
-        
-    },[]);
+
+    },[selectedTag]);
 
 
     return (

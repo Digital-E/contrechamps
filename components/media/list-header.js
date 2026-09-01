@@ -72,7 +72,7 @@ let Header = styled.div`
 export default function ListHeader({ data, isExpandable, href }) {
   return (
     <Container>
-      <Header className=""><span className="h1 border-top">{data.title}</span>{isExpandable && <Link href={href} isLast={true}>Voir tout</Link>}</Header>
+      <Header className=""><span className="h1">{data.title}</span>{isExpandable && <Link href={href} isLast={true}>Voir tout</Link>}</Header>
     </Container>
   )
 }

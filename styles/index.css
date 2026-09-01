@@ -184,7 +184,7 @@ a {
 }
 
 a:hover, button:hover {
-    color: var(--secondary-color);
+    color: rgb(90, 90, 90);
 }
 
 .body-link {
