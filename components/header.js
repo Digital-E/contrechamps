@@ -141,7 +141,26 @@ let MobileFade = styled.div`
 `
 
 let LanguageSwitch = styled.div`
+  display: flex;
+  align-items: center;
   width: fit-content;
+  white-space: nowrap;
+
+  .p { display: flex; }
+
+  a {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  a:hover { opacity: 1; }
+
+  a + a { margin-left: 0.5rem; }
+
+  @media(min-width: 1061px) {
+    margin-left: 2.5rem;
+  }
 
   @media(max-width: 1060px) {
     margin-top: 20px;
@@ -198,7 +217,12 @@ export default function Header({ data }) {
             <NestedMenu items={data?.menuItems} onNavigate={closeMenu} />
           </MobileMenuWrapper>
 
-          <LanguageSwitch />
+          <LanguageSwitch onClick={closeMenu}>
+            <div className="p">
+              <LocaleLink href="/fr">Fr</LocaleLink>
+              <LocaleLink href="/en_gb">En</LocaleLink>
+            </div>
+          </LanguageSwitch>
         </Menu>
       </Inner>
     </Container>
