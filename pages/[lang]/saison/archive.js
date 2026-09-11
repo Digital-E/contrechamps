@@ -7,10 +7,19 @@ import Layout from '../../../components/layout'
 import { SITE_NAME } from '../../../lib/constants'
 import { indexQuery, actualitesQuery, saisonQuery, menuQuery, footerQuery } from '../../../lib/queries'
 import { getClient } from '../../../lib/sanity.server'
+import styled from 'styled-components'
 
 import SaisonHeader from '../../../components/saison/saison-header'
 import Filters from '../../../components/saison/filters'
 import ArchiveEvents from '../../../components/saison/archive-events'
+
+const PageTitle = styled.h1`
+  padding: 0 40px 20px 40px;
+
+  @media(max-width: 767px) {
+    padding: 0 20px 20px 20px;
+  }
+`
 
 export default function Post({ data = {}, preview }) {
   const router = useRouter()
@@ -23,6 +32,8 @@ export default function Post({ data = {}, preview }) {
   });
 
   data = data?.data;
+
+  let pageTitle = data._lang === "fr" ? "Agenda" : data.title
 
   // Sanitized tag string, or null for "show everything" — lifted here so
   // both Filters (which sets it) and ArchiveEvents (which filters by it)
@@ -51,9 +62,10 @@ export default function Post({ data = {}, preview }) {
           <>
               <Head>
                 <title>
-                  Archive | {SITE_NAME}
+                  {pageTitle} | {SITE_NAME}
                 </title>
               </Head>
+              <PageTitle className="h1">{pageTitle}</PageTitle>
               <SaisonHeader data={data} withBorder={false} hideOnMobile={true} />
               <Filters data={data} onTagChange={setSelectedTag} />
               <ArchiveEvents data={allEvents} selectedTag={selectedTag} />

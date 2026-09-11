@@ -55,10 +55,6 @@ let Container = styled.div`
     }
 
     @media(max-width: 768px) {
-        position: fixed;
-        width: 100%;
-        top: 55px;
-
         .season-filters > div {
             padding: 0 20px;
             flex-wrap: nowrap;
@@ -79,8 +75,14 @@ let Container = styled.div`
 `
 
 
+let labels = {
+    fr: { all: "Tout", disques: "Disques", presse: "Presse", photos: "Photos", videos: "Videos" },
+    en_gb: { all: "All", disques: "Discs", presse: "Press", photos: "Photos", videos: "Videos" },
+}
+
 export default function Component ({ data }) {
     let filtersRef = useRef();
+    let t = labels[data._lang] || labels.fr
 
     let scrollTriggerInstance = null;
 
@@ -94,20 +96,17 @@ export default function Component ({ data }) {
           }
         }
     
-        if(window.innerWidth > 768) {
-            let headerHeight = document.querySelector("header").offsetHeight;
+        let headerHeight = document.querySelector("header").offsetHeight;
 
-            scrollTriggerInstance = ScrollTrigger.create({
-                trigger: filtersRef.current,
-                id: "scroll-trigger",
-                pin: filtersRef.current,
-                start: `top-=${headerHeight} top`,
-                end: "max",
-                pinSpacing: false,
-                resize: window.matchMedia("(any-pointer:coarse)").matches ? false : true
-            });
-    
-        } 
+        scrollTriggerInstance = ScrollTrigger.create({
+            trigger: filtersRef.current,
+            id: "scroll-trigger",
+            pin: filtersRef.current,
+            start: `top-=${headerHeight} top`,
+            end: "max",
+            pinSpacing: false,
+            resize: window.matchMedia("(any-pointer:coarse)").matches ? false : true
+        });
     }
 
     let initWrapper = () => {
@@ -118,12 +117,9 @@ export default function Component ({ data }) {
 
     useEffect(() => {
 
-
-        if(window.innerWidth > 768) {
-            setTimeout(() => {
-                init();
-            }, 500)
-        }
+        setTimeout(() => {
+            init();
+        }, 500)
 
         if(!window.matchMedia("(any-pointer:coarse)").matches) {
             window.addEventListener("resize", initWrapper)
@@ -142,27 +138,27 @@ export default function Component ({ data }) {
                 <div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/all`}>
-                        <div class="season-filter__label p">Tout</div>
+                        <div class="season-filter__label p">{t.all}</div>
                     </Link>
-                </div>                
+                </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/disques`}>
-                        <div class="season-filter__label p">Disques</div>
+                        <div class="season-filter__label p">{t.disques}</div>
                     </Link>
                 </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/presse`}>
-                        <div class="season-filter__label p">Presse</div>
+                        <div class="season-filter__label p">{t.presse}</div>
                     </Link>
                 </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/photos`}>
-                        <div class="season-filter__label p">Photos</div>
+                        <div class="season-filter__label p">{t.photos}</div>
                     </Link>
                 </div>
                 <div class="season-filter">
                     <Link href={`/${data._lang}/media/videos`}>
-                        <div class="season-filter__label p">Videos</div>
+                        <div class="season-filter__label p">{t.videos}</div>
                     </Link>
                 </div>
                 </div>

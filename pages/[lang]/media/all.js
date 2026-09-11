@@ -24,7 +24,14 @@ const Container = styled.div`
 
   @media(max-width: 768px) {
     width: 100%;
-    margin-top: 110px;
+  }
+`
+
+const PageTitle = styled.h1`
+  padding: 0 40px 20px 40px;
+
+  @media(max-width: 767px) {
+    padding: 0 20px 20px 20px;
   }
 `
 
@@ -50,6 +57,7 @@ export default function Post({ data = {}, preview }) {
                 />
               </Head>
               {/* <MediasHeader data={data.data} /> */}
+              <PageTitle className="h1">{data.data._lang === "fr" ? "Médias" : "Media"}</PageTitle>
               <Filters data={data.data} />
               <Container>
                 <ListHeader data={data.disquesPage} isExpandable={true} href={`${data.lang}__media__disques`}/>

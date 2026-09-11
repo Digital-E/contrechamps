@@ -17,33 +17,30 @@ const LinkComponent = ({href, children, isMenu, isSubSubPage, isLast}) => {
 
     // Refactor Link if it has underscores
 
-    if(split.length === 3 && href !== null) {
+    if(split.length > 1 && href !== null) {
 
-        newUrl = `/${split[0]}/${split[1]}/${split[2]}`
+        newUrl = `/${split.join("/")}`
 
-    } else if (split.length === 4 && href !== null) {
-
-        newUrl = `/${split[0]}/${split[1]}/${split[2]}/${split[3]}`
-        
     }
 
 
     // Set Link as Active if on Sub Page
 
-    let splitLink = (href !==  null && href !== undefined ) && href.split("/");
+    // Only these top-level sections should stay highlighted while on any of their sub-pages
+    let sectionsWithSubPageHighlight = ["saison", "media"];
+
+    let splitLink = newUrl.split("/");
     let splitRouterLink = router.asPath.split("/")[2];
     let subPageIsActive = false;
 
-    if(splitLink[2] === splitRouterLink && isMenu) {
+    if(splitLink[2] === splitRouterLink && isMenu && sectionsWithSubPageHighlight.includes(splitLink[2])) {
         subPageIsActive = true;
     }
 
     // Set Link as Active if on Sub Sub Page
 
-    splitLink = (href !==  null && href !== undefined ) && href.split("/");
+    splitLink = newUrl.split("/");
     splitRouterLink = router.asPath.split("/")[3];
-    subPageIsActive = false;
-
 
     if(splitLink[3] === splitRouterLink && isSubSubPage) {
         subPageIsActive = true;

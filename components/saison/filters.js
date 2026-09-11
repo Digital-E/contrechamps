@@ -81,7 +81,8 @@ let Container = styled.div`
         white-space: nowrap;
     }
 
-    .season-filter--active .season-filter__label  {
+    .season-filter--active .season-filter__label,
+    .active-link .season-filter__label {
         font-family: "Barlow Condensed ExtraBold";
     }
 
@@ -108,9 +109,6 @@ let Container = styled.div`
     }
 
     @media(max-width: 768px) {
-        position: fixed;
-        width: 100%;
-        top: 55px;
         padding: 0 0px;
 
         .season-filters > div:nth-child(1) {
@@ -193,6 +191,8 @@ export default function Component ({ data, onTagChange }) {
 
     let router = useRouter();
 
+    let isArchivePage = router.pathname.includes('/saison/archive');
+
     let scrollTriggerInstance = null;
 
     let init = (reset) => {
@@ -205,21 +205,17 @@ export default function Component ({ data, onTagChange }) {
           }
         }
     
-        if(window.innerWidth > 768) {
+        let headerHeight = document.querySelector("header").offsetHeight;
 
-            let headerHeight = document.querySelector("header").offsetHeight;
-    
-            scrollTriggerInstance = ScrollTrigger.create({
-                trigger: filtersRef.current,
-                id: "scroll-trigger",
-                pin: filtersRef.current,
-                start: `top-=${headerHeight-1} top`,
-                end: "max",
-                pinSpacing: false
-            });
-
-    
-        } 
+        scrollTriggerInstance = ScrollTrigger.create({
+            trigger: filtersRef.current,
+            id: "scroll-trigger",
+            pin: filtersRef.current,
+            start: `top-=${headerHeight-1} top`,
+            end: "max",
+            pinSpacing: false,
+            resize: window.matchMedia("(any-pointer:coarse)").matches ? false : true
+        });
     }
 
     let initWrapper = () => {
@@ -232,7 +228,7 @@ export default function Component ({ data, onTagChange }) {
 
         data.tags?.forEach((item, index) => {
             let obj = {
-                selected: index === 0 ? true : false,
+                selected: !isArchivePage && index === 0,
                 tag: item.tag
             }
 
@@ -241,13 +237,11 @@ export default function Component ({ data, onTagChange }) {
 
         setTags(allTags);
 
-        if(window.innerWidth > 768) {
-            setTimeout(() => {
-                init();
-            }, 0)
-        }
+        setTimeout(() => {
+            init();
+        }, 0)
 
-        
+
         if(!window.matchMedia("(any-pointer:coarse)").matches) {
             window.addEventListener("resize", initWrapper)
         }
@@ -299,7 +293,18 @@ export default function Component ({ data, onTagChange }) {
         setFilterSessionStorage(data.tags[index].tag)
     }
 
+    let goToSaisonWithTag = (tag) => {
+        let hash = tag === "Toute la saison" ? "" : `#!${sanitizeTag(tag)}`
+        router.push(`/${router.query.lang}/saison${hash}`)
+    }
+
     let checkSessionStorageForTag = () => {
+        // Archive never restores or applies a tag filter — it always shows everything.
+        if(isArchivePage) {
+            initCheckSessionStorageForTag = false
+            return
+        }
+
         // let tag = sessionStorage.getItem('contrechamps-filter-tag');
         let tag = window.location.hash.split("#!")[1]
 
@@ -329,14 +334,14 @@ export default function Component ({ data, onTagChange }) {
                     <div key={item._id}
                         className={tags[index]?.selected === true ? "season-filter season-filter--active" : "season-filter"}
                         id={sanitizeTag(item.tag)}
-                        onClick={() => toggleTag(index)}
+                        onClick={() => isArchivePage ? goToSaisonWithTag(item.tag) : toggleTag(index)}
                         >
                         <div class="season-filter__selector"></div>
                         <div class="season-filter__label p">{item.tag}</div>
                     </div>
                 ))}
                 <Archive className="season-filter">
-                    <p><Link href={`/${router.query.lang}/saison/archive`}>Archives</Link></p>
+                    <Link href={`/${router.query.lang}/saison/archive`}><p className="season-filter__label">Archives</p></Link>
                 </Archive>
                 </div>
                 <Wrapper>

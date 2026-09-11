@@ -19,7 +19,6 @@ let Container = styled.div`
 
     @media(max-width: 768px) {
         width: 100%;
-        margin-top: 100px;
     }
 `
 
@@ -44,8 +43,10 @@ let InnerMonthDivider = styled.div`
     // margin: 0 auto;
     margin: 0 40px;
 
-    > .h1 {
-        line-height: 1.2;
+    .h2 {
+        font-family: "Quatorze CC Bold";
+        font-weight: bold;
+        font-size: 2rem;
     }
 
     @media(min-width: 768px) {
@@ -59,6 +60,7 @@ let InnerMonthDivider = styled.div`
 
     @media(max-width: 767px) {
         margin: 0 20px;
+        padding: 10px 0;
     }
 `
 
@@ -188,7 +190,7 @@ export default function Component ({ data, selectedTag }) {
                         <MonthWrapper className={item.passed === true && "passed-event"}>
                             <MonthDivider className="">
                                 <InnerMonthDivider>
-                                    <div className="h1">{item.longMonth}&nbsp;&nbsp;{item.year}</div>
+                                    <div className="h2">{item.longMonth}&nbsp;&nbsp;{item.year}</div>
                                     {/* <div className="p year">{item.year}</div> */}
                                 </InnerMonthDivider>
                             </MonthDivider>

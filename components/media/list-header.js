@@ -10,7 +10,9 @@ let Header = styled.div`
     justify-content: space-between;
     position: relative;
 
-    > span {
+    > div {
+      font-family: "Quatorze CC Bold";
+      font-weight: bold;
       font-size: 2rem;
       line-height: 1.2;
     }
@@ -18,8 +20,7 @@ let Header = styled.div`
     @media(min-width: 768px) {
         padding: 20px 40px;
 
-        > span {
-            font-size: 3rem;
+        > div {
             margin: 0;
             line-height: 1.2;
         }
@@ -49,8 +50,7 @@ let Header = styled.div`
     @media(max-width: 767px) {
       padding: 20px 20px;
 
-      > span {
-        font-size: 2.5rem
+      > div {
       }
     }
 
@@ -70,9 +70,11 @@ let Header = styled.div`
 
 
 export default function ListHeader({ data, isExpandable, href }) {
+  let label = data._lang === "fr" ? "Voir tout" : "See all"
+
   return (
     <Container>
-      <Header className=""><span className="h1">{data.title}</span>{isExpandable && <Link href={href} isLast={true}>Voir tout</Link>}</Header>
+      <Header className=""><div className="h2">{data.title}</div>{isExpandable && <Link href={href} isLast={true}>{label}</Link>}</Header>
     </Container>
   )
 }
