@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import Body from "../body"
 import Video from "../video"
-import Plyr from 'plyr';
 
 let Container = styled.div`
     video {

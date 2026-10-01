@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import styled from "styled-components"
-import Plyr from 'plyr';
 
 
 import Body from "../body"
@@ -53,8 +52,11 @@ let renderSlice = (slice ,index) => {
 export default function Component({ data }) {
 
     useEffect(() => {
-        // const players = Array.from(document.querySelectorAll('.player')).map((p) => new Plyr(p));
-        const players = Plyr.setup('.player');
+        let players
+        import('plyr').then(({ default: Plyr }) => {
+            players = Plyr.setup('.player')
+        })
+        return () => players?.forEach(player => player.destroy())
     },[])
 
   return data ? data.map((slice, index) => renderSlice(slice, index)) : null
