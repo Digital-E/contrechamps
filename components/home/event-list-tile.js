@@ -6,8 +6,10 @@ import DateComponent from "../date-component"
 import Link from "../link"
 import InclusiviteIcon from '../inclusivite-icon'
 import sanitizeTag from "../../lib/sanitizeTag"
+import { parseVideoUrl, getYoutubeThumbnail, getEmbedSrc, fetchVimeoThumbnail } from "../../lib/video-embed"
 
 let Tile = styled.div`
+    position: relative;
     break-inside: avoid;
     display: inline-block;
     width: 100%;
@@ -32,11 +34,74 @@ let Tile = styled.div`
 `
 
 let ImageWrapper = styled.div`
+    position: relative;
     width: 100%;
     margin-bottom: 12px;
 `
 
-// Shared with OccurencesModal below, so the date/time there renders
+const VideoThumbImage = styled.img`
+    display: block;
+    width: 100%;
+    height: auto;
+`
+
+const VideoIframe = styled.iframe`
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+`
+
+// The whole thumbnail is the click target (not just the icon), so this is
+// a button wrapping the image rather than a small overlay control.
+const VideoThumbButton = styled.button`
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+
+    /* Override the global button:hover background (styles/index.css),
+       which would otherwise paint over the thumbnail on hover. */
+    &:hover {
+        background: none !important;
+    }
+`
+
+// Always-visible (not hover-gated) so touch devices can see it without
+// hovering — same reasoning as the gallery badge in video-list-item.js.
+// Purely decorative: the click handler lives on VideoThumbButton.
+const PlayIcon = styled.span`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    background: url('/icons/play.svg') no-repeat center center;
+    background-size: contain;
+`
+
+// Matches the inline external-link affordance on the presse list
+// (components/media/presse/press-list-item.js) — actualités with an
+// external link don't get an image, so there's no thumbnail to badge.
+// Absolutely positioned against Tile (not the text), bottom-right of the
+// whole card. pointer-events: none so it stays purely decorative and
+// doesn't block clicks on the underlying tile link.
+const LinkOutIcon = styled.img`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+`
+
+// Shared with ModalBox below, so the date/time there renders
 // pixel-identical to the one shown on the tile itself.
 const dateMetaStyles = css`
     time, p {
@@ -77,6 +142,12 @@ let Meta = styled.div`
     h1, h2, h3, h4, h5, h6 {
         font-family: "Quatorze CC Bold";
         font-size: 1.5rem;
+    }
+
+    /* Actualités textVignette content can include h2-styled blocks —
+       those should use Barlow Condensed Regular, not Quatorze CC Bold. */
+    h2 {
+        font-family: "Barlow Condensed Regular";
     }
 
     ${dateMetaStyles}
@@ -127,7 +198,9 @@ const OccurencesTrigger = styled.button`
     }
 `
 
-const OccurencesOverlay = styled.div`
+// Shared overlay/modal shell, used both for the "other dates" popup and
+// the video player popup below, so they look and behave like one system.
+const ModalOverlay = styled.div`
     position: fixed;
     inset: 0;
     z-index: 9999;
@@ -138,7 +211,7 @@ const OccurencesOverlay = styled.div`
     padding: 20px;
 `
 
-const OccurencesModal = styled.div`
+const ModalBox = styled.div`
     position: relative;
     background: white;
     max-width: 400px;
@@ -160,7 +233,13 @@ const OccurencesModal = styled.div`
     }
 `
 
-const OccurencesCloseButton = styled.button`
+const VideoModalBox = styled(ModalBox)`
+    max-width: 800px;
+    padding: 0;
+    overflow: visible;
+`
+
+const ModalCloseButton = styled.button`
     position: absolute;
     top: 10px;
     right: 10px;
@@ -188,14 +267,41 @@ const OccurencesCloseButton = styled.button`
     }
 `
 
+// The video modal has no white background behind the close button (the
+// iframe fills the box edge-to-edge), so it needs its own backdrop to
+// stay legible — same white-circle badge convention used elsewhere.
+const VideoModalCloseButton = styled(ModalCloseButton)`
+    top: -18px;
+    right: -18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: white !important;
+    border: 1px solid black;
+
+    &:hover {
+        background: black !important;
+        color: white;
+        opacity: 1;
+    }
+`
+
 export default function Component({ data }) {
     let [showOccurences, setShowOccurences] = useState(false)
+    let [showVideoModal, setShowVideoModal] = useState(false)
+    let [vimeoThumbnail, setVimeoThumbnail] = useState(null)
+
+    let videoInfo = parseVideoUrl(data?.video)
 
     useEffect(() => {
-        if(!showOccurences) return
+        let anyModalOpen = showOccurences || showVideoModal
+        if(!anyModalOpen) return
 
         let handleKeydown = (event) => {
-            if(event.key === "Escape") setShowOccurences(false)
+            if(event.key === "Escape") {
+                setShowOccurences(false)
+                setShowVideoModal(false)
+            }
         }
 
         document.addEventListener("keydown", handleKeydown)
@@ -205,20 +311,50 @@ export default function Component({ data }) {
             document.removeEventListener("keydown", handleKeydown)
             document.body.style.overflow = ""
         }
-    }, [showOccurences])
+    }, [showOccurences, showVideoModal])
+
+    useEffect(() => {
+        if(videoInfo?.provider !== 'vimeo') return
+
+        let cancelled = false
+
+        fetchVimeoThumbnail(data.video)
+            .then((url) => { if(!cancelled) setVimeoThumbnail(url) })
+            .catch(() => {})
+
+        return () => { cancelled = true }
+    }, [data?.video])
 
     if (data === null || data === undefined) return null
 
     let item = data
     let tagClasses = (item.tags || []).map(t => sanitizeTag(t.label)).join(' ')
     let hasOtherOccurences = (item.occurences?.length || 0) > 1
+    let videoThumbnailSrc = videoInfo?.provider === 'youtube' ? getYoutubeThumbnail(videoInfo.id) : vimeoThumbnail
 
     return (
         <Tile className={`event-tile ${tagClasses}`}>
-            <Link href={item.slug}>
-                {item.image && (
+            <Link href={item.externalLink || item.slug}>
+                {(item.image || videoInfo) && (
                     <ImageWrapper>
-                        <Image data={item.image} />
+                        {videoInfo ? (
+                            <VideoThumbButton
+                                type="button"
+                                aria-label="Lire la vidéo"
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                    setShowVideoModal(true)
+                                }}
+                            >
+                                {videoThumbnailSrc
+                                    ? <VideoThumbImage src={videoThumbnailSrc} alt="" />
+                                    : <Image data={item.image} />}
+                                <PlayIcon aria-hidden="true" />
+                            </VideoThumbButton>
+                        ) : (
+                            <Image data={item.image} />
+                        )}
                     </ImageWrapper>
                 )}
                 <Meta>
@@ -254,28 +390,55 @@ export default function Component({ data }) {
                     {item.inclusivite && <InclusiviteIconWrapper><InclusiviteIcon /></InclusiviteIconWrapper>}
                 </Meta>
             </Link>
+            {item._type !== 'post' && item.externalLink && (
+                <LinkOutIcon src="/icons/link-out.svg" alt="" />
+            )}
             {showOccurences && (
-                <OccurencesOverlay
+                <ModalOverlay
                     role="dialog"
                     aria-modal="true"
                     onClick={() => setShowOccurences(false)}
                 >
-                    <OccurencesModal onClick={(event) => event.stopPropagation()}>
-                        <OccurencesCloseButton
+                    <ModalBox onClick={(event) => event.stopPropagation()}>
+                        <ModalCloseButton
                             type="button"
                             aria-label="Fermer"
                             onClick={() => setShowOccurences(false)}
                         >
                             ×
-                        </OccurencesCloseButton>
+                        </ModalCloseButton>
                         <h4>{item.title}</h4>
                         {item.occurences.map((occurence, index) => (
                             <div className="date-meta" key={index}>
                                 <DateComponent data={occurence} />
                             </div>
                         ))}
-                    </OccurencesModal>
-                </OccurencesOverlay>
+                    </ModalBox>
+                </ModalOverlay>
+            )}
+            {showVideoModal && videoInfo && (
+                <ModalOverlay
+                    role="dialog"
+                    aria-modal="true"
+                    onClick={() => setShowVideoModal(false)}
+                >
+                    <VideoModalBox onClick={(event) => event.stopPropagation()}>
+                        <VideoModalCloseButton
+                            type="button"
+                            aria-label="Fermer"
+                            onClick={() => setShowVideoModal(false)}
+                        >
+                            <svg viewBox="0 0 12 12" width="14" height="14" aria-hidden="true">
+                                <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            </svg>
+                        </VideoModalCloseButton>
+                        <VideoIframe
+                            src={getEmbedSrc(videoInfo)}
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowFullScreen
+                        />
+                    </VideoModalBox>
+                </ModalOverlay>
             )}
         </Tile>
     )

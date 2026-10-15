@@ -288,6 +288,12 @@ button:hover, .button:hover {
       margin-top: 100px;
   }
 
+  @media(min-width: 768px) {
+      .layout.home {
+          margin-top: 65px;
+      }
+  }
+
   @media(max-width: 767px) {
       .layout {
           margin-top: 55px;

@@ -5,7 +5,7 @@ import Meta from '../components/meta'
 
 import { useRouterScroll } from '@moxy/next-router-scroll';
 
-export default function Layout({ preview, children }) {
+export default function Layout({ preview, home, children }) {
   const { updateScroll } = useRouterScroll();
   let router = useRouter()
 
@@ -39,7 +39,7 @@ export default function Layout({ preview, children }) {
     <>
       <Meta />
       {/* min-h-screen */}
-      <div className="layout">
+      <div className={`layout${home ? ' home' : ''}`}>
         <Alert preview={preview} />
         <main>{children}</main>
       </div>

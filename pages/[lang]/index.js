@@ -59,7 +59,7 @@ export default function Index({ data = {}, preview }) {
 
   return (
     <>
-      <Layout preview={preview}>
+      <Layout preview={preview} home>
         <Head>
           <title>{data?.homeData?.title} | { SITE_NAME }</title>
           <meta
